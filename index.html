@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <meta name="apple-mobile-web-app-title" content="DClin Vault">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="DClin Vault">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#050508">
     
@@ -88,13 +88,13 @@
             --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
             --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
             
-            /* Solid pastel hexes for clean glows */
-            --v0: #FCE8B2; 
-            --v1: #D2E3FC; 
-            --v2: #CEEAD6;  
-            --v3: #FAD2CF;  
-            --v4: #CCF4F9;  
-            --v5: #E3D7FA; 
+            /* Brighter Academy Washes */
+            --v0: rgba(251, 188, 5, 0.45); 
+            --v1: rgba(66, 133, 244, 0.45); 
+            --v2: rgba(52, 168, 83, 0.45);  
+            --v3: rgba(234, 67, 53, 0.45);  
+            --v4: rgba(0, 172, 193, 0.45);  
+            --v5: rgba(103, 58, 183, 0.45); 
 
             --warm-white: #202124; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
@@ -123,17 +123,16 @@
             --save-border: #0A9396;
             --save-shadow: 0 4px 15px rgba(10, 147, 150, 0.4);
             
-            /* Turquoise to Lush Green */
             --c0: #008B8B; --c1: #00B294; --c2: #00CC84; 
             --c3: #33D66A; --c4: #66E04A; --c5: #85E62C;
 
-            /* Warm Sunset Solid Glows */
-            --v0: #FF7F50; 
-            --v1: #FF8C00; 
-            --v2: #FFA07A; 
-            --v3: #FF69B4; 
-            --v4: #BA55D3; 
-            --v5: #FFD700; 
+            /* Softened Oasis Washes (Not overpowering) */
+            --v0: rgba(255, 127, 80, 0.2); 
+            --v1: rgba(255, 140, 0, 0.2); 
+            --v2: rgba(255, 160, 122, 0.2); 
+            --v3: rgba(255, 105, 180, 0.2); 
+            --v4: rgba(218, 112, 214, 0.2); 
+            --v5: rgba(255, 215, 0, 0.2); 
 
             --warm-white: #2C2820; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
@@ -162,17 +161,16 @@
             --save-border: var(--active-accent);
             --save-shadow: 0 0 15px var(--active-accent);
             
-            /* Vibrant Reef */
             --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; 
             --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
 
-            /* Deep oceanic highly-contrasting glows */
-            --v0: #008B8B; 
-            --v1: #8A2BE2; 
-            --v2: #C71585; 
-            --v3: #FF4500; 
-            --v4: #4B0082; 
-            --v5: #00FF7F; 
+            /* Deepened, moody Coral shadows so they don't look funky/overpowering */
+            --v0: #1a0a20; 
+            --v1: #0a1020; 
+            --v2: #200a15; 
+            --v3: #200a0a; 
+            --v4: #0a0a20; 
+            --v5: #0a2015; 
 
             --warm-white: #F4F7FB; 
             --warm-white-glow: rgba(255, 255, 255, 0.3); 
@@ -199,11 +197,9 @@
             pointer-events: none; will-change: transform, background;
         }
 
-        /* DYNAMIC ISLAND FIX: Added safe-area-inset padding */
         .app-container { 
             padding: calc(40px + env(safe-area-inset-top, 20px)) 25px 60px; 
-            max-width: 420px; 
-            margin: auto; 
+            max-width: 420px; margin: auto; 
         }
 
         .archive-header { 
@@ -221,15 +217,15 @@
         .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
         .spotlight-container > * { position: relative; z-index: 1; }
 
-        /* THE POINTY GLOW FIX */
+        /* THE TEXT BOX FIX: Solid background so the orb is blocked behind it */
         .input-box {
-            background: var(--glass); border-radius: 32px; padding: 25px;
+            background: var(--drawer-bg); /* This hides the orb passing through the box */
+            border-radius: 32px; padding: 25px;
             backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
             border: 1px solid var(--border);
             box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 30px var(--active-accent);
             transition: all 0.8s ease;
-            transform: translateZ(0);
-            will-change: box-shadow; margin-top: 10px;
+            transform: translateZ(0); margin-top: 10px;
         }
 
         .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
@@ -342,7 +338,6 @@
         }
         #expenseVaultScroll::-webkit-scrollbar { display: none; }
 
-        /* Tighter Note Tiles */
         .note {
             background: var(--note-bg); border-radius: 18px; padding: 12px 16px; margin-top: 14px; 
             border-left: 3px solid var(--note-color); backdrop-filter: blur(15px); 
@@ -403,7 +398,6 @@
         .quick-link-btn:hover svg { opacity: 1; }
         .quick-link-text { font-size: 8px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; opacity: 0.7; text-align: center; }
 
-        /* EXPENSES STYLING */
         .expense-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
         
         input[type=number]::-webkit-inner-spin-button, 
@@ -440,7 +434,6 @@
         }
         #completedVault, #expensesModule { display: none; padding-bottom: 20px; }
 
-        /* TIGHTER FOOTER BUTTONS WITH GLOW EFFECT */
         .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 4px; padding-bottom: 20px; }
         .footer-btn { 
             background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); 
@@ -457,6 +450,7 @@
             text-align: center; margin-top: 5px; margin-bottom: 10px;
         }
 
+        /* TEXT CENTERING FIX FOR TOAST */
         #toastContainer {
             position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
             display: flex; flex-direction: column; gap: 10px; z-index: 9999; pointer-events: none;
@@ -465,6 +459,7 @@
             background: var(--toast-bg); border: 1px solid var(--border); color: var(--text-main);
             padding: 14px 28px; border-radius: 30px; font-size: 10px; font-weight: 700; text-transform: uppercase;
             letter-spacing: 1.5px; box-shadow: 0 10px 30px var(--shadow-heavy); backdrop-filter: blur(10px);
+            text-align: center; display: flex; justify-content: center; align-items: center;
             animation: toastEnter 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards, toastExit 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards 3s;
         }
         @keyframes toastEnter { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
@@ -485,7 +480,6 @@
         .bottom-drawer.active { transform: translate(-50%, 0); }
         .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 15px; }
         
-        /* HELP SCROLL MASK */
         .help-scroll-area {
             max-height: 60vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
@@ -1062,7 +1056,6 @@
                 return;
             }
             
-            // MATH FIX: Auto-detect if user typed pence (45) or pounds (0.45)
             let rawRate = parseFloat(rateStr);
             const rate = rawRate > 3 ? (rawRate / 100) : rawRate; 
             
@@ -1086,7 +1079,6 @@
                 
                 let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
                 
-                // Add outgoing journey
                 expenses.unshift({
                     id: Date.now(),
                     date: date,
@@ -1096,7 +1088,6 @@
                     cost: costOneWay
                 });
                 
-                // Add returning journey as a separate discrete row
                 if(isReturn) {
                     expenses.unshift({
                         id: Date.now() + 1, 
@@ -1201,7 +1192,6 @@
             a.click();
             showToast("Spreadsheet Exported");
         }
-        /* --- END EXPENSES --- */
 
         function toggleVault(vaultId) {
             const v = document.getElementById(vaultId);
@@ -1371,7 +1361,6 @@
             const draft = localStorage.getItem('dclinDraft');
             if (draft) document.getElementById('noteInput').innerHTML = draft;
             
-            // Load Expense Settings and Auto-fill Start box
             const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings'));
             if(expSettings) {
                 document.getElementById('basePostcode').value = expSettings.base || '';
