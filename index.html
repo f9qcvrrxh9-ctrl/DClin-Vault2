@@ -12,8 +12,10 @@
     <title>DClin Vault</title>
     
     <style>
+        /* GLOBAL RESET & NATIVE FEEL */
         * { box-sizing: border-box; }
         
+        /* Prevent UI elements from being highlighted like text on a website */
         button, .archive-header, .cal-day, .toggle-label, 
         .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg {
             -webkit-user-select: none; user-select: none;
@@ -55,8 +57,7 @@
             --active-vibe: var(--v5);
             --filter-accent: var(--warm-white-glow);
             
-            --task-blue: #007AFF;
-            --deadline-red: #FF453A;
+            --orb-x: 50%; --orb-y: 15%; 
         }
 
         /* =========================================
@@ -181,12 +182,12 @@
             transition: background-color 0.6s ease, color 0.6s ease;
         }
 
-        /* FIXED ORB: Position absolute ensures it never scrolls away or disappears when keyboard opens */
+        /* FIXED ORB: Reduced height so it doesn't bleed behind iOS keyboard blur */
         .vibe-orb {
             position: absolute; 
             top: var(--orb-y, 220px); left: var(--orb-x, 50%); 
-            transform: translate(-50%, -50%); width: 200vw; height: 650px;
-            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%);
+            transform: translate(-50%, -50%); width: 200vw; height: 450px;
+            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 65%);
             filter: blur(80px); z-index: -1; 
             transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
             pointer-events: none; will-change: transform, background, left, top;
@@ -212,7 +213,6 @@
         .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
         .spotlight-container > * { position: relative; z-index: 1; }
 
-        /* THE TEXT BOX: Restored glass so orb shines through beautifully */
         .input-box {
             background: var(--glass);
             border-radius: 32px; padding: 25px;
@@ -289,6 +289,9 @@
             font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
             cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
+        
+        /* FIX FOR IOS SHIFT BUG: Font size 16px prevents Apple from zooming */
+        input, select, textarea { font-size: 16px !important; }
         #dueDatePicker { position: absolute; top:0; left:0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
         .save-btn {
@@ -314,13 +317,12 @@
         }
         #searchWrapper input { 
             background: transparent; border: none; color: var(--text-main); width: 85%; 
-            outline: none; font-size: 17px; -webkit-user-select: text; user-select: text; 
+            outline: none; -webkit-user-select: text; user-select: text; 
         }
         #searchWrapper input::placeholder { color: var(--text-muted); }
 
         #filterIcons { margin-top: 15px; }
 
-        /* USING rgba(255,255,255,1) PREVENTS SAFARI'S BLACK MASK SMUDGE BUG */
         #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll {
             max-height: 400px; overflow-y: auto; 
             scrollbar-width: none; -ms-overflow-style: none;
@@ -332,12 +334,14 @@
 
         #expenseVaultScroll, #learningVaultScroll { max-height: 230px; }
 
-        .note {
+        .note, .expense-tile {
             background: var(--note-bg); border-radius: 18px; padding: 12px 16px; margin-top: 14px; 
-            border-left: 3px solid var(--note-color); backdrop-filter: blur(15px); 
+            border-left: 3px solid var(--note-color, var(--active-accent)); backdrop-filter: blur(15px); 
             animation: noteAppear 0.5s ease forwards; position: relative; overflow: hidden;
             transition: all 0.5s ease; transform: translateZ(0);
         }
+        .expense-tile { padding: 14px; }
+        
         mark.search-highlight { background: rgba(249, 196, 105, 0.4); color: var(--text-main); border-radius: 3px; padding: 0 2px; box-shadow: 0 0 5px var(--c0); }
 
         .note.deleting, .expense-tile.deleting { animation: shrinkOut 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
@@ -385,11 +389,10 @@
         input[type=number], select { -moz-appearance: textfield; }
         .expense-input {
             flex: 1; background: var(--note-bg); border: 1px solid var(--border); color: var(--text-main);
-            border-radius: 14px; padding: 14px 16px; font-size: 12px; font-family: inherit; outline: none !important;
+            border-radius: 14px; padding: 14px 16px; font-family: inherit; outline: none !important;
             -webkit-appearance: none; width: 100%; box-sizing: border-box; -webkit-user-select: text; user-select: text;
         }
         .expense-input::placeholder { color: var(--text-muted); }
-        /* Fix select text color visibility across themes */
         select.expense-input option { background-color: var(--toast-bg); color: var(--text-main); }
         
         .toggle-label {
@@ -398,11 +401,6 @@
         }
         .toggle-label input { width: 16px; height: 16px; accent-color: var(--active-accent); cursor: pointer; }
 
-        .expense-tile {
-            background: var(--note-bg); border-radius: 14px; padding: 14px; margin-top: 10px;
-            border-left: 2px solid var(--active-accent); display: flex; justify-content: space-between; align-items: center;
-            transition: all 0.4s ease; transform: translateZ(0);
-        }
         .exp-details { display: flex; flex-direction: column; gap: 4px; flex: 1; }
         .exp-dest { font-size: 11px; font-weight: 600; color: var(--text-main); text-transform: uppercase; padding-right: 10px;}
         .exp-meta { font-size: 9px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; }
@@ -460,11 +458,10 @@
         .bottom-drawer.active { transform: translate(-50%, 0); }
         .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 15px; }
         
-        /* Adjusted mask: solid at the top, fades ONLY at the bottom so headers aren't clipped */
         .help-scroll-area {
             max-height: 60vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
             -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
-            padding: 10px 0 20px; 
+            padding: 0 0 20px; 
         }
         .help-scroll-area::-webkit-scrollbar { display: none; }
         
@@ -474,7 +471,7 @@
 
         .safety-box {
             background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.3); 
-            border-radius: 12px; padding: 14px; margin-top: 8px;
+            border-radius: 12px; padding: 14px; margin-top: 8px; margin-bottom: 15px;
         }
 
         .theme-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
@@ -502,7 +499,7 @@
         
         <div class="input-box">
             <div class="editor-wrapper">
-                <div id="noteInput" contenteditable="true" data-placeholder="Write your university note here" onkeyup="updateToolbarState(); autoSaveDraft();" onmouseup="updateToolbarState()"></div>
+                <div id="noteInput" contenteditable="true" data-placeholder="Write your University notes/reminders here" onkeyup="updateToolbarState(); autoSaveDraft();" onmouseup="updateToolbarState()"></div>
                 <div class="editor-toolbar">
                     <button class="format-btn" id="btnBold" onclick="formatText('bold')">B</button>
                     <button class="format-btn" id="btnItalic" onclick="formatText('italic')" style="font-style: italic;">I</button>
@@ -548,7 +545,7 @@
             <div id="upcomingDeadlines"></div>
         </div>
 
-        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('learningModule')">Manage Learning Log</button>
+        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('learningModule')">Extra Learning Log</button>
         <div id="learningModule">
             <div class="calendar-container spotlight-container" style="margin-top: 10px;">
                 <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 15px;">Add Learning Record</div>
@@ -565,10 +562,10 @@
                     <input type="number" step="0.25" id="learnHours" class="expense-input" placeholder="Hours" style="width: 75px; flex: none;">
                 </div>
                 <div class="expense-row">
-                    <input type="text" id="learnDesc" class="expense-input" placeholder="Description of Activity (e.g., Reading: Hardy...)">
+                    <input type="text" id="learnDesc" class="expense-input" placeholder="E.g. reading/podcast/video">
                 </div>
                 <div class="expense-row">
-                    <textarea id="learnReflection" class="expense-input" placeholder="Reflections (min 250 words for AFT)..." style="height: 100px; resize: none; padding-top: 15px;"></textarea>
+                    <textarea id="learnReflection" class="expense-input" placeholder="Reflections and notes on extra learning..." style="height: 100px; resize: none; padding-top: 15px;"></textarea>
                 </div>
                 <button class="save-btn spotlight-container" id="logLearningBtn" style="width: 100%; padding: 15px;" onclick="logLearning()">Save to Log</button>
             </div>
@@ -579,7 +576,7 @@
             
             <div style="display: flex; gap: 10px; margin-top: 15px;">
                 <button class="action-btn spotlight-container" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllLearning()">Clear Logs</button>
-                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportLearningCSV()">Export to Excel .CSV</button>
+                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportLearningCSV()">Export to Excel</button>
             </div>
         </div>
 
@@ -612,7 +609,7 @@
             
             <div style="display: flex; gap: 10px; margin-top: 15px;">
                 <button class="action-btn spotlight-container" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllExpenses()">Clear Logs</button>
-                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportExpensesCSV()">Export to .CSV</button>
+                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportExpensesCSV()">Export to Excel</button>
             </div>
         </div>
 
@@ -642,27 +639,23 @@
         <div class="archive-header" style="margin-bottom:15px;">How To Use</div>
         
         <div class="help-scroll-area">
-            <div class="walk-item" style="border: none; padding-bottom: 0;">
-                <div class="safety-box">
-                    <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">
-                        System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
-                    </div>
-                    <div style="margin-bottom: 2px; font-size: 10px; color: var(--text-main);">
-                        <b>1. Backup</b>
-                    </div>
-                    <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                        Tap 'Download Full Vault Backup'. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to safely store the .json file on your device.
-                    </div>
-                    <div style="margin-bottom: 2px; font-size: 10px; color: var(--text-main);">
-                        <b>2. Restore</b>
-                    </div>
-                    <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                        If your app clears, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return.
-                    </div>
+            <div class="safety-box">
+                <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">
+                    System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
+                </div>
+                <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);">
+                    <b>1. Backup</b>
+                </div>
+                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                    Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely on your device.
+                </div>
+                <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);">
+                    <b>2. Restore</b>
+                </div>
+                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                    If your app clears, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return.
                 </div>
             </div>
-            
-            <div style="border-top: 1px solid var(--border); margin: 15px 0;"></div>
 
             <div class="walk-item">
                 <b>Tags</b> 
@@ -675,18 +668,18 @@
             </div>
             
             <div class="walk-item">
-                <b>Calendar & Upcoming Deadlines</b> 
-                Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (white dots) and tasks with deadlines on that date (colored dots matching their tag). Any deadlines approaching in the next 7 days will automatically populate beneath the calendar.
+                <b>Calendar</b> 
+                Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (white dots) and tasks with deadlines on that date (colored dots matching their tag). Upcoming deadlines will dynamically appear below the calendar.
             </div>
-
+            
             <div class="walk-item">
-                <b>Learning Log</b> 
-                Keep track of your independent study. Select the activity type, date, and hours, then add your reflection. Exporting this will instantly generate a pre-formatted .CSV file that perfectly matches your university spreadsheet columns for easy copy-pasting.
+                <b>Extra Learning Log</b> 
+                Keep track of your independent study. Select the activity type, date, and hours, then add your reflection. Exporting this will instantly generate a pre-formatted file that perfectly matches your university spreadsheet columns for easy copy-pasting.
             </div>
             
             <div class="walk-item" style="border: none;">
                 <b>Expenses</b> 
-                Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time. It calculates mileage automatically via public API and can be exported as a clean .CSV spreadsheet.
+                Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time. It calculates mileage automatically via public API and can be exported as a clean spreadsheet.
             </div>
         </div>
     </div>
@@ -746,30 +739,21 @@
 
         const tagLabels = ["University", "Placement", "Reflection", "Research/Thesis", "Deadlines", "General"];
         const tagPrompts = [
-            "Write your University note/reminder here", 
-            "Write your placement/supervision note here", 
+            "Write your University notes/reminders here", 
+            "Write your placement/supervision notes here", 
             "Write down your clinical reflections and thoughts here", 
             "Jot down your thesis ideas, references, or research to-dos here", 
-            "What do you need to submit or complete, and by when?", 
-            "Write your general note/reminder here"
+            "What upcoming deadlines do you need to remember?", 
+            "Write your general notes/reminders here"
         ];
         
         const tagColors = ['var(--c0)', 'var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)', 'var(--c5)'];
         const tagMoods = ['var(--v0)', 'var(--v1)', 'var(--v2)', 'var(--v3)', 'var(--v4)', 'var(--v5)'];
-        const orbRadialPath = [['35%','200px'], ['65%','200px'], ['75%','250px'], ['65%','300px'], ['35%','300px'], ['25%','250px']];
+        const orbRadialPath = [['40%','15%'], ['60%','15%'], ['70%','25%'], ['60%','35%'], ['40%','35%'], ['30%','25%']];
 
         let writeIdx = 0; let archiveFilter = 'All'; let dateFilter = null; let editingId = null;
+        let editingLearnId = null;
         let currentCalDate = new Date();
-
-        window.addEventListener('mousemove', e => {
-            document.querySelectorAll('.spotlight-container').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                el.style.setProperty('--mouse-x', `${x}px`);
-                el.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
 
         function triggerHaptic(pattern) {
             if ('vibrate' in navigator) navigator.vibrate(pattern);
@@ -1095,19 +1079,49 @@
             }
             
             let data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
-            data.unshift({
-                id: Date.now(), date: date, type: type, hours: hours,
-                desc: desc, reflection: reflection
-            });
+            
+            if(editingLearnId) {
+                const idx = data.findIndex(n => n.id === editingLearnId);
+                if(idx > -1) {
+                    data[idx] = { id: editingLearnId, date, type, hours, desc, reflection };
+                }
+                editingLearnId = null; 
+                document.getElementById('logLearningBtn').innerText = "Save to Log";
+            } else {
+                data.unshift({
+                    id: Date.now(), date: date, type: type, hours: hours,
+                    desc: desc, reflection: reflection
+                });
+            }
+            
             localStorage.setItem('dclinLearning', JSON.stringify(data));
             
             document.getElementById('learnDesc').value = "";
             document.getElementById('learnReflection').value = "";
             document.getElementById('learnHours').value = "";
+            document.getElementById('learnType').value = ""; // Reset dropdown
             
             renderLearning();
             showToast("Learning Logged");
             triggerHaptic([30, 50, 30]);
+        }
+        
+        function editLearning(id) {
+            triggerHaptic(30);
+            const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+            const e = data.find(item => item.id === id);
+            
+            document.getElementById('learnDate').value = e.date;
+            document.getElementById('learnType').value = e.type;
+            document.getElementById('learnHours').value = e.hours;
+            document.getElementById('learnDesc').value = e.desc;
+            document.getElementById('learnReflection').value = e.reflection;
+            
+            editingLearnId = id;
+            document.getElementById('logLearningBtn').innerText = "Update Log";
+            
+            // Scroll user up to the form
+            document.getElementById('learningModule').scrollIntoView({ behavior: 'smooth' });
         }
 
         function renderLearning() {
@@ -1123,7 +1137,6 @@
             data.forEach(e => {
                 const displayDate = e.date.split('-').reverse().join('.');
                 
-                // Color coordination for type
                 let typeColor = 'var(--text-main)';
                 if(e.type === 'CBT') typeColor = 'var(--c0)';
                 if(e.type === 'Systemic') typeColor = 'var(--c1)';
@@ -1131,22 +1144,29 @@
                 if(e.type === 'Other') typeColor = 'var(--c5)';
 
                 html += `
-                <div class="expense-tile">
+                <div class="expense-tile" style="display: block;">
                     <div class="exp-details">
                         <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
                             <span style="font-size:10px; font-weight:800; color:${typeColor}; text-transform:uppercase;">${e.type}</span>
                             <span style="font-size:9px; color:var(--text-muted); font-weight:700;">${displayDate} • ${e.hours} hrs</span>
                         </div>
-                        <div class="exp-dest">${e.desc}</div>
-                        ${e.reflection ? `<div style="font-size:10px; line-height:1.4; opacity:0.7; margin-top:4px; max-height: 42px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">${e.reflection}</div>` : ''}
+                        <div class="exp-dest" style="font-size:12px; margin-top:2px;">${e.desc}</div>
+                        ${e.reflection ? `
+                        <div class="note-body preview-text" style="margin-top:8px;">${e.reflection.replace(/\n/g, '<br>')}</div>
+                        <button class="action-btn" style="margin-top: 6px; color:${typeColor}" onclick="toggleExpand(this)">Read More</button>
+                        ` : ''}
                     </div>
-                    <button class="action-btn" style="color:#ff453a; font-size:14px; padding-left:15px; height:100%;" onclick="deleteLearning(${e.id}, this)">×</button>
+                    <div class="action-row" style="margin-top: 10px;">
+                        <button class="action-btn" onclick="editLearning(${e.id})">Edit</button>
+                        <button class="action-btn" style="color:#ff453a; opacity: 0.8;" onclick="deleteLearning(${e.id}, this)">Delete</button>
+                    </div>
                 </div>`;
             });
             list.innerHTML = html;
         }
 
         function deleteLearning(id, btnElement) {
+            if(!confirm("Delete log permanently?")) return;
             triggerHaptic([50, 100, 50]);
             const tile = btnElement.closest('.expense-tile');
             tile.classList.add('deleting');
@@ -1186,7 +1206,7 @@
             a.href = url;
             a.download = `DClin_Learning_Log.csv`;
             a.click();
-            showToast("Learning Spreadsheet Exported");
+            showToast("Spreadsheet Exported");
         }
 
         /* --- EXPENSE TRACKER LOGIC --- */
@@ -1497,9 +1517,11 @@
         }
 
         function toggleExpand(btn) {
-            const body = btn.closest('.note').querySelector('.note-body');
-            const isPreview = body.classList.toggle('preview-text');
-            btn.innerText = isPreview ? "Read More" : "Collapse";
+            const body = btn.closest('.note, .expense-tile').querySelector('.preview-text');
+            if (body) {
+                const isPreview = body.classList.toggle('preview-text');
+                btn.innerText = isPreview ? "Read More" : "Collapse";
+            }
         }
 
         function editNote(id) {
