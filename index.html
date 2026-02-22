@@ -88,12 +88,13 @@
             --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
             --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
             
-            --v0: rgba(251, 188, 5, 0.35); 
-            --v1: rgba(66, 133, 244, 0.35); 
-            --v2: rgba(52, 168, 83, 0.35);  
-            --v3: rgba(234, 67, 53, 0.35);  
-            --v4: rgba(0, 172, 193, 0.35);  
-            --v5: rgba(103, 58, 183, 0.35); 
+            /* Solid pastel hexes for clean glows */
+            --v0: #FCE8B2; 
+            --v1: #D2E3FC; 
+            --v2: #CEEAD6;  
+            --v3: #FAD2CF;  
+            --v4: #CCF4F9;  
+            --v5: #E3D7FA; 
 
             --warm-white: #202124; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
@@ -126,13 +127,13 @@
             --c0: #008B8B; --c1: #00B294; --c2: #00CC84; 
             --c3: #33D66A; --c4: #66E04A; --c5: #85E62C;
 
-            /* Warm Sunset Washes */
-            --v0: rgba(255, 127, 80, 0.35); 
-            --v1: rgba(255, 99, 71, 0.35); 
-            --v2: rgba(255, 160, 122, 0.35); 
-            --v3: rgba(255, 182, 193, 0.35); 
-            --v4: rgba(238, 130, 238, 0.35); 
-            --v5: rgba(218, 112, 214, 0.35); 
+            /* Warm Sunset Solid Glows */
+            --v0: #FF7F50; 
+            --v1: #FF8C00; 
+            --v2: #FFA07A; 
+            --v3: #FF69B4; 
+            --v4: #BA55D3; 
+            --v5: #FFD700; 
 
             --warm-white: #2C2820; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
@@ -165,13 +166,13 @@
             --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; 
             --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
 
-            /* Deep oceanic contrast */
-            --v0: #002233; 
-            --v1: #003322; 
-            --v2: #220033; 
-            --v3: #33001A; 
-            --v4: #1A0033; 
-            --v5: #003333; 
+            /* Deep oceanic highly-contrasting glows */
+            --v0: #008B8B; 
+            --v1: #8A2BE2; 
+            --v2: #C71585; 
+            --v3: #FF4500; 
+            --v4: #4B0082; 
+            --v5: #00FF7F; 
 
             --warm-white: #F4F7FB; 
             --warm-white-glow: rgba(255, 255, 255, 0.3); 
@@ -198,7 +199,12 @@
             pointer-events: none; will-change: transform, background;
         }
 
-        .app-container { padding: 40px 25px 60px; max-width: 420px; margin: auto; }
+        /* DYNAMIC ISLAND FIX: Added safe-area-inset padding */
+        .app-container { 
+            padding: calc(40px + env(safe-area-inset-top, 20px)) 25px 60px; 
+            max-width: 420px; 
+            margin: auto; 
+        }
 
         .archive-header { 
             font-size: 10px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.35; 
@@ -215,7 +221,7 @@
         .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
         .spotlight-container > * { position: relative; z-index: 1; }
 
-        /* THE POINTY GLOW FIX: Identical to the working skeleton. No spotlight class! */
+        /* THE POINTY GLOW FIX */
         .input-box {
             background: var(--glass); border-radius: 32px; padding: 25px;
             backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
@@ -435,7 +441,7 @@
         #completedVault, #expensesModule { display: none; padding-bottom: 20px; }
 
         /* TIGHTER FOOTER BUTTONS WITH GLOW EFFECT */
-        .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 4px; padding-bottom: 60px; }
+        .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 4px; padding-bottom: 20px; }
         .footer-btn { 
             background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); 
             opacity: 0.35; cursor: pointer; text-transform: uppercase; padding: 10px; transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1); border-radius: 12px;
@@ -490,6 +496,11 @@
         .walk-item { margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
         .walk-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .walk-item b { color: var(--text-main); text-transform: uppercase; font-size: 9px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+
+        .safety-box {
+            background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.3); 
+            border-radius: 12px; padding: 14px; margin-top: 8px;
+        }
 
         .theme-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .theme-btn { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -563,18 +574,18 @@
 
         <div class="archive-header" style="margin-top:20px;">Links</div>
         <div class="quick-links-row">
-            <div onclick="window.open('https://forms.office.com/pages/responsepage.aspx?id=-XhTSvQpPk2-iWadA62p2HMCB-97DBRFtOUga1HEPmlUQThPVjRYVk5URVpTQjJINlhDMDQ5QUw0Ny4u&route=shorturl', '_blank')" class="quick-link-btn spotlight-container">
+            <a href="https://forms.office.com/pages/responsepage.aspx?id=-XhTSvQpPk2-iWadA62p2HMCB-97DBRFtOUga1HEPmlUQThPVjRYVk5URVpTQjJINlhDMDQ5QUw0Ny4u&route=shorturl" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
                 <span class="quick-link-text">Attendance</span>
-            </div>
-            <div onclick="window.open('https://sotonac.sharepoint.com/teams/DClinCalendars/Lists/DClin%20Y1%202019%20Cohort/calendar.aspx', '_blank')" class="quick-link-btn spotlight-container">
+            </a>
+            <a href="https://sotonac.sharepoint.com/teams/DClinCalendars/Lists/DClin%20Y1%202019%20Cohort/calendar.aspx" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><rect x="8" y="14" width="4" height="4"></rect></svg>
                 <span class="quick-link-text">Timetable</span>
-            </div>
-            <div onclick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=-XhTSvQpPk2-iWadA62p2NWyfN-sGBxDiWK4YxPLr95UNDlWR0IxMFZNSTZCMkNHVzZXSzZaTlkyRC4u&origin=QRCode', '_blank')" class="quick-link-btn spotlight-container">
+            </a>
+            <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=-XhTSvQpPk2-iWadA62p2NWyfN-sGBxDiWK4YxPLr95UNDlWR0IxMFZNSTZCMkNHVzZXSzZaTlkyRC4u&origin=QRCode" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                 <span class="quick-link-text">Feedback</span>
-            </div>
+            </a>
         </div>
 
         <button class="collapsible-trigger spotlight-container" onclick="toggleVault('expensesModule')">Manage Expenses</button>
@@ -663,8 +674,8 @@
             </div>
             
             <div class="walk-item">
-                <b>Links</b> 
-                The quick-access buttons (Attendance, Timetable, Feedback) will only work seamlessly on devices where your default browser is already signed into your university Microsoft account.
+                <b>Links & Sign In</b> 
+                Apple limits "Home Screen Apps" for privacy. When clicking the quick links, it may repeatedly ask you to sign into your university Microsoft account. If this is incredibly frustrating, the only fix is to remove the "apple-mobile-web-app-capable" line from the source code, so it opens as a normal Safari tab.
             </div>
             
             <div class="walk-item">
@@ -707,11 +718,11 @@
                 <span>Academy</span>
             </div>
             <div class="theme-btn" onclick="setTheme('oasis')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #008B8B, #33D66A, #E8DCC4);"></div>
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #00CC84, #008B8B, #FF8C00);"></div>
                 <span>Oasis</span>
             </div>
             <div class="theme-btn" onclick="setTheme('coral')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF3366, #FFD700, #00FFFF);"></div>
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF3366, #FFD700, #8A2BE2);"></div>
                 <span>Coral</span>
             </div>
         </div>
@@ -1177,7 +1188,6 @@
             const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
             if(expenses.length === 0) { showToast("Nothing to export"); return; }
             
-            // Cleaned up CSV Export (Removed Return column since rows are split)
             let csvContent = "Date,Start Postcode,Destination Postcode,Miles,Cost (£)\n";
             expenses.forEach(e => {
                 csvContent += `${e.date},${e.start},${e.dest},${e.miles},${e.cost}\n`;
