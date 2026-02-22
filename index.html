@@ -7,6 +7,9 @@
     <title>DClin Vault</title>
     
     <style>
+        /* GLOBAL RESET FOR IOS WIDTH BUGS */
+        * { box-sizing: border-box; }
+
         /* =========================================
            1. DEFAULT THEME (Dark & Warm Sunset) 
            ========================================= */
@@ -24,7 +27,11 @@
             --glass: rgba(255, 255, 255, 0.07);
             --border: rgba(255, 255, 255, 0.18);
             --shadow-heavy: rgba(0, 0, 0, 0.6);
+            
             --save-bg: rgba(0, 0, 0, 0.5);
+            --save-text: var(--active-accent);
+            --save-border: var(--active-accent);
+            --save-shadow: 0 0 15px var(--active-accent);
             
             --c0: #F9C469; --c1: #FAA874; --c2: #FB8C7F;
             --c3: #FC708A; --c4: #FD5495; --c5: #FE38A0;
@@ -61,7 +68,12 @@
             --glass: rgba(0, 0, 0, 0.02);
             --border: rgba(0, 0, 0, 0.08);
             --shadow-heavy: rgba(0, 0, 0, 0.08); 
-            --save-bg: #202124; 
+            
+            /* Clean Google Blue Buttons */
+            --save-bg: #4285F4; 
+            --save-text: #ffffff;
+            --save-border: #4285F4;
+            --save-shadow: 0 4px 15px rgba(66, 133, 244, 0.4);
             
             --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
             --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
@@ -94,7 +106,11 @@
             --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.15);
             --shadow-heavy: rgba(0, 0, 0, 0.6);
+            
             --save-bg: rgba(0, 0, 0, 0.5);
+            --save-text: var(--active-accent);
+            --save-border: var(--active-accent);
+            --save-shadow: 0 0 15px var(--active-accent);
             
             --c0: #32CD32; --c1: #6B8E23; --c2: #8B4513; 
             --c3: #A52A2A; --c4: #800000; --c5: #B22222;
@@ -127,7 +143,11 @@
             --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.15);
             --shadow-heavy: rgba(0, 0, 0, 0.6);
+            
             --save-bg: rgba(0, 0, 0, 0.5);
+            --save-text: var(--active-accent);
+            --save-border: var(--active-accent);
+            --save-shadow: 0 0 15px var(--active-accent);
             
             --c0: #00FA9A; --c1: #00CED1; --c2: #4682B4; 
             --c3: #6A5ACD; --c4: #8A2BE2; --c5: #9400D3;
@@ -171,12 +191,12 @@
             margin-bottom: 22px; text-align: center; font-weight: 600;
         }
 
-        .spotlight-container { position: relative; overflow: hidden; }
+        .spotlight-container { position: relative; overflow: hidden; border-radius: inherit; }
         .spotlight-container::after {
             content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--active-accent), transparent 100%);
             opacity: 0; transition: opacity 0.4s ease;
-            pointer-events: none; z-index: 0;
+            pointer-events: none; z-index: 0; border-radius: inherit;
         }
         .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
         .spotlight-container > * { position: relative; z-index: 1; }
@@ -186,18 +206,24 @@
             backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
             border: 1px solid var(--border);
             box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 30px var(--active-accent);
-            transition: all 0.8s ease; transform: translateZ(0); margin-top: 10px; overflow: hidden;
+            transition: all 0.8s ease; transform: translateZ(0); margin-top: 10px;
         }
 
         .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
         
+        /* AGGRESSIVE FIX FOR MOBILE FOCUS RINGS */
         #noteInput {
             flex-grow: 1; background: transparent; border: none;
-            color: var(--text-main); font-size: 20px; outline: none !important; overflow-y: auto;
+            color: var(--text-main); font-size: 20px; overflow-y: auto;
             font-family: inherit; font-weight: 300; line-height: 1.5;
             padding-bottom: 10px; -webkit-appearance: none;
+            outline: none !important; -webkit-tap-highlight-color: transparent;
         }
-        #noteInput:focus { outline: none !important; box-shadow: none !important; -webkit-focus-ring-color: transparent !important; }
+        #noteInput:focus {
+            outline: 0px solid transparent !important;
+            box-shadow: none !important;
+            -webkit-box-shadow: none !important;
+        }
         #noteInput[contenteditable]:empty::before {
             content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block;
         }
@@ -249,8 +275,8 @@
 
         .save-btn {
             flex: 1; padding: 18px; border-radius: 22px; 
-            background: var(--save-bg); border: 1px solid var(--active-accent);
-            color: var(--active-accent); text-shadow: 0 0 15px var(--active-accent);
+            background: var(--save-bg); border: 1px solid var(--save-border);
+            color: var(--save-text); text-shadow: var(--save-shadow);
             font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -282,26 +308,16 @@
         }
         #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar { display: none; }
 
-        /* Dedicated Expense Scroll Window to fit ~3 items beautifully */
-        #expenseVaultScroll {
-            max-height: 230px; overflow-y: auto; 
-            scrollbar-width: none; -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; 
-            margin-top: 15px; padding: 0 12px;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
-        }
-        #expenseVaultScroll::-webkit-scrollbar { display: none; }
-
-
+        /* Tighter Note Tiles */
         .note {
-            background: var(--note-bg); border-radius: 18px; padding: 16px 20px; margin-top: 14px; 
+            background: var(--note-bg); border-radius: 18px; padding: 12px 16px; margin-top: 14px; 
             border-left: 3px solid var(--note-color); backdrop-filter: blur(15px); 
             animation: noteAppear 0.5s ease forwards; position: relative; overflow: hidden;
             transition: all 0.5s ease; transform: translateZ(0);
         }
         mark.search-highlight { background: rgba(249, 196, 105, 0.4); color: var(--text-main); border-radius: 3px; padding: 0 2px; box-shadow: 0 0 5px var(--c0); }
 
-        .note.deleting { animation: shrinkOut 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+        .note.deleting, .expense-tile.deleting { animation: shrinkOut 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
         @keyframes shrinkOut { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0.9) translateY(-10px); } }
 
         .note.completing::after {
@@ -316,8 +332,8 @@
         .note-body { font-size: 12px; line-height: 1.6; opacity: 0.85; }
         .preview-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-        .action-row { display: flex; gap: 15px; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
-        .action-btn { background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); opacity: 0.5; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .action-row { display: flex; gap: 15px; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+        .action-btn { background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); opacity: 0.5; cursor: pointer; text-transform: uppercase; transition: 0.3s; padding: 0; }
         .action-btn:hover { opacity: 1; }
         .done-btn { color: #34C759; opacity: 1; }
 
@@ -346,7 +362,7 @@
         .quick-links-row { display: flex; gap: 12px; margin-bottom: 25px; }
         .quick-link-btn {
             flex: 1; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 16px 10px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: var(--text-high); transition: all 0.3s ease; -webkit-tap-highlight-color: transparent;
+            align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: var(--text-high); transition: all 0.3s ease; -webkit-tap-highlight-color: transparent; cursor: pointer;
         }
         .quick-link-btn:active { transform: scale(0.96); background: var(--note-bg); }
         .quick-link-btn svg { opacity: 0.6; transition: 0.3s; }
@@ -363,7 +379,7 @@
         .expense-input {
             flex: 1; background: var(--note-bg); border: 1px solid var(--border); color: var(--text-main);
             border-radius: 14px; padding: 14px 16px; font-size: 12px; font-family: inherit; outline: none !important;
-            -webkit-appearance: none;
+            -webkit-appearance: none; width: 100%; box-sizing: border-box;
         }
         .expense-input::placeholder { color: var(--text-muted); }
         
@@ -373,9 +389,17 @@
         }
         .toggle-label input { width: 16px; height: 16px; accent-color: var(--active-accent); cursor: pointer; }
 
+        #expenseVaultScroll {
+            max-height: 230px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; margin-top: 15px; padding: 0 12px;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+        }
+        #expenseVaultScroll::-webkit-scrollbar { display: none; }
+
         .expense-tile {
             background: var(--note-bg); border-radius: 14px; padding: 14px; margin-top: 10px;
             border-left: 2px solid var(--active-accent); display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.4s ease; transform: translateZ(0);
         }
         .exp-details { display: flex; flex-direction: column; gap: 4px; }
         .exp-dest { font-size: 11px; font-weight: 600; color: var(--text-main); text-transform: uppercase; }
@@ -389,17 +413,15 @@
         }
         #completedVault, #expensesModule { display: none; padding-bottom: 20px; }
 
-        .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 60px; }
+        /* TIGHTER FOOTER BUTTONS WITH GLOW EFFECT */
+        .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 4px; padding-bottom: 60px; }
         .footer-btn { 
             background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); 
-            opacity: 0.3; cursor: pointer; text-transform: uppercase; padding: 8px; transition: all 0.3s ease; border-radius: 10px;
+            opacity: 0.35; cursor: pointer; text-transform: uppercase; padding: 10px; transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1); border-radius: 12px;
         }
-        .footer-btn:active { opacity: 1; box-shadow: 0 0 15px var(--warm-white-glow); background: var(--glass); }
-
-        .permanent-msg {
-            padding: 15px; background: rgba(150,150,150,0.05); border-radius: 15px; 
-            font-size: 10px; line-height: 1.4; color: var(--text-mid); border: 1px dashed var(--border); 
-            text-align: center; margin-top: 10px;
+        .footer-btn:active { 
+            opacity: 1; transform: scale(0.96); background: var(--glass);
+            box-shadow: 0 0 20px var(--warm-white-glow); color: var(--warm-white);
         }
 
         #toastContainer {
@@ -424,16 +446,28 @@
         .bottom-drawer { 
             position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 420px;
             background: var(--drawer-bg); backdrop-filter: blur(30px); border-top: 1px solid var(--border);
-            border-radius: 30px 30px 0 0; padding: 20px 25px 40px; box-sizing: border-box;
+            border-radius: 30px 30px 0 0; padding: 20px 25px 30px; box-sizing: border-box;
             z-index: 1000; transition: transform 0.4s cubic-bezier(0.32, 1, 0.23, 1); font-size: 10px; line-height: 1.6; color: var(--text-high);
-            max-height: 85vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
         }
-        .bottom-drawer::-webkit-scrollbar { display: none; }
         .bottom-drawer.active { transform: translate(-50%, 0); }
-        .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 20px; }
-        .walk-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 15px; }
+        
+        /* HELP SCROLL MASK */
+        .help-scroll-area {
+            max-height: 60vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
+            padding: 10px 0 20px;
+        }
+        .help-scroll-area::-webkit-scrollbar { display: none; }
+        
+        .walk-item { margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
         .walk-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .walk-item b { color: var(--text-main); text-transform: uppercase; font-size: 9px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
+
+        .safety-box {
+            background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.3); 
+            border-radius: 12px; padding: 14px; margin-top: 8px;
+        }
 
         .theme-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .theme-btn { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
@@ -446,17 +480,6 @@
             transform: scale(0.9); box-shadow: inset -3px -3px 8px rgba(0,0,0,0.5), inset 2px 2px 5px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.3);
         }
         .theme-btn span { font-size: 9px; text-transform: uppercase; font-weight: 700; color: var(--text-high); letter-spacing: 1px; }
-
-        /* SAFETY BOX STYLING */
-        .safety-box {
-            background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.2); 
-            border-radius: 12px; padding: 14px; margin-top: 10px;
-        }
-        .safety-step {
-            padding-left: 10px; border-left: 2px solid var(--deadline-red); 
-            opacity: 0.9; margin-bottom: 10px; font-size: 10px; line-height: 1.4;
-        }
-        .safety-step:last-child { margin-bottom: 0; }
 
     </style>
 </head>
@@ -517,18 +540,18 @@
 
         <div class="archive-header" style="margin-top:20px;">Links</div>
         <div class="quick-links-row">
-            <a href="https://forms.office.com/pages/responsepage.aspx?id=-XhTSvQpPk2-iWadA62p2HMCB-97DBRFtOUga1HEPmlUQThPVjRYVk5URVpTQjJINlhDMDQ5QUw0Ny4u&route=shorturl" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
+            <div onclick="window.open('https://forms.office.com/pages/responsepage.aspx?id=-XhTSvQpPk2-iWadA62p2HMCB-97DBRFtOUga1HEPmlUQThPVjRYVk5URVpTQjJINlhDMDQ5QUw0Ny4u&route=shorturl', '_blank')" class="quick-link-btn spotlight-container">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
                 <span class="quick-link-text">Attendance</span>
-            </a>
-            <a href="https://sotonac.sharepoint.com/teams/DClinCalendars/Lists/DClin%20Y1%202019%20Cohort/calendar.aspx" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
+            </div>
+            <div onclick="window.open('https://sotonac.sharepoint.com/teams/DClinCalendars/Lists/DClin%20Y1%202019%20Cohort/calendar.aspx', '_blank')" class="quick-link-btn spotlight-container">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><rect x="8" y="14" width="4" height="4"></rect></svg>
                 <span class="quick-link-text">Timetable</span>
-            </a>
-            <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=-XhTSvQpPk2-iWadA62p2NWyfN-sGBxDiWK4YxPLr95UNDlWR0IxMFZNSTZCMkNHVzZXSzZaTlkyRC4u&origin=QRCode" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
+            </div>
+            <div onclick="window.open('https://forms.office.com/Pages/ResponsePage.aspx?id=-XhTSvQpPk2-iWadA62p2NWyfN-sGBxDiWK4YxPLr95UNDlWR0IxMFZNSTZCMkNHVzZXSzZaTlkyRC4u&origin=QRCode', '_blank')" class="quick-link-btn spotlight-container">
                 <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
                 <span class="quick-link-text">Feedback</span>
-            </a>
+            </div>
         </div>
 
         <button class="collapsible-trigger" onclick="toggleVault('expensesModule')">Manage Expenses</button>
@@ -537,7 +560,7 @@
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Log Journey</div>
                     
-                    <button class="action-btn" onclick="toggleExpenseSettings()">
+                    <button class="action-btn" style="padding: 5px;" onclick="toggleExpenseSettings()">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </button>
                 </div>
@@ -558,7 +581,11 @@
             <div id="expenseVaultScroll">
                 <div id="expenseList"></div>
             </div>
-            <button class="action-btn" style="width:100%; margin-top:15px; padding: 10px; background: var(--glass); border-radius: 10px;" onclick="exportExpensesCSV()">Export to .CSV</button>
+            
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="action-btn" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllExpenses()">Clear Logs</button>
+                <button class="action-btn" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportExpensesCSV()">Export to .CSV</button>
+            </div>
         </div>
 
         <button class="collapsible-trigger" onclick="toggleVault('completedVault')">View Completed Tasks</button>
@@ -576,55 +603,52 @@
             
             <button class="footer-btn" onclick="toggleThemeDrawer()">Themes</button>
             <button class="footer-btn" onclick="toggleWalkthrough()">Help</button>
-
-            <div class="permanent-msg">
-                System updates or clearing browser cache can wipe app data. Save it to a file you'll be able to find when you click backup and restore by finding those files in the restore option.
-            </div>
         </div>
     </div>
 
     <div id="helpWalkthrough" class="bottom-drawer">
         <div class="drawer-handle"></div>
-        <div class="archive-header" style="margin-bottom:20px;">How To Use</div>
+        <div class="archive-header" style="margin-bottom:15px;">How To Use</div>
         
-        <div class="walk-item">
-            <b>Tags</b> 
-            Use the top icons to categorize notes (CBT, Neuro, etc). Tagging notes makes them much easier to filter and find later in the Lists section.
-        </div>
-        
-        <div class="walk-item">
-            <b>Filter & Search</b> 
-            Tap icons below the search bar to filter by category, or type to find specific keywords. Tap ALL to see everything. Tap the download icon in the search bar to export your currently filtered list as a .txt file.
-        </div>
-        
-        <div class="walk-item">
-            <b>Links</b> 
-            The quick-access buttons (Attendance, Timetable, Feedback) will only work seamlessly on devices where your default browser is already signed into your university Microsoft account.
-        </div>
-        
-        <div class="walk-item">
-            <b>Calendar</b> 
-            Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (blue dots) and tasks with deadlines on that date (red dots).
-        </div>
-        
-        <div class="walk-item">
-            <b>Expenses</b> 
-            Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time, but you can type over it for custom journeys. It calculates mileage automatically and can be exported as a .CSV spreadsheet.
-        </div>
-        
-        <div class="walk-item">
-            <b style="color: var(--deadline-red);">Safety & Backups</b> 
-            <div class="safety-box">
-                <div style="color: var(--text-high); margin-bottom: 12px; font-size: 10px;">
-                    System updates or clearing your browser cache <b>will wipe this app's data</b>. It is highly recommended to back up your vault frequently!
-                </div>
-                <div class="safety-step">
-                    <b>1. Backup</b><br>
-                    Tap 'Download Full Vault Backup' to save your data as a secure .json file directly to your phone's 'Downloads' or 'Files' app.
-                </div>
-                <div class="safety-step">
-                    <b>2. Restore</b><br>
-                    If your app ever clears unexpectedly, simply tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return exactly as it was.
+        <div class="help-scroll-area">
+            <div class="walk-item">
+                <b>Tags</b> 
+                Use the top icons to categorize notes (CBT, Neuro, etc). Tagging notes makes them much easier to filter and find later in the Lists section.
+            </div>
+            
+            <div class="walk-item">
+                <b>Filter & Search</b> 
+                Tap icons below the search bar to filter by category, or type to find specific keywords. Tap ALL to see everything. Tap the download icon in the search bar to export your currently filtered list as a .txt file.
+            </div>
+            
+            <div class="walk-item">
+                <b>Links</b> 
+                The quick-access buttons (Attendance, Timetable, Feedback) will only work seamlessly on devices where your default browser is already signed into your university Microsoft account.
+            </div>
+            
+            <div class="walk-item">
+                <b>Calendar</b> 
+                Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (blue dots) and tasks with deadlines on that date (red dots).
+            </div>
+            
+            <div class="walk-item">
+                <b>Expenses</b> 
+                Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time, but you can type over it for custom journeys. It calculates mileage automatically and can be exported as a .CSV spreadsheet.
+            </div>
+            
+            <div class="walk-item" style="border: none;">
+                <div class="safety-box">
+                    <div style="color: var(--text-main); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">
+                        System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
+                    </div>
+                    <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                        <b style="color: var(--text-main);">1. Backup</b><br>
+                        Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely on your device.
+                    </div>
+                    <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                        <b style="color: var(--text-main);">2. Restore</b><br>
+                        If your app ever clears unexpectedly, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return exactly as it was.
+                    </div>
                 </div>
             </div>
         </div>
@@ -637,10 +661,10 @@
             <input type="text" id="basePostcode" class="expense-input" placeholder="Base Postcode (e.g. SO17 1BJ)">
         </div>
         <div class="expense-row">
-            <input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45)">
+            <input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45 or 45)">
         </div>
         <button class="save-btn" style="width: 100%; padding: 15px; margin-top: 10px;" onclick="saveExpenseSettings()">Save Settings</button>
-        <div class="permanent-msg">
+        <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6;">
             Your Base Postcode will automatically pre-fill the 'From' box when logging a new journey.
         </div>
     </div>
@@ -654,7 +678,7 @@
                 <span>Default</span>
             </div>
             <div class="theme-btn" onclick="setTheme('academy')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #4285F4, #EA4335, #FBBC05);"></div>
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #4285F4 0%, #EA4335 40%, #FBBC05 70%, #34A853 100%);"></div>
                 <span>Academy</span>
             </div>
             <div class="theme-btn" onclick="setTheme('forest')">
@@ -923,7 +947,7 @@
                             <span>${n.done ? 'DONE: ' + n.completedOn : (n.deadline ? 'DUE: ' + n.deadline.split('-').reverse().slice(0,2).join('/') : n.created.split('-').reverse().slice(0,2).join('/'))}</span>
                         </div>
                         <div class="note-body preview-text">${parsedText}</div>
-                        <button class="action-btn" style="margin: 8px 0; color:${n.color}" onclick="toggleExpand(this)">Read More</button>
+                        <button class="action-btn" style="margin-top: 6px; color:${n.color}" onclick="toggleExpand(this)">Read More</button>
                         <div class="action-row">
                             ${!n.done ? `<button class="action-btn done-btn" onclick="toggleDone(${n.id}, this)">Done</button>` : `<button class="action-btn" onclick="toggleDone(${n.id}, this)">Restore</button>`}
                             <button class="action-btn" onclick="editNote(${n.id})">Edit</button>
@@ -1002,7 +1026,7 @@
                 return;
             }
             
-            // MATH FIX: If user types "45" (meaning 45p), we divide by 100. If they type "0.45", we leave it.
+            // MATH FIX: Auto-detect if user typed pence (45) or pounds (0.45)
             let rawRate = parseFloat(rateStr);
             const rate = rawRate > 3 ? (rawRate / 100) : rawRate; 
             
@@ -1036,10 +1060,10 @@
                     cost: costOneWay
                 });
                 
-                // Add returning journey as a separate log entry if checked
+                // Add returning journey as a separate discrete row
                 if(isReturn) {
                     expenses.unshift({
-                        id: Date.now() + 1, // Ensure unique ID
+                        id: Date.now() + 1, 
                         date: date,
                         start: dest.toUpperCase(),
                         dest: start.toUpperCase(),
@@ -1051,7 +1075,7 @@
                 localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
                 
                 document.getElementById('destPostcode').value = "";
-                document.getElementById('returnJourney').checked = false; // Reset checkbox
+                document.getElementById('returnJourney').checked = false; 
                 
                 renderExpenses();
                 showToast(`Logged successfully`);
@@ -1097,26 +1121,38 @@
                     </div>
                     <div style="display:flex; align-items:center; gap:10px;">
                         <div class="exp-cost">£${e.cost}</div>
-                        <button class="action-btn" style="color:#ff453a; font-size:14px; padding:5px;" onclick="deleteExpense(${e.id})">×</button>
+                        <button class="action-btn" style="color:#ff453a; font-size:14px; padding:5px;" onclick="deleteExpense(${e.id}, this)">×</button>
                     </div>
                 </div>`;
             });
             list.innerHTML = html;
         }
 
-        function deleteExpense(id) {
+        function deleteExpense(id, btnElement) {
             triggerHaptic([50, 100, 50]);
-            let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
-            expenses = expenses.filter(e => e.id !== id);
-            localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
+            const tile = btnElement.closest('.expense-tile');
+            tile.classList.add('deleting');
+            setTimeout(() => {
+                let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+                expenses = expenses.filter(e => e.id !== id);
+                localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
+                renderExpenses();
+                showToast("Expense Deleted");
+            }, 350);
+        }
+
+        function clearAllExpenses() {
+            if(!confirm("Wipe all logged expenses forever?")) return;
+            localStorage.setItem('dclinExpenses', JSON.stringify([]));
             renderExpenses();
-            showToast("Expense Deleted");
+            showToast("Expenses cleared");
         }
 
         function exportExpensesCSV() {
             const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
             if(expenses.length === 0) { showToast("Nothing to export"); return; }
             
+            // Cleaned up CSV Export (Removed Return column since rows are split)
             let csvContent = "Date,Start Postcode,Destination Postcode,Miles,Cost (£)\n";
             expenses.forEach(e => {
                 csvContent += `${e.date},${e.start},${e.dest},${e.miles},${e.cost}\n`;
