@@ -17,7 +17,7 @@
         
         /* Prevent UI elements from being highlighted like text on a website */
         button, .archive-header, .cal-day, .toggle-label, .quick-link-btn, 
-        .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger {
+        .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg {
             -webkit-user-select: none; user-select: none;
         }
 
@@ -80,7 +80,6 @@
             --border: rgba(0, 0, 0, 0.08);
             --shadow-heavy: rgba(0, 0, 0, 0.08); 
             
-            /* Clean Google Blue Buttons */
             --save-bg: #4285F4; 
             --save-text: #ffffff;
             --save-border: #4285F4;
@@ -101,55 +100,57 @@
         }
 
         /* =========================================
-           3. FOREST THEME (Deep Pine, Earthy Gradient) 
+           3. OASIS THEME (Warm Sand, Turquoise to Green) 
            ========================================= */
-        [data-theme="forest"] {
-            --bg-color: #081008;
-            --text-main: #f0fdf4;
-            --text-muted: rgba(240, 253, 244, 0.35);
-            --text-mid: rgba(240, 253, 244, 0.6);
-            --text-high: rgba(240, 253, 244, 0.8);
-            --bg-overlay: rgba(8, 16, 8, 0.85);
-            --drawer-bg: rgba(10, 18, 10, 0.95);
-            --note-bg: rgba(255, 255, 255, 0.04);
-            --toast-bg: rgba(10, 18, 10, 0.95);
+        [data-theme="oasis"] {
+            --bg-color: #E8DCC4;
+            --text-main: #2C2820;
+            --text-muted: rgba(44, 40, 32, 0.45);
+            --text-mid: rgba(44, 40, 32, 0.65);
+            --text-high: rgba(44, 40, 32, 0.9);
+            --bg-overlay: rgba(232, 220, 196, 0.85);
+            --drawer-bg: rgba(240, 230, 210, 0.98);
+            --note-bg: rgba(0, 0, 0, 0.03);
+            --toast-bg: rgba(240, 230, 210, 0.95);
 
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.15);
-            --shadow-heavy: rgba(0, 0, 0, 0.6);
+            --glass: rgba(0, 0, 0, 0.03);
+            --border: rgba(0, 0, 0, 0.08);
+            --shadow-heavy: rgba(0, 0, 0, 0.08);
             
-            --save-bg: rgba(0, 0, 0, 0.5);
-            --save-text: var(--active-accent);
-            --save-border: var(--active-accent);
-            --save-shadow: 0 0 15px var(--active-accent);
+            --save-bg: #0A9396; 
+            --save-text: #ffffff;
+            --save-border: #0A9396;
+            --save-shadow: 0 4px 15px rgba(10, 147, 150, 0.4);
             
-            --c0: #32CD32; --c1: #6B8E23; --c2: #8B4513; 
-            --c3: #A52A2A; --c4: #800000; --c5: #B22222;
+            /* Turquoise to Lush Green */
+            --c0: #008B8B; --c1: #00B294; --c2: #00CC84; 
+            --c3: #33D66A; --c4: #66E04A; --c5: #85E62C;
 
-            --v0: #2a0a18; 
-            --v1: #051024; 
-            --v2: #021a1a; 
-            --v3: #0a1a0a; 
-            --v4: #050a1a; 
-            --v5: #051a0a; 
+            /* Warm Sunset Washes */
+            --v0: rgba(255, 127, 80, 0.35); 
+            --v1: rgba(255, 99, 71, 0.35); 
+            --v2: rgba(255, 160, 122, 0.35); 
+            --v3: rgba(255, 182, 193, 0.35); 
+            --v4: rgba(238, 130, 238, 0.35); 
+            --v5: rgba(218, 112, 214, 0.35); 
 
-            --warm-white: #f0fdf4; 
-            --warm-white-glow: rgba(255, 255, 255, 0.3); 
+            --warm-white: #2C2820; 
+            --warm-white-glow: rgba(0, 0, 0, 0.15); 
         }
 
         /* =========================================
-           4. OCEAN THEME (Midnight Navy, Mint to Purple) 
+           4. CORAL THEME (Deep Blue, Vibrant Reef Colors) 
            ========================================= */
-        [data-theme="ocean"] {
-            --bg-color: #01060A;
-            --text-main: #e0f2fe;
-            --text-muted: rgba(224, 242, 254, 0.35);
-            --text-mid: rgba(224, 242, 254, 0.6);
-            --text-high: rgba(224, 242, 254, 0.8);
-            --bg-overlay: rgba(1, 10, 15, 0.85);
-            --drawer-bg: rgba(2, 12, 18, 0.95);
+        [data-theme="coral"] {
+            --bg-color: #0A1128;
+            --text-main: #F4F7FB;
+            --text-muted: rgba(244, 247, 251, 0.35);
+            --text-mid: rgba(244, 247, 251, 0.6);
+            --text-high: rgba(244, 247, 251, 0.8);
+            --bg-overlay: rgba(10, 17, 40, 0.85);
+            --drawer-bg: rgba(15, 25, 50, 0.95);
             --note-bg: rgba(255, 255, 255, 0.04);
-            --toast-bg: rgba(2, 12, 18, 0.95);
+            --toast-bg: rgba(15, 25, 50, 0.95);
 
             --glass: rgba(255, 255, 255, 0.05);
             --border: rgba(255, 255, 255, 0.15);
@@ -160,17 +161,19 @@
             --save-border: var(--active-accent);
             --save-shadow: 0 0 15px var(--active-accent);
             
-            --c0: #00FA9A; --c1: #00CED1; --c2: #4682B4; 
-            --c3: #6A5ACD; --c4: #8A2BE2; --c5: #9400D3;
+            /* Vibrant Reef */
+            --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; 
+            --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
 
-            --v0: #2a0510; 
-            --v1: #1a051a; 
-            --v2: #0a2a1a; 
-            --v3: #1a1a05; 
-            --v4: #001a2a; 
-            --v5: #002a2a; 
+            /* Deep oceanic contrast */
+            --v0: #002233; 
+            --v1: #003322; 
+            --v2: #220033; 
+            --v3: #33001A; 
+            --v4: #1A0033; 
+            --v5: #003333; 
 
-            --warm-white: #e0f2fe; 
+            --warm-white: #F4F7FB; 
             --warm-white-glow: rgba(255, 255, 255, 0.3); 
         }
 
@@ -212,19 +215,15 @@
         .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
         .spotlight-container > * { position: relative; z-index: 1; }
 
+        /* THE POINTY GLOW FIX: Identical to the working skeleton. No spotlight class! */
         .input-box {
-            background: var(--glass); padding: 25px; margin-top: 10px;
+            background: var(--glass); border-radius: 32px; padding: 25px;
             backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
             border: 1px solid var(--border);
             box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 30px var(--active-accent);
-            transition: all 0.8s ease; 
-            
-            /* The Ultimate iOS Sharp Corner Fix */
-            border-radius: 32px;
-            -webkit-border-radius: 32px;
-            isolation: isolate;
-            transform: translate3d(0,0,0);
-            -webkit-transform: translate3d(0,0,0);
+            transition: all 0.8s ease;
+            transform: translateZ(0);
+            will-change: box-shadow; margin-top: 10px;
         }
 
         .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
@@ -233,18 +232,13 @@
             flex-grow: 1; background: transparent; border: none;
             color: var(--text-main); font-size: 20px; overflow-y: auto;
             font-family: inherit; font-weight: 300; line-height: 1.5;
-            padding-bottom: 10px; 
-            
-            /* Mobile Safari Overrides */
-            -webkit-appearance: none;
-            outline: none !important; 
-            -webkit-tap-highlight-color: transparent;
+            padding-bottom: 10px; -webkit-appearance: none;
+            outline: none !important; -webkit-tap-highlight-color: transparent;
             -webkit-user-select: text; user-select: text;
         }
         #noteInput:focus {
-            outline: none !important;
-            box-shadow: none !important;
-            -webkit-box-shadow: none !important;
+            outline: 0px solid transparent !important;
+            box-shadow: none !important; -webkit-box-shadow: none !important;
         }
         #noteInput[contenteditable]:empty::before {
             content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block;
@@ -333,7 +327,6 @@
         }
         #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar { display: none; }
 
-        /* Dedicated Expense Scroll Window to fit ~3 items beautifully */
         #expenseVaultScroll {
             max-height: 230px; overflow-y: auto; 
             scrollbar-width: none; -ms-overflow-style: none;
@@ -455,7 +448,7 @@
         .permanent-msg {
             padding: 15px; background: rgba(150,150,150,0.05); border-radius: 15px; 
             font-size: 10px; line-height: 1.4; color: var(--text-mid); border: 1px dashed var(--border); 
-            text-align: center; margin-top: 15px;
+            text-align: center; margin-top: 5px; margin-bottom: 10px;
         }
 
         #toastContainer {
@@ -498,11 +491,6 @@
         .walk-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .walk-item b { color: var(--text-main); text-transform: uppercase; font-size: 9px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
 
-        .safety-box {
-            background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.3); 
-            border-radius: 12px; padding: 14px; margin-top: 8px;
-        }
-
         .theme-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
         .theme-btn { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
         .theme-circle {
@@ -525,7 +513,8 @@
 
     <div class="app-container">
         <div class="archive-header">Capture Note</div>
-        <div class="input-box spotlight-container">
+        
+        <div class="input-box">
             <div class="editor-wrapper">
                 <div id="noteInput" contenteditable="true" data-placeholder="Write your university note here" onkeyup="updateToolbarState(); autoSaveDraft();" onmouseup="updateToolbarState()"></div>
                 <div class="editor-toolbar">
@@ -539,13 +528,13 @@
         <div class="icon-row" id="inputIcons"></div>
 
         <div class="action-row-input">
-            <div class="date-btn">
+            <div class="date-btn spotlight-container">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 <span id="dateLabel">Due Date</span>
                 <input type="date" id="dueDatePicker" onchange="updateDateLabel()">
             </div>
-            <button class="save-btn" id="cancelAction" onclick="cancelEdit()">Cancel</button>
-            <button class="save-btn" id="saveAction" onclick="saveNote()">Save Task</button>
+            <button class="save-btn spotlight-container" id="cancelAction" onclick="cancelEdit()">Cancel</button>
+            <button class="save-btn spotlight-container" id="saveAction" onclick="saveNote()">Save Task</button>
         </div>
 
         <div class="archive-header" id="listsHeader">Lists</div>
@@ -588,12 +577,11 @@
             </div>
         </div>
 
-        <button class="collapsible-trigger" onclick="toggleVault('expensesModule')">Manage Expenses</button>
+        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('expensesModule')">Manage Expenses</button>
         <div id="expensesModule">
             <div class="calendar-container spotlight-container" style="margin-top: 10px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Log Journey</div>
-                    
                     <button class="action-btn" style="padding: 5px;" onclick="toggleExpenseSettings()">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </button>
@@ -608,7 +596,7 @@
                 </div>
                 <div class="expense-row" style="justify-content: space-between;">
                     <label class="toggle-label"><input type="checkbox" id="returnJourney" checked> Return</label>
-                    <button class="save-btn" id="logJourneyBtn" style="padding: 12px 20px;" onclick="logJourney()">Log Journey</button>
+                    <button class="save-btn spotlight-container" id="logJourneyBtn" style="padding: 12px 20px;" onclick="logJourney()">Log Journey</button>
                 </div>
             </div>
 
@@ -617,12 +605,12 @@
             </div>
             
             <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <button class="action-btn" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllExpenses()">Clear Logs</button>
-                <button class="action-btn" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportExpensesCSV()">Export to .CSV</button>
+                <button class="action-btn spotlight-container" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllExpenses()">Clear Logs</button>
+                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportExpensesCSV()">Export to .CSV</button>
             </div>
         </div>
 
-        <button class="collapsible-trigger" onclick="toggleVault('completedVault')">View Completed Tasks</button>
+        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('completedVault')">View Completed Tasks</button>
         <div id="completedVault">
             <div id="completedVaultScroll">
                 <div id="completedList"></div>
@@ -634,13 +622,12 @@
             <button class="footer-btn" onclick="fullBackup()">Download Full Vault Backup</button>
             <button class="footer-btn" onclick="triggerRestore()">Restore Vault from Backup</button>
             <input type="file" id="restoreInput" style="display: none;" accept=".json" onchange="handleRestore(event)">
-            
             <button class="footer-btn" onclick="toggleThemeDrawer()">Themes</button>
             <button class="footer-btn" onclick="toggleWalkthrough()">Help</button>
-        </div>
-
-        <div class="permanent-msg">
-            System updates or clearing browser cache will wipe app data. Save it to a file you'll be able to find when you click backup, and restore by finding those files in the restore option.
+            
+            <div class="permanent-msg">
+                System updates or clearing browser cache will wipe app data. Save it to a file you'll be able to find when you click backup, and restore by finding those files in the restore option.
+            </div>
         </div>
     </div>
 
@@ -649,6 +636,22 @@
         <div class="archive-header" style="margin-bottom:15px;">How To Use</div>
         
         <div class="help-scroll-area">
+            <div class="walk-item" style="border: none; padding-bottom: 0;">
+                <div style="color: var(--text-main); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5; color: var(--deadline-red);">
+                    System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
+                </div>
+                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                    <b style="color: var(--text-main);">1. Backup</b><br>
+                    Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely on your device.
+                </div>
+                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                    <b style="color: var(--text-main);">2. Restore</b><br>
+                    If your app ever clears unexpectedly, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return exactly as it was.
+                </div>
+            </div>
+            
+            <div style="border-top: 1px solid var(--border); margin: 15px 0;"></div>
+
             <div class="walk-item">
                 <b>Tags</b> 
                 Use the top icons to categorize notes (CBT, Neuro, etc). Tagging notes makes them much easier to filter and find later in the Lists section.
@@ -669,25 +672,9 @@
                 Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (blue dots) and tasks with deadlines on that date (red dots).
             </div>
             
-            <div class="walk-item">
+            <div class="walk-item" style="border: none;">
                 <b>Expenses</b> 
                 Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time, but you can type over it for custom journeys. It calculates mileage automatically and can be exported as a .CSV spreadsheet.
-            </div>
-            
-            <div class="walk-item" style="border: none;">
-                <div class="safety-box">
-                    <div style="color: var(--text-main); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">
-                        System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
-                    </div>
-                    <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                        <b style="color: var(--text-main);">1. Backup</b><br>
-                        Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely on your device.
-                    </div>
-                    <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                        <b style="color: var(--text-main);">2. Restore</b><br>
-                        If your app ever clears unexpectedly, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return exactly as it was.
-                    </div>
-                </div>
             </div>
         </div>
     </div>
@@ -701,7 +688,7 @@
         <div class="expense-row">
             <input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45 or 45)">
         </div>
-        <button class="save-btn" style="width: 100%; padding: 15px; margin-top: 10px;" onclick="saveExpenseSettings()">Save Settings</button>
+        <button class="save-btn spotlight-container" style="width: 100%; padding: 15px; margin-top: 10px;" onclick="saveExpenseSettings()">Save Settings</button>
         <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6;">
             Your Base Postcode will automatically pre-fill the 'From' box when logging a new journey.
         </div>
@@ -719,13 +706,13 @@
                 <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #4285F4 0%, #EA4335 40%, #FBBC05 70%, #34A853 100%);"></div>
                 <span>Academy</span>
             </div>
-            <div class="theme-btn" onclick="setTheme('forest')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #32CD32, #8B4513, #B22222);"></div>
-                <span>Forest</span>
+            <div class="theme-btn" onclick="setTheme('oasis')">
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #008B8B, #33D66A, #E8DCC4);"></div>
+                <span>Oasis</span>
             </div>
-            <div class="theme-btn" onclick="setTheme('ocean')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #00FA9A, #4682B4, #9400D3);"></div>
-                <span>Ocean</span>
+            <div class="theme-btn" onclick="setTheme('coral')">
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF3366, #FFD700, #00FFFF);"></div>
+                <span>Coral</span>
             </div>
         </div>
     </div>
@@ -1190,6 +1177,7 @@
             const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
             if(expenses.length === 0) { showToast("Nothing to export"); return; }
             
+            // Cleaned up CSV Export (Removed Return column since rows are split)
             let csvContent = "Date,Start Postcode,Destination Postcode,Miles,Cost (£)\n";
             expenses.forEach(e => {
                 csvContent += `${e.date},${e.start},${e.dest},${e.miles},${e.cost}\n`;
