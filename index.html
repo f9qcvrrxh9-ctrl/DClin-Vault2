@@ -23,6 +23,8 @@
 
             --glass: rgba(255, 255, 255, 0.07);
             --border: rgba(255, 255, 255, 0.18);
+            --shadow-heavy: rgba(0, 0, 0, 0.6);
+            --save-bg: rgba(0, 0, 0, 0.5);
             
             --c0: #F9C469; --c1: #FAA874; --c2: #FB8C7F;
             --c3: #FC708A; --c4: #FD5495; --c5: #FE38A0;
@@ -43,125 +45,107 @@
         }
 
         /* =========================================
-           2. PASTEL THEME (Light, Calming, Soft Shadows) 
+           2. ACADEMY THEME (White, Google Palette) 
            ========================================= */
-        [data-theme="pastel"] {
-            --bg-color: #FAFAFC;
-            --text-main: #2C3338;
-            --text-muted: rgba(44, 51, 56, 0.4);
-            --text-mid: rgba(44, 51, 56, 0.6);
-            --text-high: rgba(44, 51, 56, 0.85);
-            --bg-overlay: rgba(250, 250, 252, 0.85);
-            --drawer-bg: rgba(255, 255, 255, 0.95);
+        [data-theme="academy"] {
+            --bg-color: #FFFFFF;
+            --text-main: #202124;
+            --text-muted: rgba(32, 33, 36, 0.45);
+            --text-mid: rgba(32, 33, 36, 0.65);
+            --text-high: rgba(32, 33, 36, 0.9);
+            --bg-overlay: rgba(255, 255, 255, 0.85);
+            --drawer-bg: rgba(250, 250, 250, 0.98);
             --note-bg: rgba(0, 0, 0, 0.03);
             --toast-bg: rgba(255, 255, 255, 0.95);
 
-            --glass: rgba(0, 0, 0, 0.04);
+            --glass: rgba(0, 0, 0, 0.02);
             --border: rgba(0, 0, 0, 0.08);
+            --shadow-heavy: rgba(0, 0, 0, 0.08); 
+            --save-bg: #202124; 
             
-            /* Soft, highly legible pastel tags */
-            --c0: #A89FDF; /* Lilac */
-            --c1: #82C0E8; /* Baby Blue */
-            --c2: #F0B28C; /* Peach */
-            --c3: #7DDAA1; /* Mint */
-            --c4: #E1C871; /* Butter Gold */
-            --c5: #E89EAD; /* Blush */
+            --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
+            --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
             
-            /* Vibe orb acts as complementary airy pastel shadows */
-            --v0: rgba(130, 192, 232, 0.2); 
-            --v1: rgba(232, 158, 173, 0.2); 
-            --v2: rgba(125, 218, 161, 0.2); 
-            --v3: rgba(168, 159, 223, 0.2); 
-            --v4: rgba(130, 192, 232, 0.2); 
-            --v5: rgba(240, 178, 140, 0.2);
+            --v0: rgba(251, 188, 5, 0.35); 
+            --v1: rgba(66, 133, 244, 0.35); 
+            --v2: rgba(52, 168, 83, 0.35);  
+            --v3: rgba(234, 67, 53, 0.35);  
+            --v4: rgba(0, 172, 193, 0.35);  
+            --v5: rgba(103, 58, 183, 0.35); 
 
-            --warm-white: #2C3338; 
+            --warm-white: #202124; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
         }
 
         /* =========================================
-           3. FOREST THEME (Deep Olive & Autumn Palette) 
+           3. FOREST THEME (Deep Pine, Earthy Gradient) 
            ========================================= */
         [data-theme="forest"] {
-            --bg-color: #0c120c;
+            --bg-color: #081008;
             --text-main: #f0fdf4;
             --text-muted: rgba(240, 253, 244, 0.35);
             --text-mid: rgba(240, 253, 244, 0.6);
             --text-high: rgba(240, 253, 244, 0.8);
-            --bg-overlay: rgba(12, 18, 12, 0.85);
-            --drawer-bg: rgba(16, 24, 16, 0.95);
-            --note-bg: rgba(240, 253, 244, 0.04);
-            --toast-bg: rgba(16, 24, 16, 0.95);
+            --bg-overlay: rgba(8, 16, 8, 0.85);
+            --drawer-bg: rgba(10, 18, 10, 0.95);
+            --note-bg: rgba(255, 255, 255, 0.04);
+            --toast-bg: rgba(10, 18, 10, 0.95);
 
-            --glass: rgba(240, 253, 244, 0.05);
-            --border: rgba(240, 253, 244, 0.15);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.15);
+            --shadow-heavy: rgba(0, 0, 0, 0.6);
+            --save-bg: rgba(0, 0, 0, 0.5);
             
-            /* Curated Terrarium Palette */
-            --c0: #3cb371; /* Pine */
-            --c1: #e67e22; /* Autumn */
-            --c2: #e2725b; /* Terracotta */
-            --c3: #f4d03f; /* Mustard */
-            --c4: #9b59b6; /* Earthy Violet */
-            --c5: #8fbc8f; /* Sage */
+            --c0: #32CD32; --c1: #6B8E23; --c2: #8B4513; 
+            --c3: #A52A2A; --c4: #800000; --c5: #B22222;
 
-            /* Vibe orb: Deep contrasting moody shadows */
-            --v0: #1a0510; /* Moody Burgundy */
-            --v1: #051626; /* Deep Navy */
-            --v2: #021a0f; /* Deep Forest */
-            --v3: #260a26; /* Dark Plum */
-            --v4: #2b1f02; /* Muddy Bronze */
-            --v5: #050a1c; /* Midnight Indigo */
+            --v0: #2a0a18; 
+            --v1: #051024; 
+            --v2: #021a1a; 
+            --v3: #0a1a0a; 
+            --v4: #050a1a; 
+            --v5: #051a0a; 
 
             --warm-white: #f0fdf4; 
-            --warm-white-glow: rgba(240, 253, 244, 0.3); 
+            --warm-white-glow: rgba(255, 255, 255, 0.3); 
         }
 
         /* =========================================
-           4. OCEAN THEME (Abyssal Navy & Coral Reef) 
+           4. OCEAN THEME (Midnight Navy, Mint to Purple) 
            ========================================= */
         [data-theme="ocean"] {
-            --bg-color: #010A14;
+            --bg-color: #01060A;
             --text-main: #e0f2fe;
             --text-muted: rgba(224, 242, 254, 0.35);
             --text-mid: rgba(224, 242, 254, 0.6);
             --text-high: rgba(224, 242, 254, 0.8);
-            --bg-overlay: rgba(1, 10, 20, 0.85);
-            --drawer-bg: rgba(2, 15, 30, 0.95);
-            --note-bg: rgba(224, 242, 254, 0.04);
-            --toast-bg: rgba(2, 15, 30, 0.95);
+            --bg-overlay: rgba(1, 10, 15, 0.85);
+            --drawer-bg: rgba(2, 12, 18, 0.95);
+            --note-bg: rgba(255, 255, 255, 0.04);
+            --toast-bg: rgba(2, 12, 18, 0.95);
 
-            --glass: rgba(224, 242, 254, 0.05);
-            --border: rgba(224, 242, 254, 0.15);
+            --glass: rgba(255, 255, 255, 0.05);
+            --border: rgba(255, 255, 255, 0.15);
+            --shadow-heavy: rgba(0, 0, 0, 0.6);
+            --save-bg: rgba(0, 0, 0, 0.5);
             
-            /* Curated Coral Reef Palette */
-            --c0: #00ffff; /* Bioluminescent Cyan */
-            --c1: #ff7f50; /* Bright Coral */
-            --c2: #20b2aa; /* Seafoam */
-            --c3: #bf5fff; /* Electric Purple */
-            --c4: #ffe66d; /* Sunlit Yellow */
-            --c5: #00aaff; /* Azure Blue */
+            --c0: #00FA9A; --c1: #00CED1; --c2: #4682B4; 
+            --c3: #6A5ACD; --c4: #8A2BE2; --c5: #9400D3;
 
-            /* Vibe orb: Deep aquatic trenches (Complementary) */
-            --v0: #1a0525; /* Deep Purple */
-            --v1: #001533; /* Abyssal Blue */
-            --v2: #25001e; /* Dark Magenta */
-            --v3: #002626; /* Deep Teal */
-            --v4: #011627; /* Abyssal Navy */
-            --v5: #2a0808; /* Midnight Red */
+            --v0: #2a0510; 
+            --v1: #1a051a; 
+            --v2: #0a2a1a; 
+            --v3: #1a1a05; 
+            --v4: #001a2a; 
+            --v5: #002a2a; 
 
             --warm-white: #e0f2fe; 
-            --warm-white-glow: rgba(224, 242, 254, 0.3); 
+            --warm-white-glow: rgba(255, 255, 255, 0.3); 
         }
 
         /* INVISIBLE SCROLLBAR LOGIC */
-        html, body {
-            scrollbar-width: none;
-            -ms-overflow-style: none;
-        }
-        html::-webkit-scrollbar, body::-webkit-scrollbar {
-            display: none;
-            width: 0 !important;
-        }
+        html, body { scrollbar-width: none; -ms-overflow-style: none; }
+        html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; }
 
         body {
             margin: 0; background-color: var(--bg-color); color: var(--text-main);
@@ -177,8 +161,7 @@
             background: radial-gradient(circle, var(--active-vibe) 0%, transparent 80%);
             filter: blur(90px); z-index: -1; 
             transition: all 2s cubic-bezier(0.23, 1, 0.32, 1);
-            pointer-events: none; 
-            will-change: transform, background;
+            pointer-events: none; will-change: transform, background;
         }
 
         .app-container { padding: 40px 25px 60px; max-width: 420px; margin: auto; }
@@ -188,70 +171,44 @@
             margin-bottom: 22px; text-align: center; font-weight: 600;
         }
 
-        .spotlight-container {
-            position: relative;
-            overflow: hidden;
-        }
+        .spotlight-container { position: relative; overflow: hidden; }
         .spotlight-container::after {
             content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
             background: radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--active-accent), transparent 100%);
             opacity: 0; transition: opacity 0.4s ease;
             pointer-events: none; z-index: 0;
         }
-        .spotlight-container:hover::after, .spotlight-container:active::after {
-            opacity: 0.12; 
-        }
-        .spotlight-container > * {
-            position: relative; z-index: 1;
-        }
+        .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
+        .spotlight-container > * { position: relative; z-index: 1; }
 
         .input-box {
             background: var(--glass); border-radius: 32px; padding: 25px;
             backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
             border: 1px solid var(--border);
-            box-shadow: 0 20px 50px rgba(0,0,0,0.6), 0 0 30px var(--active-accent);
-            transition: all 0.8s ease; transform: translateZ(0);
-            margin-top: 10px;
+            box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 30px var(--active-accent);
+            transition: all 0.8s ease; transform: translateZ(0); margin-top: 10px; overflow: hidden;
         }
 
-        .editor-wrapper {
-            position: relative; width: 100%; height: 140px; display: flex; flex-direction: column;
-        }
+        .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
+        
         #noteInput {
             flex-grow: 1; background: transparent; border: none;
-            color: var(--text-main); font-size: 20px; outline: none; overflow-y: auto;
+            color: var(--text-main); font-size: 20px; outline: none !important; overflow-y: auto;
             font-family: inherit; font-weight: 300; line-height: 1.5;
-            padding-bottom: 10px;
+            padding-bottom: 10px; -webkit-appearance: none;
         }
+        #noteInput:focus { outline: none !important; box-shadow: none !important; -webkit-focus-ring-color: transparent !important; }
         #noteInput[contenteditable]:empty::before {
-            content: attr(data-placeholder);
-            color: var(--text-muted); pointer-events: none; display: block;
+            content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block;
         }
-        .editor-toolbar {
-            display: flex; gap: 12px; margin-top: auto; padding-top: 10px; align-items: center;
-        }
+        
+        .editor-toolbar { display: flex; gap: 12px; margin-top: auto; padding-top: 10px; align-items: center; }
         .format-btn {
             background: transparent; border: none; color: var(--text-muted);
             font-size: 14px; cursor: pointer; padding: 0; transition: 0.3s ease;
             font-family: inherit; font-weight: 600;
         }
-        .format-btn.active {
-            color: var(--text-main); text-shadow: 0 0 10px var(--active-accent);
-        }
-        
-        .mic-btn {
-            margin-left: auto;
-            display: flex; align-items: center; justify-content: center;
-        }
-        .mic-btn.recording {
-            color: var(--deadline-red);
-            animation: pulse-mic 1.5s infinite;
-        }
-        @keyframes pulse-mic {
-            0% { transform: scale(1); opacity: 1; text-shadow: 0 0 10px var(--deadline-red); }
-            50% { transform: scale(1.1); opacity: 0.6; }
-            100% { transform: scale(1); opacity: 1; text-shadow: 0 0 10px var(--deadline-red); }
-        }
+        .format-btn.active { color: var(--text-main); text-shadow: 0 0 10px var(--active-accent); }
 
         .icon-row { display: flex; justify-content: space-between; gap: 8px; }
         #inputIcons { margin: 45px 0 35px; }
@@ -262,7 +219,6 @@
             cursor: pointer; display: flex; align-items: center; justify-content: center;
             transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); padding: 0;
         }
-
         .sq-btn svg { width: 20px; height: 20px; opacity: 0.35; transition: 0.4s; }
         .sq-btn.active { transform: scale(1.15) translateY(-4px); border-color: var(--text-main); }
         
@@ -279,7 +235,6 @@
         .ic2 svg { fill: var(--c2); } .ic3 svg { fill: var(--c3); }
         .ic4 svg { fill: var(--c4); } .ic5 svg { fill: var(--c5); }
         .sq-btn.active svg { opacity: 1; }
-
         .all-btn { color: var(--text-high) !important; font-weight: 700 !important; }
         .all-btn.active { color: var(--text-main) !important; opacity: 1 !important; }
 
@@ -294,17 +249,15 @@
 
         .save-btn {
             flex: 1; padding: 18px; border-radius: 22px; 
-            background: rgba(0, 0, 0, 0.5); border: 1px solid var(--active-accent);
+            background: var(--save-bg); border: 1px solid var(--active-accent);
             color: var(--active-accent); text-shadow: 0 0 15px var(--active-accent);
-            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px;
-            cursor: pointer;
+            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer;
+            transition: all 0.3s ease;
         }
-
         #cancelAction {
             display: none; background: rgba(255, 69, 58, 0.1); border-color: var(--deadline-red); 
             color: var(--deadline-red); text-shadow: 0 0 15px rgba(255, 69, 58, 0.5);
         }
-
         .save-btn.pulse { animation: btnPulse 0.4s ease-out; }
         @keyframes btnPulse { 0% { transform: scale(1); } 50% { transform: scale(0.96); background: rgba(255,255,255,0.1); } 100% { transform: scale(1); } }
 
@@ -323,38 +276,36 @@
         #vaultWindow, #completedVaultScroll {
             max-height: 400px; overflow-y: auto; 
             scrollbar-width: none; -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch; 
-            overscroll-behavior-y: contain; 
+            -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; 
             margin-top: 15px; padding: 0 12px;
             -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
         }
         #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar { display: none; }
 
+        /* Dedicated Expense Scroll Window to fit ~3 items beautifully */
+        #expenseVaultScroll {
+            max-height: 230px; overflow-y: auto; 
+            scrollbar-width: none; -ms-overflow-style: none;
+            -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; 
+            margin-top: 15px; padding: 0 12px;
+            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+        }
+        #expenseVaultScroll::-webkit-scrollbar { display: none; }
+
+
         .note {
-            background: var(--note-bg); border-radius: 18px; 
-            padding: 16px 20px; margin-top: 14px; border-left: 3px solid var(--note-color);
-            backdrop-filter: blur(15px); animation: noteAppear 0.5s ease forwards;
-            position: relative; overflow: hidden;
+            background: var(--note-bg); border-radius: 18px; padding: 16px 20px; margin-top: 14px; 
+            border-left: 3px solid var(--note-color); backdrop-filter: blur(15px); 
+            animation: noteAppear 0.5s ease forwards; position: relative; overflow: hidden;
             transition: all 0.5s ease; transform: translateZ(0);
         }
+        mark.search-highlight { background: rgba(249, 196, 105, 0.4); color: var(--text-main); border-radius: 3px; padding: 0 2px; box-shadow: 0 0 5px var(--c0); }
 
-        mark.search-highlight {
-            background: rgba(249, 196, 105, 0.4); 
-            color: var(--text-main); border-radius: 3px; padding: 0 2px;
-            box-shadow: 0 0 5px var(--c0);
-        }
-
-        .note.deleting {
-            animation: shrinkOut 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards;
-        }
-        @keyframes shrinkOut {
-            0% { opacity: 1; transform: scale(1) translateY(0); }
-            100% { opacity: 0; transform: scale(0.9) translateY(-10px); }
-        }
+        .note.deleting { animation: shrinkOut 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards; }
+        @keyframes shrinkOut { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0.9) translateY(-10px); } }
 
         .note.completing::after {
-            content: ''; position: absolute; top: 0; left: -100%;
-            width: 100%; height: 100%;
+            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
             background: linear-gradient(90deg, transparent, var(--text-muted), transparent);
             transform: skewX(-20deg); animation: sweep 0.5s ease forwards;
         }
@@ -366,12 +317,11 @@
         .preview-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
         .action-row { display: flex; gap: 15px; margin-top: 12px; border-top: 1px solid var(--border); padding-top: 10px; }
-        .action-btn { background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); opacity: 0.5; cursor: pointer; text-transform: uppercase; }
+        .action-btn { background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); opacity: 0.5; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        .action-btn:hover { opacity: 1; }
         .done-btn { color: #34C759; opacity: 1; }
 
-        .empty-state {
-            text-align: center; padding: 50px 0 20px; color: var(--text-main); opacity: 0.3; display: flex; flex-direction: column; align-items: center;
-        }
+        .empty-state { text-align: center; padding: 50px 0 20px; color: var(--text-main); opacity: 0.3; display: flex; flex-direction: column; align-items: center; }
         .empty-state svg { margin-bottom: 12px; }
         .empty-text { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
 
@@ -379,65 +329,70 @@
             background: var(--glass); border-radius: 24px; border: 1px solid var(--border);
             padding: 22px; margin-bottom: 25px; backdrop-filter: blur(30px);
         }
-        .calendar-nav { 
-            display: flex; justify-content: space-between; align-items: center; 
-            margin-bottom: 15px; padding: 0 5px;
-        }
+        .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px; }
         .nav-btn { background: transparent; border: none; color: var(--text-main); cursor: pointer; opacity: 0.5; font-size: 14px; padding: 5px 10px; }
         .nav-btn:hover { opacity: 1; }
         #monthLabel { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 2px; }
 
-        .calendar-grid { 
-            display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; 
-            min-height: 255px; align-content: start;
-        }
-        .cal-day { 
-            font-size: 11px; padding: 12px 0; text-align: center; cursor: pointer; 
-            border-radius: 12px; position: relative; color: var(--text-muted); 
-            transition: all 0.3s ease;
-        }
+        .calendar-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; min-height: 255px; align-content: start; }
+        .cal-day { font-size: 11px; padding: 12px 0; text-align: center; cursor: pointer; border-radius: 12px; position: relative; color: var(--text-muted); transition: all 0.3s ease; }
         .cal-day.today { color: var(--text-main); font-weight: 700; border: 1px solid var(--border); background: var(--note-bg); }
-        .cal-day.selected {
-            color: var(--text-main); font-weight: 800; border: 1px solid var(--active-accent);
-            background: var(--note-bg); box-shadow: 0 0 10px var(--active-accent);
-        }
-        
+        .cal-day.selected { color: var(--text-main); font-weight: 800; border: 1px solid var(--active-accent); background: var(--note-bg); box-shadow: 0 0 10px var(--active-accent); }
         .dot-container { display: flex; justify-content: center; gap: 3px; margin-top: 3px; height: 4px; }
         .dot { width: 4px; height: 4px; border-radius: 50%; }
         .dot.blue { background: var(--task-blue); }
         .dot.red { background: var(--deadline-red); }
 
-        .quick-links-row {
-            display: flex; gap: 12px; margin-bottom: 25px;
-        }
+        .quick-links-row { display: flex; gap: 12px; margin-bottom: 25px; }
         .quick-link-btn {
-            flex: 1; background: var(--glass); border: 1px solid var(--border);
-            border-radius: 20px; padding: 16px 10px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 10px; text-decoration: none;
-            color: var(--text-high); transition: all 0.3s ease; -webkit-tap-highlight-color: transparent;
+            flex: 1; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 16px 10px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: var(--text-high); transition: all 0.3s ease; -webkit-tap-highlight-color: transparent;
         }
-        .quick-link-btn:active {
-            transform: scale(0.96); background: var(--note-bg);
-        }
+        .quick-link-btn:active { transform: scale(0.96); background: var(--note-bg); }
         .quick-link-btn svg { opacity: 0.6; transition: 0.3s; }
         .quick-link-btn:hover svg { opacity: 1; }
-        .quick-link-text {
-            font-size: 8px; text-transform: uppercase; letter-spacing: 2px;
-            font-weight: 700; opacity: 0.7; text-align: center;
+        .quick-link-text { font-size: 8px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; opacity: 0.7; text-align: center; }
+
+        /* EXPENSES STYLING */
+        .expense-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
+        
+        input[type=number]::-webkit-inner-spin-button, 
+        input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+        input[type=number] { -moz-appearance: textfield; }
+
+        .expense-input {
+            flex: 1; background: var(--note-bg); border: 1px solid var(--border); color: var(--text-main);
+            border-radius: 14px; padding: 14px 16px; font-size: 12px; font-family: inherit; outline: none !important;
+            -webkit-appearance: none;
         }
+        .expense-input::placeholder { color: var(--text-muted); }
+        
+        .toggle-label {
+            display: flex; align-items: center; gap: 8px; font-size: 10px; text-transform: uppercase;
+            font-weight: 700; letter-spacing: 1px; color: var(--text-mid); cursor: pointer;
+        }
+        .toggle-label input { width: 16px; height: 16px; accent-color: var(--active-accent); cursor: pointer; }
+
+        .expense-tile {
+            background: var(--note-bg); border-radius: 14px; padding: 14px; margin-top: 10px;
+            border-left: 2px solid var(--active-accent); display: flex; justify-content: space-between; align-items: center;
+        }
+        .exp-details { display: flex; flex-direction: column; gap: 4px; }
+        .exp-dest { font-size: 11px; font-weight: 600; color: var(--text-main); text-transform: uppercase; }
+        .exp-meta { font-size: 9px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; }
+        .exp-cost { font-size: 14px; font-weight: 800; color: var(--active-accent); transition: color 0.5s ease; }
 
         .collapsible-trigger {
             width: 100%; padding: 20px; background: var(--glass); border: 1px solid var(--border);
             border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600;
             text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px;
         }
-        #completedVault { display: none; padding-bottom: 20px; }
+        #completedVault, #expensesModule { display: none; padding-bottom: 20px; }
 
         .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 8px; padding-bottom: 60px; }
         .footer-btn { 
             background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); 
-            opacity: 0.3; cursor: pointer; text-transform: uppercase; padding: 8px;
-            transition: all 0.3s ease; border-radius: 10px;
+            opacity: 0.3; cursor: pointer; text-transform: uppercase; padding: 8px; transition: all 0.3s ease; border-radius: 10px;
         }
         .footer-btn:active { opacity: 1; box-shadow: 0 0 15px var(--warm-white-glow); background: var(--glass); }
 
@@ -452,61 +407,56 @@
             display: flex; flex-direction: column; gap: 10px; z-index: 9999; pointer-events: none;
         }
         .toast {
-            background: var(--toast-bg); border: 1px solid var(--border);
-            color: var(--text-main); padding: 14px 28px; border-radius: 30px; font-size: 10px;
-            font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6); backdrop-filter: blur(10px);
-            animation: toastEnter 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards,
-                       toastExit 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards 3s;
+            background: var(--toast-bg); border: 1px solid var(--border); color: var(--text-main);
+            padding: 14px 28px; border-radius: 30px; font-size: 10px; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 1.5px; box-shadow: 0 10px 30px var(--shadow-heavy); backdrop-filter: blur(10px);
+            animation: toastEnter 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards, toastExit 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards 3s;
         }
         @keyframes toastEnter { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes toastExit { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(30px); } }
 
         .drawer-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px);
-            z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);
+            backdrop-filter: blur(5px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
         }
         .drawer-overlay.active { opacity: 1; pointer-events: auto; }
 
         .bottom-drawer { 
-            position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%);
-            width: 100%; max-width: 420px; background: var(--drawer-bg);
-            backdrop-filter: blur(30px); border-top: 1px solid var(--border);
+            position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 420px;
+            background: var(--drawer-bg); backdrop-filter: blur(30px); border-top: 1px solid var(--border);
             border-radius: 30px 30px 0 0; padding: 20px 25px 40px; box-sizing: border-box;
-            z-index: 1000; transition: transform 0.4s cubic-bezier(0.32, 1, 0.23, 1);
-            font-size: 10px; line-height: 1.6; color: var(--text-high);
+            z-index: 1000; transition: transform 0.4s cubic-bezier(0.32, 1, 0.23, 1); font-size: 10px; line-height: 1.6; color: var(--text-high);
+            max-height: 85vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
         }
+        .bottom-drawer::-webkit-scrollbar { display: none; }
         .bottom-drawer.active { transform: translate(-50%, 0); }
-        .drawer-handle {
-            width: 40px; height: 5px; background: var(--text-muted);
-            border-radius: 5px; margin: 0 auto 20px;
-        }
-        .walk-item { margin-bottom: 12px; }
-        .walk-item b { color: var(--text-main); text-transform: uppercase; font-size: 8px; letter-spacing: 1px; }
+        .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 20px; }
+        .walk-item { margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid var(--border); }
+        .walk-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .walk-item b { color: var(--text-main); text-transform: uppercase; font-size: 9px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
 
-        /* THEME DRAWER UI - 3D GLASS ORBS */
-        .theme-row {
-            display: flex; justify-content: space-between; align-items: center; margin-top: 10px;
-        }
-        .theme-btn {
-            display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
+        .theme-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+        .theme-btn { display: flex; flex-direction: column; align-items: center; gap: 10px; cursor: pointer; -webkit-tap-highlight-color: transparent; }
         .theme-circle {
             width: 50px; height: 50px; border-radius: 50%; border: none;
-            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.4),
-                        inset 4px 4px 8px rgba(255,255,255,0.3),
-                        0 8px 15px rgba(0,0,0,0.4);
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.4), inset 4px 4px 8px rgba(255,255,255,0.3), 0 8px 15px rgba(0,0,0,0.4);
             transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease;
         }
         .theme-btn:active .theme-circle { 
-            transform: scale(0.9); 
-            box-shadow: inset -3px -3px 8px rgba(0,0,0,0.5),
-                        inset 2px 2px 5px rgba(255,255,255,0.2),
-                        0 4px 8px rgba(0,0,0,0.3);
+            transform: scale(0.9); box-shadow: inset -3px -3px 8px rgba(0,0,0,0.5), inset 2px 2px 5px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.3);
         }
         .theme-btn span { font-size: 9px; text-transform: uppercase; font-weight: 700; color: var(--text-high); letter-spacing: 1px; }
+
+        /* SAFETY BOX STYLING */
+        .safety-box {
+            background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.2); 
+            border-radius: 12px; padding: 14px; margin-top: 10px;
+        }
+        .safety-step {
+            padding-left: 10px; border-left: 2px solid var(--deadline-red); 
+            opacity: 0.9; margin-bottom: 10px; font-size: 10px; line-height: 1.4;
+        }
+        .safety-step:last-child { margin-bottom: 0; }
 
     </style>
 </head>
@@ -525,9 +475,6 @@
                     <button class="format-btn" id="btnBold" onclick="formatText('bold')">B</button>
                     <button class="format-btn" id="btnItalic" onclick="formatText('italic')" style="font-style: italic;">I</button>
                     <button class="format-btn" id="btnUnderline" onclick="formatText('underline')" style="text-decoration: underline;">U</button>
-                    <button class="format-btn mic-btn" id="btnMic" onclick="toggleDictation()">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line></svg>
-                    </button>
                 </div>
             </div>
         </div>
@@ -584,7 +531,37 @@
             </a>
         </div>
 
-        <button class="collapsible-trigger" onclick="toggleCompleted()">View Completed</button>
+        <button class="collapsible-trigger" onclick="toggleVault('expensesModule')">Manage Expenses</button>
+        <div id="expensesModule">
+            <div class="calendar-container spotlight-container" style="margin-top: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Log Journey</div>
+                    
+                    <button class="action-btn" onclick="toggleExpenseSettings()">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </button>
+                </div>
+                
+                <div class="expense-row">
+                    <input type="date" id="journeyDate" class="expense-input" style="width: 100px; flex: none;">
+                    <input type="text" id="startPostcode" class="expense-input" placeholder="From (Postcode)">
+                </div>
+                <div class="expense-row">
+                    <input type="text" id="destPostcode" class="expense-input" placeholder="To (Postcode)">
+                </div>
+                <div class="expense-row" style="justify-content: space-between;">
+                    <label class="toggle-label"><input type="checkbox" id="returnJourney" checked> Return</label>
+                    <button class="save-btn" id="logJourneyBtn" style="padding: 12px 20px;" onclick="logJourney()">Log Journey</button>
+                </div>
+            </div>
+
+            <div id="expenseVaultScroll">
+                <div id="expenseList"></div>
+            </div>
+            <button class="action-btn" style="width:100%; margin-top:15px; padding: 10px; background: var(--glass); border-radius: 10px;" onclick="exportExpensesCSV()">Export to .CSV</button>
+        </div>
+
+        <button class="collapsible-trigger" onclick="toggleVault('completedVault')">View Completed Tasks</button>
         <div id="completedVault">
             <div id="completedVaultScroll">
                 <div id="completedList"></div>
@@ -608,12 +585,64 @@
 
     <div id="helpWalkthrough" class="bottom-drawer">
         <div class="drawer-handle"></div>
-        <div class="walk-item"><b>Tags:</b> Use the top icons to categorize notes (CBT, Neuro, etc). The background shifts to match your choice.</div>
-        <div class="walk-item"><b>Filter:</b> Tap icons below the search bar to filter by category. Use ALL to see everything.</div>
-        <div class="walk-item"><b>Search:</b> Type in the search bar to find specific keywords within your notes.</div>
-        <div class="walk-item"><b>Export:</b> Tap the download icon in the search bar to save your current filtered list as a .txt file.</div>
-        <div class="walk-item"><b>Calendar:</b> Blue dots show added notes; Red dots show due dates. Tap a day to see its tasks.</div>
-        <div class="walk-item"><b>Safety:</b> Backups are manual. Save the file to your device and pick it later via Restore.</div>
+        <div class="archive-header" style="margin-bottom:20px;">How To Use</div>
+        
+        <div class="walk-item">
+            <b>Tags</b> 
+            Use the top icons to categorize notes (CBT, Neuro, etc). Tagging notes makes them much easier to filter and find later in the Lists section.
+        </div>
+        
+        <div class="walk-item">
+            <b>Filter & Search</b> 
+            Tap icons below the search bar to filter by category, or type to find specific keywords. Tap ALL to see everything. Tap the download icon in the search bar to export your currently filtered list as a .txt file.
+        </div>
+        
+        <div class="walk-item">
+            <b>Links</b> 
+            The quick-access buttons (Attendance, Timetable, Feedback) will only work seamlessly on devices where your default browser is already signed into your university Microsoft account.
+        </div>
+        
+        <div class="walk-item">
+            <b>Calendar</b> 
+            Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (blue dots) and tasks with deadlines on that date (red dots).
+        </div>
+        
+        <div class="walk-item">
+            <b>Expenses</b> 
+            Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time, but you can type over it for custom journeys. It calculates mileage automatically and can be exported as a .CSV spreadsheet.
+        </div>
+        
+        <div class="walk-item">
+            <b style="color: var(--deadline-red);">Safety & Backups</b> 
+            <div class="safety-box">
+                <div style="color: var(--text-high); margin-bottom: 12px; font-size: 10px;">
+                    System updates or clearing your browser cache <b>will wipe this app's data</b>. It is highly recommended to back up your vault frequently!
+                </div>
+                <div class="safety-step">
+                    <b>1. Backup</b><br>
+                    Tap 'Download Full Vault Backup' to save your data as a secure .json file directly to your phone's 'Downloads' or 'Files' app.
+                </div>
+                <div class="safety-step">
+                    <b>2. Restore</b><br>
+                    If your app ever clears unexpectedly, simply tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return exactly as it was.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="expenseSettingsDrawer" class="bottom-drawer">
+        <div class="drawer-handle"></div>
+        <div class="archive-header" style="margin-bottom:20px;">Expense Settings</div>
+        <div class="expense-row">
+            <input type="text" id="basePostcode" class="expense-input" placeholder="Base Postcode (e.g. SO17 1BJ)">
+        </div>
+        <div class="expense-row">
+            <input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45)">
+        </div>
+        <button class="save-btn" style="width: 100%; padding: 15px; margin-top: 10px;" onclick="saveExpenseSettings()">Save Settings</button>
+        <div class="permanent-msg">
+            Your Base Postcode will automatically pre-fill the 'From' box when logging a new journey.
+        </div>
     </div>
 
     <div id="themeDrawer" class="bottom-drawer">
@@ -624,16 +653,16 @@
                 <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FD5495, #1a0a24);"></div>
                 <span>Default</span>
             </div>
-            <div class="theme-btn" onclick="setTheme('pastel')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #b19cd9, #89cff0, #fdfdfe);"></div>
-                <span>Pastel</span>
+            <div class="theme-btn" onclick="setTheme('academy')">
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #4285F4, #EA4335, #FBBC05);"></div>
+                <span>Academy</span>
             </div>
             <div class="theme-btn" onclick="setTheme('forest')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #e67e22, #3cb371, #0a1128);"></div>
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #32CD32, #8B4513, #B22222);"></div>
                 <span>Forest</span>
             </div>
             <div class="theme-btn" onclick="setTheme('ocean')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #ff7f50, #00ffff, #1a0525);"></div>
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #00FA9A, #4682B4, #9400D3);"></div>
                 <span>Ocean</span>
             </div>
         </div>
@@ -702,51 +731,6 @@
                 const currentText = document.getElementById('noteInput').innerHTML;
                 localStorage.setItem('dclinDraft', currentText);
             }
-        }
-
-        let recognition;
-        let isRecording = false;
-        if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-            const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-            recognition = new SpeechRecognition();
-            recognition.continuous = true;
-            recognition.interimResults = true;
-
-            recognition.onresult = (event) => {
-                let finalTranscript = '';
-                for (let i = event.resultIndex; i < event.results.length; ++i) {
-                    if (event.results[i].isFinal) {
-                        finalTranscript += event.results[i][0].transcript;
-                    }
-                }
-                if (finalTranscript) {
-                    document.getElementById('noteInput').innerHTML += finalTranscript + ' ';
-                    autoSaveDraft();
-                }
-            };
-            recognition.onerror = (e) => stopDictation();
-            recognition.onend = () => stopDictation();
-        }
-
-        function toggleDictation() {
-            if (!recognition) {
-                showToast("Dictation not supported in this browser");
-                return;
-            }
-            if (isRecording) {
-                stopDictation();
-            } else {
-                recognition.start();
-                isRecording = true;
-                document.getElementById('btnMic').classList.add('recording');
-                triggerHaptic(20);
-            }
-        }
-
-        function stopDictation() {
-            if(recognition) recognition.stop();
-            isRecording = false;
-            document.getElementById('btnMic').classList.remove('recording');
         }
 
         svgs.forEach((svg, i) => {
@@ -990,15 +974,180 @@
             showToast("Completed tasks cleared");
         }
 
+        /* --- EXPENSE TRACKER LOGIC --- */
+        async function fetchCoordinates(postcode) {
+            const clean = postcode.replace(/\s+/g, '').toLowerCase();
+            const res = await fetch(`https://api.postcodes.io/postcodes/${clean}`);
+            if (!res.ok) throw new Error("Invalid Postcode");
+            const data = await res.json();
+            return { lat: data.result.latitude, lng: data.result.longitude };
+        }
+
+        async function logJourney() {
+            const start = document.getElementById('startPostcode').value;
+            const dest = document.getElementById('destPostcode').value;
+            const date = document.getElementById('journeyDate').value;
+            const isReturn = document.getElementById('returnJourney').checked;
+            
+            const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings'));
+            const rateStr = expSettings ? expSettings.rate : null;
+            
+            if(!rateStr) {
+                showToast("Please set £ Rate via the Gear Icon first");
+                toggleExpenseSettings();
+                return;
+            }
+            if(!start || !dest || !date) {
+                showToast("Please fill all journey fields");
+                return;
+            }
+            
+            // MATH FIX: If user types "45" (meaning 45p), we divide by 100. If they type "0.45", we leave it.
+            let rawRate = parseFloat(rateStr);
+            const rate = rawRate > 3 ? (rawRate / 100) : rawRate; 
+            
+            const btn = document.getElementById('logJourneyBtn');
+            const originalText = btn.innerText;
+            btn.innerText = "Calculating..."; btn.style.opacity = "0.5";
+            triggerHaptic(10);
+            
+            try {
+                const startCoords = await fetchCoordinates(start);
+                const endCoords = await fetchCoordinates(dest);
+                
+                const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${startCoords.lng},${startCoords.lat};${endCoords.lng},${endCoords.lat}?overview=false`;
+                const routeRes = await fetch(osrmUrl);
+                if (!routeRes.ok) throw new Error("Routing failed");
+                const routeData = await routeRes.json();
+                
+                const distanceMeters = routeData.routes[0].distance;
+                const milesOneWay = (distanceMeters * 0.000621371).toFixed(1);
+                const costOneWay = (milesOneWay * rate).toFixed(2);
+                
+                let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+                
+                // Add outgoing journey
+                expenses.unshift({
+                    id: Date.now(),
+                    date: date,
+                    start: start.toUpperCase(),
+                    dest: dest.toUpperCase(),
+                    miles: milesOneWay,
+                    cost: costOneWay
+                });
+                
+                // Add returning journey as a separate log entry if checked
+                if(isReturn) {
+                    expenses.unshift({
+                        id: Date.now() + 1, // Ensure unique ID
+                        date: date,
+                        start: dest.toUpperCase(),
+                        dest: start.toUpperCase(),
+                        miles: milesOneWay,
+                        cost: costOneWay
+                    });
+                }
+                
+                localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
+                
+                document.getElementById('destPostcode').value = "";
+                document.getElementById('returnJourney').checked = false; // Reset checkbox
+                
+                renderExpenses();
+                showToast(`Logged successfully`);
+                triggerHaptic([30, 50, 30]);
+                
+            } catch (error) {
+                showToast("Error. Check postcodes & connection.");
+            }
+            
+            btn.innerText = originalText; btn.style.opacity = "1";
+        }
+
+        function saveExpenseSettings() {
+            triggerHaptic(20);
+            const base = document.getElementById('basePostcode').value;
+            const rate = document.getElementById('mileageRate').value;
+            localStorage.setItem('dclinExpenseSettings', JSON.stringify({base, rate}));
+            
+            const startInput = document.getElementById('startPostcode');
+            if(!startInput.value && base) startInput.value = base;
+            
+            closeDrawers();
+            showToast("Expense Settings Saved");
+        }
+
+        function renderExpenses() {
+            const list = document.getElementById('expenseList');
+            const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+            
+            if (expenses.length === 0) {
+                list.innerHTML = `<div class="empty-state"><div class="empty-text">No expenses logged</div></div>`;
+                return;
+            }
+            
+            let html = "";
+            expenses.forEach(e => {
+                const displayDate = e.date.split('-').reverse().slice(0,2).join('/');
+                html += `
+                <div class="expense-tile">
+                    <div class="exp-details">
+                        <div class="exp-dest">${e.start} ➔ ${e.dest}</div>
+                        <div class="exp-meta">${displayDate} • ${e.miles} mi</div>
+                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;">
+                        <div class="exp-cost">£${e.cost}</div>
+                        <button class="action-btn" style="color:#ff453a; font-size:14px; padding:5px;" onclick="deleteExpense(${e.id})">×</button>
+                    </div>
+                </div>`;
+            });
+            list.innerHTML = html;
+        }
+
+        function deleteExpense(id) {
+            triggerHaptic([50, 100, 50]);
+            let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+            expenses = expenses.filter(e => e.id !== id);
+            localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
+            renderExpenses();
+            showToast("Expense Deleted");
+        }
+
+        function exportExpensesCSV() {
+            const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+            if(expenses.length === 0) { showToast("Nothing to export"); return; }
+            
+            let csvContent = "Date,Start Postcode,Destination Postcode,Miles,Cost (£)\n";
+            expenses.forEach(e => {
+                csvContent += `${e.date},${e.start},${e.dest},${e.miles},${e.cost}\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `DClin_Expenses_Export.csv`;
+            a.click();
+            showToast("Spreadsheet Exported");
+        }
+        /* --- END EXPENSES --- */
+
+        function toggleVault(vaultId) {
+            const v = document.getElementById(vaultId);
+            v.style.display = (v.style.display === 'block') ? 'none' : 'block';
+        }
+
         function closeDrawers() {
             document.getElementById('helpWalkthrough').classList.remove('active');
             document.getElementById('themeDrawer').classList.remove('active');
+            document.getElementById('expenseSettingsDrawer').classList.remove('active');
             document.getElementById('drawerOverlay').classList.remove('active');
         }
 
         function toggleWalkthrough() {
             triggerHaptic(10); 
             document.getElementById('themeDrawer').classList.remove('active');
+            document.getElementById('expenseSettingsDrawer').classList.remove('active');
             const drawer = document.getElementById('helpWalkthrough');
             const overlay = document.getElementById('drawerOverlay');
             drawer.classList.toggle('active');
@@ -1008,7 +1157,18 @@
         function toggleThemeDrawer() {
             triggerHaptic(10); 
             document.getElementById('helpWalkthrough').classList.remove('active');
+            document.getElementById('expenseSettingsDrawer').classList.remove('active');
             const drawer = document.getElementById('themeDrawer');
+            const overlay = document.getElementById('drawerOverlay');
+            drawer.classList.toggle('active');
+            if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active');
+        }
+
+        function toggleExpenseSettings() {
+            triggerHaptic(10); 
+            document.getElementById('helpWalkthrough').classList.remove('active');
+            document.getElementById('themeDrawer').classList.remove('active');
+            const drawer = document.getElementById('expenseSettingsDrawer');
             const overlay = document.getElementById('drawerOverlay');
             drawer.classList.toggle('active');
             if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active');
@@ -1027,10 +1187,13 @@
 
         function fullBackup() {
             const data = localStorage.getItem('dclinData') || "[]";
-            const blob = new Blob([data], { type: 'application/json' });
+            const expData = localStorage.getItem('dclinExpenses') || "[]";
+            const combined = JSON.stringify({ notes: JSON.parse(data), expenses: JSON.parse(expData) });
+            
+            const blob = new Blob([combined], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
             const a = document.createElement('a');
-            a.download = "DClin_Vault_Backup.json";
+            a.download = "DClin_Vault_Full_Backup.json";
             a.href = url;
             a.click();
             setTimeout(() => URL.revokeObjectURL(url), 100);
@@ -1046,19 +1209,22 @@
             reader.onload = function(e) {
                 try {
                     const importedData = JSON.parse(e.target.result);
+                    
                     if (Array.isArray(importedData)) {
                         let currentData = JSON.parse(localStorage.getItem('dclinData')) || [];
                         let dataMap = new Map();
-                        
                         currentData.forEach(item => dataMap.set(item.id, item));
                         importedData.forEach(item => dataMap.set(item.id, item));
-                        
                         let mergedData = Array.from(dataMap.values()).sort((a, b) => b.id - a.id);
-                        
                         localStorage.setItem('dclinData', JSON.stringify(mergedData));
-                        renderNotes(); renderCalendar();
-                        showToast("Vault Restored & Merged!");
+                    } 
+                    else if (importedData.notes) {
+                        localStorage.setItem('dclinData', JSON.stringify(importedData.notes));
+                        if(importedData.expenses) localStorage.setItem('dclinExpenses', JSON.stringify(importedData.expenses));
                     }
+                    
+                    renderNotes(); renderCalendar(); renderExpenses();
+                    showToast("Vault Restored & Merged!");
                 } catch (err) { alert("Error reading file."); }
                 event.target.value = '';
             };
@@ -1107,11 +1273,6 @@
             btn.innerText = isPreview ? "Read More" : "Collapse";
         }
 
-        function toggleCompleted() {
-            const v = document.getElementById('completedVault');
-            v.style.display = (v.style.display === 'block') ? 'none' : 'block';
-        }
-
         function editNote(id) {
             triggerHaptic(30); 
             const data = JSON.parse(localStorage.getItem('dclinData')) || [];
@@ -1138,9 +1299,20 @@
 
             const draft = localStorage.getItem('dclinDraft');
             if (draft) document.getElementById('noteInput').innerHTML = draft;
+            
+            // Load Expense Settings and Auto-fill Start box
+            const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings'));
+            if(expSettings) {
+                document.getElementById('basePostcode').value = expSettings.base || '';
+                document.getElementById('mileageRate').value = expSettings.rate || '';
+                document.getElementById('startPostcode').value = expSettings.base || '';
+            }
+            
+            document.getElementById('journeyDate').value = new Date().toISOString().split('T')[0];
 
             renderCalendar(); 
             renderNotes(); 
+            renderExpenses();
             
             setTimeout(() => { document.getElementById('inputIcons').children[writeIdx].click(); }, 50);
         };
