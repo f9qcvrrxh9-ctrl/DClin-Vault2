@@ -19,6 +19,13 @@
             -webkit-user-select: none; user-select: none;
         }
 
+        /* html element also gets the background color to fix the iOS repainting scroll bug */
+        html {
+            background-color: var(--bg-color);
+            transition: background-color 0.6s ease;
+            height: 100%;
+        }
+
         /* =========================================
            1. DEFAULT THEME (Dark & Warm Sunset) 
            ========================================= */
@@ -45,6 +52,7 @@
             --c0: #F9C469; --c1: #FAA874; --c2: #FB8C7F;
             --c3: #FC708A; --c4: #FD5495; --c5: #FE38A0;
             
+            /* Restored original dark moody vibes */
             --v0: #1a0a24; --v1: #140a24; --v2: #0a1124; 
             --v3: #0a2024; --v4: #0a2417; --v5: #241b0a; 
 
@@ -55,7 +63,9 @@
             --active-vibe: var(--v5);
             --filter-accent: var(--warm-white-glow);
             
-            --orb-x: 50%; --orb-y: 15%; 
+            --orb-x: 50%; --orb-y: -10%; 
+            --task-blue: #007AFF;
+            --deadline-red: #FF453A;
         }
 
         /* =========================================
@@ -84,12 +94,13 @@
             --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
             --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
             
-            --v0: rgba(66, 133, 244, 0.25); 
-            --v1: rgba(234, 67, 53, 0.25); 
-            --v2: rgba(251, 188, 5, 0.25);  
-            --v3: rgba(52, 168, 83, 0.25);  
-            --v4: rgba(103, 58, 183, 0.25);  
-            --v5: rgba(0, 172, 193, 0.25); 
+            /* Restored to soft 0.15 opacity */
+            --v0: rgba(66, 133, 244, 0.15); 
+            --v1: rgba(234, 67, 53, 0.15); 
+            --v2: rgba(251, 188, 5, 0.15);  
+            --v3: rgba(52, 168, 83, 0.15);  
+            --v4: rgba(103, 58, 183, 0.15);  
+            --v5: rgba(0, 172, 193, 0.15); 
 
             --warm-white: #202124; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
@@ -121,12 +132,13 @@
             --c0: #008B8B; --c1: #00B294; --c2: #00CC84; 
             --c3: #33D66A; --c4: #66E04A; --c5: #85E62C;
 
-            --v0: rgba(220, 100, 80, 0.35); 
-            --v1: rgba(230, 130, 50, 0.3); 
-            --v2: rgba(230, 160, 100, 0.35); 
-            --v3: rgba(210, 110, 160, 0.3); 
-            --v4: rgba(180, 100, 180, 0.35); 
-            --v5: rgba(220, 180, 50, 0.3); 
+            /* Restored very soft, low-opacity pastel washes */
+            --v0: rgba(255, 127, 80, 0.2); 
+            --v1: rgba(255, 140, 0, 0.2); 
+            --v2: rgba(255, 160, 122, 0.2); 
+            --v3: rgba(255, 105, 180, 0.2); 
+            --v4: rgba(218, 112, 214, 0.2); 
+            --v5: rgba(255, 215, 0, 0.2); 
 
             --warm-white: #2C2820; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
@@ -158,42 +170,37 @@
             --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; 
             --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
 
-            --v0: #008B8B; 
-            --v1: #8A2BE2; 
-            --v2: #C71585; 
-            --v3: #FF4500; 
-            --v4: #4B0082; 
-            --v5: #00FF7F; 
+            /* Restored to deep, dark oceanic shadows */
+            --v0: #1a0a20; 
+            --v1: #0a1020; 
+            --v2: #200a15; 
+            --v3: #200a0a; 
+            --v4: #0a0a20; 
+            --v5: #0a2015; 
 
             --warm-white: #F4F7FB; 
             --warm-white-glow: rgba(255, 255, 255, 0.3); 
         }
 
-        /* STRICT HORIZONTAL LOCK */
-        html, body { 
-            scrollbar-width: none; -ms-overflow-style: none; 
-            width: 100%; overflow-x: hidden; position: relative;
-        }
+        html, body { scrollbar-width: none; -ms-overflow-style: none; width: 100%; overflow-x: hidden; position: relative;}
         html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; }
 
         body {
             margin: 0; background-color: var(--bg-color); color: var(--text-main);
             font-family: -apple-system, system-ui, sans-serif;
-            min-height: 100vh;
+            min-height: 100vh; overflow-y: auto; overflow-x: hidden;
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.6s ease, color 0.6s ease;
         }
 
-        /* RESTORED TALL ORB - Hardcoded pixel width stops horizontal scroll blowout */
+        /* RESTORED ORB EXACTLY TO PREVIOUS WORKING STATE */
         .vibe-orb {
-            position: absolute; 
-            top: var(--orb-y, 220px); left: var(--orb-x, 50%); 
-            transform: translate(-50%, -50%); 
-            width: 800px; height: 650px;
-            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%);
-            filter: blur(80px); z-index: -1; 
-            transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
-            pointer-events: none; will-change: transform, background, left, top;
+            position: fixed; top: var(--orb-y); left: var(--orb-x); 
+            transform: translate(-50%, -50%); width: 160%; height: 70%;
+            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 80%);
+            filter: blur(90px); z-index: -1; 
+            transition: all 2s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none; will-change: transform, background;
         }
 
         .app-container { 
@@ -293,7 +300,6 @@
             cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         
-        /* 16px font-size lock across inputs prevents Apple from zooming and shifting the screen */
         input, select, textarea { font-size: 16px !important; }
         
         #dueDatePicker { position: absolute; top:0; left:0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
@@ -447,12 +453,11 @@
         @keyframes toastEnter { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes toastExit { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(30px); } }
 
-        /* KEYBOARD BUG FIX: Drawers are strictly invisible until triggered to prevent blurry leakage */
         .drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);
-            backdrop-filter: blur(5px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
+            backdrop-filter: blur(5px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s;
         }
-        .drawer-overlay.active { opacity: 1; pointer-events: auto; }
+        .drawer-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
 
         .bottom-drawer { 
             position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 420px;
@@ -463,15 +468,14 @@
             transition: transform 0.4s cubic-bezier(0.32, 1, 0.23, 1), opacity 0.4s, visibility 0.4s;
         }
         .bottom-drawer.active { 
-            transform: translate(-50%, 0); 
-            opacity: 1; visibility: visible; 
+            transform: translate(-50%, 0); opacity: 1; visibility: visible; 
         }
         .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 15px; }
         
         .help-scroll-area {
             max-height: 60vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
             -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
-            padding: 10px 0 20px; 
+            padding: 0 0 20px; 
         }
         .help-scroll-area::-webkit-scrollbar { display: none; }
         
@@ -759,21 +763,11 @@
         
         const tagColors = ['var(--c0)', 'var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)', 'var(--c5)'];
         const tagMoods = ['var(--v0)', 'var(--v1)', 'var(--v2)', 'var(--v3)', 'var(--v4)', 'var(--v5)'];
-        const orbRadialPath = [['40%','15%'], ['60%','15%'], ['70%','25%'], ['60%','35%'], ['40%','35%'], ['30%','25%']];
+        const orbRadialPath = [['30%','10%'], ['70%','10%'], ['85%','35%'], ['70%','65%'], ['30%','65%'], ['15%','35%']];
 
         let writeIdx = 0; let archiveFilter = 'All'; let dateFilter = null; let editingId = null;
         let editingLearnId = null;
         let currentCalDate = new Date();
-
-        window.addEventListener('mousemove', e => {
-            document.querySelectorAll('.spotlight-container').forEach(el => {
-                const rect = el.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                el.style.setProperty('--mouse-x', `${x}px`);
-                el.style.setProperty('--mouse-y', `${y}px`);
-            });
-        });
 
         function triggerHaptic(pattern) {
             if ('vibrate' in navigator) navigator.vibrate(pattern);
