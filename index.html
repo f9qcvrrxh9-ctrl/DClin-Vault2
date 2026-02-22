@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-title" content="DClin Vault">
@@ -12,10 +12,8 @@
     <title>DClin Vault</title>
     
     <style>
-        /* GLOBAL RESET & NATIVE FEEL */
         * { box-sizing: border-box; }
         
-        /* Prevent UI elements from being highlighted like text on a website */
         button, .archive-header, .cal-day, .toggle-label, 
         .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg {
             -webkit-user-select: none; user-select: none;
@@ -171,23 +169,28 @@
             --warm-white-glow: rgba(255, 255, 255, 0.3); 
         }
 
-        html, body { scrollbar-width: none; -ms-overflow-style: none; }
+        /* STRICT HORIZONTAL LOCK */
+        html, body { 
+            scrollbar-width: none; -ms-overflow-style: none; 
+            width: 100%; overflow-x: hidden; position: relative;
+        }
         html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; }
 
         body {
             margin: 0; background-color: var(--bg-color); color: var(--text-main);
             font-family: -apple-system, system-ui, sans-serif;
-            min-height: 100vh; overflow-y: auto; overflow-x: hidden;
+            min-height: 100vh;
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.6s ease, color 0.6s ease;
         }
 
-        /* FIXED ORB: Reduced height so it doesn't bleed behind iOS keyboard blur */
+        /* RESTORED TALL ORB - Hardcoded pixel width stops horizontal scroll blowout */
         .vibe-orb {
             position: absolute; 
             top: var(--orb-y, 220px); left: var(--orb-x, 50%); 
-            transform: translate(-50%, -50%); width: 200vw; height: 450px;
-            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 65%);
+            transform: translate(-50%, -50%); 
+            width: 800px; height: 650px;
+            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%);
             filter: blur(80px); z-index: -1; 
             transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
             pointer-events: none; will-change: transform, background, left, top;
@@ -290,8 +293,9 @@
             cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         
-        /* FIX FOR IOS SHIFT BUG: Font size 16px prevents Apple from zooming */
+        /* 16px font-size lock across inputs prevents Apple from zooming and shifting the screen */
         input, select, textarea { font-size: 16px !important; }
+        
         #dueDatePicker { position: absolute; top:0; left:0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
         .save-btn {
@@ -443,6 +447,7 @@
         @keyframes toastEnter { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes toastExit { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(30px); } }
 
+        /* KEYBOARD BUG FIX: Drawers are strictly invisible until triggered to prevent blurry leakage */
         .drawer-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6);
             backdrop-filter: blur(5px); z-index: 999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
@@ -453,15 +458,20 @@
             position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 420px;
             background: var(--drawer-bg); backdrop-filter: blur(30px); border-top: 1px solid var(--border);
             border-radius: 30px 30px 0 0; padding: 20px 25px 30px; box-sizing: border-box;
-            z-index: 1000; transition: transform 0.4s cubic-bezier(0.32, 1, 0.23, 1); font-size: 10px; line-height: 1.6; color: var(--text-high);
+            z-index: 1000; font-size: 10px; line-height: 1.6; color: var(--text-high);
+            opacity: 0; visibility: hidden;
+            transition: transform 0.4s cubic-bezier(0.32, 1, 0.23, 1), opacity 0.4s, visibility 0.4s;
         }
-        .bottom-drawer.active { transform: translate(-50%, 0); }
+        .bottom-drawer.active { 
+            transform: translate(-50%, 0); 
+            opacity: 1; visibility: visible; 
+        }
         .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 15px; }
         
         .help-scroll-area {
             max-height: 60vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
             -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
-            padding: 0 0 20px; 
+            padding: 10px 0 20px; 
         }
         .help-scroll-area::-webkit-scrollbar { display: none; }
         
@@ -755,6 +765,16 @@
         let editingLearnId = null;
         let currentCalDate = new Date();
 
+        window.addEventListener('mousemove', e => {
+            document.querySelectorAll('.spotlight-container').forEach(el => {
+                const rect = el.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                el.style.setProperty('--mouse-x', `${x}px`);
+                el.style.setProperty('--mouse-y', `${y}px`);
+            });
+        });
+
         function triggerHaptic(pattern) {
             if ('vibrate' in navigator) navigator.vibrate(pattern);
         }
@@ -934,12 +954,11 @@
                 dayDiv.onclick = () => { 
                     if (dateFilter === dateStr) { dateFilter = null; } else { dateFilter = dateStr; }
                     renderNotes(); renderCalendar(); 
-                    if (dateFilter) { document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth' }); }
+                    if (dateFilter) { document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
                 };
                 grid.appendChild(dayDiv);
             }
             
-            // UPCOMING DEADLINES INJECTION
             let todayObj = new Date();
             todayObj.setHours(0,0,0,0);
             let nextWeek = new Date(todayObj);
@@ -969,7 +988,7 @@
                     if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
                     
                     upcomingHtml += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;" onclick="setFilter('All', document.querySelector('.all-btn'), 'var(--warm-white-glow)'); dateFilter = '${task.deadline}'; renderNotes(); renderCalendar(); document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth' });">
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;" onclick="setFilter('All', document.querySelector('.all-btn'), 'var(--warm-white-glow)'); dateFilter = '${task.deadline}'; renderNotes(); renderCalendar(); document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth', block: 'start' });">
                             <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
                             <div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>
                         </div>
@@ -978,6 +997,14 @@
                 upcomingHtml += `</div>`;
             }
             document.getElementById('upcomingDeadlines').innerHTML = upcomingHtml;
+        }
+
+        function toggleExpand(btn) {
+            const body = btn.closest('.note').querySelector('.note-body');
+            if (body) {
+                const isPreview = body.classList.toggle('preview-text');
+                btn.innerText = isPreview ? "Read More" : "Collapse";
+            }
         }
 
         function renderNotes() {
@@ -1099,7 +1126,7 @@
             document.getElementById('learnDesc').value = "";
             document.getElementById('learnReflection').value = "";
             document.getElementById('learnHours').value = "";
-            document.getElementById('learnType').value = ""; // Reset dropdown
+            document.getElementById('learnType').value = ""; 
             
             renderLearning();
             showToast("Learning Logged");
@@ -1120,8 +1147,7 @@
             editingLearnId = id;
             document.getElementById('logLearningBtn').innerText = "Update Log";
             
-            // Scroll user up to the form
-            document.getElementById('learningModule').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('learningModule').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function renderLearning() {
@@ -1144,19 +1170,17 @@
                 if(e.type === 'Other') typeColor = 'var(--c5)';
 
                 html += `
-                <div class="expense-tile" style="display: block;">
-                    <div class="exp-details">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
-                            <span style="font-size:10px; font-weight:800; color:${typeColor}; text-transform:uppercase;">${e.type}</span>
-                            <span style="font-size:9px; color:var(--text-muted); font-weight:700;">${displayDate} • ${e.hours} hrs</span>
-                        </div>
-                        <div class="exp-dest" style="font-size:12px; margin-top:2px;">${e.desc}</div>
-                        ${e.reflection ? `
-                        <div class="note-body preview-text" style="margin-top:8px;">${e.reflection.replace(/\n/g, '<br>')}</div>
-                        <button class="action-btn" style="margin-top: 6px; color:${typeColor}" onclick="toggleExpand(this)">Read More</button>
-                        ` : ''}
+                <div class="note spotlight-container" style="--note-color: ${typeColor}; display: block;">
+                    <div class="note-header">
+                        <span style="color:${typeColor}">${e.type}</span>
+                        <span>${displayDate} • ${e.hours} HRS</span>
                     </div>
-                    <div class="action-row" style="margin-top: 10px;">
+                    <div style="font-size:11px; font-weight:700; margin-bottom: 4px; color: var(--text-main);">${e.desc}</div>
+                    ${e.reflection ? `
+                    <div class="note-body preview-text">${e.reflection.replace(/\n/g, '<br>')}</div>
+                    <button class="action-btn" style="margin-top: 6px; color:${typeColor}" onclick="toggleExpand(this)">Read More</button>
+                    ` : ''}
+                    <div class="action-row">
                         <button class="action-btn" onclick="editLearning(${e.id})">Edit</button>
                         <button class="action-btn" style="color:#ff453a; opacity: 0.8;" onclick="deleteLearning(${e.id}, this)">Delete</button>
                     </div>
@@ -1168,7 +1192,7 @@
         function deleteLearning(id, btnElement) {
             if(!confirm("Delete log permanently?")) return;
             triggerHaptic([50, 100, 50]);
-            const tile = btnElement.closest('.expense-tile');
+            const tile = btnElement.closest('.note');
             tile.classList.add('deleting');
             setTimeout(() => {
                 let data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
@@ -1514,14 +1538,6 @@
             a.download = `Vault_Export.txt`;
             a.click();
             showToast("Filtered List Exported");
-        }
-
-        function toggleExpand(btn) {
-            const body = btn.closest('.note, .expense-tile').querySelector('.preview-text');
-            if (body) {
-                const isPreview = body.classList.toggle('preview-text');
-                btn.innerText = isPreview ? "Read More" : "Collapse";
-            }
         }
 
         function editNote(id) {
