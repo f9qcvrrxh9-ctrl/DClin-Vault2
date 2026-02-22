@@ -4,19 +4,17 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, viewport-fit=cover">
     
-    <meta name="apple-mobile-web-app-title" content="DClin Vault">
     <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-title" content="DClin Vault">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#050508">
     
     <title>DClin Vault</title>
     
     <style>
-        /* GLOBAL RESET FOR IOS WIDTH BUGS & NATIVE FEEL */
         * { box-sizing: border-box; }
         
-        /* Prevent UI elements from being highlighted like text on a website */
-        button, .archive-header, .cal-day, .toggle-label, .quick-link-btn, 
+        button, .archive-header, .cal-day, .toggle-label, 
         .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg {
             -webkit-user-select: none; user-select: none;
         }
@@ -57,7 +55,6 @@
             --active-vibe: var(--v5);
             --filter-accent: var(--warm-white-glow);
             
-            --orb-x: 50%; --orb-y: 15%; /* Anchored tighter */
             --task-blue: #007AFF;
             --deadline-red: #FF453A;
         }
@@ -88,7 +85,6 @@
             --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
             --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
             
-            /* Matching tag colors */
             --v0: rgba(66, 133, 244, 0.25); 
             --v1: rgba(234, 67, 53, 0.25); 
             --v2: rgba(251, 188, 5, 0.25);  
@@ -126,7 +122,6 @@
             --c0: #008B8B; --c1: #00B294; --c2: #00CC84; 
             --c3: #33D66A; --c4: #66E04A; --c5: #85E62C;
 
-            /* Medium warm sunset hues */
             --v0: rgba(220, 100, 80, 0.35); 
             --v1: rgba(230, 130, 50, 0.3); 
             --v2: rgba(230, 160, 100, 0.35); 
@@ -164,19 +159,17 @@
             --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; 
             --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
 
-            /* Medium-bright contrasting oceanic glows */
-            --v0: rgba(0, 139, 139, 0.45); 
-            --v1: rgba(138, 43, 226, 0.45); 
-            --v2: rgba(199, 21, 133, 0.45); 
-            --v3: rgba(255, 69, 0, 0.35); 
-            --v4: rgba(75, 0, 130, 0.55); 
-            --v5: rgba(0, 255, 127, 0.25); 
+            --v0: #008B8B; 
+            --v1: #8A2BE2; 
+            --v2: #C71585; 
+            --v3: #FF4500; 
+            --v4: #4B0082; 
+            --v5: #00FF7F; 
 
             --warm-white: #F4F7FB; 
             --warm-white-glow: rgba(255, 255, 255, 0.3); 
         }
 
-        /* INVISIBLE SCROLLBAR LOGIC */
         html, body { scrollbar-width: none; -ms-overflow-style: none; }
         html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; }
 
@@ -188,18 +181,20 @@
             transition: background-color 0.6s ease, color 0.6s ease;
         }
 
+        /* FIXED ORB: Position absolute ensures it never scrolls away or disappears when keyboard opens */
         .vibe-orb {
-            position: fixed; top: var(--orb-y); left: var(--orb-x); 
-            transform: translate(-50%, -50%); width: 160%; height: 70%;
-            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 80%);
-            filter: blur(90px); z-index: -1; 
-            transition: all 2s cubic-bezier(0.23, 1, 0.32, 1);
-            pointer-events: none; will-change: transform, background;
+            position: absolute; 
+            top: var(--orb-y, 220px); left: var(--orb-x, 50%); 
+            transform: translate(-50%, -50%); width: 200vw; height: 650px;
+            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%);
+            filter: blur(80px); z-index: -1; 
+            transition: all 1.5s cubic-bezier(0.23, 1, 0.32, 1);
+            pointer-events: none; will-change: transform, background, left, top;
         }
 
         .app-container { 
             padding: calc(40px + env(safe-area-inset-top, 20px)) 25px 60px; 
-            max-width: 420px; margin: auto; 
+            max-width: 420px; margin: auto; position: relative; z-index: 1;
         }
 
         .archive-header { 
@@ -217,14 +212,16 @@
         .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
         .spotlight-container > * { position: relative; z-index: 1; }
 
+        /* THE TEXT BOX: Restored glass so orb shines through beautifully */
         .input-box {
-            background: var(--drawer-bg); 
+            background: var(--glass);
             border-radius: 32px; padding: 25px;
-            backdrop-filter: blur(50px); -webkit-backdrop-filter: blur(50px);
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
             border: 1px solid var(--border);
             box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 30px var(--active-accent);
             transition: all 0.8s ease;
             transform: translateZ(0); margin-top: 10px;
+            will-change: box-shadow;
         }
 
         .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
@@ -263,16 +260,20 @@
             transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); padding: 0;
         }
         .sq-btn svg { width: 20px; height: 20px; opacity: 0.35; transition: 0.4s; }
-        .sq-btn.active { transform: scale(1.15) translateY(-4px); border-color: var(--text-main); }
+        
+        .sq-btn.active { 
+            transform: scale(1.15) translateY(-4px); 
+            border-color: var(--active-accent); 
+        }
         
         #inputIcons .sq-btn.active { box-shadow: 0 0 15px var(--active-accent); }
-        #filterIcons .sq-btn.active.ic0 { box-shadow: 0 0 15px var(--c0); }
-        #filterIcons .sq-btn.active.ic1 { box-shadow: 0 0 15px var(--c1); }
-        #filterIcons .sq-btn.active.ic2 { box-shadow: 0 0 15px var(--c2); }
-        #filterIcons .sq-btn.active.ic3 { box-shadow: 0 0 15px var(--c3); }
-        #filterIcons .sq-btn.active.ic4 { box-shadow: 0 0 15px var(--c4); }
-        #filterIcons .sq-btn.active.ic5 { box-shadow: 0 0 15px var(--c5); }
-        #filterIcons .sq-btn.all-btn.active { box-shadow: 0 0 15px var(--warm-white-glow); border-color: var(--warm-white); }
+        #filterIcons .sq-btn.active.ic0 { box-shadow: 0 0 15px var(--c0); border-color: var(--c0); }
+        #filterIcons .sq-btn.active.ic1 { box-shadow: 0 0 15px var(--c1); border-color: var(--c1); }
+        #filterIcons .sq-btn.active.ic2 { box-shadow: 0 0 15px var(--c2); border-color: var(--c2); }
+        #filterIcons .sq-btn.active.ic3 { box-shadow: 0 0 15px var(--c3); border-color: var(--c3); }
+        #filterIcons .sq-btn.active.ic4 { box-shadow: 0 0 15px var(--c4); border-color: var(--c4); }
+        #filterIcons .sq-btn.active.ic5 { box-shadow: 0 0 15px var(--c5); border-color: var(--c5); }
+        #filterIcons .sq-btn.all-btn.active { box-shadow: 0 0 15px var(--warm-white-glow); border-color: var(--text-mid); }
         
         .ic0 svg { fill: var(--c0); } .ic1 svg { fill: var(--c1); }
         .ic2 svg { fill: var(--c2); } .ic3 svg { fill: var(--c3); }
@@ -319,23 +320,17 @@
 
         #filterIcons { margin-top: 15px; }
 
-        #vaultWindow, #completedVaultScroll {
+        /* USING rgba(255,255,255,1) PREVENTS SAFARI'S BLACK MASK SMUDGE BUG */
+        #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll {
             max-height: 400px; overflow-y: auto; 
             scrollbar-width: none; -ms-overflow-style: none;
             -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; 
             margin-top: 15px; padding: 0 12px;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 10%, black 90%, transparent 100%);
+            -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 95%, rgba(255,255,255,0) 100%);
         }
-        #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar { display: none; }
+        #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar, #learningVaultScroll::-webkit-scrollbar, #expenseVaultScroll::-webkit-scrollbar { display: none; }
 
-        #expenseVaultScroll {
-            max-height: 230px; overflow-y: auto; 
-            scrollbar-width: none; -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; 
-            margin-top: 15px; padding: 0 12px;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
-        }
-        #expenseVaultScroll::-webkit-scrollbar { display: none; }
+        #expenseVaultScroll, #learningVaultScroll { max-height: 230px; }
 
         .note {
             background: var(--note-bg); border-radius: 18px; padding: 12px 16px; margin-top: 14px; 
@@ -382,30 +377,21 @@
         .cal-day { font-size: 11px; padding: 12px 0; text-align: center; cursor: pointer; border-radius: 12px; position: relative; color: var(--text-muted); transition: all 0.3s ease; }
         .cal-day.today { color: var(--text-main); font-weight: 700; border: 1px solid var(--border); background: var(--note-bg); }
         .cal-day.selected { color: var(--text-main); font-weight: 800; border: 1px solid var(--active-accent); background: var(--note-bg); box-shadow: 0 0 10px var(--active-accent); }
-        .dot-container { display: flex; justify-content: center; gap: 3px; margin-top: 3px; height: 4px; }
+        .dot-container { display: flex; justify-content: center; gap: 3px; margin-top: 3px; height: 4px; flex-wrap: wrap; }
         .dot { width: 4px; height: 4px; border-radius: 50%; }
-        .dot.blue { background: var(--task-blue); }
-        .dot.red { background: var(--deadline-red); }
-
-        .quick-links-row { display: flex; gap: 12px; margin-bottom: 25px; }
-        .quick-link-btn {
-            flex: 1; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; padding: 16px 10px; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; gap: 10px; text-decoration: none; color: var(--text-high); transition: all 0.3s ease; cursor: pointer;
-        }
-        .quick-link-btn:active { transform: scale(0.96); background: var(--note-bg); }
-        .quick-link-btn svg { opacity: 0.6; transition: 0.3s; }
-        .quick-link-btn:hover svg { opacity: 1; }
-        .quick-link-text { font-size: 8px; text-transform: uppercase; letter-spacing: 2px; font-weight: 700; opacity: 0.7; text-align: center; }
 
         .expense-row { display: flex; gap: 10px; margin-bottom: 12px; align-items: center; }
         input[type=number]::-webkit-inner-spin-button, input[type=number]::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
-        input[type=number] { -moz-appearance: textfield; }
+        input[type=number], select { -moz-appearance: textfield; }
         .expense-input {
             flex: 1; background: var(--note-bg); border: 1px solid var(--border); color: var(--text-main);
             border-radius: 14px; padding: 14px 16px; font-size: 12px; font-family: inherit; outline: none !important;
             -webkit-appearance: none; width: 100%; box-sizing: border-box; -webkit-user-select: text; user-select: text;
         }
         .expense-input::placeholder { color: var(--text-muted); }
+        /* Fix select text color visibility across themes */
+        select.expense-input option { background-color: var(--toast-bg); color: var(--text-main); }
+        
         .toggle-label {
             display: flex; align-items: center; gap: 8px; font-size: 10px; text-transform: uppercase;
             font-weight: 700; letter-spacing: 1px; color: var(--text-mid); cursor: pointer;
@@ -417,8 +403,8 @@
             border-left: 2px solid var(--active-accent); display: flex; justify-content: space-between; align-items: center;
             transition: all 0.4s ease; transform: translateZ(0);
         }
-        .exp-details { display: flex; flex-direction: column; gap: 4px; }
-        .exp-dest { font-size: 11px; font-weight: 600; color: var(--text-main); text-transform: uppercase; }
+        .exp-details { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+        .exp-dest { font-size: 11px; font-weight: 600; color: var(--text-main); text-transform: uppercase; padding-right: 10px;}
         .exp-meta { font-size: 9px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; }
         .exp-cost { font-size: 14px; font-weight: 800; color: var(--active-accent); transition: color 0.5s ease; }
 
@@ -427,7 +413,7 @@
             border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600;
             text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px;
         }
-        #completedVault, #expensesModule { display: none; padding-bottom: 20px; }
+        #completedVault, #expensesModule, #learningModule { display: none; padding-bottom: 20px; }
 
         .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 4px; padding-bottom: 20px; }
         .footer-btn { 
@@ -474,10 +460,11 @@
         .bottom-drawer.active { transform: translate(-50%, 0); }
         .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 15px; }
         
+        /* Adjusted mask: solid at the top, fades ONLY at the bottom so headers aren't clipped */
         .help-scroll-area {
             max-height: 60vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;
-            -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 5%, black 95%, transparent 100%);
-            padding: 10px 0 20px;
+            -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
+            padding: 10px 0 20px; 
         }
         .help-scroll-area::-webkit-scrollbar { display: none; }
         
@@ -558,22 +545,42 @@
                 <button class="nav-btn" onclick="changeMonth(1)">❯</button>
             </div>
             <div class="calendar-grid" id="calendarGrid"></div>
+            <div id="upcomingDeadlines"></div>
         </div>
 
-        <div class="archive-header" style="margin-top:20px;">Links</div>
-        <div class="quick-links-row">
-            <a href="https://forms.office.com/pages/responsepage.aspx?id=-XhTSvQpPk2-iWadA62p2HMCB-97DBRFtOUga1HEPmlUQThPVjRYVk5URVpTQjJINlhDMDQ5QUw0Ny4u&route=shorturl" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><polyline points="17 11 19 13 23 9"></polyline></svg>
-                <span class="quick-link-text">Attendance</span>
-            </a>
-            <a href="https://sotonac.sharepoint.com/teams/DClinCalendars/Lists/DClin%20Y1%202019%20Cohort/calendar.aspx" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line><rect x="8" y="14" width="4" height="4"></rect></svg>
-                <span class="quick-link-text">Timetable</span>
-            </a>
-            <a href="https://forms.office.com/Pages/ResponsePage.aspx?id=-XhTSvQpPk2-iWadA62p2NWyfN-sGBxDiWK4YxPLr95UNDlWR0IxMFZNSTZCMkNHVzZXSzZaTlkyRC4u&origin=QRCode" target="_blank" rel="noopener noreferrer" class="quick-link-btn spotlight-container">
-                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
-                <span class="quick-link-text">Feedback</span>
-            </a>
+        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('learningModule')">Manage Learning Log</button>
+        <div id="learningModule">
+            <div class="calendar-container spotlight-container" style="margin-top: 10px;">
+                <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 15px;">Add Learning Record</div>
+                
+                <div class="expense-row">
+                    <input type="date" id="learnDate" class="expense-input" style="width: 110px; flex: none;">
+                    <select id="learnType" class="expense-input" style="flex: 1; padding-right: 10px;">
+                        <option value="" disabled selected>Type</option>
+                        <option value="CBT">CBT</option>
+                        <option value="Systemic">Systemic</option>
+                        <option value="Neuro">Neuro</option>
+                        <option value="Other">Other</option>
+                    </select>
+                    <input type="number" step="0.25" id="learnHours" class="expense-input" placeholder="Hours" style="width: 75px; flex: none;">
+                </div>
+                <div class="expense-row">
+                    <input type="text" id="learnDesc" class="expense-input" placeholder="Description of Activity (e.g., Reading: Hardy...)">
+                </div>
+                <div class="expense-row">
+                    <textarea id="learnReflection" class="expense-input" placeholder="Reflections (min 250 words for AFT)..." style="height: 100px; resize: none; padding-top: 15px;"></textarea>
+                </div>
+                <button class="save-btn spotlight-container" id="logLearningBtn" style="width: 100%; padding: 15px;" onclick="logLearning()">Save to Log</button>
+            </div>
+
+            <div id="learningVaultScroll">
+                <div id="learningList"></div>
+            </div>
+            
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button class="action-btn spotlight-container" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllLearning()">Clear Logs</button>
+                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportLearningCSV()">Export to Excel .CSV</button>
+            </div>
         </div>
 
         <button class="collapsible-trigger spotlight-container" onclick="toggleVault('expensesModule')">Manage Expenses</button>
@@ -636,16 +643,22 @@
         
         <div class="help-scroll-area">
             <div class="walk-item" style="border: none; padding-bottom: 0;">
-                <div style="color: var(--text-main); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5; color: var(--deadline-red);">
-                    System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
-                </div>
-                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                    <b style="color: var(--text-main);">1. Backup</b><br>
-                    Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely on your device.
-                </div>
-                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                    <b style="color: var(--text-main);">2. Restore</b><br>
-                    If your app ever clears unexpectedly, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return exactly as it was.
+                <div class="safety-box">
+                    <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">
+                        System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
+                    </div>
+                    <div style="margin-bottom: 2px; font-size: 10px; color: var(--text-main);">
+                        <b>1. Backup</b>
+                    </div>
+                    <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                        Tap 'Download Full Vault Backup'. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to safely store the .json file on your device.
+                    </div>
+                    <div style="margin-bottom: 2px; font-size: 10px; color: var(--text-main);">
+                        <b>2. Restore</b>
+                    </div>
+                    <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
+                        If your app clears, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return.
+                    </div>
                 </div>
             </div>
             
@@ -653,7 +666,7 @@
 
             <div class="walk-item">
                 <b>Tags</b> 
-                Use the top icons to categorize notes (CBT, Neuro, etc). Tagging notes makes them much easier to filter and find later in the Lists section.
+                Use the top icons to categorize notes (Reflection, Research/Thesis, etc). Tagging notes makes them much easier to filter and find later in the Lists section.
             </div>
             
             <div class="walk-item">
@@ -662,18 +675,18 @@
             </div>
             
             <div class="walk-item">
-                <b>Links & Sign In</b> 
-                Apple limits "Home Screen Apps" for privacy. When clicking the quick links, it may repeatedly ask you to sign into your university Microsoft account. If this is incredibly frustrating, the only fix is to remove the "apple-mobile-web-app-capable" line from the source code, so it opens as a normal Safari tab.
+                <b>Calendar & Upcoming Deadlines</b> 
+                Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (white dots) and tasks with deadlines on that date (colored dots matching their tag). Any deadlines approaching in the next 7 days will automatically populate beneath the calendar.
             </div>
-            
+
             <div class="walk-item">
-                <b>Calendar</b> 
-                Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (blue dots) and tasks with deadlines on that date (red dots).
+                <b>Learning Log</b> 
+                Keep track of your independent study. Select the activity type, date, and hours, then add your reflection. Exporting this will instantly generate a pre-formatted .CSV file that perfectly matches your university spreadsheet columns for easy copy-pasting.
             </div>
             
             <div class="walk-item" style="border: none;">
                 <b>Expenses</b> 
-                Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time, but you can type over it for custom journeys. It calculates mileage automatically and can be exported as a .CSV spreadsheet.
+                Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time. It calculates mileage automatically via public API and can be exported as a clean .CSV spreadsheet.
             </div>
         </div>
     </div>
@@ -719,22 +732,31 @@
     <div id="toastContainer"></div>
 
     <script>
+        // DCLIN PSY SPECIFIC ICONS
         const svgs = [
-            '<svg viewBox="0 0 24 24" aria-label="University Note"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>', 
-            '<svg viewBox="0 0 24 24" aria-label="Neuro Note"><path d="M12 2C6.48 2 2 6.48 2 12c0 1.1.9 2 2 2s2-.9 2-2c0-4.41 3.59-8 8-8s8 3.59 8 8c0 1.1.9 2 2 2s2-.9 2-2c0-5.52-4.48-10-10-10z"/></svg>',
-            '<svg viewBox="0 0 24 24" aria-label="CBT Note"><path d="M3 13h2v-2H3v2zm0 4h2v-2H3v2zm0-8h2V7H3v2zm4 4h14v-2H7v2zm0 4h14v-2H7v2zM7 7v2h14V7H7z"/></svg>',
-            '<svg viewBox="0 0 24 24" aria-label="Systemic Note"><path d="M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8.3.59 8 8-3.59 8-8 8z"/></svg>',
-            '<svg viewBox="0 0 24 24" aria-label="Placement Note"><path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11z"/></svg>',
-            '<svg viewBox="0 0 24 24" aria-label="Other Note"><path d="M12 15.5l-1.5-3.5L7 10.5 10.5 9 12 5.5l1.5 3.5L17 10.5l-3.5 1.5L12 15.5z"/></svg>'
+            '<svg viewBox="0 0 24 24" aria-label="University"><path d="M12 3L1 9l4 2.18v6L12 21l-7-3.82v-6l2-1.09V14l5 2.73 5-2.73V9.72l2-1.09L12 3zm6.82 6L12 5.27 5.18 9 12 12.73 18.82 9z"/></svg>', 
+            '<svg viewBox="0 0 24 24" aria-label="Placement"><path d="M19 3H5c-1.1 0-2 .9-2 2v14h18V5c0-1.1-.9-2-2-2zm-8 12h-2v-2H7v-2h2V9h2v2h2v2h-2v2zm6 0h-2v-2h2v2zm0-4h-2V9h2v2z"/></svg>',
+            '<svg viewBox="0 0 24 24" aria-label="Reflection"><path d="M12 2.52c-4.66 0-8.48 3.73-8.48 8.34 0 2.27 1.01 4.3 2.58 5.7L7 17.5V20c0 .55.45 1 1 1h8c.55 0 1-.45 1-1v-2.5l.9-.94c1.57-1.4 2.58-3.43 2.58-5.7 0-4.61-3.82-8.34-8.48-8.34zm0 2c3.55 0 6.48 2.84 6.48 6.34 0 1.76-.77 3.32-1.95 4.38l-.53.5V19h-8v-3.28l-.53-.5A6.29 6.29 0 0 1 5.52 10.86c0-3.5 2.93-6.34 6.48-6.34zm-2 17.5h4v1.5h-4v-1.5z"/></svg>',
+            '<svg viewBox="0 0 24 24" aria-label="Research/Thesis"><path d="M19.8 18.4L14 10.67V6.5l1.35-1.69c.26-.33.03-.81-.39-.81H9.04c-.42 0-.65.48-.39.81L10 6.5v4.17L4.2 18.4c-.49.66-.02 1.6.8 1.6h14c.82 0 1.29-.94.8-1.6zM12 11.5l4 5.5H8l4-5.5z"/></svg>',
+            '<svg viewBox="0 0 24 24" aria-label="Deadlines"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>',
+            '<svg viewBox="0 0 24 24" aria-label="General"><path d="M12 15.5l-1.5-3.5L7 10.5 10.5 9 12 5.5l1.5 3.5L17 10.5l-3.5 1.5L12 15.5zM19 9.5l-1.25-2.75L15 5.5l2.75-1.25L19 1.5l1.25 2.75L23 5.5l-2.75 1.25L19 9.5zM6 21.5l-1-2.25L2.75 18.25l2.25-1L6 15l1 2.25 2.25 1-2.25 1L6 21.5z"/></svg>'
         ];
 
         const emptySvg = `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
 
-        const tagLabels = ["University", "Neuro", "CBT", "Systemic", "Placement", "Other"];
-        const tagPrompts = ["Write your university note here", "Write your neuro note here", "Write your CBT note here", "Write your systemic note here", "Write your placement note here", "Write your note here"];
+        const tagLabels = ["University", "Placement", "Reflection", "Research/Thesis", "Deadlines", "General"];
+        const tagPrompts = [
+            "Write your University note/reminder here", 
+            "Write your placement/supervision note here", 
+            "Write down your clinical reflections and thoughts here", 
+            "Jot down your thesis ideas, references, or research to-dos here", 
+            "What do you need to submit or complete, and by when?", 
+            "Write your general note/reminder here"
+        ];
+        
         const tagColors = ['var(--c0)', 'var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)', 'var(--c5)'];
         const tagMoods = ['var(--v0)', 'var(--v1)', 'var(--v2)', 'var(--v3)', 'var(--v4)', 'var(--v5)'];
-        const orbRadialPath = [['40%','15%'], ['60%','15%'], ['70%','25%'], ['60%','35%'], ['40%','35%'], ['30%','25%']];
+        const orbRadialPath = [['35%','200px'], ['65%','200px'], ['75%','250px'], ['65%','300px'], ['35%','300px'], ['25%','250px']];
 
         let writeIdx = 0; let archiveFilter = 'All'; let dateFilter = null; let editingId = null;
         let currentCalDate = new Date();
@@ -912,29 +934,66 @@
                 dayDiv.innerText = i;
                 
                 const hasCreated = data.some(d => d.created === dateStr);
-                const hasDeadline = data.some(d => d.deadline === dateStr);
+                const dayDeadlines = data.filter(d => !d.done && d.deadline === dateStr);
                 
                 let dots = '<div class="dot-container">';
-                if(hasCreated) dots += '<div class="dot blue"></div>';
-                if(hasDeadline) dots += '<div class="dot red"></div>';
+                if(hasCreated) dots += `<div class="dot" style="background: rgba(255,255,255,0.7);"></div>`;
+                
+                const deadlineColors = [...new Set(dayDeadlines.map(d => d.color))].slice(0, 3); 
+                deadlineColors.forEach(color => {
+                    dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`;
+                });
                 dots += '</div>';
                 
                 dayDiv.innerHTML += dots;
                 
                 dayDiv.onclick = () => { 
-                    if (dateFilter === dateStr) {
-                        dateFilter = null; 
-                    } else {
-                        dateFilter = dateStr; 
-                    }
-                    renderNotes(); 
-                    renderCalendar(); 
-                    if (dateFilter) {
-                        document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth' }); 
-                    }
+                    if (dateFilter === dateStr) { dateFilter = null; } else { dateFilter = dateStr; }
+                    renderNotes(); renderCalendar(); 
+                    if (dateFilter) { document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth' }); }
                 };
                 grid.appendChild(dayDiv);
             }
+            
+            // UPCOMING DEADLINES INJECTION
+            let todayObj = new Date();
+            todayObj.setHours(0,0,0,0);
+            let nextWeek = new Date(todayObj);
+            nextWeek.setDate(todayObj.getDate() + 7);
+            
+            let upcomingTasks = data.filter(d => {
+                if(d.done || !d.deadline) return false;
+                let dDate = new Date(d.deadline);
+                dDate.setHours(0,0,0,0);
+                return dDate >= todayObj && dDate <= nextWeek;
+            });
+            
+            let upcomingHtml = '';
+            if(upcomingTasks.length > 0) {
+                upcomingTasks.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+                
+                upcomingHtml += `<div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">`;
+                upcomingHtml += `<div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px;">Due This Week</div>`;
+                
+                upcomingTasks.forEach(task => {
+                    let taskDate = new Date(task.deadline);
+                    let diffTime = taskDate - todayObj;
+                    let diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+                    let dayText = diffDays === 0 ? 'Today' : (diffDays === 1 ? 'Tomorrow' : `In ${diffDays} days`);
+                    
+                    let shortText = task.text.replace(/<[^>]*>?/gm, ''); 
+                    if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
+                    
+                    upcomingHtml += `
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;" onclick="setFilter('All', document.querySelector('.all-btn'), 'var(--warm-white-glow)'); dateFilter = '${task.deadline}'; renderNotes(); renderCalendar(); document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth' });">
+                            <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
+                            <div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>
+                        </div>
+                    `;
+                });
+                upcomingHtml += `</div>`;
+            }
+            document.getElementById('upcomingDeadlines').innerHTML = upcomingHtml;
         }
 
         function renderNotes() {
@@ -1020,6 +1079,114 @@
             localStorage.setItem('dclinData', JSON.stringify(data.filter(n => !n.done)));
             renderNotes();
             showToast("Completed tasks cleared");
+        }
+
+        /* --- LEARNING LOG LOGIC --- */
+        function logLearning() {
+            const date = document.getElementById('learnDate').value;
+            const type = document.getElementById('learnType').value;
+            const hours = document.getElementById('learnHours').value;
+            const desc = document.getElementById('learnDesc').value;
+            const reflection = document.getElementById('learnReflection').value;
+            
+            if(!date || !type || !hours || !desc) {
+                showToast("Please fill Date, Type, Hours & Description");
+                return;
+            }
+            
+            let data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+            data.unshift({
+                id: Date.now(), date: date, type: type, hours: hours,
+                desc: desc, reflection: reflection
+            });
+            localStorage.setItem('dclinLearning', JSON.stringify(data));
+            
+            document.getElementById('learnDesc').value = "";
+            document.getElementById('learnReflection').value = "";
+            document.getElementById('learnHours').value = "";
+            
+            renderLearning();
+            showToast("Learning Logged");
+            triggerHaptic([30, 50, 30]);
+        }
+
+        function renderLearning() {
+            const list = document.getElementById('learningList');
+            const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+            
+            if (data.length === 0) {
+                list.innerHTML = `<div class="empty-state"><div class="empty-text">No learning logged</div></div>`;
+                return;
+            }
+            
+            let html = "";
+            data.forEach(e => {
+                const displayDate = e.date.split('-').reverse().join('.');
+                
+                // Color coordination for type
+                let typeColor = 'var(--text-main)';
+                if(e.type === 'CBT') typeColor = 'var(--c0)';
+                if(e.type === 'Systemic') typeColor = 'var(--c1)';
+                if(e.type === 'Neuro') typeColor = 'var(--c2)';
+                if(e.type === 'Other') typeColor = 'var(--c5)';
+
+                html += `
+                <div class="expense-tile">
+                    <div class="exp-details">
+                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:4px;">
+                            <span style="font-size:10px; font-weight:800; color:${typeColor}; text-transform:uppercase;">${e.type}</span>
+                            <span style="font-size:9px; color:var(--text-muted); font-weight:700;">${displayDate} • ${e.hours} hrs</span>
+                        </div>
+                        <div class="exp-dest">${e.desc}</div>
+                        ${e.reflection ? `<div style="font-size:10px; line-height:1.4; opacity:0.7; margin-top:4px; max-height: 42px; overflow: hidden; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical;">${e.reflection}</div>` : ''}
+                    </div>
+                    <button class="action-btn" style="color:#ff453a; font-size:14px; padding-left:15px; height:100%;" onclick="deleteLearning(${e.id}, this)">×</button>
+                </div>`;
+            });
+            list.innerHTML = html;
+        }
+
+        function deleteLearning(id, btnElement) {
+            triggerHaptic([50, 100, 50]);
+            const tile = btnElement.closest('.expense-tile');
+            tile.classList.add('deleting');
+            setTimeout(() => {
+                let data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+                localStorage.setItem('dclinLearning', JSON.stringify(data.filter(e => e.id !== id)));
+                renderLearning();
+                showToast("Entry Deleted");
+            }, 350);
+        }
+
+        function clearAllLearning() {
+            if(!confirm("Wipe all learning logs forever?")) return;
+            localStorage.setItem('dclinLearning', JSON.stringify([]));
+            renderLearning();
+            showToast("Learning logs cleared");
+        }
+
+        function exportLearningCSV() {
+            const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+            if(data.length === 0) { showToast("Nothing to export"); return; }
+            
+            const escapeCSV = (str) => {
+                if (str == null) return '""';
+                return '"' + String(str).replace(/"/g, '""') + '"';
+            };
+            
+            let csvContent = "Date,Description of Activity,Reflections,Type,Hours,Evidence?\n";
+            data.forEach(e => {
+                const displayDate = e.date.split('-').reverse().join('.');
+                csvContent += `${escapeCSV(displayDate)},${escapeCSV(e.desc)},${escapeCSV(e.reflection)},${escapeCSV(e.type)},${escapeCSV(e.hours)},""\n`;
+            });
+            
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `DClin_Learning_Log.csv`;
+            a.click();
+            showToast("Learning Spreadsheet Exported");
         }
 
         /* --- EXPENSE TRACKER LOGIC --- */
@@ -1243,7 +1410,13 @@
         function fullBackup() {
             const data = localStorage.getItem('dclinData') || "[]";
             const expData = localStorage.getItem('dclinExpenses') || "[]";
-            const combined = JSON.stringify({ notes: JSON.parse(data), expenses: JSON.parse(expData) });
+            const learnData = localStorage.getItem('dclinLearning') || "[]";
+            
+            const combined = JSON.stringify({ 
+                notes: JSON.parse(data), 
+                expenses: JSON.parse(expData),
+                learning: JSON.parse(learnData)
+            });
             
             const blob = new Blob([combined], { type: 'application/json' });
             const url = URL.createObjectURL(blob);
@@ -1276,9 +1449,10 @@
                     else if (importedData.notes) {
                         localStorage.setItem('dclinData', JSON.stringify(importedData.notes));
                         if(importedData.expenses) localStorage.setItem('dclinExpenses', JSON.stringify(importedData.expenses));
+                        if(importedData.learning) localStorage.setItem('dclinLearning', JSON.stringify(importedData.learning));
                     }
                     
-                    renderNotes(); renderCalendar(); renderExpenses();
+                    renderNotes(); renderCalendar(); renderExpenses(); renderLearning();
                     showToast("Vault Restored & Merged!");
                 } catch (err) { alert("Error reading file."); }
                 event.target.value = '';
@@ -1363,12 +1537,13 @@
             }
             
             document.getElementById('journeyDate').value = new Date().toISOString().split('T')[0];
+            document.getElementById('learnDate').value = new Date().toISOString().split('T')[0];
 
             renderCalendar(); 
             renderNotes(); 
             renderExpenses();
+            renderLearning();
             
-            // Re-trigger color setting
             setTimeout(() => { document.getElementById('inputIcons').children[writeIdx].click(); }, 50);
         };
     </script>
