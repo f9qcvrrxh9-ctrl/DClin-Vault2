@@ -14,12 +14,12 @@
     <style>
         * { box-sizing: border-box; }
         
-        button, .archive-header, .cal-day, .toggle-label, 
-        .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg {
+        button, a, input, select, textarea, .cal-day, .toggle-label, 
+        .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg, .theme-btn {
             -webkit-user-select: none; user-select: none;
+            touch-action: manipulation; 
         }
 
-        /* html element also gets the background color to fix the iOS repainting scroll bug */
         html {
             background-color: var(--bg-color);
             transition: background-color 0.6s ease;
@@ -52,7 +52,6 @@
             --c0: #F9C469; --c1: #FAA874; --c2: #FB8C7F;
             --c3: #FC708A; --c4: #FD5495; --c5: #FE38A0;
             
-            /* Restored original dark moody vibes */
             --v0: #1a0a24; --v1: #140a24; --v2: #0a1124; 
             --v3: #0a2024; --v4: #0a2417; --v5: #241b0a; 
 
@@ -94,7 +93,6 @@
             --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
             --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
             
-            /* Restored to soft 0.15 opacity */
             --v0: rgba(66, 133, 244, 0.15); 
             --v1: rgba(234, 67, 53, 0.15); 
             --v2: rgba(251, 188, 5, 0.15);  
@@ -106,10 +104,14 @@
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
         }
 
+        /* Academy Custom Enhanced Glows */
+        [data-theme="academy"] .input-box { box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 50px var(--active-accent); }
+        [data-theme="academy"] #inputIcons .sq-btn.active { box-shadow: 0 0 25px var(--active-accent); }
+
         /* =========================================
-           3. OASIS THEME (Warm Sand, Turquoise to Green) 
+           3. PARCHMENT THEME (Minimalist, Black Accents) 
            ========================================= */
-        [data-theme="oasis"] {
+        [data-theme="parchment"] {
             --bg-color: #E8DCC4;
             --text-main: #2C2820;
             --text-muted: rgba(44, 40, 32, 0.45);
@@ -121,24 +123,20 @@
             --toast-bg: rgba(240, 230, 210, 0.95);
 
             --glass: rgba(0, 0, 0, 0.03);
-            --border: rgba(0, 0, 0, 0.08);
+            --border: rgba(0, 0, 0, 0.12);
             --shadow-heavy: rgba(0, 0, 0, 0.08);
             
-            --save-bg: #0A9396; 
+            --save-bg: #000000; 
             --save-text: #ffffff;
-            --save-border: #0A9396;
-            --save-shadow: 0 4px 15px rgba(10, 147, 150, 0.4);
+            --save-border: #000000;
+            --save-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
             
-            --c0: #008B8B; --c1: #00B294; --c2: #00CC84; 
-            --c3: #33D66A; --c4: #66E04A; --c5: #85E62C;
+            /* All tags and glows rendered as pure black */
+            --c0: #000000; --c1: #000000; --c2: #000000; 
+            --c3: #000000; --c4: #000000; --c5: #000000;
 
-            /* Restored very soft, low-opacity pastel washes */
-            --v0: rgba(255, 127, 80, 0.2); 
-            --v1: rgba(255, 140, 0, 0.2); 
-            --v2: rgba(255, 160, 122, 0.2); 
-            --v3: rgba(255, 105, 180, 0.2); 
-            --v4: rgba(218, 112, 214, 0.2); 
-            --v5: rgba(255, 215, 0, 0.2); 
+            --v0: transparent; --v1: transparent; --v2: transparent; 
+            --v3: transparent; --v4: transparent; --v5: transparent; 
 
             --warm-white: #2C2820; 
             --warm-white-glow: rgba(0, 0, 0, 0.15); 
@@ -170,7 +168,6 @@
             --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; 
             --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
 
-            /* Restored to deep, dark oceanic shadows */
             --v0: #1a0a20; 
             --v1: #0a1020; 
             --v2: #200a15; 
@@ -193,12 +190,14 @@
             transition: background-color 0.6s ease, color 0.6s ease;
         }
 
-        /* RESTORED ORB EXACTLY TO PREVIOUS WORKING STATE */
+        /* Hide Vibe Orb for Minimalist/Bright Themes */
+        [data-theme="parchment"] .vibe-orb, [data-theme="academy"] .vibe-orb { display: none !important; }
+
         .vibe-orb {
             position: fixed; top: var(--orb-y); left: var(--orb-x); 
             transform: translate(-50%, -50%); width: 160%; height: 70%;
             background: radial-gradient(circle, var(--active-vibe) 0%, transparent 80%);
-            filter: blur(90px); z-index: -1; 
+            filter: blur(90px); z-index: 0; 
             transition: all 2s cubic-bezier(0.23, 1, 0.32, 1);
             pointer-events: none; will-change: transform, background;
         }
@@ -212,16 +211,6 @@
             font-size: 10px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.35; 
             margin-bottom: 22px; text-align: center; font-weight: 600;
         }
-
-        .spotlight-container { position: relative; overflow: hidden; border-radius: inherit; }
-        .spotlight-container::after {
-            content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0;
-            background: radial-gradient(circle 120px at var(--mouse-x, 50%) var(--mouse-y, 50%), var(--active-accent), transparent 100%);
-            opacity: 0; transition: opacity 0.4s ease;
-            pointer-events: none; z-index: 0; border-radius: inherit;
-        }
-        .spotlight-container:hover::after, .spotlight-container:active::after { opacity: 0.12; }
-        .spotlight-container > * { position: relative; z-index: 1; }
 
         .input-box {
             background: var(--glass);
@@ -238,7 +227,7 @@
         
         #noteInput {
             flex-grow: 1; background: transparent; border: none;
-            color: var(--text-main); font-size: 16px; overflow-y: auto; /* REDUCED TO 16PX */
+            color: var(--text-main); font-size: 16px; overflow-y: auto;
             font-family: inherit; font-weight: 300; line-height: 1.5;
             padding-bottom: 10px; -webkit-appearance: none;
             outline: none !important; -webkit-tap-highlight-color: transparent;
@@ -300,7 +289,7 @@
             cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
         }
         
-        input, select, textarea { font-size: 16px !important; }
+        input, select, textarea { font-size: 16px !important; font-family: inherit; font-weight: 300; }
         
         #dueDatePicker { position: absolute; top:0; left:0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
@@ -320,7 +309,7 @@
 
         #searchWrapper {
             background: var(--bg-overlay); border-radius: 20px; padding: 15px 20px;
-            border: 1px solid var(--border); margin-bottom: 0; /* REMOVED TO CENTRALIZE ICONS */
+            border: 1px solid var(--border); margin-bottom: 0;
             display: flex; align-items: center; justify-content: space-between;
             box-shadow: 0 0 20px var(--filter-accent); backdrop-filter: blur(30px);
             transition: box-shadow 0.5s ease;
@@ -331,19 +320,18 @@
         }
         #searchWrapper input::placeholder { color: var(--text-muted); }
 
-        /* TAG ICONS MOVED TO BE PERFECTLY EQUIDISTANT */
         #filterIcons { margin: 20px 0; }
 
         #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll {
             max-height: 400px; overflow-y: auto; 
             scrollbar-width: none; -ms-overflow-style: none;
             -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; 
-            margin-top: 15px; padding: 0 12px;
+            padding: 0 12px;
             -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 95%, rgba(255,255,255,0) 100%);
         }
         
-        /* REMOVED MARGIN SO ICONS STAY EQUIDISTANT */
         #vaultWindow { margin-top: 0; }
+        #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll { margin-top: 15px; }
         
         #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar, #learningVaultScroll::-webkit-scrollbar, #expenseVaultScroll::-webkit-scrollbar { display: none; }
 
@@ -404,7 +392,7 @@
         input[type=number], select { -moz-appearance: textfield; }
         .expense-input {
             flex: 1; background: var(--note-bg); border: 1px solid var(--border); color: var(--text-main);
-            border-radius: 14px; padding: 14px 16px; font-family: inherit; outline: none !important;
+            border-radius: 14px; padding: 14px 16px; outline: none !important;
             -webkit-appearance: none; width: 100%; box-sizing: border-box; -webkit-user-select: text; user-select: text;
         }
         .expense-input::placeholder { color: var(--text-muted); }
@@ -530,13 +518,13 @@
         <div class="icon-row" id="inputIcons"></div>
 
         <div class="action-row-input">
-            <div class="date-btn spotlight-container">
+            <div class="date-btn">
                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="opacity:0.6"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
                 <span id="dateLabel">Due Date</span>
                 <input type="date" id="dueDatePicker" onchange="updateDateLabel()">
             </div>
-            <button class="save-btn spotlight-container" id="cancelAction" onclick="cancelEdit()">Cancel</button>
-            <button class="save-btn spotlight-container" id="saveAction" onclick="saveNote()">Save Task</button>
+            <button class="save-btn" id="cancelAction" onclick="cancelEdit()">Cancel</button>
+            <button class="save-btn" id="saveAction" onclick="saveNote()">Save Task</button>
         </div>
 
         <div class="archive-header" id="listsHeader">Lists</div>
@@ -554,7 +542,7 @@
         </div>
 
         <div class="archive-header" style="margin-top:20px;">Calendar</div>
-        <div class="calendar-container spotlight-container">
+        <div class="calendar-container">
             <div class="calendar-nav">
                 <button class="nav-btn" onclick="changeMonth(-1)">❮</button>
                 <div id="monthLabel">Month Year</div>
@@ -564,9 +552,9 @@
             <div id="upcomingDeadlines"></div>
         </div>
 
-        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('learningModule')">Extra Learning Log</button>
+        <button class="collapsible-trigger" onclick="toggleVault('learningModule')">Extra Learning Log</button>
         <div id="learningModule">
-            <div class="calendar-container spotlight-container" style="margin-top: 10px;">
+            <div class="calendar-container" style="margin-top: 10px;">
                 <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 15px;">Add Learning Record</div>
                 
                 <div class="expense-row">
@@ -586,7 +574,7 @@
                 <div class="expense-row">
                     <textarea id="learnReflection" class="expense-input" placeholder="Reflections and notes on extra learning..." style="height: 100px; resize: none; padding-top: 15px;"></textarea>
                 </div>
-                <button class="save-btn spotlight-container" id="logLearningBtn" style="width: 100%; padding: 15px;" onclick="logLearning()">Save to Log</button>
+                <button class="save-btn" id="logLearningBtn" style="width: 100%; padding: 15px;" onclick="logLearning()">Save to Log</button>
             </div>
 
             <div id="learningVaultScroll">
@@ -594,14 +582,14 @@
             </div>
             
             <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <button class="action-btn spotlight-container" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllLearning()">Clear Logs</button>
-                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportLearningCSV()">Export to Excel</button>
+                <button class="action-btn" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllLearning()">Clear Logs</button>
+                <button class="action-btn" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportLearningCSV()">Export to Excel</button>
             </div>
         </div>
 
-        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('expensesModule')">Manage Expenses</button>
+        <button class="collapsible-trigger" onclick="toggleVault('expensesModule')">Manage Expenses</button>
         <div id="expensesModule">
-            <div class="calendar-container spotlight-container" style="margin-top: 10px;">
+            <div class="calendar-container" style="margin-top: 10px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
                     <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Log Journey</div>
                     <button class="action-btn" style="padding: 5px;" onclick="toggleExpenseSettings()">
@@ -618,7 +606,7 @@
                 </div>
                 <div class="expense-row" style="justify-content: space-between;">
                     <label class="toggle-label"><input type="checkbox" id="returnJourney" checked> Return</label>
-                    <button class="save-btn spotlight-container" id="logJourneyBtn" style="padding: 12px 20px;" onclick="logJourney()">Log Journey</button>
+                    <button class="save-btn" id="logJourneyBtn" style="padding: 12px 20px;" onclick="logJourney()">Log Journey</button>
                 </div>
             </div>
 
@@ -627,12 +615,12 @@
             </div>
             
             <div style="display: flex; gap: 10px; margin-top: 15px;">
-                <button class="action-btn spotlight-container" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllExpenses()">Clear Logs</button>
-                <button class="action-btn spotlight-container" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportExpensesCSV()">Export to Excel</button>
+                <button class="action-btn" style="flex: 1; padding: 12px; background: rgba(255, 69, 58, 0.1); color: var(--deadline-red); border-radius: 10px;" onclick="clearAllExpenses()">Clear Logs</button>
+                <button class="action-btn" style="flex: 2; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px;" onclick="exportExpensesCSV()">Export to Excel</button>
             </div>
         </div>
 
-        <button class="collapsible-trigger spotlight-container" onclick="toggleVault('completedVault')">View Completed Tasks</button>
+        <button class="collapsible-trigger" onclick="toggleVault('completedVault')">View Completed Tasks</button>
         <div id="completedVault">
             <div id="completedVaultScroll">
                 <div id="completedList"></div>
@@ -712,7 +700,7 @@
         <div class="expense-row">
             <input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45 or 45)">
         </div>
-        <button class="save-btn spotlight-container" style="width: 100%; padding: 15px; margin-top: 10px;" onclick="saveExpenseSettings()">Save Settings</button>
+        <button class="save-btn" style="width: 100%; padding: 15px; margin-top: 10px;" onclick="saveExpenseSettings()">Save Settings</button>
         <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6;">
             Your Base Postcode will automatically pre-fill the 'From' box when logging a new journey.
         </div>
@@ -730,9 +718,9 @@
                 <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #4285F4 0%, #EA4335 40%, #FBBC05 70%, #34A853 100%);"></div>
                 <span>Academy</span>
             </div>
-            <div class="theme-btn" onclick="setTheme('oasis')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #00CC84, #008B8B, #FF8C00);"></div>
-                <span>Oasis</span>
+            <div class="theme-btn" onclick="setTheme('parchment')">
+                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #444, #000, #E8DCC4);"></div>
+                <span>Parchment</span>
             </div>
             <div class="theme-btn" onclick="setTheme('coral')">
                 <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF3366, #FFD700, #8A2BE2);"></div>
@@ -811,7 +799,7 @@
             b1.onclick = () => {
                 writeIdx = i;
                 document.documentElement.style.setProperty('--active-accent', tagColors[i]);
-                document.documentElement.style.setProperty('--active-vibe', tagMoods[i]);
+                document.documentElement.style.setProperty('--active-vibe', tagMoods[5-i]);
                 document.documentElement.style.setProperty('--orb-x', orbRadialPath[i][0]);
                 document.documentElement.style.setProperty('--orb-y', orbRadialPath[i][1]);
                 document.getElementById('noteInput').setAttribute('data-placeholder', tagPrompts[i]);
@@ -998,7 +986,7 @@
         }
 
         function toggleExpand(btn) {
-            const body = btn.closest('.note').querySelector('.preview-text, .note-body:not(.preview-text)');
+            const body = btn.closest('.note').querySelector('.note-body');
             if (body) {
                 const isPreview = body.classList.toggle('preview-text');
                 btn.innerText = isPreview ? "Read More" : "Collapse";
@@ -1033,7 +1021,7 @@
                 }
 
                 const html = `
-                    <div class="note spotlight-container" style="--note-color: ${n.color}">
+                    <div class="note" style="--note-color: ${n.color}">
                         <div class="note-header">
                             <span style="color:${n.color}">${n.tag}</span>
                             <span>${n.done ? 'DONE: ' + n.completedOn : (n.deadline ? 'DUE: ' + n.deadline.split('-').reverse().slice(0,2).join('/') : n.created.split('-').reverse().slice(0,2).join('/'))}</span>
@@ -1168,7 +1156,7 @@
                 if(e.type === 'Other') typeColor = 'var(--c5)';
 
                 html += `
-                <div class="note spotlight-container" style="--note-color: ${typeColor}; display: block;">
+                <div class="note" style="--note-color: ${typeColor}; display: block;">
                     <div class="note-header">
                         <span style="color:${typeColor}">${e.type}</span>
                         <span>${displayDate} • ${e.hours} HRS</span>
