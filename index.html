@@ -26,15 +26,13 @@
             height: 100%;
         }
 
-        /* PREMIUM GRAIN TEXTURE */
-        .film-grain {
-            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-            pointer-events: none; z-index: 9998; opacity: 0.04;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        /* View Transitions for smooth filtering */
+        ::view-transition-old(root), ::view-transition-new(root) {
+            animation-duration: 0.4s;
         }
 
         /* =========================================
-           1. DEFAULT THEME (Dark & Warm Sunset) 
+           THEMING & VARIABLES
            ========================================= */
         :root {
             --bg-color: #050508;
@@ -67,128 +65,53 @@
             
             --active-accent: var(--c0);
             --active-vibe: var(--v5);
+            --active-orb-2: var(--c3);
+            --active-orb-3: var(--c1);
             --filter-accent: var(--warm-white-glow);
             
-            --orb-x: 50%; --orb-y: -10%; 
-            --task-blue: #007AFF;
             --deadline-red: #FF453A;
+            
+            /* 3D Parallax Variables */
+            --rx: 0deg; --ry: 0deg; 
         }
 
-        /* =========================================
-           2. ACADEMY THEME (White, Google Palette) 
-           ========================================= */
         [data-theme="academy"] {
-            --bg-color: #FFFFFF;
-            --text-main: #202124;
-            --text-muted: rgba(32, 33, 36, 0.45);
-            --text-mid: rgba(32, 33, 36, 0.65);
-            --text-high: rgba(32, 33, 36, 0.9);
-            --bg-overlay: rgba(255, 255, 255, 0.85);
-            --drawer-bg: rgba(250, 250, 250, 0.98);
-            --note-bg: rgba(0, 0, 0, 0.03);
-            --toast-bg: rgba(255, 255, 255, 0.95);
-
-            --glass: rgba(0, 0, 0, 0.02);
-            --border: rgba(0, 0, 0, 0.08);
-            --shadow-heavy: rgba(0, 0, 0, 0.08); 
-            
-            --save-bg: #4285F4; 
-            --save-text: #ffffff;
-            --save-border: #4285F4;
-            --save-shadow: 0 4px 15px rgba(66, 133, 244, 0.4);
-            
-            --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; 
-            --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
-            
-            --v0: rgba(66, 133, 244, 0.15); 
-            --v1: rgba(234, 67, 53, 0.15); 
-            --v2: rgba(251, 188, 5, 0.15);  
-            --v3: rgba(52, 168, 83, 0.15);  
-            --v4: rgba(103, 58, 183, 0.15);  
-            --v5: rgba(0, 172, 193, 0.15); 
-
-            --warm-white: #202124; 
-            --warm-white-glow: rgba(0, 0, 0, 0.15); 
+            --bg-color: #FFFFFF; --text-main: #202124; --text-muted: rgba(32, 33, 36, 0.45);
+            --text-mid: rgba(32, 33, 36, 0.65); --text-high: rgba(32, 33, 36, 0.9);
+            --bg-overlay: rgba(255, 255, 255, 0.85); --drawer-bg: rgba(250, 250, 250, 0.98);
+            --note-bg: rgba(0, 0, 0, 0.03); --toast-bg: rgba(255, 255, 255, 0.95);
+            --glass: rgba(0, 0, 0, 0.02); --border: rgba(0, 0, 0, 0.08); --shadow-heavy: rgba(0, 0, 0, 0.08); 
+            --save-bg: #4285F4; --save-text: #ffffff; --save-border: #4285F4; --save-shadow: 0 4px 15px rgba(66, 133, 244, 0.4);
+            --c0: #4285F4; --c1: #EA4335; --c2: #FBBC05; --c3: #34A853; --c4: #673AB7; --c5: #00ACC1;
+            --v0: rgba(66, 133, 244, 0.15); --v1: rgba(234, 67, 53, 0.15); --v2: rgba(251, 188, 5, 0.15);  
+            --v3: rgba(52, 168, 83, 0.15); --v4: rgba(103, 58, 183, 0.15); --v5: rgba(0, 172, 193, 0.15); 
+            --warm-white: #202124; --warm-white-glow: rgba(0, 0, 0, 0.15); 
         }
-
         [data-theme="academy"] .input-box { box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 50px var(--active-accent); }
         [data-theme="academy"] #inputIcons .sq-btn.active { box-shadow: 0 0 25px var(--active-accent); }
 
-        /* =========================================
-           3. PARCHMENT THEME (Minimalist, Black Accents) 
-           ========================================= */
         [data-theme="parchment"] {
-            --bg-color: #E8DCC4;
-            --text-main: #2C2820;
-            --text-muted: rgba(44, 40, 32, 0.45);
-            --text-mid: rgba(44, 40, 32, 0.65);
-            --text-high: rgba(44, 40, 32, 0.9);
-            --bg-overlay: rgba(232, 220, 196, 0.85);
-            --drawer-bg: rgba(240, 230, 210, 0.98);
-            --note-bg: rgba(0, 0, 0, 0.03);
-            --toast-bg: rgba(240, 230, 210, 0.95);
-
-            --glass: rgba(0, 0, 0, 0.03);
-            --border: rgba(0, 0, 0, 0.12);
-            --shadow-heavy: rgba(0, 0, 0, 0.08);
-            
-            --save-bg: #000000; 
-            --save-text: #ffffff;
-            --save-border: #000000;
-            --save-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-            
-            --c0: #000000; --c1: #000000; --c2: #000000; 
-            --c3: #000000; --c4: #000000; --c5: #000000;
-
-            --v0: transparent; --v1: transparent; --v2: transparent; 
-            --v3: transparent; --v4: transparent; --v5: transparent; 
-
-            --warm-white: #2C2820; 
-            --warm-white-glow: rgba(0, 0, 0, 0.15); 
+            --bg-color: #E8DCC4; --text-main: #2C2820; --text-muted: rgba(44, 40, 32, 0.45);
+            --text-mid: rgba(44, 40, 32, 0.65); --text-high: rgba(44, 40, 32, 0.9);
+            --bg-overlay: rgba(232, 220, 196, 0.85); --drawer-bg: rgba(240, 230, 210, 0.98);
+            --note-bg: rgba(0, 0, 0, 0.03); --toast-bg: rgba(240, 230, 210, 0.95);
+            --glass: rgba(0, 0, 0, 0.03); --border: rgba(0, 0, 0, 0.12); --shadow-heavy: rgba(0, 0, 0, 0.08);
+            --save-bg: #000000; --save-text: #ffffff; --save-border: #000000; --save-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            --c0: #000000; --c1: #000000; --c2: #000000; --c3: #000000; --c4: #000000; --c5: #000000;
+            --v0: transparent; --v1: transparent; --v2: transparent; --v3: transparent; --v4: transparent; --v5: transparent; 
+            --warm-white: #2C2820; --warm-white-glow: rgba(0, 0, 0, 0.15); 
         }
 
-        [data-theme="parchment"] .archive-header,
-        [data-theme="parchment"] .collapsible-trigger,
-        [data-theme="parchment"] .footer-btn {
-            color: #000000;
-            opacity: 0.8;
-        }
-        [data-theme="parchment"] .footer-btn:active {
-            color: #000000;
-            opacity: 1;
-        }
-
-        /* =========================================
-           4. CORAL THEME (Deep Blue, Vibrant Reef Colors) 
-           ========================================= */
         [data-theme="coral"] {
-            --bg-color: #0A1128;
-            --text-main: #F4F7FB;
-            --text-muted: rgba(244, 247, 251, 0.35);
-            --text-mid: rgba(244, 247, 251, 0.6);
-            --text-high: rgba(244, 247, 251, 0.8);
-            --bg-overlay: rgba(10, 17, 40, 0.85);
-            --drawer-bg: rgba(15, 25, 50, 0.95);
-            --note-bg: rgba(255, 255, 255, 0.04);
-            --toast-bg: rgba(15, 25, 50, 0.95);
-
-            --glass: rgba(255, 255, 255, 0.05);
-            --border: rgba(255, 255, 255, 0.15);
-            --shadow-heavy: rgba(0, 0, 0, 0.6);
-            
-            --save-bg: rgba(0, 0, 0, 0.5);
-            --save-text: var(--active-accent);
-            --save-border: var(--active-accent);
-            --save-shadow: 0 0 15px var(--active-accent);
-            
-            --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; 
-            --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
-
-            --v0: #1a0a20; --v1: #0a1020; --v2: #200a15; 
-            --v3: #200a0a; --v4: #0a0a20; --v5: #0a2015; 
-
-            --warm-white: #F4F7FB; 
-            --warm-white-glow: rgba(255, 255, 255, 0.3); 
+            --bg-color: #0A1128; --text-main: #F4F7FB; --text-muted: rgba(244, 247, 251, 0.35);
+            --text-mid: rgba(244, 247, 251, 0.6); --text-high: rgba(244, 247, 251, 0.8);
+            --bg-overlay: rgba(10, 17, 40, 0.85); --drawer-bg: rgba(15, 25, 50, 0.95);
+            --note-bg: rgba(255, 255, 255, 0.04); --toast-bg: rgba(15, 25, 50, 0.95);
+            --glass: rgba(255, 255, 255, 0.05); --border: rgba(255, 255, 255, 0.15); --shadow-heavy: rgba(0, 0, 0, 0.6);
+            --save-bg: rgba(0, 0, 0, 0.5); --save-text: var(--active-accent); --save-border: var(--active-accent); --save-shadow: 0 0 15px var(--active-accent);
+            --c0: #FF3366; --c1: #FF5533; --c2: #FFD700; --c3: #00FFFF; --c4: #00FA9A; --c5: #BF5FFF;
+            --v0: #1a0a20; --v1: #0a1020; --v2: #200a15; --v3: #200a0a; --v4: #0a0a20; --v5: #0a2015; 
+            --warm-white: #F4F7FB; --warm-white-glow: rgba(255, 255, 255, 0.3); 
         }
 
         html, body { scrollbar-width: none; -ms-overflow-style: none; width: 100%; overflow-x: hidden; position: relative;}
@@ -202,77 +125,59 @@
             transition: background-color 0.6s ease, color 0.6s ease;
         }
 
-        [data-theme="parchment"] .vibe-orb, [data-theme="academy"] .vibe-orb { display: none !important; }
+        /* 3D Parallax Base Class */
+        .parallax-target { transform: perspective(1000px) rotateX(var(--rx)) rotateY(var(--ry)); transition: transform 0.15s ease-out; transform-style: preserve-3d; will-change: transform; }
 
-        .vibe-orb {
-            position: fixed; top: var(--orb-y); left: var(--orb-x); 
-            width: 160%; height: 70%;
-            background: radial-gradient(circle, var(--active-vibe) 0%, transparent 80%);
-            filter: blur(90px); z-index: 0; 
-            pointer-events: none; will-change: transform, top, left, background;
-            /* Premium Gyro translation separate from transition to prevent lag */
-            transform: translate(calc(-50% + var(--tilt-x, 0px)), calc(-50% + var(--tilt-y, 0px)));
-            transition: top 2s cubic-bezier(0.23, 1, 0.32, 1), left 2s cubic-bezier(0.23, 1, 0.32, 1), background 2s ease;
-        }
+        /* =========================================
+           DYNAMIC ORBS (Mesh Gradient)
+           ========================================= */
+        [data-theme="parchment"] .vibe-container, [data-theme="academy"] .vibe-container { display: none !important; }
 
-        .app-container { 
-            padding: calc(40px + env(safe-area-inset-top, 20px)) 25px 60px; 
-            max-width: 420px; margin: auto; position: relative; z-index: 1;
+        .vibe-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; }
+        .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; mix-blend-mode: screen;
+            transition: background 1.5s ease;
         }
+        .orb-1 { width: 120vw; height: 120vw; background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%); top: -40%; left: -20%; animation: float1 14s ease-in-out infinite alternate; }
+        .orb-2 { width: 100vw; height: 100vw; background: radial-gradient(circle, var(--active-orb-2) 0%, transparent 60%); top: 10%; right: -20%; animation: float2 18s ease-in-out infinite alternate; opacity: 0.25;}
+        .orb-3 { width: 90vw; height: 90vw; background: radial-gradient(circle, var(--active-orb-3) 0%, transparent 60%); bottom: -30%; left: 10%; animation: float3 20s ease-in-out infinite alternate; opacity: 0.2;}
 
-        .archive-header { 
-            font-size: 10px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.35; 
-            margin-bottom: 22px; text-align: center; font-weight: 600;
-        }
+        @keyframes float1 { 0% { transform: translate(-5vw, -5vh) scale(1); } 100% { transform: translate(25vw, 20vh) scale(1.1); } }
+        @keyframes float2 { 0% { transform: translate(5vw, -5vh) scale(1); } 100% { transform: translate(-25vw, 15vh) scale(1.2); } }
+        @keyframes float3 { 0% { transform: translate(-10vw, 5vh) scale(1.2); } 100% { transform: translate(30vw, -25vh) scale(1); } }
+
+        .app-container { padding: calc(40px + env(safe-area-inset-top, 20px)) 25px 60px; max-width: 420px; margin: auto; position: relative; z-index: 1; }
+
+        .archive-header { font-size: 10px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.35; margin-bottom: 22px; text-align: center; font-weight: 600; }
 
         .input-box {
-            background: var(--glass);
-            border-radius: 32px; padding: 25px;
-            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px);
-            border: 1px solid var(--border);
+            background: var(--glass); border-radius: 32px; padding: 25px;
+            backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border);
             box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 30px var(--active-accent);
-            transition: all 0.8s ease;
-            transform: translateZ(0); margin-top: 10px;
-            will-change: box-shadow;
+            transition: all 0.4s ease, transform 0.15s ease-out; transform: translateZ(0); margin-top: 10px; will-change: box-shadow, transform;
         }
 
         .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
-        
         #noteInput {
-            flex-grow: 1; background: transparent; border: none;
-            color: var(--text-main); font-size: 16px; overflow-y: auto;
-            font-family: inherit; font-weight: 300; line-height: 1.5;
-            padding-bottom: 10px; -webkit-appearance: none;
-            outline: none !important; -webkit-tap-highlight-color: transparent;
-            -webkit-user-select: text; user-select: text;
+            flex-grow: 1; background: transparent; border: none; color: var(--text-main); font-size: 16px; overflow-y: auto;
+            font-family: inherit; font-weight: 300; line-height: 1.5; padding-bottom: 10px; -webkit-appearance: none;
+            outline: none !important; -webkit-tap-highlight-color: transparent; -webkit-user-select: text; user-select: text;
         }
-        #noteInput:focus {
-            outline: 0px solid transparent !important;
-            box-shadow: none !important; -webkit-box-shadow: none !important;
-        }
-        #noteInput[contenteditable]:empty::before {
-            content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block;
-        }
+        #noteInput:focus { outline: 0px solid transparent !important; box-shadow: none !important; -webkit-box-shadow: none !important; }
+        #noteInput[contenteditable]:empty::before { content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block; }
+        
+        @keyframes placeholderFade { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+        #noteInput.animating-placeholder:empty::before { animation: placeholderFade 0.15s ease-out forwards; }
         
         .editor-toolbar { display: flex; gap: 12px; margin-top: auto; padding-top: 10px; align-items: center; }
-        .format-btn {
-            background: transparent; border: none; color: var(--text-muted);
-            font-size: 14px; cursor: pointer; padding: 0; transition: 0.3s ease;
-            font-family: inherit; font-weight: 600;
-        }
+        .format-btn { background: transparent; border: none; color: var(--text-muted); font-size: 14px; cursor: pointer; padding: 0; transition: 0.3s ease; font-family: inherit; font-weight: 600; }
         .format-btn.active { color: var(--text-main); text-shadow: 0 0 10px var(--active-accent); }
 
         .icon-row { display: flex; justify-content: space-between; gap: 8px; }
         #inputIcons { margin: 45px 0 35px; }
 
-        .sq-btn {
-            width: 44px; height: 44px; border-radius: 14px;
-            border: 1px solid var(--border); background: var(--glass);
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); padding: 0;
-        }
+        .sq-btn { width: 44px; height: 44px; border-radius: 14px; border: 1px solid var(--border); background: var(--glass); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1); padding: 0; }
         .sq-btn svg { width: 20px; height: 20px; opacity: 0.35; transition: 0.4s; }
-        
         .sq-btn.active { transform: scale(1.15) translateY(-4px); border-color: var(--active-accent); }
         
         #inputIcons .sq-btn.active { box-shadow: 0 0 15px var(--active-accent); }
@@ -284,101 +189,61 @@
         #filterIcons .sq-btn.active.ic5 { box-shadow: 0 0 15px var(--c5); border-color: var(--c5); }
         #filterIcons .sq-btn.all-btn.active { box-shadow: 0 0 15px var(--warm-white-glow); border-color: var(--text-mid); }
         
-        .ic0 svg { fill: var(--c0); } .ic1 svg { fill: var(--c1); }
-        .ic2 svg { fill: var(--c2); } .ic3 svg { fill: var(--c3); }
-        .ic4 svg { fill: var(--c4); } .ic5 svg { fill: var(--c5); }
+        .ic0 svg { fill: var(--c0); } .ic1 svg { fill: var(--c1); } .ic2 svg { fill: var(--c2); } .ic3 svg { fill: var(--c3); } .ic4 svg { fill: var(--c4); } .ic5 svg { fill: var(--c5); }
         .sq-btn.active svg { opacity: 1; }
         .all-btn { color: var(--text-high) !important; font-weight: 700 !important; }
         .all-btn.active { color: var(--text-main) !important; opacity: 1 !important; }
 
-        .action-row-input { display: flex; gap: 12px; margin-bottom: 20px; }
-        .date-btn {
-            flex: 1; background: var(--glass); border: 1px solid var(--border);
-            border-radius: 22px; color: var(--text-mid); padding: 18px; 
-            font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px;
-            cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px;
-        }
-        
+        .action-row-input { display: flex; gap: 12px; margin-bottom: 45px; }
+        .date-btn { flex: 1; background: var(--glass); border: 1px solid var(--border); border-radius: 22px; color: var(--text-mid); padding: 18px; font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; cursor: pointer; position: relative; display: flex; align-items: center; justify-content: center; gap: 8px; }
         input, select, textarea { font-size: 16px !important; font-family: inherit; font-weight: 300; }
         #dueDatePicker { position: absolute; top:0; left:0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
-        .save-btn {
-            flex: 1; padding: 18px; border-radius: 22px; 
-            background: var(--save-bg); border: 1px solid var(--save-border);
-            color: var(--save-text); text-shadow: var(--save-shadow);
-            font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        #cancelAction {
-            display: none; background: rgba(255, 69, 58, 0.1); border-color: var(--deadline-red); 
-            color: var(--deadline-red); text-shadow: 0 0 15px rgba(255, 69, 58, 0.5);
-        }
+        .save-btn { flex: 1; padding: 18px; border-radius: 22px; background: var(--save-bg); border: 1px solid var(--save-border); color: var(--save-text); text-shadow: var(--save-shadow); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; gap: 8px;}
+        #cancelAction { display: none; background: rgba(255, 69, 58, 0.1); border-color: var(--deadline-red); color: var(--deadline-red); text-shadow: 0 0 15px rgba(255, 69, 58, 0.5); }
         .save-btn.pulse { animation: btnPulse 0.4s ease-out; }
         @keyframes btnPulse { 0% { transform: scale(1); } 50% { transform: scale(0.96); background: rgba(255,255,255,0.1); } 100% { transform: scale(1); } }
 
-        #searchWrapper {
-            background: var(--bg-overlay); border-radius: 20px; padding: 15px 20px;
-            border: 1px solid var(--border); margin-bottom: 0;
-            display: flex; align-items: center; justify-content: space-between;
-            box-shadow: 0 0 20px var(--filter-accent); backdrop-filter: blur(30px);
-            transition: box-shadow 0.5s ease;
-        }
-        #searchWrapper input { 
-            background: transparent; border: none; color: var(--text-main); width: 85%; 
-            outline: none; -webkit-user-select: text; user-select: text; 
-        }
+        /* Loader Animation */
+        .spinner { width: 14px; height: 14px; border: 2px solid transparent; border-top-color: currentColor; border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
+        @keyframes spin { 100% { transform: rotate(360deg); } }
+
+        #searchWrapper { background: var(--bg-overlay); border-radius: 20px; padding: 15px 20px; border: 1px solid var(--border); margin-bottom: 0; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--filter-accent); backdrop-filter: blur(30px); transition: box-shadow 0.5s ease; }
+        #searchWrapper input { background: transparent; border: none; color: var(--text-main); width: 85%; outline: none; -webkit-user-select: text; user-select: text; }
         #searchWrapper input::placeholder { color: var(--text-muted); }
+        #filterIcons { margin: 20px 0; }
 
-        #filterIcons { margin: 40px 0 20px; }
-
-        #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll {
-            max-height: 400px; overflow-y: auto; 
-            scrollbar-width: none; -ms-overflow-style: none;
-            -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; 
-            padding: 0 12px;
-            -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 95%, rgba(255,255,255,0) 100%);
-        }
-        
-        #vaultWindow { margin-top: 0; }
-        #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll { margin-top: 15px; }
+        /* Added larger margin-bottom to physically distance the vault from the calendar button below it */
+        #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll { max-height: 400px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 0 12px; -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 5%, rgba(255,255,255,1) 95%, rgba(255,255,255,0) 100%); margin-bottom: 30px; }
+        #vaultWindow { margin-top: 0; } #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll { margin-top: 15px; }
         #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar, #learningVaultScroll::-webkit-scrollbar, #expenseVaultScroll::-webkit-scrollbar { display: none; }
         #expenseVaultScroll, #learningVaultScroll { max-height: 230px; }
 
-        .note, .expense-tile {
-            background: var(--note-bg); border-radius: 18px; padding: 12px 16px; margin-top: 14px; 
-            border-left: 3px solid var(--note-color, var(--active-accent)); backdrop-filter: blur(15px); 
-            animation: noteAppear 0.5s ease forwards; position: relative; overflow: hidden;
-            transition: all 0.5s ease; transform: translateZ(0);
-            background-clip: padding-box;
-            border-top: 1px solid transparent; 
-            border-right: 1px solid transparent;
-            border-bottom: 1px solid transparent;
-            max-height: 500px; /* needed for smooth collapse */
-        }
+        .note, .expense-tile { background: var(--note-bg); border-radius: 18px; padding: 12px 16px; margin-top: 14px; border-left: 3px solid var(--note-color, var(--active-accent)); backdrop-filter: blur(15px); animation: noteAppear 0.5s ease forwards; position: relative; overflow: hidden; transition: all 0.5s ease; transform: translateZ(0); }
         .expense-tile { padding: 14px; }
         
         mark.search-highlight { background: rgba(249, 196, 105, 0.4); color: var(--text-main); border-radius: 3px; padding: 0 2px; box-shadow: 0 0 5px var(--c0); }
 
-        /* Premium Gap Collapse Animation */
-        .note.deleting, .expense-tile.deleting { 
-            animation: shrinkOut 0.3s cubic-bezier(0.2, 1, 0.3, 1) forwards, collapseGap 0.3s cubic-bezier(0.2, 1, 0.3, 1) 0.3s forwards; 
-        }
+        .note.deleting, .expense-tile.deleting { animation: shrinkOut 0.4s cubic-bezier(0.2, 1, 0.3, 1) forwards !important; }
         @keyframes shrinkOut { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0.9) translateY(-10px); } }
-        @keyframes collapseGap { to { max-height: 0; padding-top: 0; padding-bottom: 0; margin-top: 0; margin-bottom: 0; border-top-width: 0; border-bottom-width: 0; opacity: 0; overflow: hidden; } }
-
-        .note.completing::after {
-            content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
-            background: linear-gradient(90deg, transparent, var(--text-muted), transparent);
-            transform: skewX(-20deg); animation: sweep 0.5s ease forwards;
-        }
-        @keyframes sweep { 100% { left: 150%; } }
         @keyframes noteAppear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* SVG Checkmark Animation */
+        .check-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); z-index: 10; opacity: 0; animation: fadeInOverlay 0.2s forwards; }
+        @keyframes fadeInOverlay { to { opacity: 1; } }
+        .check-svg { width: 40px; height: 40px; stroke: #34C759; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
+        .check-svg path { stroke-dasharray: 60; stroke-dashoffset: 60; animation: drawCheck 0.4s ease forwards 0.1s; }
+        @keyframes drawCheck { to { stroke-dashoffset: 0; } }
+
+        /* Particles Glow Burst (Z-index fixed to overlay mask) */
+        .particle { position: fixed; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 99999; animation: burst 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; box-shadow: 0 0 8px currentColor; }
+        @keyframes burst { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; } }
 
         .note-header { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.2px; }
         .note-body { font-size: 12px; line-height: 1.6; opacity: 0.85; -webkit-user-select: text; user-select: text; }
         .preview-text { display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
 
-        .action-row { display: flex; gap: 15px; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; }
+        .action-row { display: flex; gap: 15px; margin-top: 8px; border-top: 1px solid var(--border); padding-top: 8px; position: relative; z-index: 2; }
         .action-btn { background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); opacity: 0.5; cursor: pointer; text-transform: uppercase; transition: 0.3s; padding: 0; }
         .action-btn:hover { opacity: 1; }
         .done-btn { color: #34C759; opacity: 1; }
@@ -387,7 +252,7 @@
         .empty-state svg { margin-bottom: 12px; }
         .empty-text { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
 
-        .calendar-container { background: var(--glass); border-radius: 24px; border: 1px solid var(--border); padding: 22px; margin-bottom: 25px; backdrop-filter: blur(30px); }
+        .calendar-container { background: var(--glass); border-radius: 24px; border: 1px solid var(--border); padding: 22px; margin-bottom: 25px; backdrop-filter: blur(30px); transition: transform 0.15s ease-out; will-change: transform;}
         .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px; }
         .nav-btn { background: transparent; border: none; color: var(--text-main); cursor: pointer; opacity: 0.5; font-size: 14px; padding: 5px 10px; }
         .nav-btn:hover { opacity: 1; }
@@ -415,13 +280,18 @@
         .exp-meta { font-size: 9px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; }
         .exp-cost { font-size: 14px; font-weight: 800; color: var(--active-accent); transition: color 0.5s ease; }
 
-        .collapsible-trigger { width: 100%; padding: 20px; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px; }
-        #completedVault, #expensesModule, #learningModule { display: none; padding-bottom: 20px; }
+        .collapsible-trigger { width: 100%; padding: 20px; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px; transition: all 0.3s ease; }
+        #calendarModule, #completedVault, #expensesModule, #learningModule { display: none; padding-bottom: 20px; }
+
+        /* Clean Text Totals Display */
+        .totals-display {
+            font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            color: var(--text-mid); text-align: right; margin-bottom: 15px; margin-right: 5px;
+        }
 
         .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 4px; padding-bottom: 20px; }
         .footer-btn { background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); opacity: 0.35; cursor: pointer; text-transform: uppercase; padding: 10px; transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1); border-radius: 12px; }
         .footer-btn:active { opacity: 1; transform: scale(0.96); background: var(--glass); box-shadow: 0 0 20px var(--warm-white-glow); color: var(--warm-white); }
-
         .permanent-msg { padding: 15px; background: rgba(150,150,150,0.05); border-radius: 15px; font-size: 10px; line-height: 1.4; color: var(--text-mid); border: 1px dashed var(--border); text-align: center; margin-top: 5px; margin-bottom: 10px; }
 
         #toastContainer { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%); display: flex; flex-direction: column; gap: 10px; z-index: 9999; pointer-events: none; }
@@ -431,18 +301,15 @@
 
         .drawer-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.6); backdrop-filter: blur(5px); z-index: 999; opacity: 0; visibility: hidden; transition: opacity 0.3s ease, visibility 0.3s; }
         .drawer-overlay.active { opacity: 1; visibility: visible; pointer-events: auto; }
-
         .bottom-drawer { position: fixed; bottom: 0; left: 50%; transform: translate(-50%, 100%); width: 100%; max-width: 420px; background: var(--drawer-bg); backdrop-filter: blur(30px); border-top: 1px solid var(--border); border-radius: 30px 30px 0 0; padding: 20px 25px 30px; box-sizing: border-box; z-index: 1000; font-size: 10px; line-height: 1.6; color: var(--text-high); opacity: 0; visibility: hidden; transition: transform 0.4s cubic-bezier(0.32, 1, 0.23, 1), opacity 0.4s, visibility 0.4s; }
         .bottom-drawer.active { transform: translate(-50%, 0); opacity: 1; visibility: visible; }
         .drawer-handle { width: 40px; height: 5px; background: var(--text-muted); border-radius: 5px; margin: 0 auto 15px; }
         
         .help-scroll-area { max-height: 60vh; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%); padding: 0 0 20px; }
         .help-scroll-area::-webkit-scrollbar { display: none; }
-        
         .walk-item { margin-bottom: 15px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
         .walk-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
         .walk-item b { color: var(--text-main); text-transform: uppercase; font-size: 9px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
-
         .safety-box { background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.3); border-radius: 12px; padding: 14px; margin-top: 8px; margin-bottom: 15px; }
 
         .theme-row { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
@@ -451,24 +318,24 @@
         .theme-btn:active .theme-circle { transform: scale(0.9); box-shadow: inset -3px -3px 8px rgba(0,0,0,0.5), inset 2px 2px 5px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.3); }
         .theme-btn span { font-size: 9px; text-transform: uppercase; font-weight: 700; color: var(--text-high); letter-spacing: 1px; }
 
-        /* Gyro Toggle Icon */
-        #gyroBtn { position: absolute; left: 0; top: -5px; background: var(--glass); border: 1px solid var(--border); color: var(--text-main); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; cursor: pointer; padding: 0; opacity: 0.4; transition: all 0.3s ease; }
-        #gyroBtn.active { opacity: 1; border-color: var(--active-accent); color: var(--active-accent); box-shadow: 0 0 10px var(--active-accent); }
-
     </style>
 </head>
 <body>
 
-    <div class="film-grain"></div>
-    <div class="vibe-orb" id="vibeOrb"></div>
+    <div class="vibe-container" id="vibeOrb">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
     <div class="drawer-overlay" id="drawerOverlay" onclick="closeDrawers()"></div>
 
     <div class="app-container">
         <div class="archive-header">Capture Note</div>
         
-        <div class="input-box">
+        <div class="input-box parallax-target">
             <div class="editor-wrapper">
-                <div id="noteInput" contenteditable="true" data-placeholder="" onkeyup="updateToolbarState(); autoSaveDraft();" onmouseup="updateToolbarState()"></div>
+                <div id="noteInput" contenteditable="true" data-placeholder="Write your University notes/reminders here" onkeyup="updateToolbarState(); autoSaveDraft();" onmouseup="updateToolbarState()"></div>
                 <div class="editor-toolbar">
                     <button class="format-btn" id="btnBold" onclick="formatText('bold')">B</button>
                     <button class="format-btn" id="btnItalic" onclick="formatText('italic')" style="font-style: italic;">I</button>
@@ -491,7 +358,7 @@
 
         <div class="archive-header" id="listsHeader">Lists</div>
         <div id="searchWrapper">
-            <input type="text" id="searchInput" placeholder="Search tasks..." oninput="renderNotes()">
+            <input type="text" id="searchInput" placeholder="Search tasks..." oninput="renderNotesWithTransition()">
             <button onclick="exportFilteredNotes()" style="background:none; border:none; opacity:0.4; cursor:pointer;"><svg width="18" height="18" fill="var(--text-main)" viewBox="0 0 24 24"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg></button>
         </div>
 
@@ -503,22 +370,23 @@
             <div id="notesList"></div>
         </div>
 
-        <div class="archive-header" style="margin-top:20px;">Calendar</div>
-        <div class="calendar-container">
-            <div class="calendar-nav">
-                <button class="nav-btn" onclick="changeMonth(-1)">❮</button>
-                <div id="monthLabel">Month Year</div>
-                <button class="nav-btn" onclick="changeMonth(1)">❯</button>
+        <button class="collapsible-trigger" onclick="toggleVault('calendarModule', this)" style="margin-top: 15px;">View Calendar & Deadlines</button>
+        <div id="calendarModule">
+            <div class="calendar-container parallax-target" style="margin-top: 10px;">
+                <div class="calendar-nav">
+                    <button class="nav-btn" onclick="changeMonth(-1)">❮</button>
+                    <div id="monthLabel">Month Year</div>
+                    <button class="nav-btn" onclick="changeMonth(1)">❯</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid"></div>
+                <div id="upcomingDeadlines"></div>
             </div>
-            <div class="calendar-grid" id="calendarGrid"></div>
-            <div id="upcomingDeadlines"></div>
         </div>
 
-        <button class="collapsible-trigger" onclick="toggleVault('learningModule')">Extra Learning Log</button>
+        <button class="collapsible-trigger" onclick="toggleVault('learningModule', this)">Extra Learning Log</button>
         <div id="learningModule">
             <div class="calendar-container" style="margin-top: 10px;">
                 <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 15px;">Add Learning Record</div>
-                
                 <div class="expense-row">
                     <input type="date" id="learnDate" class="expense-input" style="width: 110px; flex: none;">
                     <select id="learnType" class="expense-input" style="flex: 1; padding-right: 10px;">
@@ -539,6 +407,8 @@
                 <button class="save-btn" id="logLearningBtn" style="width: 100%; padding: 15px;" onclick="logLearning()">Save to Log</button>
             </div>
 
+            <div id="learningTotalDisplay" class="totals-display">CBT: 0 | SYS: 0 | NEURO: 0 | OTHER: 0</div>
+            
             <div id="learningVaultScroll">
                 <div id="learningList"></div>
             </div>
@@ -549,7 +419,7 @@
             </div>
         </div>
 
-        <button class="collapsible-trigger" onclick="toggleVault('expensesModule')">Manage Expenses</button>
+        <button class="collapsible-trigger" onclick="toggleVault('expensesModule', this)">Manage Expenses</button>
         <div id="expensesModule">
             <div class="calendar-container" style="margin-top: 10px;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
@@ -561,10 +431,15 @@
                 
                 <div class="expense-row">
                     <input type="date" id="journeyDate" class="expense-input" style="width: 100px; flex: none;">
-                    <input type="text" id="startPostcode" class="expense-input" placeholder="From (Postcode)">
+                    <select id="journeyType" class="expense-input" style="flex: 1;">
+                        <option value="" disabled selected>Journey Type</option>
+                        <option value="Business">Business Mileage</option>
+                        <option value="University">Travel to University</option>
+                    </select>
                 </div>
                 <div class="expense-row">
-                    <input type="text" id="destPostcode" class="expense-input" placeholder="To (Postcode)">
+                    <input type="text" id="startPostcode" class="expense-input" placeholder="Start (Postcode)">
+                    <input type="text" id="destPostcode" class="expense-input" placeholder="End (Postcode)">
                 </div>
                 <div class="expense-row" style="justify-content: space-between;">
                     <label class="toggle-label"><input type="checkbox" id="returnJourney" checked> Return</label>
@@ -572,6 +447,8 @@
                 </div>
             </div>
 
+            <div id="expensesTotalDisplay" class="totals-display">Total Owed: £0.00</div>
+            
             <div id="expenseVaultScroll">
                 <div id="expenseList"></div>
             </div>
@@ -582,7 +459,7 @@
             </div>
         </div>
 
-        <button class="collapsible-trigger" onclick="toggleVault('completedVault')">View Completed Tasks</button>
+        <button class="collapsible-trigger" onclick="toggleVault('completedVault', this)">View Completed Tasks</button>
         <div id="completedVault">
             <div id="completedVaultScroll">
                 <div id="completedList"></div>
@@ -606,93 +483,43 @@
     <div id="helpWalkthrough" class="bottom-drawer">
         <div class="drawer-handle"></div>
         <div class="archive-header" style="margin-bottom:15px;">How To Use</div>
-        
         <div class="help-scroll-area">
             <div class="safety-box">
-                <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">
-                    System updates or clearing your browser cache will wipe this app's data. It is highly recommended to back up your vault frequently!
-                </div>
-                <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);">
-                    <b>1. Backup</b>
-                </div>
-                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                    Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely on your device.
-                </div>
-                <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);">
-                    <b>2. Restore</b>
-                </div>
-                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">
-                    If your app clears, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return.
-                </div>
+                <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">System updates or clearing your browser cache will wipe this app's data. Back up your vault frequently!</div>
+                <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);"><b>1. Backup</b></div>
+                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely.</div>
+                <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);"><b>2. Restore</b></div>
+                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">If your app clears, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return.</div>
             </div>
-
-            <div class="walk-item">
-                <b>Tags</b> 
-                Use the top icons to categorize notes (Reflection, Research/Thesis, etc). Tagging notes makes them much easier to filter and find later in the Lists section.
-            </div>
-            
-            <div class="walk-item">
-                <b>Filter & Search</b> 
-                Tap icons below the search bar to filter by category, or type to find specific keywords. Tap ALL to see everything. Tap the download icon in the search bar to export your currently filtered list as a .txt file.
-            </div>
-            
-            <div class="walk-item">
-                <b>Calendar</b> 
-                Tap a day to filter your lists. The calendar elegantly displays both tasks created on that date (white dots) and tasks with deadlines on that date (colored dots matching their tag). Upcoming deadlines will dynamically appear below the calendar.
-            </div>
-            
-            <div class="walk-item">
-                <b>Extra Learning Log</b> 
-                Keep track of your independent study. Select the activity type, date, and hours, then add your reflection. Exporting this will instantly generate a pre-formatted file that perfectly matches your university spreadsheet columns for easy copy-pasting.
-            </div>
-            
-            <div class="walk-item" style="border: none;">
-                <b>Expenses</b> 
-                Tap the gear icon in the Expenses section to set your Base Postcode and £/mile rate. Your base will auto-fill as the 'From' location to save time. It calculates mileage automatically via public API and can be exported as a clean spreadsheet.
-            </div>
+            <div class="walk-item"><b>Tags</b> Use icons to categorize notes.</div>
+            <div class="walk-item"><b>Filter & Search</b> Filter by category or keyword. Tap download icon to export text.</div>
+            <div class="walk-item"><b>Calendar</b> Filter lists by day. Shows task creations and deadlines.</div>
+            <div class="walk-item"><b>Extra Learning Log</b> Track independent study. Export pre-formatted CSV.</div>
+            <div class="walk-item" style="border: none;"><b>Expenses</b> Set Base Postcode and £/mile rate in settings. Auto-calculates mileage via API.</div>
         </div>
     </div>
 
     <div id="expenseSettingsDrawer" class="bottom-drawer">
         <div class="drawer-handle"></div>
         <div class="archive-header" style="margin-bottom:20px;">Expense Settings</div>
-        <div class="expense-row">
-            <input type="text" id="basePostcode" class="expense-input" placeholder="Base Postcode (e.g. SO17 1BJ)">
-        </div>
-        <div class="expense-row">
-            <input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45 or 45)">
-        </div>
+        <div class="expense-row"><input type="text" id="basePostcode" class="expense-input" placeholder="Base Postcode (e.g. SO17 1BJ)"></div>
+        <div class="expense-row"><input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45 or 45)"></div>
         <button class="save-btn" style="width: 100%; padding: 15px; margin-top: 10px;" onclick="saveExpenseSettings()">Save Settings</button>
-        <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6;">
-            Your Base Postcode will automatically pre-fill the 'From' box when logging a new journey.
-        </div>
+        <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6;">Your Base Postcode will automatically pre-fill the 'Start' box.</div>
     </div>
 
     <div id="themeDrawer" class="bottom-drawer">
         <div class="drawer-handle"></div>
-        <div class="archive-header" style="margin-bottom:20px; position: relative;">
-            <button onclick="toggleGyro()" id="gyroBtn">
-                <svg width="14" height="14" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
-            </button>
-            Select Theme
-        </div>
+        <div class="archive-header" style="margin-bottom:20px;">Select Theme</div>
         <div class="theme-row">
-            <div class="theme-btn" onclick="setTheme('default')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FD5495, #1a0a24);"></div>
-                <span>Default</span>
-            </div>
-            <div class="theme-btn" onclick="setTheme('academy')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #4285F4 0%, #EA4335 40%, #FBBC05 70%, #34A853 100%);"></div>
-                <span>Academy</span>
-            </div>
-            <div class="theme-btn" onclick="setTheme('parchment')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 50% 50%, #2C2820 0%, #E8DCC4 70%);"></div>
-                <span>Parchment</span>
-            </div>
-            <div class="theme-btn" onclick="setTheme('coral')">
-                <div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF3366, #FFD700, #8A2BE2);"></div>
-                <span>Coral</span>
-            </div>
+            <div class="theme-btn" onclick="setTheme('default')"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FD5495, #1a0a24);"></div><span>Default</span></div>
+            <div class="theme-btn" onclick="setTheme('academy')"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #4285F4 0%, #EA4335 40%, #FBBC05 70%, #34A853 100%);"></div><span>Academy</span></div>
+            <div class="theme-btn" onclick="setTheme('parchment')"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #444, #000, #E8DCC4);"></div><span>Parchment</span></div>
+            <div class="theme-btn" onclick="setTheme('coral')"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF3366, #FFD700, #8A2BE2);"></div><span>Coral</span></div>
+        </div>
+        
+        <div style="border-top: 1px solid var(--border); margin-top: 25px; padding-top: 20px;">
+            <button id="parallaxBtn" class="save-btn" style="width: 100%; padding: 15px; background: var(--glass);" onclick="toggle3DParallax()">Enable 3D Parallax</button>
         </div>
     </div>
 
@@ -707,60 +534,80 @@
             '<svg viewBox="0 0 24 24" aria-label="Deadlines"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z"/></svg>',
             '<svg viewBox="0 0 24 24" aria-label="General"><path d="M12 15.5l-1.5-3.5L7 10.5 10.5 9 12 5.5l1.5 3.5L17 10.5l-3.5 1.5L12 15.5zM19 9.5l-1.25-2.75L15 5.5l2.75-1.25L19 1.5l1.25 2.75L23 5.5l-2.75 1.25L19 9.5zM6 21.5l-1-2.25L2.75 18.25l2.25-1L6 15l1 2.25 2.25 1-2.25 1L6 21.5z"/></svg>'
         ];
-
         const emptySvg = `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
 
         const tagLabels = ["University", "Placement", "Reflection", "Research/Thesis", "Deadlines", "General"];
-        const tagPrompts = [
-            "Write your University notes/reminders here", 
-            "Write your placement/supervision notes here", 
-            "Write down your clinical reflections and thoughts here", 
-            "Jot down your thesis ideas, references, or research to-dos here", 
-            "What upcoming deadlines do you need to remember?", 
-            "Write your general notes/reminders here"
-        ];
+        const tagPrompts = ["Write your University notes/reminders here", "Write your placement/supervision notes here", "Write down your clinical reflections and thoughts here", "Jot down your thesis ideas, references, or research to-dos here", "What upcoming deadlines do you need to remember?", "Write your general notes/reminders here"];
         
         const tagColors = ['var(--c0)', 'var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)', 'var(--c5)'];
         const tagMoods = ['var(--v0)', 'var(--v1)', 'var(--v2)', 'var(--v3)', 'var(--v4)', 'var(--v5)'];
-        const orbRadialPath = [['40%','20%'], ['60%','20%'], ['70%','40%'], ['60%','60%'], ['40%','60%'], ['30%','40%']];
 
-        let writeIdx = 0; let archiveFilter = 'All'; let dateFilter = null; let editingId = null;
-        let editingLearnId = null;
+        let writeIdx = 0; let archiveFilter = 'All'; let dateFilter = null; let editingId = null; let editingLearnId = null;
         let currentCalDate = new Date();
-        let gyroEnabled = false;
-        let typingInterval;
+        let is3DActive = false;
 
-        function triggerHaptic(pattern) {
-            if ('vibrate' in navigator) navigator.vibrate(pattern);
-        }
+        function triggerHaptic(pattern) { if ('vibrate' in navigator) navigator.vibrate(pattern); }
 
         function showToast(message) {
             const container = document.getElementById('toastContainer');
-            const toast = document.createElement('div');
-            toast.className = 'toast';
-            toast.innerText = message;
-            container.appendChild(toast);
-            setTimeout(() => { if(toast.parentNode) toast.parentNode.removeChild(toast); }, 3500);
+            const toast = document.createElement('div'); toast.className = 'toast'; toast.innerText = message;
+            container.appendChild(toast); setTimeout(() => { if(toast.parentNode) toast.parentNode.removeChild(toast); }, 3500);
         }
 
-        /* PREMIUM FEATURE: Typing Placeholders */
-        function typePlaceholder(text) {
-            const el = document.getElementById('noteInput');
-            let i = 0;
-            el.setAttribute('data-placeholder', '');
-            clearInterval(typingInterval);
-            typingInterval = setInterval(() => {
-                el.setAttribute('data-placeholder', text.substring(0, i+1));
-                i++;
-                if(i >= text.length) clearInterval(typingInterval);
-            }, 15); 
+        /* 3D Parallax Logic */
+        function parallaxHandler(e) {
+            let beta = Math.min(Math.max(e.beta - 45, -20), 20); // Normalizing holding angle
+            let gamma = Math.min(Math.max(e.gamma, -20), 20);
+            document.documentElement.style.setProperty('--rx', `${beta / 1.5}deg`);
+            document.documentElement.style.setProperty('--ry', `${-gamma / 1.5}deg`);
         }
 
-        function formatText(command) {
-            document.execCommand(command, false, null);
-            document.getElementById('noteInput').focus();
-            updateToolbarState();
+        function toggle3DParallax() {
+            const btn = document.getElementById('parallaxBtn');
+            triggerHaptic(20);
+            
+            if (is3DActive) {
+                // Disable logic
+                window.removeEventListener('deviceorientation', parallaxHandler);
+                document.documentElement.style.setProperty('--rx', `0deg`);
+                document.documentElement.style.setProperty('--ry', `0deg`);
+                is3DActive = false;
+                btn.innerText = "Enable 3D Parallax";
+                showToast("3D Parallax Disabled");
+            } else {
+                // Enable logic
+                if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                    DeviceOrientationEvent.requestPermission()
+                        .then(permissionState => { if (permissionState === 'granted') start3DListener(btn); })
+                        .catch(console.error);
+                } else { start3DListener(btn); }
+            }
         }
+
+        function start3DListener(btn) {
+            window.addEventListener('deviceorientation', parallaxHandler);
+            is3DActive = true;
+            btn.innerText = "Disable 3D Parallax";
+            closeDrawers(); 
+            showToast("3D Parallax Enabled");
+        }
+
+        /* Particle Confetti System */
+        function fireParticles(rect, color) {
+            const x = rect.left + rect.width / 2;
+            const y = rect.top + rect.height / 2;
+            for(let i=0; i<12; i++) {
+                let p = document.createElement('div');
+                p.className = 'particle'; p.style.background = color; p.style.color = color;
+                p.style.left = x + 'px'; p.style.top = y + 'px';
+                p.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px');
+                p.style.setProperty('--dy', (Math.random() * 120 - 60) + 'px');
+                document.body.appendChild(p);
+                setTimeout(() => p.remove(), 800);
+            }
+        }
+
+        function formatText(command) { document.execCommand(command, false, null); document.getElementById('noteInput').focus(); updateToolbarState(); }
 
         function updateToolbarState() {
             document.getElementById('btnBold').classList.toggle('active', document.queryCommandState('bold'));
@@ -768,144 +615,98 @@
             document.getElementById('btnUnderline').classList.toggle('active', document.queryCommandState('underline'));
         }
 
-        function autoSaveDraft() {
-            if (!editingId) {
-                const currentText = document.getElementById('noteInput').innerHTML;
-                localStorage.setItem('dclinDraft', currentText);
-            }
-        }
+        function autoSaveDraft() { if (!editingId) localStorage.setItem('dclinDraft', document.getElementById('noteInput').innerHTML); }
 
         svgs.forEach((svg, i) => {
-            const b1 = document.createElement('button');
-            b1.className = `sq-btn ic${i}`; b1.innerHTML = svg;
+            const b1 = document.createElement('button'); b1.className = `sq-btn ic${i}`; b1.innerHTML = svg;
             b1.onclick = () => {
                 writeIdx = i;
                 document.documentElement.style.setProperty('--active-accent', tagColors[i]);
                 document.documentElement.style.setProperty('--active-vibe', tagMoods[5-i]);
-                document.documentElement.style.setProperty('--orb-x', orbRadialPath[i][0]);
-                document.documentElement.style.setProperty('--orb-y', orbRadialPath[i][1]);
+                document.documentElement.style.setProperty('--active-orb-2', tagColors[(i+2)%6]);
+                document.documentElement.style.setProperty('--active-orb-3', tagColors[(i+4)%6]);
                 
-                typePlaceholder(tagPrompts[i]);
-
+                const noteInput = document.getElementById('noteInput');
+                noteInput.classList.remove('animating-placeholder'); void noteInput.offsetWidth; 
+                noteInput.setAttribute('data-placeholder', tagPrompts[i]); noteInput.classList.add('animating-placeholder');
                 document.querySelectorAll('#inputIcons .sq-btn').forEach((b, idx) => b.classList.toggle('active', idx===i));
             };
             document.getElementById('inputIcons').appendChild(b1);
 
-            const b2 = document.createElement('button');
-            b2.className = `sq-btn ic${i}`; b2.innerHTML = svg;
+            const b2 = document.createElement('button'); b2.className = `sq-btn ic${i}`; b2.innerHTML = svg;
             b2.onclick = () => setFilter(tagLabels[i], b2, tagColors[i]);
             document.getElementById('filterIcons').appendChild(b2);
         });
 
-        function changeMonth(offset) {
-            currentCalDate.setMonth(currentCalDate.getMonth() + offset);
-            renderCalendar();
-        }
-
-        function updateDateLabel() {
-            const val = document.getElementById('dueDatePicker').value;
-            document.getElementById('dateLabel').innerText = val ? val.split('-').reverse().slice(0,2).join('/') : "Due Date";
-        }
+        function changeMonth(offset) { currentCalDate.setMonth(currentCalDate.getMonth() + offset); renderCalendar(); }
+        function updateDateLabel() { const val = document.getElementById('dueDatePicker').value; document.getElementById('dateLabel').innerText = val ? val.split('-').reverse().slice(0,2).join('/') : "Due Date"; }
 
         function setFilter(f, btn, accent) {
             archiveFilter = f; dateFilter = null;
             document.documentElement.style.setProperty('--filter-accent', accent);
             document.querySelectorAll('#filterIcons .sq-btn').forEach(b => b.classList.remove('active'));
             if(btn) btn.classList.add('active');
-            renderNotes();
-            renderCalendar();
+            renderNotesWithTransition(); renderCalendar();
+        }
+
+        /* View Transitions Wrapper */
+        function renderNotesWithTransition() {
+            if (document.startViewTransition) {
+                document.startViewTransition(() => renderNotesDOM());
+            } else {
+                renderNotesDOM();
+            }
         }
 
         function saveNote() {
-            const btn = document.getElementById('saveAction');
-            const inputField = document.getElementById('noteInput');
-            const dateField = document.getElementById('dueDatePicker');
-            
-            const val = inputField.innerHTML.trim(); 
-            if(!val || val === '<br>') return;
-
+            const btn = document.getElementById('saveAction'); const inputField = document.getElementById('noteInput'); const dateField = document.getElementById('dueDatePicker');
+            const val = inputField.innerHTML.trim(); if(!val || val === '<br>') return;
             btn.classList.add('pulse'); setTimeout(() => btn.classList.remove('pulse'), 400);
 
             let data = JSON.parse(localStorage.getItem('dclinData')) || [];
-            const newEntry = {
-                id: editingId || Date.now(),
-                text: val, tag: tagLabels[writeIdx], color: tagColors[writeIdx],
-                created: new Date().toISOString().split('T')[0],
-                deadline: dateField.value || null, done: false,
-                completedOn: null
-            };
+            const newEntry = { id: editingId || Date.now(), text: val, tag: tagLabels[writeIdx], color: tagColors[writeIdx], created: new Date().toISOString().split('T')[0], deadline: dateField.value || null, done: false, completedOn: null };
             
             let toastMsg = "Task Saved";
             if(editingId) {
-                const idx = data.findIndex(n => n.id === editingId);
-                data[idx] = newEntry; editingId = null; btn.innerText = "Save Task";
-                document.getElementById('cancelAction').style.display = "none";
-                toastMsg = "Task Updated";
+                const idx = data.findIndex(n => n.id === editingId); data[idx] = newEntry; editingId = null; btn.innerText = "Save Task";
+                document.getElementById('cancelAction').style.display = "none"; toastMsg = "Task Updated";
             } else { data.unshift(newEntry); }
             
-            localStorage.setItem('dclinData', JSON.stringify(data));
-            localStorage.removeItem('dclinDraft'); 
-            
-            inputField.innerHTML = ""; dateField.value = ""; updateDateLabel();
-            
-            updateToolbarState(); 
-            renderNotes(); renderCalendar();
-            showToast(toastMsg);
-            triggerHaptic([30, 50, 30]); 
+            localStorage.setItem('dclinData', JSON.stringify(data)); localStorage.removeItem('dclinDraft'); 
+            inputField.innerHTML = ""; dateField.value = ""; updateDateLabel(); updateToolbarState(); 
+            renderNotesWithTransition(); renderCalendar(); showToast(toastMsg); triggerHaptic([30, 50, 30]); 
         }
 
         function cancelEdit() {
-            editingId = null;
-            document.getElementById('saveAction').innerText = "Save Task";
-            document.getElementById('cancelAction').style.display = "none";
-            document.getElementById('dueDatePicker').value = "";
-            updateDateLabel();
-            
-            const draft = localStorage.getItem('dclinDraft') || "";
-            document.getElementById('noteInput').innerHTML = draft;
-            
-            updateToolbarState();
-            showToast("Edit Cancelled");
-            triggerHaptic(20);
+            editingId = null; document.getElementById('saveAction').innerText = "Save Task"; document.getElementById('cancelAction').style.display = "none";
+            document.getElementById('dueDatePicker').value = ""; updateDateLabel();
+            document.getElementById('noteInput').innerHTML = localStorage.getItem('dclinDraft') || "";
+            updateToolbarState(); showToast("Edit Cancelled"); triggerHaptic(20);
         }
 
         function renderCalendar() {
-            const grid = document.getElementById('calendarGrid'); 
-            const label = document.getElementById('monthLabel');
-            grid.innerHTML = "";
-            
-            const month = currentCalDate.getMonth();
-            const year = currentCalDate.getFullYear();
+            const grid = document.getElementById('calendarGrid'); const label = document.getElementById('monthLabel'); grid.innerHTML = "";
+            const month = currentCalDate.getMonth(); const year = currentCalDate.getFullYear();
             const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
             label.innerText = `${monthNames[month]} ${year}`;
 
             const days = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
             days.forEach(day => {
-                const dayLabel = document.createElement('div');
-                dayLabel.className = 'cal-day';
-                dayLabel.style.fontWeight = '800';
-                dayLabel.style.opacity = '0.2';
-                dayLabel.innerText = day;
-                grid.appendChild(dayLabel);
+                const dayLabel = document.createElement('div'); dayLabel.className = 'cal-day'; dayLabel.style.fontWeight = '800'; dayLabel.style.opacity = '0.2'; dayLabel.innerText = day; grid.appendChild(dayLabel);
             });
 
-            const firstDayIndex = new Date(year, month, 1).getDay(); 
-            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const firstDayIndex = new Date(year, month, 1).getDay(); const daysInMonth = new Date(year, month + 1, 0).getDate();
             const data = JSON.parse(localStorage.getItem('dclinData')) || [];
 
-            for (let x = 0; x < firstDayIndex; x++) {
-                grid.appendChild(document.createElement('div'));
-            }
+            for (let x = 0; x < firstDayIndex; x++) grid.appendChild(document.createElement('div'));
 
             for(let i = 1; i <= daysInMonth; i++) {
                 const dayDiv = document.createElement('div');
                 const isToday = i === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear();
-                
                 const dateStr = `${year}-${String(month+1).padStart(2, '0')}-${String(i).padStart(2, '0')}`;
                 const isSelected = dateFilter === dateStr; 
                 
-                dayDiv.className = `cal-day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}`; 
-                dayDiv.innerText = i;
+                dayDiv.className = `cal-day ${isToday ? 'today' : ''} ${isSelected ? 'selected' : ''}`; dayDiv.innerText = i;
                 
                 const hasCreated = data.some(d => d.created === dateStr);
                 const dayDeadlines = data.filter(d => !d.done && d.deadline === dateStr);
@@ -914,63 +715,40 @@
                 if(hasCreated) dots += `<div class="dot" style="background: rgba(255,255,255,0.7);"></div>`;
                 
                 const deadlineColors = [...new Set(dayDeadlines.map(d => d.color))].slice(0, 3); 
-                deadlineColors.forEach(color => {
-                    dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`;
-                });
-                dots += '</div>';
-                
-                dayDiv.innerHTML += dots;
+                deadlineColors.forEach(color => { dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`; });
+                dots += '</div>'; dayDiv.innerHTML += dots;
                 
                 dayDiv.onclick = () => { 
-                    if (dateFilter === dateStr) { 
-                        dateFilter = null; 
-                    } else { 
-                        dateFilter = dateStr; 
-                        archiveFilter = 'All';
-                        document.documentElement.style.setProperty('--filter-accent', 'var(--warm-white-glow)');
-                        document.querySelectorAll('#filterIcons .sq-btn').forEach(b => b.classList.remove('active'));
-                        document.querySelector('.all-btn').classList.add('active');
-                    }
-                    renderNotes(); renderCalendar(); 
-                    if (dateFilter) { document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+                    dateFilter = (dateFilter === dateStr) ? null : dateStr;
+                    renderNotesWithTransition(); renderCalendar(); 
+                    if (dateFilter) document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth', block: 'start' });
                 };
                 grid.appendChild(dayDiv);
             }
             
-            let todayObj = new Date();
-            todayObj.setHours(0,0,0,0);
-            let nextWeek = new Date(todayObj);
-            nextWeek.setDate(todayObj.getDate() + 7);
+            let todayObj = new Date(); todayObj.setHours(0,0,0,0);
+            let nextWeek = new Date(todayObj); nextWeek.setDate(todayObj.getDate() + 7);
             
             let upcomingTasks = data.filter(d => {
                 if(d.done || !d.deadline) return false;
-                let dDate = new Date(d.deadline);
-                dDate.setHours(0,0,0,0);
-                return dDate >= todayObj && dDate <= nextWeek;
+                let dDate = new Date(d.deadline); dDate.setHours(0,0,0,0); return dDate >= todayObj && dDate <= nextWeek;
             });
             
             let upcomingHtml = '';
             if(upcomingTasks.length > 0) {
                 upcomingTasks.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
-                
                 upcomingHtml += `<div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">`;
                 upcomingHtml += `<div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px;">Due This Week</div>`;
-                
                 upcomingTasks.forEach(task => {
-                    let taskDate = new Date(task.deadline);
-                    let diffTime = taskDate - todayObj;
-                    let diffDays = Math.round(diffTime / (1000 * 60 * 60 * 24));
+                    let taskDate = new Date(task.deadline); let diffDays = Math.round((taskDate - todayObj) / (1000 * 60 * 60 * 24));
                     let dayText = diffDays === 0 ? 'Today' : (diffDays === 1 ? 'Tomorrow' : `In ${diffDays} days`);
-                    
-                    let shortText = task.text.replace(/<[^>]*>?/gm, ''); 
-                    if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
+                    let shortText = task.text.replace(/<[^>]*>?/gm, ''); if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
                     
                     upcomingHtml += `
-                        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;" onclick="setFilter('All', document.querySelector('.all-btn'), 'var(--warm-white-glow)'); dateFilter = '${task.deadline}'; renderNotes(); renderCalendar(); document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth', block: 'start' });">
+                        <div style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;" onclick="setFilter('All', document.querySelector('.all-btn'), 'var(--warm-white-glow)'); dateFilter = '${task.deadline}'; renderNotesWithTransition(); renderCalendar(); document.getElementById('listsHeader').scrollIntoView({ behavior: 'smooth', block: 'start' });">
                             <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
                             <div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>
-                        </div>
-                    `;
+                        </div>`;
                 });
                 upcomingHtml += `</div>`;
             }
@@ -979,37 +757,25 @@
 
         function toggleExpand(btn) {
             const body = btn.closest('.note').querySelector('.note-body');
-            if (body) {
-                const isPreview = body.classList.toggle('preview-text');
-                btn.innerText = isPreview ? "Read More" : "Collapse";
-            }
+            if (body) { const isPreview = body.classList.toggle('preview-text'); btn.innerText = isPreview ? "Read More" : "Collapse"; }
         }
 
-        function renderNotes() {
-            const list = document.getElementById('notesList');
-            const completedList = document.getElementById('completedList');
-            const data = JSON.parse(localStorage.getItem('dclinData')) || [];
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+        function renderNotesDOM() {
+            const list = document.getElementById('notesList'); const completedList = document.getElementById('completedList');
+            const data = JSON.parse(localStorage.getItem('dclinData')) || []; const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const filtered = data.filter(n => {
                 const matchesTag = (archiveFilter === 'All' || n.tag === archiveFilter);
                 const matchesDate = !dateFilter || n.created === dateFilter || n.deadline === dateFilter;
-                
-                const tmp = document.createElement('div');
-                tmp.innerHTML = n.text;
-                const plainText = tmp.innerText || tmp.textContent || "";
-                
-                const matchesSearch = plainText.toLowerCase().includes(searchQuery);
-                return matchesTag && matchesDate && matchesSearch;
+                const tmp = document.createElement('div'); tmp.innerHTML = n.text; const plainText = tmp.innerText || tmp.textContent || "";
+                return matchesTag && matchesDate && plainText.toLowerCase().includes(searchQuery);
             });
             
             let activeContent = ""; let doneContent = "";
             filtered.forEach(n => {
                 let parsedText = n.text.includes('<') ? n.text : n.text.replace(/\n/g, '<br>');
-
                 if (searchQuery) {
                     const safeQuery = searchQuery.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
-                    const regex = new RegExp(`(?![^<]+>)(${safeQuery})`, 'gi');
-                    parsedText = parsedText.replace(regex, '<mark class="search-highlight">$1</mark>');
+                    parsedText = parsedText.replace(new RegExp(`(?![^<]+>)(${safeQuery})`, 'gi'), '<mark class="search-highlight">$1</mark>');
                 }
 
                 const html = `
@@ -1021,22 +787,31 @@
                         <div class="note-body preview-text">${parsedText}</div>
                         <button class="action-btn" style="margin-top: 6px; color:${n.color}" onclick="toggleExpand(this)">Read More</button>
                         <div class="action-row">
-                            ${!n.done ? `<button class="action-btn done-btn" onclick="toggleDone(${n.id}, this)">Done</button>` : `<button class="action-btn" onclick="toggleDone(${n.id}, this)">Restore</button>`}
+                            ${!n.done ? `<button class="action-btn done-btn" onclick="toggleDone(${n.id}, this, '${n.color}')">Done</button>` : `<button class="action-btn" onclick="toggleDone(${n.id}, this)">Restore</button>`}
                             <button class="action-btn" onclick="editNote(${n.id})">Edit</button>
-                            <button class="action-btn" style="color:#ff453a; opacity: 0.8;" onclick="triggerDelete(${n.id}, this)">Del</button>
+                            <button class="action-btn" style="color:#ff453a; opacity: 0.8;" onclick="triggerDelete(${n.id}, this, '${n.color}')">Del</button>
                         </div>
                     </div>`;
                 if(n.done) doneContent += html; else activeContent += html;
             });
             
             const emptyHtml = `<div class="empty-state">${emptySvg}<div class="empty-text">Vault is empty</div></div>`;
-            list.innerHTML = activeContent || emptyHtml;
-            completedList.innerHTML = doneContent || emptyHtml;
+            list.innerHTML = activeContent || emptyHtml; completedList.innerHTML = doneContent || emptyHtml;
         }
 
-        function toggleDone(id, btnElement) {
+        /* Done Animation & Particles */
+        function toggleDone(id, btnElement, color) {
             triggerHaptic([40, 60, 40]); 
             const tile = btnElement.closest('.note');
+            
+            if(!tile.classList.contains('completing') && color) {
+                fireParticles(btnElement.getBoundingClientRect(), color);
+                const svgOverlay = document.createElement('div');
+                svgOverlay.className = "check-overlay";
+                svgOverlay.innerHTML = `<svg class="check-svg" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>`;
+                tile.appendChild(svgOverlay);
+            }
+
             tile.classList.add('completing');
             setTimeout(() => {
                 let data = JSON.parse(localStorage.getItem('dclinData')) || [];
@@ -1044,171 +819,108 @@
                 data[idx].done = !data[idx].done;
                 data[idx].completedOn = data[idx].done ? new Date().toLocaleDateString('en-GB', {day:'numeric', month:'short'}) : null;
                 localStorage.setItem('dclinData', JSON.stringify(data));
-                renderNotes();
-            }, 500);
+                renderNotesWithTransition();
+            }, 600);
         }
 
-        function triggerDelete(id, btnElement) {
+        function triggerDelete(id, btnElement, color) {
             if(confirm("Delete note permanently?")) {
                 triggerHaptic([50, 100, 50]); 
+                if(color) fireParticles(btnElement.getBoundingClientRect(), '#ff453a');
                 const tile = btnElement.closest('.note');
                 tile.classList.add('deleting');
                 setTimeout(() => {
                     let data = JSON.parse(localStorage.getItem('dclinData')) || [];
                     localStorage.setItem('dclinData', JSON.stringify(data.filter(n => n.id !== id)));
-                    renderNotes(); renderCalendar();
-                    showToast("Note Deleted");
-                }, 600); /* Matched to smooth collapse CSS timing */
+                    renderNotesWithTransition(); renderCalendar(); showToast("Note Deleted");
+                }, 350);
             }
         }
 
         function clearAllCompleted() {
             if(!confirm("Wipe completed vault forever?")) return;
             let data = JSON.parse(localStorage.getItem('dclinData')) || [];
-            localStorage.setItem('dclinData', JSON.stringify(data.filter(n => !n.done)));
-            renderNotes();
-            showToast("Completed tasks cleared");
+            localStorage.setItem('dclinData', JSON.stringify(data.filter(n => !n.done))); renderNotesWithTransition(); showToast("Completed tasks cleared");
         }
 
         /* --- LEARNING LOG LOGIC --- */
         function logLearning() {
-            const date = document.getElementById('learnDate').value;
-            const type = document.getElementById('learnType').value;
-            const hours = document.getElementById('learnHours').value;
-            const desc = document.getElementById('learnDesc').value;
+            const date = document.getElementById('learnDate').value; const type = document.getElementById('learnType').value;
+            const hours = document.getElementById('learnHours').value; const desc = document.getElementById('learnDesc').value;
             const reflection = document.getElementById('learnReflection').value;
             
-            if(!date || !type || !hours || !desc) {
-                showToast("Please fill Date, Type, Hours & Description");
-                return;
-            }
+            if(!date || !type || !hours || !desc) { showToast("Please fill Date, Type, Hours & Description"); return; }
             
             let data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
             
             if(editingLearnId) {
                 const idx = data.findIndex(n => n.id === editingLearnId);
-                if(idx > -1) {
-                    data[idx] = { id: editingLearnId, date, type, hours, desc, reflection };
-                }
-                editingLearnId = null; 
-                document.getElementById('logLearningBtn').innerText = "Save to Log";
+                if(idx > -1) data[idx] = { id: editingLearnId, date, type, hours, desc, reflection };
+                editingLearnId = null; document.getElementById('logLearningBtn').innerText = "Save to Log";
             } else {
-                data.unshift({
-                    id: Date.now(), date: date, type: type, hours: hours,
-                    desc: desc, reflection: reflection
-                });
+                data.unshift({ id: Date.now(), date: date, type: type, hours: hours, desc: desc, reflection: reflection });
             }
             
             localStorage.setItem('dclinLearning', JSON.stringify(data));
+            document.getElementById('learnDesc').value = ""; document.getElementById('learnReflection').value = ""; document.getElementById('learnHours').value = ""; document.getElementById('learnType').value = ""; 
             
-            document.getElementById('learnDesc').value = "";
-            document.getElementById('learnReflection').value = "";
-            document.getElementById('learnHours').value = "";
-            document.getElementById('learnType').value = ""; 
-            
-            renderLearning();
-            showToast("Learning Logged");
-            triggerHaptic([30, 50, 30]);
+            renderLearning(); showToast("Learning Logged"); triggerHaptic([30, 50, 30]);
         }
         
         function editLearning(id) {
-            triggerHaptic(30);
-            const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
-            const e = data.find(item => item.id === id);
-            
-            document.getElementById('learnDate').value = e.date;
-            document.getElementById('learnType').value = e.type;
-            document.getElementById('learnHours').value = e.hours;
-            document.getElementById('learnDesc').value = e.desc;
-            document.getElementById('learnReflection').value = e.reflection;
-            
-            editingLearnId = id;
-            document.getElementById('logLearningBtn').innerText = "Update Log";
-            
-            document.getElementById('learningModule').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            triggerHaptic(30); const data = JSON.parse(localStorage.getItem('dclinLearning')) || []; const e = data.find(item => item.id === id);
+            document.getElementById('learnDate').value = e.date; document.getElementById('learnType').value = e.type; document.getElementById('learnHours').value = e.hours; document.getElementById('learnDesc').value = e.desc; document.getElementById('learnReflection').value = e.reflection;
+            editingLearnId = id; document.getElementById('logLearningBtn').innerText = "Update Log"; document.getElementById('learningModule').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         function renderLearning() {
-            const list = document.getElementById('learningList');
-            const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+            const list = document.getElementById('learningList'); const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+            let totals = { CBT: 0, Systemic: 0, Neuro: 0, Other: 0 };
             
             if (data.length === 0) {
                 list.innerHTML = `<div class="empty-state"><div class="empty-text">No learning logged</div></div>`;
+                document.getElementById('learningTotalDisplay').innerText = `CBT: 0 | SYS: 0 | NEURO: 0 | OTHER: 0`;
                 return;
             }
             
             let html = "";
             data.forEach(e => {
-                const displayDate = e.date.split('-').reverse().join('.');
+                let h = parseFloat(e.hours || 0);
+                if(totals[e.type] !== undefined) totals[e.type] += h;
                 
+                const displayDate = e.date.split('-').reverse().join('.');
                 let typeColor = 'var(--text-main)';
-                if(e.type === 'CBT') typeColor = 'var(--c0)';
-                if(e.type === 'Systemic') typeColor = 'var(--c1)';
-                if(e.type === 'Neuro') typeColor = 'var(--c2)';
-                if(e.type === 'Other') typeColor = 'var(--c5)';
+                if(e.type === 'CBT') typeColor = 'var(--c0)'; if(e.type === 'Systemic') typeColor = 'var(--c1)';
+                if(e.type === 'Neuro') typeColor = 'var(--c2)'; if(e.type === 'Other') typeColor = 'var(--c5)';
 
                 html += `
                 <div class="note" style="--note-color: ${typeColor}; display: block;">
-                    <div class="note-header">
-                        <span style="color:${typeColor}">${e.type}</span>
-                        <span>${displayDate} • ${e.hours} HRS</span>
-                    </div>
+                    <div class="note-header"><span style="color:${typeColor}">${e.type}</span><span>${displayDate} • ${e.hours} HRS</span></div>
                     <div style="font-size:11px; font-weight:700; margin-bottom: 4px; color: var(--text-main);">${e.desc}</div>
-                    ${e.reflection ? `
-                    <div class="note-body preview-text">${e.reflection.replace(/\n/g, '<br>')}</div>
-                    <button class="action-btn" style="margin-top: 6px; color:${typeColor}" onclick="toggleExpand(this)">Read More</button>
-                    ` : ''}
-                    <div class="action-row">
-                        <button class="action-btn" onclick="editLearning(${e.id})">Edit</button>
-                        <button class="action-btn" style="color:#ff453a; opacity: 0.8;" onclick="deleteLearning(${e.id}, this)">Delete</button>
-                    </div>
+                    ${e.reflection ? `<div class="note-body preview-text">${e.reflection.replace(/\n/g, '<br>')}</div><button class="action-btn" style="margin-top: 6px; color:${typeColor}" onclick="toggleExpand(this)">Read More</button>` : ''}
+                    <div class="action-row"><button class="action-btn" onclick="editLearning(${e.id})">Edit</button><button class="action-btn" style="color:#ff453a; opacity: 0.8;" onclick="deleteLearning(${e.id}, this)">Delete</button></div>
                 </div>`;
             });
-            list.innerHTML = html;
+            
+            list.innerHTML = html; 
+            document.getElementById('learningTotalDisplay').innerText = `CBT: ${totals.CBT} | SYS: ${totals.Systemic} | NEURO: ${totals.Neuro} | OTHER: ${totals.Other}`;
         }
 
         function deleteLearning(id, btnElement) {
             if(!confirm("Delete log permanently?")) return;
-            triggerHaptic([50, 100, 50]);
-            const tile = btnElement.closest('.note');
-            tile.classList.add('deleting');
-            setTimeout(() => {
-                let data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
-                localStorage.setItem('dclinLearning', JSON.stringify(data.filter(e => e.id !== id)));
-                renderLearning();
-                showToast("Entry Deleted");
-            }, 600);
+            triggerHaptic([50, 100, 50]); const tile = btnElement.closest('.note'); tile.classList.add('deleting');
+            setTimeout(() => { let data = JSON.parse(localStorage.getItem('dclinLearning')) || []; localStorage.setItem('dclinLearning', JSON.stringify(data.filter(e => e.id !== id))); renderLearning(); showToast("Entry Deleted"); }, 350);
         }
 
-        function clearAllLearning() {
-            if(!confirm("Wipe all learning logs forever?")) return;
-            localStorage.setItem('dclinLearning', JSON.stringify([]));
-            renderLearning();
-            showToast("Learning logs cleared");
-        }
+        function clearAllLearning() { if(!confirm("Wipe all learning logs forever?")) return; localStorage.setItem('dclinLearning', JSON.stringify([])); renderLearning(); showToast("Learning logs cleared"); }
 
         function exportLearningCSV() {
-            const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
-            if(data.length === 0) { showToast("Nothing to export"); return; }
-            
-            const escapeCSV = (str) => {
-                if (str == null) return '""';
-                return '"' + String(str).replace(/"/g, '""') + '"';
-            };
-            
+            const data = JSON.parse(localStorage.getItem('dclinLearning')) || []; if(data.length === 0) { showToast("Nothing to export"); return; }
+            const escapeCSV = (str) => { if (str == null) return '""'; return '"' + String(str).replace(/"/g, '""') + '"'; };
             let csvContent = "Date,Description of Activity,Reflections,Type,Hours,Evidence?\n";
-            data.forEach(e => {
-                const displayDate = e.date.split('-').reverse().join('.');
-                csvContent += `${escapeCSV(displayDate)},${escapeCSV(e.desc)},${escapeCSV(e.reflection)},${escapeCSV(e.type)},${escapeCSV(e.hours)},""\n`;
-            });
-            
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `DClin_Learning_Log.csv`;
-            a.click();
-            showToast("Spreadsheet Exported");
+            data.forEach(e => { const displayDate = e.date.split('-').reverse().join('.'); csvContent += `${escapeCSV(displayDate)},${escapeCSV(e.desc)},${escapeCSV(e.reflection)},${escapeCSV(e.type)},${escapeCSV(e.hours)},""\n`; });
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = `DClin_Learning_Log.csv`; a.click(); showToast("Spreadsheet Exported");
         }
 
         /* --- EXPENSE TRACKER LOGIC --- */
@@ -1221,405 +933,163 @@
         }
 
         async function logJourney() {
-            const start = document.getElementById('startPostcode').value;
+            const type = document.getElementById('journeyType').value;
+            const start = document.getElementById('startPostcode').value; 
             const dest = document.getElementById('destPostcode').value;
-            const date = document.getElementById('journeyDate').value;
+            const date = document.getElementById('journeyDate').value; 
             const isReturn = document.getElementById('returnJourney').checked;
             
-            const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings'));
-            const rateStr = expSettings ? expSettings.rate : null;
+            const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings')); const rateStr = expSettings ? expSettings.rate : null;
+            if(!rateStr) { showToast("Please set £ Rate via the Settings Icon first"); toggleExpenseSettings(); return; }
+            if(!type || !start || !dest || !date) { showToast("Please fill all journey fields including Type"); return; }
             
-            if(!rateStr) {
-                showToast("Please set £ Rate via the Gear Icon first");
-                toggleExpenseSettings();
-                return;
-            }
-            if(!start || !dest || !date) {
-                showToast("Please fill all journey fields");
-                return;
-            }
+            let rawRate = parseFloat(rateStr); const rate = rawRate > 3 ? (rawRate / 100) : rawRate; 
             
-            let rawRate = parseFloat(rateStr);
-            const rate = rawRate > 3 ? (rawRate / 100) : rawRate; 
-            
-            const btn = document.getElementById('logJourneyBtn');
-            const originalText = btn.innerText;
-            btn.innerText = "Calculating..."; btn.style.opacity = "0.5";
-            triggerHaptic(10);
+            const btn = document.getElementById('logJourneyBtn'); const originalText = btn.innerText;
+            // Animated loader in button
+            btn.innerHTML = `<div class="spinner"></div>`; btn.style.opacity = "0.7"; triggerHaptic(10);
             
             try {
-                const startCoords = await fetchCoordinates(start);
-                const endCoords = await fetchCoordinates(dest);
-                
+                const startCoords = await fetchCoordinates(start); const endCoords = await fetchCoordinates(dest);
                 const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${startCoords.lng},${startCoords.lat};${endCoords.lng},${endCoords.lat}?overview=false`;
-                const routeRes = await fetch(osrmUrl);
-                if (!routeRes.ok) throw new Error("Routing failed");
+                const routeRes = await fetch(osrmUrl); if (!routeRes.ok) throw new Error("Routing failed");
                 const routeData = await routeRes.json();
                 
-                const distanceMeters = routeData.routes[0].distance;
-                const milesOneWay = (distanceMeters * 0.000621371).toFixed(1);
-                const costOneWay = (milesOneWay * rate).toFixed(2);
-                
+                const distanceMeters = routeData.routes[0].distance; const milesOneWay = (distanceMeters * 0.000621371).toFixed(1); const costOneWay = (milesOneWay * rate).toFixed(2);
                 let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
                 
-                expenses.unshift({
-                    id: Date.now(),
-                    date: date,
-                    start: start.toUpperCase(),
-                    dest: dest.toUpperCase(),
-                    miles: milesOneWay,
-                    cost: costOneWay
-                });
-                
-                if(isReturn) {
-                    expenses.unshift({
-                        id: Date.now() + 1, 
-                        date: date,
-                        start: dest.toUpperCase(),
-                        dest: start.toUpperCase(),
-                        miles: milesOneWay,
-                        cost: costOneWay
-                    });
-                }
+                expenses.unshift({ id: Date.now(), date: date, type: type, start: start.toUpperCase(), dest: dest.toUpperCase(), miles: milesOneWay, cost: costOneWay });
+                if(isReturn) { expenses.unshift({ id: Date.now() + 1, date: date, type: type, start: dest.toUpperCase(), dest: start.toUpperCase(), miles: milesOneWay, cost: costOneWay }); }
                 
                 localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
+                document.getElementById('destPostcode').value = ""; document.getElementById('returnJourney').checked = false; 
                 
-                document.getElementById('destPostcode').value = "";
-                document.getElementById('returnJourney').checked = false; 
+                renderExpenses(); showToast(`Logged successfully`); triggerHaptic([30, 50, 30]);
                 
-                renderExpenses();
-                showToast(`Logged successfully`);
-                triggerHaptic([30, 50, 30]);
-                
-            } catch (error) {
-                showToast("Error. Check postcodes & connection.");
-            }
+            } catch (error) { showToast("Error. Check postcodes & connection."); }
             
             btn.innerText = originalText; btn.style.opacity = "1";
         }
 
         function saveExpenseSettings() {
-            triggerHaptic(20);
-            const base = document.getElementById('basePostcode').value;
-            const rate = document.getElementById('mileageRate').value;
+            triggerHaptic(20); const base = document.getElementById('basePostcode').value; const rate = document.getElementById('mileageRate').value;
             localStorage.setItem('dclinExpenseSettings', JSON.stringify({base, rate}));
-            
-            const startInput = document.getElementById('startPostcode');
-            if(!startInput.value && base) startInput.value = base;
-            
-            closeDrawers();
-            showToast("Expense Settings Saved");
+            const startInput = document.getElementById('startPostcode'); if(!startInput.value && base) startInput.value = base;
+            closeDrawers(); showToast("Expense Settings Saved");
         }
 
         function renderExpenses() {
-            const list = document.getElementById('expenseList');
-            const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+            const list = document.getElementById('expenseList'); const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+            let totalCost = 0;
             
             if (expenses.length === 0) {
                 list.innerHTML = `<div class="empty-state"><div class="empty-text">No expenses logged</div></div>`;
+                document.getElementById('expensesTotalDisplay').innerText = `Total Owed: £0.00`;
                 return;
             }
             
             let html = "";
             expenses.forEach(e => {
-                const displayDate = e.date.split('-').reverse().slice(0,2).join('/');
+                totalCost += parseFloat(e.cost || 0); const displayDate = e.date.split('-').reverse().slice(0,2).join('/');
+                const journeyTypeStr = e.type ? `(${e.type})` : '';
                 html += `
                 <div class="expense-tile">
                     <div class="exp-details">
-                        <div class="exp-dest">${e.start} ➔ ${e.dest}</div>
+                        <div class="exp-dest">${e.start} ➔ ${e.dest} <span style="opacity:0.6; font-weight:400; font-size:9px;">${journeyTypeStr}</span></div>
                         <div class="exp-meta">${displayDate} • ${e.miles} mi</div>
                     </div>
-                    <div style="display:flex; align-items:center; gap:10px;">
-                        <div class="exp-cost">£${e.cost}</div>
-                        <button class="action-btn" style="color:#ff453a; font-size:14px; padding:5px;" onclick="deleteExpense(${e.id}, this)">×</button>
-                    </div>
+                    <div style="display:flex; align-items:center; gap:10px;"><div class="exp-cost">£${e.cost}</div><button class="action-btn" style="color:#ff453a; font-size:14px; padding:5px;" onclick="deleteExpense(${e.id}, this)">×</button></div>
                 </div>`;
             });
-            list.innerHTML = html;
+            list.innerHTML = html; document.getElementById('expensesTotalDisplay').innerText = `Total Owed: £${totalCost.toFixed(2)}`;
         }
 
         function deleteExpense(id, btnElement) {
-            triggerHaptic([50, 100, 50]);
-            const tile = btnElement.closest('.expense-tile');
-            tile.classList.add('deleting');
-            setTimeout(() => {
-                let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
-                expenses = expenses.filter(e => e.id !== id);
-                localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
-                renderExpenses();
-                showToast("Expense Deleted");
-            }, 600);
+            triggerHaptic([50, 100, 50]); const tile = btnElement.closest('.expense-tile'); tile.classList.add('deleting');
+            setTimeout(() => { let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || []; expenses = expenses.filter(e => e.id !== id); localStorage.setItem('dclinExpenses', JSON.stringify(expenses)); renderExpenses(); showToast("Expense Deleted"); }, 350);
         }
 
-        function clearAllExpenses() {
-            if(!confirm("Wipe all logged expenses forever?")) return;
-            localStorage.setItem('dclinExpenses', JSON.stringify([]));
-            renderExpenses();
-            showToast("Expenses cleared");
-        }
+        function clearAllExpenses() { if(!confirm("Wipe all logged expenses forever?")) return; localStorage.setItem('dclinExpenses', JSON.stringify([])); renderExpenses(); showToast("Expenses cleared"); }
 
         function exportExpensesCSV() {
-            const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
-            if(expenses.length === 0) { showToast("Nothing to export"); return; }
-            
-            let csvContent = "Date,Start Postcode,Destination Postcode,Miles,Cost (£)\n";
-            expenses.forEach(e => {
-                csvContent += `${e.date},${e.start},${e.dest},${e.miles},${e.cost}\n`;
+            const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || []; if(expenses.length === 0) { showToast("Nothing to export"); return; }
+            let csvContent = "Date,Journey Type,Start Postcode,Destination Postcode,Miles,Cost (£)\n";
+            expenses.forEach(e => { 
+                const jType = e.type || 'Business';
+                csvContent += `${e.date},${jType},${e.start},${e.dest},${e.miles},${e.cost}\n`; 
             });
-            
-            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `DClin_Expenses_Export.csv`;
-            a.click();
-            showToast("Spreadsheet Exported");
+            const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = `DClin_Expenses_Export.csv`; a.click(); showToast("Spreadsheet Exported");
         }
 
-        function toggleVault(vaultId) {
-            const v = document.getElementById(vaultId);
-            v.style.display = (v.style.display === 'block') ? 'none' : 'block';
+        function toggleVault(vaultId, btn) {
+            const v = document.getElementById(vaultId); const isHidden = v.style.display === 'none' || v.style.display === '';
+            v.style.display = isHidden ? 'block' : 'none';
+            if(btn) { btn.style.borderColor = isHidden ? 'var(--active-accent)' : 'var(--border)'; btn.style.color = isHidden ? 'var(--text-main)' : 'var(--text-high)'; }
         }
 
-        function closeDrawers() {
-            document.getElementById('helpWalkthrough').classList.remove('active');
-            document.getElementById('themeDrawer').classList.remove('active');
-            document.getElementById('expenseSettingsDrawer').classList.remove('active');
-            document.getElementById('drawerOverlay').classList.remove('active');
-        }
+        function closeDrawers() { document.getElementById('helpWalkthrough').classList.remove('active'); document.getElementById('themeDrawer').classList.remove('active'); document.getElementById('expenseSettingsDrawer').classList.remove('active'); document.getElementById('drawerOverlay').classList.remove('active'); }
+        function toggleWalkthrough() { triggerHaptic(10); document.getElementById('themeDrawer').classList.remove('active'); document.getElementById('expenseSettingsDrawer').classList.remove('active'); const drawer = document.getElementById('helpWalkthrough'); const overlay = document.getElementById('drawerOverlay'); drawer.classList.toggle('active'); if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active'); }
+        function toggleThemeDrawer() { triggerHaptic(10); document.getElementById('helpWalkthrough').classList.remove('active'); document.getElementById('expenseSettingsDrawer').classList.remove('active'); const drawer = document.getElementById('themeDrawer'); const overlay = document.getElementById('drawerOverlay'); drawer.classList.toggle('active'); if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active'); }
+        function toggleExpenseSettings() { triggerHaptic(10); document.getElementById('helpWalkthrough').classList.remove('active'); document.getElementById('themeDrawer').classList.remove('active'); const drawer = document.getElementById('expenseSettingsDrawer'); const overlay = document.getElementById('drawerOverlay'); drawer.classList.toggle('active'); if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active'); }
 
-        function toggleWalkthrough() {
-            triggerHaptic(10); 
-            document.getElementById('themeDrawer').classList.remove('active');
-            document.getElementById('expenseSettingsDrawer').classList.remove('active');
-            const drawer = document.getElementById('helpWalkthrough');
-            const overlay = document.getElementById('drawerOverlay');
-            drawer.classList.toggle('active');
-            if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active');
-        }
-
-        function toggleThemeDrawer() {
-            triggerHaptic(10); 
-            document.getElementById('helpWalkthrough').classList.remove('active');
-            document.getElementById('expenseSettingsDrawer').classList.remove('active');
-            const drawer = document.getElementById('themeDrawer');
-            const overlay = document.getElementById('drawerOverlay');
-            drawer.classList.toggle('active');
-            if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active');
-        }
-
-        function toggleExpenseSettings() {
-            triggerHaptic(10); 
-            document.getElementById('helpWalkthrough').classList.remove('active');
-            document.getElementById('themeDrawer').classList.remove('active');
-            const drawer = document.getElementById('expenseSettingsDrawer');
-            const overlay = document.getElementById('drawerOverlay');
-            drawer.classList.toggle('active');
-            if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active');
-        }
-
-        function setTheme(themeName) {
-            triggerHaptic(20);
-            document.documentElement.setAttribute('data-theme', themeName);
-            localStorage.setItem('dclinTheme', themeName);
-            
-            document.getElementById('inputIcons').children[writeIdx].click();
-            
-            closeDrawers();
-            showToast(themeName + " theme applied");
-        }
+        function setTheme(themeName) { triggerHaptic(20); document.documentElement.setAttribute('data-theme', themeName); localStorage.setItem('dclinTheme', themeName); document.getElementById('inputIcons').children[writeIdx].click(); closeDrawers(); showToast(themeName + " theme applied"); }
 
         function fullBackup() {
-            const data = localStorage.getItem('dclinData') || "[]";
-            const expData = localStorage.getItem('dclinExpenses') || "[]";
-            const learnData = localStorage.getItem('dclinLearning') || "[]";
-            
-            const combined = JSON.stringify({ 
-                notes: JSON.parse(data), 
-                expenses: JSON.parse(expData),
-                learning: JSON.parse(learnData)
-            });
-            
-            const blob = new Blob([combined], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.download = "DClin_Vault_Full_Backup.json";
-            a.href = url;
-            a.click();
-            setTimeout(() => URL.revokeObjectURL(url), 100);
-            showToast("Backup Downloaded");
+            const data = localStorage.getItem('dclinData') || "[]"; const expData = localStorage.getItem('dclinExpenses') || "[]"; const learnData = localStorage.getItem('dclinLearning') || "[]";
+            const combined = JSON.stringify({ notes: JSON.parse(data), expenses: JSON.parse(expData), learning: JSON.parse(learnData) });
+            const blob = new Blob([combined], { type: 'application/json' }); const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.download = "DClin_Vault_Full_Backup.json"; a.href = url; a.click(); setTimeout(() => URL.revokeObjectURL(url), 100); showToast("Backup Downloaded");
         }
 
         function triggerRestore() { document.getElementById('restoreInput').click(); }
 
         function handleRestore(event) {
-            const file = event.target.files[0];
-            if (!file) return;
-            const reader = new FileReader();
+            const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
             reader.onload = function(e) {
                 try {
                     const importedData = JSON.parse(e.target.result);
-                    
                     if (Array.isArray(importedData)) {
-                        let currentData = JSON.parse(localStorage.getItem('dclinData')) || [];
-                        let dataMap = new Map();
-                        currentData.forEach(item => dataMap.set(item.id, item));
-                        importedData.forEach(item => dataMap.set(item.id, item));
-                        let mergedData = Array.from(dataMap.values()).sort((a, b) => b.id - a.id);
-                        localStorage.setItem('dclinData', JSON.stringify(mergedData));
-                    } 
-                    else if (importedData.notes) {
+                        let currentData = JSON.parse(localStorage.getItem('dclinData')) || []; let dataMap = new Map();
+                        currentData.forEach(item => dataMap.set(item.id, item)); importedData.forEach(item => dataMap.set(item.id, item));
+                        let mergedData = Array.from(dataMap.values()).sort((a, b) => b.id - a.id); localStorage.setItem('dclinData', JSON.stringify(mergedData));
+                    } else if (importedData.notes) {
                         localStorage.setItem('dclinData', JSON.stringify(importedData.notes));
                         if(importedData.expenses) localStorage.setItem('dclinExpenses', JSON.stringify(importedData.expenses));
                         if(importedData.learning) localStorage.setItem('dclinLearning', JSON.stringify(importedData.learning));
                     }
-                    
-                    renderNotes(); renderCalendar(); renderExpenses(); renderLearning();
-                    showToast("Vault Restored & Merged!");
+                    renderNotesWithTransition(); renderCalendar(); renderExpenses(); renderLearning(); showToast("Vault Restored & Merged!");
                 } catch (err) { alert("Error reading file."); }
                 event.target.value = '';
-            };
-            reader.readAsText(file);
+            }; reader.readAsText(file);
         }
 
         function exportFilteredNotes() {
-            const data = JSON.parse(localStorage.getItem('dclinData')) || [];
-            const searchQuery = document.getElementById('searchInput').value.toLowerCase();
-            const filtered = data.filter(n => {
-                const matchesTag = (archiveFilter === 'All' || n.tag === archiveFilter);
-                
-                const tmp = document.createElement('div');
-                tmp.innerHTML = n.text;
-                const plainText = tmp.innerText || tmp.textContent || "";
-                
-                const matchesSearch = plainText.toLowerCase().includes(searchQuery);
-                return (matchesTag && matchesSearch);
-            });
-            if(filtered.length === 0) {
-                showToast("Nothing to export");
-                return;
-            }
-            
+            const data = JSON.parse(localStorage.getItem('dclinData')) || []; const searchQuery = document.getElementById('searchInput').value.toLowerCase();
+            const filtered = data.filter(n => { const matchesTag = (archiveFilter === 'All' || n.tag === archiveFilter); const tmp = document.createElement('div'); tmp.innerHTML = n.text; return (matchesTag && (tmp.innerText || tmp.textContent || "").toLowerCase().includes(searchQuery)); });
+            if(filtered.length === 0) { showToast("Nothing to export"); return; }
             let content = "DCLIN VAULT EXPORT\n\n";
-            filtered.forEach(n => { 
-                const tmpDiv = document.createElement('div');
-                tmpDiv.innerHTML = n.text.replace(/<br>/g, '\n').replace(/<\/div>/g, '\n').replace(/<div>/g, '');
-                const cleanText = tmpDiv.innerText || tmpDiv.textContent || "";
-                
-                content += `[${n.tag}] ${cleanText.trim()}\n---\n`; 
-            });
-            
-            const blob = new Blob([content], { type: 'text/plain' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = `Vault_Export.txt`;
-            a.click();
-            showToast("Filtered List Exported");
+            filtered.forEach(n => { const tmpDiv = document.createElement('div'); tmpDiv.innerHTML = n.text.replace(/<br>/g, '\n').replace(/<\/div>/g, '\n').replace(/<div>/g, ''); content += `[${n.tag}] ${(tmpDiv.innerText || tmpDiv.textContent || "").trim()}\n---\n`; });
+            const blob = new Blob([content], { type: 'text/plain' }); const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = `Vault_Export.txt`; a.click(); showToast("Filtered List Exported");
         }
 
         function editNote(id) {
-            triggerHaptic(30); 
-            const data = JSON.parse(localStorage.getItem('dclinData')) || [];
-            const n = data.find(note => note.id === id);
-            
-            document.getElementById('noteInput').innerHTML = n.text;
-            
-            document.getElementById('dueDatePicker').value = n.deadline || "";
-            updateDateLabel(); editingId = id;
-            
-            document.getElementById('saveAction').innerText = "Update";
-            document.getElementById('cancelAction').style.display = "block";
-            
-            const tagIdx = tagLabels.indexOf(n.tag);
-            document.getElementById('inputIcons').children[tagIdx].click();
-            
-            updateToolbarState(); 
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-
-        /* PREMIUM FEATURE: Gyroscope Logic */
-        function toggleGyro() {
-            triggerHaptic(20);
-            if (gyroEnabled) {
-                gyroEnabled = false;
-                document.documentElement.style.setProperty('--tilt-x', '0px');
-                document.documentElement.style.setProperty('--tilt-y', '0px');
-                const btn = document.getElementById('gyroBtn');
-                btn.style.opacity = '0.4';
-                btn.style.borderColor = 'var(--border)';
-                btn.style.color = 'var(--text-main)';
-                btn.style.boxShadow = 'none';
-                showToast("3D Glass Disabled");
-                return;
-            }
-
-            if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission().then(permissionState => {
-                    if (permissionState === 'granted') {
-                        startGyro();
-                    } else { showToast("Permission Denied"); }
-                }).catch(console.error);
-            } else {
-                startGyro(); // For Android / older browsers
-            }
-        }
-
-        function startGyro() {
-            gyroEnabled = true;
-            const btn = document.getElementById('gyroBtn');
-            btn.style.opacity = '1';
-            btn.style.borderColor = 'var(--active-accent)';
-            btn.style.color = 'var(--active-accent)';
-            btn.style.boxShadow = '0 0 10px var(--active-accent)';
-            showToast("3D Glass Enabled");
-            window.addEventListener('deviceorientation', handleOrientation);
-        }
-
-        function handleOrientation(e) {
-            if(!gyroEnabled) return;
-            let x = e.gamma; // left-to-right
-            let y = e.beta;  // front-to-back
-            
-            if (x > 45) x = 45; if (x < -45) x = -45;
-            if (y > 90) y = 90; if (y < 0) y = 0;
-
-            let xShift = (x / 45) * 40; 
-            let yShift = ((y - 45) / 45) * 40; 
-
-            document.documentElement.style.setProperty('--tilt-x', xShift + 'px');
-            document.documentElement.style.setProperty('--tilt-y', yShift + 'px');
+            triggerHaptic(30); const data = JSON.parse(localStorage.getItem('dclinData')) || []; const n = data.find(note => note.id === id);
+            document.getElementById('noteInput').innerHTML = n.text; document.getElementById('dueDatePicker').value = n.deadline || ""; updateDateLabel(); editingId = id;
+            document.getElementById('saveAction').innerText = "Update"; document.getElementById('cancelAction').style.display = "block";
+            const tagIdx = tagLabels.indexOf(n.tag); document.getElementById('inputIcons').children[tagIdx].click();
+            updateToolbarState(); window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
         window.onload = () => { 
-            const savedTheme = localStorage.getItem('dclinTheme') || 'default';
-            document.documentElement.setAttribute('data-theme', savedTheme);
-
-            const draft = localStorage.getItem('dclinDraft');
-            if (draft) document.getElementById('noteInput').innerHTML = draft;
-            
+            const savedTheme = localStorage.getItem('dclinTheme') || 'default'; document.documentElement.setAttribute('data-theme', savedTheme);
+            const draft = localStorage.getItem('dclinDraft'); if (draft) document.getElementById('noteInput').innerHTML = draft;
             const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings'));
-            if(expSettings) {
-                document.getElementById('basePostcode').value = expSettings.base || '';
-                document.getElementById('mileageRate').value = expSettings.rate || '';
-                document.getElementById('startPostcode').value = expSettings.base || '';
-            }
-            
-            document.getElementById('journeyDate').value = new Date().toISOString().split('T')[0];
-            document.getElementById('learnDate').value = new Date().toISOString().split('T')[0];
-
-            renderCalendar(); 
-            renderNotes(); 
-            renderExpenses();
-            renderLearning();
-            
+            if(expSettings) { document.getElementById('basePostcode').value = expSettings.base || ''; document.getElementById('mileageRate').value = expSettings.rate || ''; document.getElementById('startPostcode').value = expSettings.base || ''; }
+            document.getElementById('journeyDate').value = new Date().toISOString().split('T')[0]; document.getElementById('learnDate').value = new Date().toISOString().split('T')[0];
+            renderCalendar(); renderNotesDOM(); renderExpenses(); renderLearning();
             setTimeout(() => { document.getElementById('inputIcons').children[writeIdx].click(); }, 50);
-
-            document.getElementById('noteInput').addEventListener('paste', function(e) {
-                e.preventDefault();
-                const text = (e.originalEvent || e).clipboardData.getData('text/plain');
-                document.execCommand('insertText', false, text);
-            });
         };
     </script>
 </body>
