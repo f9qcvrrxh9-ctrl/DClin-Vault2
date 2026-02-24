@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
     
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="DClin Vault">
+    <meta name="apple-mobile-web-app-title" content="DClin Log">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <meta name="theme-color" content="#050508">
     
-    <title>DClin Vault</title>
+    <title>DClin Log</title>
     
     <style>
         * { box-sizing: border-box; }
@@ -65,49 +65,26 @@
         /* =========================================
            TRUE 3D PARALLAX LOGIC
            ========================================= */
-        /* Perspective applied to the main container */
         .app-container { 
             padding: calc(40px + env(safe-area-inset-top, 20px)) 25px 60px; 
-            max-width: 420px; 
-            margin: auto; 
-            position: relative; 
-            z-index: 1; 
-            perspective: 1500px; /* Crucial for 3D depth */
+            max-width: 420px; margin: auto; position: relative; z-index: 1; 
+            perspective: 1500px; 
         }
 
-        /* The glass cards that physically tilt */
         .parallax-target { 
             transform: rotateX(var(--rx)) rotateY(var(--ry)); 
-            transform-style: preserve-3d; /* Allows children to pop out */
-            will-change: transform; 
-            position: relative;
+            transform-style: preserve-3d; will-change: transform; position: relative;
         }
 
-        /* Pushing the text and buttons forward in 3D space */
-        .parallax-target > * {
-            transform: translateZ(25px); 
-            position: relative;
-            z-index: 2;
-        }
+        .parallax-target > * { transform: translateZ(25px); position: relative; z-index: 2; }
 
-        /* Gyroscopic lighting glare on the glass */
         .parallax-target::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            border-radius: inherit;
+            content: ''; position: absolute; inset: 0; border-radius: inherit;
             background: radial-gradient(circle at var(--lx) var(--ly), rgba(255,255,255,0.15) 0%, transparent 60%);
-            pointer-events: none;
-            z-index: 1;
-            transform: translateZ(1px); /* Slightly above glass, below text */
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            pointer-events: none; z-index: 1; transform: translateZ(1px); opacity: 0; transition: opacity 0.5s ease;
         }
         
-        /* Only show the glare if 3D is active (class applied via JS) */
-        .parallax-active .parallax-target::before {
-            opacity: 1;
-        }
+        .parallax-active .parallax-target::before { opacity: 1; }
 
         /* =========================================
            DYNAMIC ORBS (Mesh Gradient)
@@ -218,7 +195,7 @@
         .empty-state svg { margin-bottom: 12px; }
         .empty-text { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; }
 
-        .calendar-container { background: var(--glass); border-radius: 24px; border: 1px solid var(--border); padding: 22px; margin-bottom: 25px; backdrop-filter: blur(30px); }
+        .calendar-container { background: var(--glass); border-radius: 24px; border: 1px solid var(--border); padding: 22px; margin-bottom: 25px; backdrop-filter: blur(30px); transition: transform 0.15s ease-out; will-change: transform;}
         .calendar-nav { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 0 5px; }
         .nav-btn { background: transparent; border: none; color: var(--text-main); cursor: pointer; opacity: 0.5; font-size: 14px; padding: 5px 10px; }
         .nav-btn:hover { opacity: 1; }
@@ -249,7 +226,6 @@
         .collapsible-trigger { width: 100%; padding: 20px; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px; transition: all 0.3s ease; }
         #calendarModule, #completedVault, #expensesModule, #learningModule { display: none; padding-bottom: 20px; }
 
-        /* Clean Text Totals Display */
         .totals-display { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); text-align: right; margin-bottom: 15px; margin-right: 5px; }
 
         .backup-footer { margin-top: 15px; display: flex; flex-direction: column; gap: 4px; padding-bottom: 20px; }
@@ -432,8 +408,8 @@
         </div>
 
         <div class="backup-footer">
-            <button class="footer-btn" onclick="fullBackup()">Download Full Vault Backup</button>
-            <button class="footer-btn" onclick="triggerRestore()">Restore Vault from Backup</button>
+            <button class="footer-btn" onclick="fullBackup()">Download Full Log Backup</button>
+            <button class="footer-btn" onclick="triggerRestore()">Restore Log from Backup</button>
             <input type="file" id="restoreInput" style="display: none;" accept=".json" onchange="handleRestore(event)">
             <button class="footer-btn" onclick="toggleThemeDrawer()">Themes</button>
             <button class="footer-btn" onclick="toggleWalkthrough()">Help</button>
@@ -449,11 +425,11 @@
         <div class="archive-header" style="margin-bottom:15px;">How To Use</div>
         <div class="help-scroll-area">
             <div class="safety-box">
-                <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">System updates or clearing your browser cache will wipe this app's data. Back up your vault frequently!</div>
+                <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">System updates or clearing your browser cache will wipe this app's data. Back up your log frequently!</div>
                 <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);"><b>1. Backup</b></div>
-                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">Tap 'Download Full Vault Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely.</div>
+                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">Tap 'Download Full Log Backup' to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 700;">Click "More" and select "Save to Files"</span> to store it securely.</div>
                 <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);"><b>2. Restore</b></div>
-                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">If your app clears, tap 'Restore Vault from Backup', select that saved .json file, and your data will instantly return.</div>
+                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">If your app clears, tap 'Restore Log from Backup', select that saved .json file, and your data will instantly return.</div>
             </div>
             <div class="walk-item"><b>Tags</b> Use icons to categorize notes.</div>
             <div class="walk-item"><b>Filter & Search</b> Filter by category or keyword. Tap download icon to export text.</div>
@@ -531,41 +507,22 @@
            NEW CALIBRATED LERP 3D ENGINE
            ---------------------------------------------------- */
         function parallaxHandler(e) {
-            // Auto-calibrate on first movement
-            if (baseBeta === null) {
-                baseBeta = e.beta;
-                baseGamma = e.gamma;
-            }
-            
-            // Calculate difference from calibrated zero
-            let diffBeta = e.beta - baseBeta;
-            let diffGamma = e.gamma - baseGamma;
-            
-            // Clamp values to prevent the UI from flipping inside out
+            if (baseBeta === null) { baseBeta = e.beta; baseGamma = e.gamma; }
+            let diffBeta = e.beta - baseBeta; let diffGamma = e.gamma - baseGamma;
             diffBeta = Math.min(Math.max(diffBeta, -25), 25);
             diffGamma = Math.min(Math.max(diffGamma, -25), 25);
-            
             targetX = diffBeta / 1.5; 
             targetY = -diffGamma / 1.5;
         }
 
         function renderParallax() {
             if (!is3DActive) return;
-            
-            // Smoothly glide current state toward target state (Lerp)
-            currentX += (targetX - currentX) * 0.1;
-            currentY += (targetY - currentY) * 0.1;
-            
-            // Apply 3D Rotations
+            currentX += (targetX - currentX) * 0.1; currentY += (targetY - currentY) * 0.1;
             document.documentElement.style.setProperty('--rx', `${currentX}deg`);
             document.documentElement.style.setProperty('--ry', `${currentY}deg`);
-            
-            // Apply Gyroscopic Glare/Lighting (Map rotation to 0%-100% position)
-            let lx = 50 + (currentY * 3); 
-            let ly = 50 - (currentX * 3); 
+            let lx = 50 + (currentY * 3); let ly = 50 - (currentX * 3); 
             document.documentElement.style.setProperty('--lx', `${lx}%`);
             document.documentElement.style.setProperty('--ly', `${ly}%`);
-            
             rafId = requestAnimationFrame(renderParallax);
         }
 
@@ -577,49 +534,34 @@
                 is3DActive = false;
                 window.removeEventListener('deviceorientation', parallaxHandler);
                 cancelAnimationFrame(rafId);
-                
-                // Reset calibration & UI
-                baseBeta = null; baseGamma = null;
-                currentX = 0; currentY = 0; targetX = 0; targetY = 0;
-                document.documentElement.style.setProperty('--rx', `0deg`);
-                document.documentElement.style.setProperty('--ry', `0deg`);
-                
+                baseBeta = null; baseGamma = null; currentX = 0; currentY = 0; targetX = 0; targetY = 0;
+                document.documentElement.style.setProperty('--rx', `0deg`); document.documentElement.style.setProperty('--ry', `0deg`);
                 document.body.classList.remove('parallax-active');
                 btn.innerText = "Enable 3D Parallax";
                 showToast("3D Parallax Disabled");
             } else {
                 if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                    DeviceOrientationEvent.requestPermission()
-                        .then(permissionState => { if (permissionState === 'granted') start3DListener(btn); })
-                        .catch(console.error);
+                    DeviceOrientationEvent.requestPermission().then(permissionState => { if (permissionState === 'granted') start3DListener(btn); }).catch(console.error);
                 } else { start3DListener(btn); }
             }
         }
 
         function start3DListener(btn) {
             window.addEventListener('deviceorientation', parallaxHandler);
-            is3DActive = true;
-            document.body.classList.add('parallax-active');
-            renderParallax(); // Start physics loop
-            btn.innerText = "Disable 3D Parallax";
-            closeDrawers(); 
-            showToast("3D Parallax Enabled & Calibrated");
+            is3DActive = true; document.body.classList.add('parallax-active');
+            renderParallax(); btn.innerText = "Disable 3D Parallax";
+            closeDrawers(); showToast("3D Parallax Enabled & Calibrated");
         }
 
         /* ---------------------------------------------------- */
 
-        /* Particle Confetti System */
         function fireParticles(rect, color) {
-            const x = rect.left + rect.width / 2;
-            const y = rect.top + rect.height / 2;
+            const x = rect.left + rect.width / 2; const y = rect.top + rect.height / 2;
             for(let i=0; i<12; i++) {
-                let p = document.createElement('div');
-                p.className = 'particle'; p.style.background = color; p.style.color = color;
+                let p = document.createElement('div'); p.className = 'particle'; p.style.background = color; p.style.color = color;
                 p.style.left = x + 'px'; p.style.top = y + 'px';
-                p.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px');
-                p.style.setProperty('--dy', (Math.random() * 120 - 60) + 'px');
-                document.body.appendChild(p);
-                setTimeout(() => p.remove(), 800);
+                p.style.setProperty('--dx', (Math.random() * 120 - 60) + 'px'); p.style.setProperty('--dy', (Math.random() * 120 - 60) + 'px');
+                document.body.appendChild(p); setTimeout(() => p.remove(), 800);
             }
         }
 
@@ -637,11 +579,8 @@
             const b1 = document.createElement('button'); b1.className = `sq-btn ic${i}`; b1.innerHTML = svg;
             b1.onclick = () => {
                 writeIdx = i;
-                document.documentElement.style.setProperty('--active-accent', tagColors[i]);
-                document.documentElement.style.setProperty('--active-vibe', tagMoods[5-i]);
-                document.documentElement.style.setProperty('--active-orb-2', tagColors[(i+2)%6]);
-                document.documentElement.style.setProperty('--active-orb-3', tagColors[(i+4)%6]);
-                
+                document.documentElement.style.setProperty('--active-accent', tagColors[i]); document.documentElement.style.setProperty('--active-vibe', tagMoods[5-i]);
+                document.documentElement.style.setProperty('--active-orb-2', tagColors[(i+2)%6]); document.documentElement.style.setProperty('--active-orb-3', tagColors[(i+4)%6]);
                 const noteInput = document.getElementById('noteInput');
                 noteInput.classList.remove('animating-placeholder'); void noteInput.offsetWidth; 
                 noteInput.setAttribute('data-placeholder', tagPrompts[i]); noteInput.classList.add('animating-placeholder');
@@ -658,21 +597,12 @@
         function updateDateLabel() { const val = document.getElementById('dueDatePicker').value; document.getElementById('dateLabel').innerText = val ? val.split('-').reverse().slice(0,2).join('/') : "Due Date"; }
 
         function setFilter(f, btn, accent) {
-            archiveFilter = f; dateFilter = null;
-            document.documentElement.style.setProperty('--filter-accent', accent);
+            archiveFilter = f; dateFilter = null; document.documentElement.style.setProperty('--filter-accent', accent);
             document.querySelectorAll('#filterIcons .sq-btn').forEach(b => b.classList.remove('active'));
-            if(btn) btn.classList.add('active');
-            renderNotesWithTransition(); renderCalendar();
+            if(btn) btn.classList.add('active'); renderNotesWithTransition(); renderCalendar();
         }
 
-        /* View Transitions Wrapper */
-        function renderNotesWithTransition() {
-            if (document.startViewTransition) {
-                document.startViewTransition(() => renderNotesDOM());
-            } else {
-                renderNotesDOM();
-            }
-        }
+        function renderNotesWithTransition() { if (document.startViewTransition) { document.startViewTransition(() => renderNotesDOM()); } else { renderNotesDOM(); } }
 
         function saveNote() {
             const btn = document.getElementById('saveAction'); const inputField = document.getElementById('noteInput'); const dateField = document.getElementById('dueDatePicker');
@@ -742,13 +672,9 @@
                 grid.appendChild(dayDiv);
             }
             
-            let todayObj = new Date(); todayObj.setHours(0,0,0,0);
-            let nextWeek = new Date(todayObj); nextWeek.setDate(todayObj.getDate() + 7);
+            let todayObj = new Date(); todayObj.setHours(0,0,0,0); let nextWeek = new Date(todayObj); nextWeek.setDate(todayObj.getDate() + 7);
             
-            let upcomingTasks = data.filter(d => {
-                if(d.done || !d.deadline) return false;
-                let dDate = new Date(d.deadline); dDate.setHours(0,0,0,0); return dDate >= todayObj && dDate <= nextWeek;
-            });
+            let upcomingTasks = data.filter(d => { if(d.done || !d.deadline) return false; let dDate = new Date(d.deadline); dDate.setHours(0,0,0,0); return dDate >= todayObj && dDate <= nextWeek; });
             
             let upcomingHtml = '';
             if(upcomingTasks.length > 0) {
@@ -811,19 +737,17 @@
                 if(n.done) doneContent += html; else activeContent += html;
             });
             
-            const emptyHtml = `<div class="empty-state">${emptySvg}<div class="empty-text">Vault is empty</div></div>`;
+            const emptyHtml = `<div class="empty-state">${emptySvg}<div class="empty-text">Log is empty</div></div>`;
             list.innerHTML = activeContent || emptyHtml; completedList.innerHTML = doneContent || emptyHtml;
         }
 
-        /* Done Animation & Particles */
         function toggleDone(id, btnElement, color) {
             triggerHaptic([40, 60, 40]); 
             const tile = btnElement.closest('.note');
             
             if(!tile.classList.contains('completing') && color) {
                 fireParticles(btnElement.getBoundingClientRect(), color);
-                const svgOverlay = document.createElement('div');
-                svgOverlay.className = "check-overlay";
+                const svgOverlay = document.createElement('div'); svgOverlay.className = "check-overlay";
                 svgOverlay.innerHTML = `<svg class="check-svg" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>`;
                 tile.appendChild(svgOverlay);
             }
@@ -843,8 +767,7 @@
             if(confirm("Delete note permanently?")) {
                 triggerHaptic([50, 100, 50]); 
                 if(color) fireParticles(btnElement.getBoundingClientRect(), '#ff453a');
-                const tile = btnElement.closest('.note');
-                tile.classList.add('deleting');
+                const tile = btnElement.closest('.note'); tile.classList.add('deleting');
                 setTimeout(() => {
                     let data = JSON.parse(localStorage.getItem('dclinData')) || [];
                     localStorage.setItem('dclinData', JSON.stringify(data.filter(n => n.id !== id)));
@@ -854,7 +777,7 @@
         }
 
         function clearAllCompleted() {
-            if(!confirm("Wipe completed vault forever?")) return;
+            if(!confirm("Wipe completed log forever?")) return;
             let data = JSON.parse(localStorage.getItem('dclinData')) || [];
             localStorage.setItem('dclinData', JSON.stringify(data.filter(n => !n.done))); renderNotesWithTransition(); showToast("Completed tasks cleared");
         }
@@ -864,22 +787,15 @@
             const date = document.getElementById('learnDate').value; const type = document.getElementById('learnType').value;
             const hours = document.getElementById('learnHours').value; const desc = document.getElementById('learnDesc').value;
             const reflection = document.getElementById('learnReflection').value;
-            
             if(!date || !type || !hours || !desc) { showToast("Please fill Date, Type, Hours & Description"); return; }
-            
             let data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
-            
             if(editingLearnId) {
                 const idx = data.findIndex(n => n.id === editingLearnId);
                 if(idx > -1) data[idx] = { id: editingLearnId, date, type, hours, desc, reflection };
                 editingLearnId = null; document.getElementById('logLearningBtn').innerText = "Save to Log";
-            } else {
-                data.unshift({ id: Date.now(), date: date, type: type, hours: hours, desc: desc, reflection: reflection });
-            }
-            
+            } else { data.unshift({ id: Date.now(), date: date, type: type, hours: hours, desc: desc, reflection: reflection }); }
             localStorage.setItem('dclinLearning', JSON.stringify(data));
             document.getElementById('learnDesc').value = ""; document.getElementById('learnReflection').value = ""; document.getElementById('learnHours').value = ""; document.getElementById('learnType').value = ""; 
-            
             renderLearning(); showToast("Learning Logged"); triggerHaptic([30, 50, 30]);
         }
         
@@ -892,23 +808,12 @@
         function renderLearning() {
             const list = document.getElementById('learningList'); const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
             let totals = { CBT: 0, Systemic: 0, Neuro: 0, Other: 0 };
-            
-            if (data.length === 0) {
-                list.innerHTML = `<div class="empty-state"><div class="empty-text">No learning logged</div></div>`;
-                document.getElementById('learningTotalDisplay').innerText = `CBT: 0 | SYS: 0 | NEURO: 0 | OTHER: 0`;
-                return;
-            }
-            
+            if (data.length === 0) { list.innerHTML = `<div class="empty-state"><div class="empty-text">No learning logged</div></div>`; document.getElementById('learningTotalDisplay').innerText = `CBT: 0 | SYS: 0 | NEURO: 0 | OTHER: 0`; return; }
             let html = "";
             data.forEach(e => {
-                let h = parseFloat(e.hours || 0);
-                if(totals[e.type] !== undefined) totals[e.type] += h;
-                
-                const displayDate = e.date.split('-').reverse().join('.');
-                let typeColor = 'var(--text-main)';
-                if(e.type === 'CBT') typeColor = 'var(--c0)'; if(e.type === 'Systemic') typeColor = 'var(--c1)';
-                if(e.type === 'Neuro') typeColor = 'var(--c2)'; if(e.type === 'Other') typeColor = 'var(--c5)';
-
+                let h = parseFloat(e.hours || 0); if(totals[e.type] !== undefined) totals[e.type] += h;
+                const displayDate = e.date.split('-').reverse().join('.'); let typeColor = 'var(--text-main)';
+                if(e.type === 'CBT') typeColor = 'var(--c0)'; if(e.type === 'Systemic') typeColor = 'var(--c1)'; if(e.type === 'Neuro') typeColor = 'var(--c2)'; if(e.type === 'Other') typeColor = 'var(--c5)';
                 html += `
                 <div class="note" style="--note-color: ${typeColor}; display: block;">
                     <div class="note-header"><span style="color:${typeColor}">${e.type}</span><span>${displayDate} • ${e.hours} HRS</span></div>
@@ -917,14 +822,11 @@
                     <div class="action-row"><button class="action-btn" onclick="editLearning(${e.id})">Edit</button><button class="action-btn" style="color:#ff453a; opacity: 0.8;" onclick="deleteLearning(${e.id}, this)">Delete</button></div>
                 </div>`;
             });
-            
-            list.innerHTML = html; 
-            document.getElementById('learningTotalDisplay').innerText = `CBT: ${totals.CBT} | SYS: ${totals.Systemic} | NEURO: ${totals.Neuro} | OTHER: ${totals.Other}`;
+            list.innerHTML = html; document.getElementById('learningTotalDisplay').innerText = `CBT: ${totals.CBT} | SYS: ${totals.Systemic} | NEURO: ${totals.Neuro} | OTHER: ${totals.Other}`;
         }
 
         function deleteLearning(id, btnElement) {
-            if(!confirm("Delete log permanently?")) return;
-            triggerHaptic([50, 100, 50]); const tile = btnElement.closest('.note'); tile.classList.add('deleting');
+            if(!confirm("Delete log permanently?")) return; triggerHaptic([50, 100, 50]); const tile = btnElement.closest('.note'); tile.classList.add('deleting');
             setTimeout(() => { let data = JSON.parse(localStorage.getItem('dclinLearning')) || []; localStorage.setItem('dclinLearning', JSON.stringify(data.filter(e => e.id !== id))); renderLearning(); showToast("Entry Deleted"); }, 350);
         }
 
@@ -944,32 +846,25 @@
             const clean = postcode.replace(/\s+/g, '').toLowerCase();
             const res = await fetch(`https://api.postcodes.io/postcodes/${clean}`);
             if (!res.ok) throw new Error("Invalid Postcode");
-            const data = await res.json();
-            return { lat: data.result.latitude, lng: data.result.longitude };
+            const data = await res.json(); return { lat: data.result.latitude, lng: data.result.longitude };
         }
 
         async function logJourney() {
-            const type = document.getElementById('journeyType').value;
-            const start = document.getElementById('startPostcode').value; 
-            const dest = document.getElementById('destPostcode').value;
-            const date = document.getElementById('journeyDate').value; 
-            const isReturn = document.getElementById('returnJourney').checked;
+            const type = document.getElementById('journeyType').value; const start = document.getElementById('startPostcode').value; 
+            const dest = document.getElementById('destPostcode').value; const date = document.getElementById('journeyDate').value; const isReturn = document.getElementById('returnJourney').checked;
             
             const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings')); const rateStr = expSettings ? expSettings.rate : null;
             if(!rateStr) { showToast("Please set £ Rate via the Settings Icon first"); toggleExpenseSettings(); return; }
             if(!type || !start || !dest || !date) { showToast("Please fill all journey fields including Type"); return; }
             
             let rawRate = parseFloat(rateStr); const rate = rawRate > 3 ? (rawRate / 100) : rawRate; 
-            
             const btn = document.getElementById('logJourneyBtn'); const originalText = btn.innerText;
             btn.innerHTML = `<div class="spinner"></div>`; btn.style.opacity = "0.7"; triggerHaptic(10);
             
             try {
                 const startCoords = await fetchCoordinates(start); const endCoords = await fetchCoordinates(dest);
                 const osrmUrl = `https://router.project-osrm.org/route/v1/driving/${startCoords.lng},${startCoords.lat};${endCoords.lng},${endCoords.lat}?overview=false`;
-                const routeRes = await fetch(osrmUrl); if (!routeRes.ok) throw new Error("Routing failed");
-                const routeData = await routeRes.json();
-                
+                const routeRes = await fetch(osrmUrl); if (!routeRes.ok) throw new Error("Routing failed"); const routeData = await routeRes.json();
                 const distanceMeters = routeData.routes[0].distance; const milesOneWay = (distanceMeters * 0.000621371).toFixed(1); const costOneWay = (milesOneWay * rate).toFixed(2);
                 let expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
                 
@@ -978,11 +873,8 @@
                 
                 localStorage.setItem('dclinExpenses', JSON.stringify(expenses));
                 document.getElementById('destPostcode').value = ""; document.getElementById('returnJourney').checked = false; 
-                
                 renderExpenses(); showToast(`Logged successfully`); triggerHaptic([30, 50, 30]);
-                
             } catch (error) { showToast("Error. Check postcodes & connection."); }
-            
             btn.innerText = originalText; btn.style.opacity = "1";
         }
 
@@ -996,17 +888,10 @@
         function renderExpenses() {
             const list = document.getElementById('expenseList'); const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
             let totalCost = 0;
-            
-            if (expenses.length === 0) {
-                list.innerHTML = `<div class="empty-state"><div class="empty-text">No expenses logged</div></div>`;
-                document.getElementById('expensesTotalDisplay').innerText = `Total Owed: £0.00`;
-                return;
-            }
-            
+            if (expenses.length === 0) { list.innerHTML = `<div class="empty-state"><div class="empty-text">No expenses logged</div></div>`; document.getElementById('expensesTotalDisplay').innerText = `Total Owed: £0.00`; return; }
             let html = "";
             expenses.forEach(e => {
-                totalCost += parseFloat(e.cost || 0); const displayDate = e.date.split('-').reverse().slice(0,2).join('/');
-                const journeyTypeStr = e.type ? `(${e.type})` : '';
+                totalCost += parseFloat(e.cost || 0); const displayDate = e.date.split('-').reverse().slice(0,2).join('/'); const journeyTypeStr = e.type ? `(${e.type})` : '';
                 html += `
                 <div class="expense-tile">
                     <div class="exp-details">
@@ -1029,10 +914,7 @@
         function exportExpensesCSV() {
             const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || []; if(expenses.length === 0) { showToast("Nothing to export"); return; }
             let csvContent = "Date,Journey Type,Start Postcode,Destination Postcode,Miles,Cost (£)\n";
-            expenses.forEach(e => { 
-                const jType = e.type || 'Business';
-                csvContent += `${e.date},${jType},${e.start},${e.dest},${e.miles},${e.cost}\n`; 
-            });
+            expenses.forEach(e => { const jType = e.type || 'Business'; csvContent += `${e.date},${jType},${e.start},${e.dest},${e.miles},${e.cost}\n`; });
             const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' }); const url = URL.createObjectURL(blob);
             const a = document.createElement('a'); a.href = url; a.download = `DClin_Expenses_Export.csv`; a.click(); showToast("Spreadsheet Exported");
         }
@@ -1054,7 +936,7 @@
             const data = localStorage.getItem('dclinData') || "[]"; const expData = localStorage.getItem('dclinExpenses') || "[]"; const learnData = localStorage.getItem('dclinLearning') || "[]";
             const combined = JSON.stringify({ notes: JSON.parse(data), expenses: JSON.parse(expData), learning: JSON.parse(learnData) });
             const blob = new Blob([combined], { type: 'application/json' }); const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.download = "DClin_Vault_Full_Backup.json"; a.href = url; a.click(); setTimeout(() => URL.revokeObjectURL(url), 100); showToast("Backup Downloaded");
+            const a = document.createElement('a'); a.download = "DClin_Log_Full_Backup.json"; a.href = url; a.click(); setTimeout(() => URL.revokeObjectURL(url), 100); showToast("Backup Downloaded");
         }
 
         function triggerRestore() { document.getElementById('restoreInput').click(); }
@@ -1073,7 +955,7 @@
                         if(importedData.expenses) localStorage.setItem('dclinExpenses', JSON.stringify(importedData.expenses));
                         if(importedData.learning) localStorage.setItem('dclinLearning', JSON.stringify(importedData.learning));
                     }
-                    renderNotesWithTransition(); renderCalendar(); renderExpenses(); renderLearning(); showToast("Vault Restored & Merged!");
+                    renderNotesWithTransition(); renderCalendar(); renderExpenses(); renderLearning(); showToast("Log Restored & Merged!");
                 } catch (err) { alert("Error reading file."); }
                 event.target.value = '';
             }; reader.readAsText(file);
@@ -1083,10 +965,10 @@
             const data = JSON.parse(localStorage.getItem('dclinData')) || []; const searchQuery = document.getElementById('searchInput').value.toLowerCase();
             const filtered = data.filter(n => { const matchesTag = (archiveFilter === 'All' || n.tag === archiveFilter); const tmp = document.createElement('div'); tmp.innerHTML = n.text; return (matchesTag && (tmp.innerText || tmp.textContent || "").toLowerCase().includes(searchQuery)); });
             if(filtered.length === 0) { showToast("Nothing to export"); return; }
-            let content = "DCLIN VAULT EXPORT\n\n";
+            let content = "DCLIN LOG EXPORT\n\n";
             filtered.forEach(n => { const tmpDiv = document.createElement('div'); tmpDiv.innerHTML = n.text.replace(/<br>/g, '\n').replace(/<\/div>/g, '\n').replace(/<div>/g, ''); content += `[${n.tag}] ${(tmpDiv.innerText || tmpDiv.textContent || "").trim()}\n---\n`; });
             const blob = new Blob([content], { type: 'text/plain' }); const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = `Vault_Export.txt`; a.click(); showToast("Filtered List Exported");
+            const a = document.createElement('a'); a.href = url; a.download = `Log_Export.txt`; a.click(); showToast("Filtered List Exported");
         }
 
         function editNote(id) {
@@ -1097,12 +979,44 @@
             updateToolbarState(); window.scrollTo({ top: 0, behavior: 'smooth' });
         }
 
+        /* ----------------------------------------------------
+           NEW ONBOARDING INJECTION
+           ---------------------------------------------------- */
         window.onload = () => { 
             const savedTheme = localStorage.getItem('dclinTheme') || 'default'; document.documentElement.setAttribute('data-theme', savedTheme);
             const draft = localStorage.getItem('dclinDraft'); if (draft) document.getElementById('noteInput').innerHTML = draft;
             const expSettings = JSON.parse(localStorage.getItem('dclinExpenseSettings'));
             if(expSettings) { document.getElementById('basePostcode').value = expSettings.base || ''; document.getElementById('mileageRate').value = expSettings.rate || ''; document.getElementById('startPostcode').value = expSettings.base || ''; }
-            document.getElementById('journeyDate').value = new Date().toISOString().split('T')[0]; document.getElementById('learnDate').value = new Date().toISOString().split('T')[0];
+            
+            const todayStr = new Date().toISOString().split('T')[0];
+            document.getElementById('journeyDate').value = todayStr; document.getElementById('learnDate').value = todayStr;
+
+            // INJECT TUTORIAL DATA ON FIRST LAUNCH
+            if (!localStorage.getItem('dclinTutorialSeen')) {
+                const twoDaysFromNow = new Date(Date.now() + 2 * 86400000).toISOString().split('T')[0];
+                
+                const initialNotes = [
+                    { id: 104, text: "<b>Welcome to DClin Log!</b><br>Saved notes and tasks will appear right here. Tap 'Del' below to clear this tutorial out.", tag: "General", color: "var(--c5)", created: todayStr, deadline: null, done: false, completedOn: null },
+                    { id: 103, text: "<b>Filter & Search</b><br>Filter your lists by tapping the colored tag icons above, or search for keywords. Tap 'ALL' to reset.", tag: "University", color: "var(--c0)", created: todayStr, deadline: null, done: false, completedOn: null },
+                    { id: 102, text: "<b>Exporting Data</b><br>Tap the little download icon in the search bar to export your currently displayed notes into a clean text file.", tag: "Research/Thesis", color: "var(--c3)", created: todayStr, deadline: null, done: false, completedOn: null },
+                    { id: 101, text: "<b>Calendar & Deadlines</b><br>Upcoming deadlines dynamically appear below the calendar. Take a look at your calendar, tap the day with the colored dot, and THEN delete this note!", tag: "Deadlines", color: "var(--c4)", created: todayStr, deadline: twoDaysFromNow, done: false, completedOn: null }
+                ];
+                
+                const initialLearning = [
+                    { id: 201, date: todayStr, type: 'CBT', hours: '1.5', desc: 'Tutorial: Extra Learning', reflection: 'Keep track of your independent study here. Exporting will instantly generate a pre-formatted file for your portfolio. Delete me when ready!' }
+                ];
+                
+                const initialExpenses = [
+                    { id: 301, date: todayStr, type: 'Business', start: 'APP SETUP', dest: 'GEAR ICON', miles: '0.0', cost: '0.00' }
+                ];
+
+                localStorage.setItem('dclinData', JSON.stringify(initialNotes));
+                localStorage.setItem('dclinLearning', JSON.stringify(initialLearning));
+                localStorage.setItem('dclinExpenses', JSON.stringify(initialExpenses));
+                
+                localStorage.setItem('dclinTutorialSeen', 'true');
+            }
+
             renderCalendar(); renderNotesDOM(); renderExpenses(); renderLearning();
             setTimeout(() => { document.getElementById('inputIcons').children[writeIdx].click(); }, 50);
         };
