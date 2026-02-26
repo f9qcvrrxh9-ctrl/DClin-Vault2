@@ -43,9 +43,9 @@
             --active-accent: var(--c0); --active-vibe: var(--v5); --active-orb-2: var(--c3); --active-orb-3: var(--c1);
             --filter-accent: var(--warm-white-glow); --deadline-red: #FF453A;
             
-            /* 3D Parallax Variables - Controlled by JS */
-            --rx: 0deg; 
-            --ry: 0deg; 
+            /* Tracking and 3D Parallax Variables - Controlled by JS */
+            --orb-x: 50%; --orb-y: -10%; 
+            --rx: 0deg; --ry: 0deg; 
             --lx: 50%; /* Lighting X */
             --ly: 50%; /* Lighting Y */
         }
@@ -87,18 +87,22 @@
         .parallax-active .parallax-target::before { opacity: 1; }
 
         /* =========================================
-           DYNAMIC ORBS (Mesh Gradient)
+           DYNAMIC ORBS (Mesh Gradient - RESTORED COLORS)
            ========================================= */
         [data-theme="parchment"] .vibe-container, [data-theme="academy"] .vibe-container { display: none !important; }
+        
         .vibe-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; }
-        .orb { position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.6; mix-blend-mode: screen; transition: background 1.5s ease; }
-        .orb-1 { width: 120vw; height: 120vw; background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%); top: -40%; left: -20%; animation: float1 14s ease-in-out infinite alternate; }
-        .orb-2 { width: 100vw; height: 100vw; background: radial-gradient(circle, var(--active-orb-2) 0%, transparent 60%); top: 10%; right: -20%; animation: float2 18s ease-in-out infinite alternate; opacity: 0.25;}
-        .orb-3 { width: 90vw; height: 90vw; background: radial-gradient(circle, var(--active-orb-3) 0%, transparent 60%); bottom: -30%; left: 10%; animation: float3 20s ease-in-out infinite alternate; opacity: 0.2;}
+        
+        /* Reverted to natural blend mode, high opacity, and tied top/left back to var(--orb) coordinates */
+        .orb { position: absolute; border-radius: 50%; filter: blur(90px); transition: background 1.5s ease, top 2s cubic-bezier(0.23, 1, 0.32, 1), left 2s cubic-bezier(0.23, 1, 0.32, 1); }
+        
+        .orb-1 { width: 160vw; height: 160vw; background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%); top: calc(var(--orb-y) - 80vw); left: calc(var(--orb-x) - 80vw); animation: pulseFloat 14s ease-in-out infinite alternate; opacity: 1; }
+        .orb-2 { width: 120vw; height: 120vw; background: radial-gradient(circle, var(--active-orb-2) 0%, transparent 60%); top: 10%; right: -20%; animation: float2 18s ease-in-out infinite alternate; opacity: 0.6; }
+        .orb-3 { width: 100vw; height: 100vw; background: radial-gradient(circle, var(--active-orb-3) 0%, transparent 60%); bottom: -30%; left: 10%; animation: float3 20s ease-in-out infinite alternate; opacity: 0.5; }
 
-        @keyframes float1 { 0% { transform: translate(-5vw, -5vh) scale(1); } 100% { transform: translate(25vw, 20vh) scale(1.1); } }
-        @keyframes float2 { 0% { transform: translate(5vw, -5vh) scale(1); } 100% { transform: translate(-25vw, 15vh) scale(1.2); } }
-        @keyframes float3 { 0% { transform: translate(-10vw, 5vh) scale(1.2); } 100% { transform: translate(30vw, -25vh) scale(1); } }
+        @keyframes pulseFloat { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
+        @keyframes float2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-15vw, 10vh) scale(1.2); } }
+        @keyframes float3 { 0% { transform: translate(0, 0) scale(1.2); } 100% { transform: translate(20vw, -15vh) scale(1); } }
 
         .archive-header { font-size: 10px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.35; margin-bottom: 22px; text-align: center; font-weight: 600; }
 
@@ -485,6 +489,9 @@
         const tagColors = ['var(--c0)', 'var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)', 'var(--c5)'];
         const tagMoods = ['var(--v0)', 'var(--v1)', 'var(--v2)', 'var(--v3)', 'var(--v4)', 'var(--v5)'];
 
+        /* Re-added Orb Movement Path Array */
+        const orbRadialPath = [['30%','10%'], ['70%','10%'], ['85%','35%'], ['70%','65%'], ['30%','65%'], ['15%','35%']];
+
         let writeIdx = 0; let archiveFilter = 'All'; let dateFilter = null; let editingId = null; let editingLearnId = null;
         let currentCalDate = new Date();
         
@@ -579,8 +586,15 @@
             const b1 = document.createElement('button'); b1.className = `sq-btn ic${i}`; b1.innerHTML = svg;
             b1.onclick = () => {
                 writeIdx = i;
-                document.documentElement.style.setProperty('--active-accent', tagColors[i]); document.documentElement.style.setProperty('--active-vibe', tagMoods[5-i]);
-                document.documentElement.style.setProperty('--active-orb-2', tagColors[(i+2)%6]); document.documentElement.style.setProperty('--active-orb-3', tagColors[(i+4)%6]);
+                document.documentElement.style.setProperty('--active-accent', tagColors[i]); 
+                document.documentElement.style.setProperty('--active-vibe', tagMoods[5-i]);
+                document.documentElement.style.setProperty('--active-orb-2', tagColors[(i+2)%6]); 
+                document.documentElement.style.setProperty('--active-orb-3', tagColors[(i+4)%6]);
+                
+                /* Update Main Orb X and Y to snap to the icon position */
+                document.documentElement.style.setProperty('--orb-x', orbRadialPath[i][0]);
+                document.documentElement.style.setProperty('--orb-y', orbRadialPath[i][1]);
+
                 const noteInput = document.getElementById('noteInput');
                 noteInput.classList.remove('animating-placeholder'); void noteInput.offsetWidth; 
                 noteInput.setAttribute('data-placeholder', tagPrompts[i]); noteInput.classList.add('animating-placeholder');
@@ -741,13 +755,15 @@
             list.innerHTML = activeContent || emptyHtml; completedList.innerHTML = doneContent || emptyHtml;
         }
 
+        /* Done Animation & Particles */
         function toggleDone(id, btnElement, color) {
             triggerHaptic([40, 60, 40]); 
             const tile = btnElement.closest('.note');
             
             if(!tile.classList.contains('completing') && color) {
                 fireParticles(btnElement.getBoundingClientRect(), color);
-                const svgOverlay = document.createElement('div'); svgOverlay.className = "check-overlay";
+                const svgOverlay = document.createElement('div');
+                svgOverlay.className = "check-overlay";
                 svgOverlay.innerHTML = `<svg class="check-svg" viewBox="0 0 24 24"><path d="M5 13l4 4L19 7"/></svg>`;
                 tile.appendChild(svgOverlay);
             }
