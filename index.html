@@ -28,17 +28,19 @@
         ::view-transition-old(root), ::view-transition-new(root) { animation-duration: 0.4s; }
 
         /* =========================================
-           THEMING & VARIABLES (SWAPPED COLORS)
+           THEMING & VARIABLES
            ========================================= */
         :root {
             /* Now holding NEBULA colors (Pearlescent pastel space) */
             --bg-color: #030407; --text-main: #FFFFFF; --text-muted: rgba(255, 255, 255, 0.45);
             --text-mid: rgba(255, 255, 255, 0.75); --text-high: #FFFFFF;
-            --bg-overlay: rgba(255, 255, 255, 0.06); /* Lighter, glassier search bar background */
+            --bg-overlay: rgba(255, 255, 255, 0.06); 
             --drawer-bg: rgba(6, 8, 12, 0.95);
             --note-bg: rgba(255, 255, 255, 0.04); --toast-bg: rgba(10, 12, 18, 0.95);
             --glass: rgba(255, 255, 255, 0.07); --border: rgba(255, 255, 255, 0.18); --shadow-heavy: rgba(0, 0, 0, 0.6);
-            --save-bg: rgba(0, 0, 0, 0.5); --save-text: var(--active-accent); --save-border: var(--active-accent); --save-shadow: 0 0 15px var(--active-accent);
+            
+            /* Made the default save button brighter and removed text-shadow flashing */
+            --save-bg: rgba(255, 255, 255, 0.12); --save-text: var(--active-accent); --save-border: var(--active-accent); --save-shadow: none;
             
             --c0: #FFC3A0; --c1: #D8B4E2; --c2: #A1C4FD; --c3: #FDFBF7; --c4: #F6E271; --c5: #9FD3C7;
             --v0: rgba(255, 195, 160, 0.15); --v1: rgba(216, 180, 226, 0.15); --v2: rgba(161, 196, 253, 0.15); --v3: rgba(253, 251, 247, 0.15); --v4: rgba(246, 226, 113, 0.15); --v5: rgba(159, 211, 199, 0.15); 
@@ -66,26 +68,34 @@
             --v0: #1a0800; --v1: #140600; --v2: #240b00; --v3: #2a0c00; --v4: #331000; --v5: #0a0300; 
             --warm-white: #F5F5F0; --warm-white-glow: rgba(255, 79, 0, 0.2); 
         }
-        [data-theme="foundation"] .archive-header { font-size: 8px; text-transform: uppercase; letter-spacing: 6px; color: var(--text-muted); font-weight: 800; }
-        [data-theme="foundation"] .input-box, [data-theme="foundation"] .note, [data-theme="foundation"] .custom-list-card, [data-theme="foundation"] .expense-tile, [data-theme="foundation"] .calendar-container { background: var(--bg-color); border-radius: 20px; box-shadow: var(--tile-recessed); border: 1px solid rgba(255,255,255,0.01); border-left: none; }
+        
+        /* Toned down titles for Foundation */
+        [data-theme="foundation"] .archive-header { 
+            font-size: 10px; text-transform: uppercase; letter-spacing: 3px; 
+            color: var(--text-main); font-weight: 600; opacity: 0.9; 
+            text-shadow: 0 2px 6px rgba(0,0,0,0.8); 
+        }
+        [data-theme="foundation"] .input-box, [data-theme="foundation"] .note, [data-theme="foundation"] .expense-tile, [data-theme="foundation"] .calendar-container { background: var(--bg-color); border-radius: 20px; box-shadow: var(--tile-recessed); border: 1px solid rgba(255,255,255,0.01); border-left: none; }
         [data-theme="foundation"] .sq-btn { border-radius: 8px; border: var(--btn-rim); background: var(--btn-surface); box-shadow: var(--btn-shadow); }
         [data-theme="foundation"] .sq-btn svg { fill: #444; opacity: 1; transition: 0.3s; }
         [data-theme="foundation"] .sq-btn.active { box-shadow: var(--btn-press); border-color: rgba(0,0,0,0.5); transform: translateY(2px); }
         [data-theme="foundation"] .sq-btn.active svg { fill: var(--active-accent); filter: drop-shadow(0 0 8px var(--active-accent)); }
         [data-theme="foundation"] #inputIcons .sq-btn.active, [data-theme="foundation"] #filterIcons .sq-btn.active { box-shadow: var(--btn-press) !important; border-color: rgba(0,0,0,0.5) !important; }
+        
+        /* Toned down button text for Foundation */
         [data-theme="foundation"] .save-btn, [data-theme="foundation"] .date-btn, [data-theme="foundation"] .collapsible-trigger, [data-theme="foundation"] #searchWrapper { background: var(--btn-surface); border: var(--btn-rim); box-shadow: var(--btn-shadow); color: var(--active-accent); border-radius: 10px; }
-        [data-theme="foundation"] .save-btn, [data-theme="foundation"] .date-btn, [data-theme="foundation"] .collapsible-trigger { font-weight: 900; text-transform: uppercase; letter-spacing: 3px; font-size: 9px; }
+        [data-theme="foundation"] .save-btn, [data-theme="foundation"] .date-btn, [data-theme="foundation"] .collapsible-trigger { font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 9px; }
         [data-theme="foundation"] .save-btn:active, [data-theme="foundation"] .date-btn:active, [data-theme="foundation"] .collapsible-trigger:active { box-shadow: var(--btn-press); transform: translateY(2px); }
         [data-theme="foundation"] .expense-input, [data-theme="foundation"] textarea.expense-input { background: #0d0d0d; box-shadow: inset 2px 2px 5px #000; border-radius: 15px; border: none; }
         [data-theme="foundation"] .action-btn { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #666; }
         [data-theme="foundation"] .action-btn:hover { color: var(--active-accent); }
 
-        /* --- CREPUSCULAR NEBULA THEME (SWAPPED TO DEFAULT COLORS) --- */
+        /* --- CREPUSCULAR NEBULA THEME --- */
         [data-theme="nebula"] { 
             --bg-color: #050508; 
             --text-main: #ffffff; --text-muted: rgba(255, 255, 255, 0.35); 
             --text-mid: rgba(255, 255, 255, 0.6); --text-high: rgba(255, 255, 255, 0.8); 
-            --bg-overlay: rgba(255, 255, 255, 0.06); /* Lighter, glassier search bar */
+            --bg-overlay: rgba(255, 255, 255, 0.06); 
             --drawer-bg: rgba(15, 15, 20, 0.95); 
             --toast-bg: rgba(12, 12, 18, 0.95); 
             --glass: transparent; --border: transparent; 
@@ -103,7 +113,6 @@
         [data-theme="nebula"] .vibe-container { 
             display: block !important; opacity: 1; 
             background-color: #050508;
-            /* Grid + Vastly increased density of stars */
             background-image: 
                 linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
@@ -114,7 +123,6 @@
                 radial-gradient(1.5px 1.5px at 60% 10%, rgba(255,255,255,0.7) 100%, transparent),
                 radial-gradient(1px 1px at 80% 60%, rgba(255,255,255,0.5) 100%, transparent),
                 radial-gradient(1.5px 1.5px at 10% 90%, rgba(255,255,255,0.6) 100%, transparent),
-                /* Extra Parallax Stars */
                 radial-gradient(2px 2px at 30% 80%, rgba(255,255,255,0.9) 100%, transparent),
                 radial-gradient(1px 1px at 70% 30%, rgba(255,255,255,0.4) 100%, transparent),
                 radial-gradient(1.5px 1.5px at 90% 85%, rgba(255,255,255,0.7) 100%, transparent),
@@ -126,7 +134,6 @@
                 100vw 60vh, 75vw 100vh, 
                 120vw 120vh, 100vw 100vh, 150vw 150vh, 80vw 80vh, 110vw 110vh, 90vw 90vw, 130vw 130vh,
                 140vw 140vh, 85vw 85vh, 160vw 160vh, 100vw 100vh, 70vw 70vh, 115vw 115vh, 125vw 125vh;
-            /* Multi-depth shifting background position */
             background-position: 
                 calc(var(--orb-x) * -0.5) calc(var(--orb-y) * -0.5), calc(var(--orb-x) * -0.5) calc(var(--orb-y) * -0.5),
                 calc(var(--orb-x) * -0.8) calc(var(--orb-y) * -0.8), calc(var(--orb-x) * -0.4) calc(var(--orb-y) * -0.4),
@@ -140,7 +147,6 @@
             transition: background-position 2.5s cubic-bezier(0.25, 1, 0.5, 1);
         }
 
-        /* Ambient shifting nebula glow */
         [data-theme="nebula"] .vibe-container::after {
             content: ''; position: absolute; inset: 0;
             background: radial-gradient(circle at var(--orb-x) var(--orb-y), var(--active-vibe) 0%, transparent 65%);
@@ -148,7 +154,6 @@
             mix-blend-mode: screen; opacity: 0.9;
         }
 
-        /* Shifting Geometry Rings */
         [data-theme="nebula"] .orb { 
             filter: none !important; position: absolute; 
             transition: top 2.5s cubic-bezier(0.25, 1, 0.5, 1), left 2.5s cubic-bezier(0.25, 1, 0.5, 1), border-color 1s ease;
@@ -174,17 +179,15 @@
         }
         @keyframes spinTactical { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
 
-        /* Text Glows */
         [data-theme="nebula"] .archive-header, 
         [data-theme="nebula"] .collapsible-trigger, 
         [data-theme="nebula"] #monthLabel,
         [data-theme="nebula"] .note-header span { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
-        /* Tactical Sharp Architecture */
         [data-theme="nebula"] .input-box, [data-theme="nebula"] .note, 
         [data-theme="nebula"] .expense-tile, [data-theme="nebula"] .calendar-container, [data-theme="nebula"] #searchWrapper {
             background: var(--note-bg);
-            border-radius: 4px;
+            border-radius: 12px;
             border: 1px solid rgba(255,255,255,0.05);
             border-top: 1px solid rgba(255,255,255,0.15); 
             box-shadow: 0 8px 24px rgba(0,0,0,0.4);
@@ -192,7 +195,6 @@
             margin-bottom: 20px;
         }
 
-        /* Inactive Icons Uncolored / Active Icons Glowing */
         [data-theme="nebula"] .ic0 svg, [data-theme="nebula"] .ic1 svg, [data-theme="nebula"] .ic2 svg, 
         [data-theme="nebula"] .ic3 svg, [data-theme="nebula"] .ic4 svg, [data-theme="nebula"] .ic5 svg { fill: #64748b !important; opacity: 0.6; transition: all 0.3s ease; }
         
@@ -204,7 +206,6 @@
         [data-theme="nebula"] .sq-btn.active.ic5 svg { fill: var(--c5) !important; opacity: 1; filter: drop-shadow(0 0 8px var(--c5)); }
         [data-theme="nebula"] .sq-btn.all-btn.active svg, [data-theme="nebula"] .sq-btn.all-btn.active { color: #fff !important; fill: #fff !important; filter: drop-shadow(0 0 8px #fff); }
 
-        /* Floating Circle Input Tags */
         [data-theme="nebula"] #inputIcons .sq-btn { 
             border-radius: 50%; width: 44px; height: 44px; 
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1);
@@ -216,34 +217,34 @@
             transform: scale(1.1);
         }
 
-        /* Minimal Glowing Dot Filter Tabs */
         [data-theme="nebula"] #filterIcons .sq-btn { 
             background: transparent !important; border: none !important; box-shadow: none !important; 
             position: relative; overflow: visible; width: 40px; height: 40px; border-radius: 0;
         }
-        [data-theme="nebula"] #filterIcons .sq-btn.active { 
-            transform: scale(1.1) !important;
-        }
+        [data-theme="nebula"] #filterIcons .sq-btn.active { transform: scale(1.1) !important; }
         [data-theme="nebula"] #filterIcons .sq-btn.active::after {
             content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%);
-            width: 5px; height: 5px; border-radius: 50%; background: var(--active-accent);
-            box-shadow: 0 0 8px var(--active-accent);
+            width: 5px; height: 5px; border-radius: 50%;
         }
+        [data-theme="nebula"] #filterIcons .sq-btn.active.ic0::after { background: var(--c0); box-shadow: 0 0 8px var(--c0); }
+        [data-theme="nebula"] #filterIcons .sq-btn.active.ic1::after { background: var(--c1); box-shadow: 0 0 8px var(--c1); }
+        [data-theme="nebula"] #filterIcons .sq-btn.active.ic2::after { background: var(--c2); box-shadow: 0 0 8px var(--c2); }
+        [data-theme="nebula"] #filterIcons .sq-btn.active.ic3::after { background: var(--c3); box-shadow: 0 0 8px var(--c3); }
+        [data-theme="nebula"] #filterIcons .sq-btn.active.ic4::after { background: var(--c4); box-shadow: 0 0 8px var(--c4); }
+        [data-theme="nebula"] #filterIcons .sq-btn.active.ic5::after { background: var(--c5); box-shadow: 0 0 8px var(--c5); }
         [data-theme="nebula"] #filterIcons .sq-btn.all-btn.active::after { background: #fff; box-shadow: 0 0 8px #fff; }
 
-        /* Tactical Action Buttons */
         [data-theme="nebula"] .save-btn, [data-theme="nebula"] .date-btn, [data-theme="nebula"] .collapsible-trigger { 
             background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.2);
-            border-radius: 4px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+            border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.5); color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
         }
         [data-theme="nebula"] .save-btn { color: var(--active-accent); text-shadow: 0 0 10px rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.15); }
         [data-theme="nebula"] .save-btn:active, [data-theme="nebula"] .date-btn:active, [data-theme="nebula"] .collapsible-trigger:active { 
             background: rgba(255,255,255,0.08); box-shadow: inset 0 2px 8px rgba(0,0,0,0.5); transform: scale(0.98); border-top-color: rgba(255,255,255,0.05);
         }
 
-        /* Sleek Input Fields */
         [data-theme="nebula"] .expense-input, [data-theme="nebula"] textarea.expense-input { 
-            background: rgba(0,0,0,0.3); border-radius: 4px; border: 1px solid rgba(255,255,255,0.05); border-bottom: 2px solid rgba(255,255,255,0.1);
+            background: rgba(0,0,0,0.3); border-radius: 8px; border: 1px solid rgba(255,255,255,0.05); border-bottom: 2px solid rgba(255,255,255,0.1);
             padding: 14px 16px; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.5);
         }
         [data-theme="nebula"] .expense-input:focus, [data-theme="nebula"] textarea.expense-input:focus { 
@@ -284,11 +285,12 @@
         .parallax-active .parallax-target::before { opacity: 1; }
 
         /* =========================================
-           DYNAMIC ORBS (Mesh Gradient - RESTORED COLORS)
+           DYNAMIC ORBS (Mesh Gradient)
            ========================================= */
         [data-theme="parchment"] .vibe-container, [data-theme="foundation"] .vibe-container { display: none !important; }
         
-        .vibe-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; }
+        /* Isolated to prevent judder during view transitions */
+        .vibe-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; view-transition-name: vibe-bg; }
         
         .orb { position: absolute; border-radius: 50%; filter: blur(90px); transition: background 1.5s ease, top 2s cubic-bezier(0.23, 1, 0.32, 1), left 2s cubic-bezier(0.23, 1, 0.32, 1); }
         
@@ -325,7 +327,9 @@
         .sq-btn.active { transform: scale(1.15) translateY(-4px); border-color: var(--active-accent); }
         
         #inputIcons .sq-btn.active { box-shadow: 0 0 15px var(--active-accent); }
-        #filterIcons { margin: 20px 0; }
+        
+        #filterIcons { margin: 15px 0; min-height: 55px; align-items: center; }
+        
         #filterIcons .sq-btn.active.ic0 { box-shadow: 0 0 15px var(--c0); border-color: var(--c0); }
         #filterIcons .sq-btn.active.ic1 { box-shadow: 0 0 15px var(--c1); border-color: var(--c1); }
         #filterIcons .sq-btn.active.ic2 { box-shadow: 0 0 15px var(--c2); border-color: var(--c2); }
@@ -344,12 +348,12 @@
         input, select, textarea { font-size: 16px !important; font-family: inherit; font-weight: 300; }
         #dueDatePicker { position: absolute; top:0; left:0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
-        .save-btn { flex: 1; padding: 18px; border-radius: 22px; background: var(--save-bg); border: 1px solid var(--save-border); color: var(--save-text); text-shadow: var(--save-shadow); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer; transition: all 0.3s ease; display: flex; justify-content: center; align-items: center; gap: 8px;}
+        /* Snappy color transitions on save button to stop flashing */
+        .save-btn { flex: 1; padding: 18px; border-radius: 22px; background: var(--save-bg); border: 1px solid var(--save-border); color: var(--save-text); text-shadow: var(--save-shadow); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; display: flex; justify-content: center; align-items: center; gap: 8px;}
         #cancelAction { display: none; background: rgba(255, 69, 58, 0.1); border-color: var(--deadline-red); color: var(--deadline-red); text-shadow: 0 0 15px rgba(255, 69, 58, 0.5); }
         .save-btn.pulse { animation: btnPulse 0.4s ease-out; }
         @keyframes btnPulse { 0% { transform: scale(1); } 50% { transform: scale(0.96); background: rgba(255,255,255,0.1); } 100% { transform: scale(1); } }
 
-        /* Loader Animation */
         .spinner { width: 14px; height: 14px; border: 2px solid transparent; border-top-color: currentColor; border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
@@ -371,14 +375,12 @@
         @keyframes shrinkOut { 0% { opacity: 1; transform: scale(1) translateY(0); } 100% { opacity: 0; transform: scale(0.9) translateY(-10px); } }
         @keyframes noteAppear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* SVG Checkmark Animation */
         .check-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); display: flex; align-items: center; justify-content: center; backdrop-filter: blur(4px); z-index: 10; opacity: 0; animation: fadeInOverlay 0.2s forwards; }
         @keyframes fadeInOverlay { to { opacity: 1; } }
         .check-svg { width: 40px; height: 40px; stroke: #34C759; stroke-width: 4; fill: none; stroke-linecap: round; stroke-linejoin: round; }
         .check-svg path { stroke-dasharray: 60; stroke-dashoffset: 60; animation: drawCheck 0.4s ease forwards 0.1s; }
         @keyframes drawCheck { to { stroke-dashoffset: 0; } }
 
-        /* Particles Glow Burst */
         .particle { position: fixed; width: 8px; height: 8px; border-radius: 50%; pointer-events: none; z-index: 99999; animation: burst 0.8s cubic-bezier(0.1, 0.9, 0.2, 1) forwards; box-shadow: 0 0 12px 2px currentColor; }
         @keyframes burst { 0% { transform: translate(0, 0) scale(1); opacity: 1; } 100% { transform: translate(var(--dx), var(--dy)) scale(0); opacity: 0; } }
 
@@ -451,7 +453,6 @@
         .walk-item b { color: var(--text-main); text-transform: uppercase; font-size: 9px; letter-spacing: 1px; display: block; margin-bottom: 4px; }
         .safety-box { background: rgba(255, 69, 58, 0.05); border: 1px solid rgba(255, 69, 58, 0.3); border-radius: 12px; padding: 14px; margin-top: 8px; margin-bottom: 15px; }
 
-        /* Unified 3D Theme Selector Orbs */
         .theme-row { display: flex; justify-content: space-around; align-items: center; margin-top: 15px; }
         .theme-btn { display: flex; flex-direction: column; align-items: center; cursor: pointer; -webkit-tap-highlight-color: transparent; }
         .theme-circle { width: 50px; height: 50px; border-radius: 50%; border: none; box-shadow: inset -5px -5px 10px rgba(0,0,0,0.4), inset 4px 4px 8px rgba(255,255,255,0.3), 0 8px 15px rgba(0,0,0,0.4); transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease; }
@@ -509,7 +510,7 @@
             <div id="notesList"></div>
         </div>
 
-        <button class="collapsible-trigger" onclick="toggleVault('calendarModule', this)" style="margin-top: 25px;">View Calendar & Deadlines</button>
+        <button class="collapsible-trigger" onclick="toggleVault('calendarModule', this)" style="margin-top: 25px;">Calendar</button>
         <div id="calendarModule">
             <div class="calendar-container parallax-target" style="margin-top: 10px;">
                 <div class="calendar-nav">
@@ -756,8 +757,6 @@
             closeDrawers(); showToast("3D Parallax Enabled & Calibrated");
         }
 
-        /* ---------------------------------------------------- */
-
         function fireParticles(rect, color) {
             const x = rect.left + rect.width / 2; const y = rect.top + rect.height / 2;
             for(let i=0; i<12; i++) {
@@ -787,7 +786,6 @@
                 document.documentElement.style.setProperty('--active-orb-2', tagColors[(i+2)%6]); 
                 document.documentElement.style.setProperty('--active-orb-3', tagColors[(i+4)%6]);
                 
-                /* Update Main Orb X and Y to snap to the icon position */
                 document.documentElement.style.setProperty('--orb-x', orbRadialPath[i][0]);
                 document.documentElement.style.setProperty('--orb-y', orbRadialPath[i][1]);
 
@@ -1142,7 +1140,7 @@
         function toggleThemeDrawer() { triggerHaptic(10); document.getElementById('helpWalkthrough').classList.remove('active'); document.getElementById('expenseSettingsDrawer').classList.remove('active'); const drawer = document.getElementById('themeDrawer'); const overlay = document.getElementById('drawerOverlay'); drawer.classList.toggle('active'); if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active'); }
         function toggleExpenseSettings() { triggerHaptic(10); document.getElementById('helpWalkthrough').classList.remove('active'); document.getElementById('themeDrawer').classList.remove('active'); const drawer = document.getElementById('expenseSettingsDrawer'); const overlay = document.getElementById('drawerOverlay'); drawer.classList.toggle('active'); if(drawer.classList.contains('active')) overlay.classList.add('active'); else overlay.classList.remove('active'); }
 
-        function setTheme(themeName) { triggerHaptic(20); document.documentElement.setAttribute('data-theme', themeName); localStorage.setItem('dclinTheme', themeName); document.getElementById('inputIcons').children[writeIdx].click(); closeDrawers(); showToast(themeName + " theme applied"); }
+        function setTheme(themeName) { triggerHaptic(20); document.documentElement.setAttribute('data-theme', themeName); localStorage.setItem('dclinTheme', themeName); document.getElementById('inputIcons').children[writeIdx].click(); closeDrawers(); showToast("Theme updated"); }
 
         function fullBackup() {
             const data = localStorage.getItem('dclinData') || "[]"; const expData = localStorage.getItem('dclinExpenses') || "[]"; const learnData = localStorage.getItem('dclinLearning') || "[]";
