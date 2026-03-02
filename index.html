@@ -27,7 +27,7 @@
             THEMING & VARIABLES
            ========================================= */
         :root {
-            /* DEFAULT THEME (Pearlescent pastel space) */
+            /* DEFAULT THEME (Now uses Nebula's neon sunset palette) */
             --bg-color: #030407; --text-main: #FFFFFF; --text-muted: rgba(255, 255, 255, 0.45);
             --text-mid: rgba(255, 255, 255, 0.75); --text-high: #FFFFFF;
             --bg-overlay: rgba(255, 255, 255, 0.06); 
@@ -37,8 +37,16 @@
             --glass: rgba(255, 255, 255, 0.07); --border: rgba(255, 255, 255, 0.18); --shadow-heavy: rgba(0, 0, 0, 0.6);
             --save-bg: rgba(255, 255, 255, 0.12); --save-text: var(--active-accent); --save-border: var(--active-accent); --save-shadow: none;
             
-            --c0: #FFC3A0; --c1: #D8B4E2; --c2: #A1C4FD; --c3: #FDFBF7; --c4: #F6E271; --c5: #9FD3C7;
-            --v0: rgba(255, 195, 160, 0.15); --v1: rgba(216, 180, 226, 0.15); --v2: rgba(161, 196, 253, 0.15); --v3: rgba(253, 251, 247, 0.15); --v4: rgba(246, 226, 113, 0.15); --v5: rgba(159, 211, 199, 0.15); 
+            /* Swapped from Nebula */
+            --c0: #F9C469; --c1: #FAA874; --c2: #FB8C7F; --c3: #FC708A; --c4: #FD5495; --c5: #FE38A0;
+            
+            /* Diverse Synthwave/Sunset Vibe Orbs mapped to their complementary tags */
+            --v0: rgba(140, 10, 240, 0.18); /* Neon Ultraviolet (Pairs with Hot Pink c5) */
+            --v1: rgba(0, 160, 180, 0.15);  /* Bioluminescent Cyan (Pairs with Magenta c4) */
+            --v2: rgba(200, 80, 10, 0.18);  /* Dark Sunset Ember (Pairs with Rose c3) */
+            --v3: rgba(10, 80, 255, 0.15);  /* Deep Azure Blue (Pairs with Coral c2) */
+            --v4: rgba(230, 30, 60, 0.18);  /* Rich Ruby Red (Pairs with Orange c1) */
+            --v5: rgba(90, 30, 220, 0.20);  /* Deep Electric Indigo (Pairs with Gold c0) */
             
             --warm-white: #ffffff; --warm-white-glow: rgba(255, 255, 255, 0.2); 
             --active-accent: var(--c0); --active-vibe: var(--v5); --active-orb-2: var(--c3); --active-orb-3: var(--c1);
@@ -79,6 +87,7 @@
 
         /* --- NEBULA THEME (Destiny 2 Director Style) --- */
         [data-theme="nebula"] { 
+            /* NEBULA THEME (Crepuscular Pearlescent on Dark Space) */
             --bg-color: #050508; 
             --text-main: #ffffff; --text-muted: rgba(255, 255, 255, 0.45); 
             --text-mid: rgba(255, 255, 255, 0.7); --text-high: rgba(255, 255, 255, 0.9); 
@@ -87,8 +96,11 @@
             --toast-bg: rgba(15, 18, 26, 0.95); --toast-text: #FFFFFF;
             --glass: transparent; --border: transparent; 
             
-            --c0: #F9C469; --c1: #FAA874; --c2: #FB8C7F; --c3: #FC708A; --c4: #FD5495; --c5: #FE38A0;
-            --v0: #1a0a24; --v1: #140a24; --v2: #0a1124; --v3: #0a2024; --v4: #0a2417; --v5: #241b0a;
+            /* Crepuscular Pearlescent Tag Colors */
+            --c0: #FFC3A0; --c1: #D8B4E2; --c2: #A1C4FD; --c3: #FDFBF7; --c4: #F6E271; --c5: #9FD3C7;
+            
+            /* Deep Space Orb Equivalents */
+            --v0: #260f18; --v1: #1a0a28; --v2: #0a112a; --v3: #141720; --v4: #241e0a; --v5: #08211e;
             
             --warm-white: #e8e6e1; --warm-white-glow: rgba(232, 230, 225, 0.5); 
             --save-bg: rgba(255,255,255,0.05); --save-text: var(--active-accent); --save-border: rgba(255,255,255,0.2); --save-shadow: 0 0 15px rgba(0,0,0,0.8);
@@ -99,7 +111,7 @@
         [data-theme="nebula"] .vibe-container { 
             display: block !important; opacity: 1; background-color: #050508;
             background-image: radial-gradient(circle at var(--orb-x) var(--orb-y), var(--active-vibe) 0%, transparent 85%);
-            transition: background 2.5s cubic-bezier(0.25, 1, 0.5, 1);
+            transition: background 4.5s ease-in-out;
             overflow: hidden;
         }
 
@@ -123,7 +135,7 @@
                 400px 400px, 250px 250px, 180px 180px, 350px 350px, 
                 500px 500px, 600px 600px;
             transform: translate(-50%, -50%) rotate(var(--star-rot, 0deg)) scale(calc(var(--mesh-scale) * 0.8));
-            transition: transform 3.5s cubic-bezier(0.25, 1, 0.3, 1);
+            transition: transform 5s cubic-bezier(0.25, 1, 0.4, 1);
             animation: d2StarsDrift 200s linear infinite;
         }
 
@@ -145,7 +157,7 @@
                 100px 173.2px, 100px 173.2px;
             background-position: center, center, 0 0, 0 0, 0 0, 0 0, 0 0;
             transform: translate(-50%, -50%) rotate(var(--mesh-rot, 0deg)) scale(var(--mesh-scale, 1.2));
-            transition: transform 3s cubic-bezier(0.25, 1, 0.3, 1), background-image 2.5s ease;
+            transition: transform 4.5s cubic-bezier(0.25, 1, 0.4, 1), background-image 4.5s ease-in-out;
             animation: d2MeshDrift 90s linear infinite;
         }
 
@@ -160,7 +172,16 @@
 
         [data-theme="nebula"] .archive-header, [data-theme="nebula"] .collapsible-trigger, [data-theme="nebula"] #monthLabel, [data-theme="nebula"] .note-header span { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
-        [data-theme="nebula"] .input-box, [data-theme="nebula"] .note, [data-theme="nebula"] .expense-tile, [data-theme="nebula"] .calendar-container, [data-theme="nebula"] #searchWrapper { background: var(--note-bg); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); border-top: 1px solid rgba(255,255,255,0.15); box-shadow: 0 8px 24px rgba(0,0,0,0.6); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); margin-bottom: 20px; }
+        /* Faint glow added here for boxes/tiles */
+        [data-theme="nebula"] .input-box, [data-theme="nebula"] .note, [data-theme="nebula"] .expense-tile, [data-theme="nebula"] .calendar-container, [data-theme="nebula"] #searchWrapper { 
+            background: var(--note-bg); 
+            border-radius: 12px; 
+            border: 1px solid rgba(255,255,255,0.05); 
+            border-top: 1px solid rgba(255,255,255,0.15); 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 12px rgba(255,255,255,0.08); 
+            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
+            margin-bottom: 20px; 
+        }
 
         [data-theme="nebula"] .ic0 svg, [data-theme="nebula"] .ic1 svg, [data-theme="nebula"] .ic2 svg, [data-theme="nebula"] .ic3 svg, [data-theme="nebula"] .ic4 svg, [data-theme="nebula"] .ic5 svg { fill: #64748b !important; opacity: 0.6; transition: all 0.3s ease; }
         [data-theme="nebula"] .sq-btn.active.ic0 svg { fill: var(--c0) !important; opacity: 1; filter: drop-shadow(0 0 8px var(--c0)); }
@@ -185,15 +206,16 @@
         [data-theme="nebula"] #filterIcons .sq-btn.active.ic5::after { background: var(--c5); box-shadow: 0 0 8px var(--c5); }
         [data-theme="nebula"] #filterIcons .sq-btn.all-btn.active::after { background: #fff; box-shadow: 0 0 8px #fff; }
 
-        /* Static Nebula Buttons */
+        /* Faint glow added to Static Nebula Buttons */
         [data-theme="nebula"] .save-btn, [data-theme="nebula"] .date-btn, [data-theme="nebula"] .collapsible-trigger { 
             background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-top: 1px solid rgba(255,255,255,0.25);
-            border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.6), 0 0 5px rgba(161, 196, 253, 0.15); color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+            border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.6), 0 0 8px rgba(255, 255, 255, 0.12); color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
         }
         [data-theme="nebula"] .save-btn { color: var(--active-accent); text-shadow: 0 0 10px rgba(255,255,255,0.3); border-color: rgba(255,255,255,0.2); }
         [data-theme="nebula"] .save-btn:active, [data-theme="nebula"] .date-btn:active, [data-theme="nebula"] .collapsible-trigger:active { background: rgba(255,255,255,0.1); box-shadow: inset 0 2px 8px rgba(0,0,0,0.7) !important; transform: scale(0.98); border-top-color: rgba(255,255,255,0.1); }
 
-        [data-theme="nebula"] .expense-input, [data-theme="nebula"] textarea.expense-input { background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); border-bottom: 2px solid rgba(255,255,255,0.15); padding: 14px 16px; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6); }
+        /* Faint glow added to inputs */
+        [data-theme="nebula"] .expense-input, [data-theme="nebula"] textarea.expense-input { background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); border-bottom: 2px solid rgba(255,255,255,0.15); padding: 14px 16px; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.05); }
         [data-theme="nebula"] .expense-input:focus, [data-theme="nebula"] textarea.expense-input:focus { background: rgba(0,0,0,0.6); border-bottom-color: var(--active-accent); box-shadow: inset 0 2px 5px rgba(0,0,0,0.9), 0 10px 20px -10px var(--active-accent); outline: none; }
         [data-theme="nebula"] .action-btn { font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); }
         [data-theme="nebula"] .action-btn:hover { color: var(--active-accent); text-shadow: 0 0 8px var(--active-accent); opacity: 1; }
@@ -278,7 +300,8 @@
 
         .vibe-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; view-transition-name: vibe-bg; }
         
-        .orb { position: absolute; border-radius: 50%; filter: blur(90px); transition: background 1.5s ease, top 2s cubic-bezier(0.23, 1, 0.32, 1), left 2s cubic-bezier(0.23, 1, 0.32, 1); z-index: 0; }
+        /* Smoother internal orb transitions */
+        .orb { position: absolute; border-radius: 50%; filter: blur(90px); transition: background 3.5s ease-in-out, top 3.5s cubic-bezier(0.25, 1, 0.4, 1), left 3.5s cubic-bezier(0.25, 1, 0.4, 1); z-index: 0; }
         .orb-1 { width: 160vw; height: 160vw; background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%); top: calc(var(--orb-y) - 80vw); left: calc(var(--orb-x) - 80vw); animation: pulseFloat 14s ease-in-out infinite alternate; opacity: 1; }
         .orb-2 { width: 120vw; height: 120vw; background: radial-gradient(circle, var(--active-orb-2) 0%, transparent 60%); top: 10%; right: -20%; animation: float2 18s ease-in-out infinite alternate; opacity: 0.6; }
         .orb-3 { width: 100vw; height: 100vw; background: radial-gradient(circle, var(--active-orb-3) 0%, transparent 60%); bottom: -30%; left: 10%; animation: float3 20s ease-in-out infinite alternate; opacity: 0.5; }
@@ -640,10 +663,10 @@
         <div class="drawer-handle"></div>
         <div class="archive-header" style="margin-bottom:20px;">Select Theme</div>
         <div class="theme-row">
-            <div class="theme-btn" data-theme-name="default"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FDFBF7, #D8B4E2, #030407);"></div></div>
+            <div class="theme-btn" data-theme-name="default"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FC708A, #030407);"></div></div>
             <div class="theme-btn" data-theme-name="foundation"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF6A2B, #CC3E00, #121212);"></div></div>
             <div class="theme-btn" data-theme-name="parchment"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #ffffff, #E8DCC4, #2C2820);"></div></div>
-            <div class="theme-btn" data-theme-name="nebula"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FC708A, #050508);"></div></div>
+            <div class="theme-btn" data-theme-name="nebula"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FDFBF7, #D8B4E2, #050508);"></div></div>
         </div>
         
         <div style="border-top: 1px solid var(--border); margin-top: 25px; padding-top: 20px;">
