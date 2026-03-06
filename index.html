@@ -377,7 +377,7 @@
         .utility-bar { display: flex; justify-content: space-between; align-items: center; width: 100%; gap: 15px; margin-bottom: 10px;}
         .center-stack { display: flex; flex-direction: column; gap: 2px; flex: 1; }
         .footer-btn { background: transparent; border: none; font-size: 9px; font-weight: 700; color: var(--text-main); opacity: 0.35; cursor: pointer; text-transform: uppercase; padding: 10px; transition: all 0.3s cubic-bezier(0.2, 1, 0.3, 1); border-radius: 12px; width: 100%; text-align: center; }
-        .footer-btn:active { opacity: 1; transform: scale(0.96); background: var(--glass); box-shadow: 0 0 20px var(--warm-white-glow); color: var(--warm-white); }
+        .footer-btn:active { opacity: 1; transform: scale(0.96); background: var(--glass); box-shadow: 0 0 20px var(--warm-white-glow); color: var(--active-accent); }
         
         .utility-orb { width: 44px; height: 44px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); flex-shrink: 0; }
         .utility-orb:active { transform: scale(0.92) !important; transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -386,7 +386,7 @@
         .utility-orb svg { width: 20px; height: 20px; fill: currentColor; }
 
         /* Orb State Overrides */
-        .utility-orb.orb-download.glow-off { box-shadow: none !important; border-color: var(--border) !important; color: var(--text-main) !important; background: transparent !important; opacity: 0.5; }
+        .utility-orb.glow-off { box-shadow: none !important; border-color: var(--border) !important; color: var(--text-main) !important; background: transparent !important; opacity: 0.5; }
         .utility-orb.orb-download.glow-alert-danger { 
             color: var(--deadline-red) !important; 
             border-color: var(--deadline-red) !important; 
@@ -424,22 +424,48 @@
         .theme-circle { width: 50px; height: 50px; border-radius: 50%; border: none; box-shadow: inset -5px -5px 10px rgba(0,0,0,0.4), inset 4px 4px 8px rgba(255,255,255,0.3), 0 8px 15px rgba(0,0,0,0.4); transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), box-shadow 0.3s ease; }
         .theme-btn:active .theme-circle { transform: scale(0.9); box-shadow: inset -3px -3px 8px rgba(0,0,0,0.5), inset 2px 2px 5px rgba(255,255,255,0.2), 0 4px 8px rgba(0,0,0,0.3); }
 
-        /* Settings Segmented Control */
+        /* Settings Accordion & Controls */
+        details > summary { list-style: none; }
+        details > summary::-webkit-details-marker { display: none; }
+        
         .setting-group { margin-bottom: 25px; }
         .setting-label { font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px; }
         .segmented-control { display: flex; background: var(--bg-overlay); border-radius: 12px; padding: 4px; border: 1px solid var(--border); }
         .segment-btn { flex: 1; padding: 12px 0; background: transparent; border: none; color: var(--text-mid); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; border-radius: 8px; cursor: pointer; transition: all 0.3s ease; }
-        .segment-btn.active { background: var(--glass); color: var(--text-main); box-shadow: 0 0 10px var(--filter-accent); border: 1px solid var(--border); }
+        .segment-btn.active { background: var(--glass); color: var(--active-accent); box-shadow: 0 0 10px var(--filter-accent); border: 1px solid var(--border); }
         .setting-info-text { font-size: 9px; line-height: 1.5; color: var(--text-mid); opacity: 0; max-height: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1); border-left: 2px solid var(--deadline-red); padding-left: 10px; }
         .setting-info-text.visible { opacity: 1; max-height: 60px; margin-top: 12px; }
 
         /* --- GLOBAL BUTTON PRESS OVERRIDES --- */
-        .sq-btn:active, .sq-btn.active:active {
-            transform: scale(0.92) !important;
+        .sq-btn:active {
+            transform: scale(0.96) !important;
             transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
             box-shadow: none !important;
             border-color: rgba(255,255,255,0.1) !important;
         }
+        .sq-btn.active:active {
+            transform: scale(1.05) !important;
+            transition: transform 0.1s cubic-bezier(0.4, 0, 0.2, 1) !important;
+            box-shadow: 0 0 10px var(--active-accent) !important;
+            border-color: var(--active-accent) !important;
+        }
+
+        /* --- GLOW INTENSITY OVERRIDES --- */
+        html[data-glow="Dim"]:not([data-theme="parchment"]) .input-box { box-shadow: 0 10px 30px rgba(0,0,0,0.8) !important; border-color: rgba(255,255,255,0.05) !important; }
+        html[data-glow="Dim"]:not([data-theme="parchment"]) #inputIcons .sq-btn.active { box-shadow: none !important; border-color: var(--active-accent) !important; }
+        html[data-glow="Dim"]:not([data-theme="parchment"]) #filterIcons .sq-btn.active { box-shadow: none !important; }
+        html[data-glow="Dim"]:not([data-theme="parchment"]) .vibe-container { opacity: 0.2 !important; }
+
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) .input-box { box-shadow: 0 20px 50px rgba(0,0,0,0.9), 0 0 60px var(--active-accent) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #inputIcons .sq-btn.active { box-shadow: 0 0 30px var(--active-accent), inset 0 0 10px var(--active-accent) !important; border-color: var(--active-accent) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.active.ic0 { box-shadow: 0 0 25px var(--c0) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.active.ic1 { box-shadow: 0 0 25px var(--c1) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.active.ic2 { box-shadow: 0 0 25px var(--c2) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.active.ic3 { box-shadow: 0 0 25px var(--c3) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.active.ic4 { box-shadow: 0 0 25px var(--c4) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.active.ic5 { box-shadow: 0 0 25px var(--c5) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.all-btn.active { box-shadow: 0 0 25px var(--warm-white-glow) !important; }
+        html[data-glow="Vivid"]:not([data-theme="parchment"]) .vibe-container { opacity: 1 !important; filter: contrast(1.2) saturate(1.5) brightness(1.2) !important; }
 
     </style>
 </head>
@@ -458,7 +484,7 @@
         
         <div class="input-box parallax-target">
             <div class="editor-wrapper">
-                <div id="noteInput" contenteditable="true" data-placeholder="Write your University notes/reminders here"></div>
+                <div id="noteInput" contenteditable="true" data-placeholder=""></div>
                 <div class="editor-toolbar">
                     <button class="format-btn" id="btnBold">B</button>
                     <button class="format-btn" id="btnItalic" style="font-style: italic;">I</button>
@@ -468,6 +494,10 @@
         </div>
         
         <div class="icon-row" id="inputIcons"></div>
+
+        <div id="summativeContainer" style="display: none; justify-content: center; margin-bottom: 25px;">
+            <label class="toggle-label" style="color: var(--c4); font-size: 11px;"><input type="checkbox" id="summativeCheck"> ⭐ Summative / Major Deadline</label>
+        </div>
 
         <div class="action-row-input">
             <div class="date-btn">
@@ -488,8 +518,7 @@
         </div>
 
         <div class="icon-row" id="filterIcons">
-            <button id="btnFilterAll" class="sq-btn all-btn active" style="font-size:9px;">ALL</button>
-        </div>
+            </div>
 
         <div id="vaultWindow">
             <div id="notesList"></div>
@@ -651,6 +680,36 @@
         <div class="drawer-handle"></div>
         <div class="archive-header" style="margin-bottom:20px;">Settings</div>
         
+        <details class="setting-group">
+            <summary class="setting-label" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
+                Rename Tags <span style="font-size:12px; color: var(--active-accent);">+</span>
+            </summary>
+            <div style="margin-top: 15px; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 12px; padding: 15px;">
+                <div class="expense-row" style="margin-bottom: 12px;">
+                    <select id="renameTagSelect" class="expense-input" style="flex: 1; padding-right: 10px;"></select>
+                </div>
+                <div class="expense-row" style="margin-bottom: 12px;">
+                    <input type="text" id="renameTagInput" class="expense-input" placeholder="New tag name...">
+                </div>
+                <button id="btnSaveRenameTag" class="save-btn" style="width: 100%; padding: 12px;">Save Tag</button>
+                <div class="setting-info-text visible" style="border-left-color: var(--text-muted); opacity: 0.6; max-height: 100px; margin-top: 10px;">
+                    Renaming a tag automatically updates all of your existing notes in that category.
+                </div>
+            </div>
+        </details>
+
+        <div class="setting-group">
+            <div class="setting-label">Accent Glow Intensity</div>
+            <div class="segmented-control" id="accentGlowControl">
+                <button class="segment-btn" data-val="Dim">Dim</button>
+                <button class="segment-btn" data-val="Default">Default</button>
+                <button class="segment-btn" data-val="Vivid">Vivid</button>
+            </div>
+            <div class="setting-info-text visible" id="accentGlowInfo" style="border-left-color: var(--text-muted);">
+                Adjusts the opacity and blur radius of shadows on active tags and the main input box. Vivid gives a heavy neon bloom; Dim keeps colors but removes light projection.
+            </div>
+        </div>
+
         <div class="setting-group">
             <div class="setting-label">Backup Button Glow</div>
             <div class="segmented-control" id="backupGlowControl">
@@ -659,7 +718,29 @@
                 <button class="segment-btn" data-val="Alert">Alert</button>
             </div>
             <div class="setting-info-text" id="backupAlertInfo">
-                The download orb will transition to pulsing red after 7 days of inactivity to ensure your clinical logs are safe.
+                The download orb will change colour and flash after 7 days of inactivity as a reminder to <span style="color: #007FFF; font-weight: 800;">backup</span> often.
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <div class="setting-label">Calendar Overdue Glow</div>
+            <div class="segmented-control" id="calendarGlowControl">
+                <button class="segment-btn" data-val="Off">Off</button>
+                <button class="segment-btn" data-val="On">On</button>
+            </div>
+            <div class="setting-info-text" id="calendarGlowInfo">
+                Overdue tasks will emit a pulsing red glow on the calendar to catch your attention.
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <div class="setting-label">Upcoming Deadlines View</div>
+            <div class="segmented-control" id="upcomingViewControl">
+                <button class="segment-btn" data-val="All">All</button>
+                <button class="segment-btn" data-val="Summative">Summative</button>
+            </div>
+            <div class="setting-info-text" id="upcomingViewInfo">
+                The calendar will only highlight and display major ⭐ summative coursework deadlines.
             </div>
         </div>
 
@@ -737,8 +818,8 @@
             
             const emptySvg = `<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>`;
 
-            const tagLabels = ["University", "Placement", "Reflection", "Research/Thesis", "Deadlines", "General"];
-            const tagPrompts = ["Write your University notes/reminders here", "Write your placement/supervision notes here", "Write down your clinical reflections and thoughts here", "Jot down your thesis ideas, references, or research to-dos here", "What upcoming deadlines do you need to remember?", "Write your general notes/reminders here"];
+            const defaultTagLabels = ["University", "Placement", "Reflection", "Research/Thesis", "Deadlines", "General"];
+            let tagLabels = JSON.parse(localStorage.getItem('dclinCustomTags')) || [...defaultTagLabels];
             const tagColors = ['var(--c0)', 'var(--c1)', 'var(--c2)', 'var(--c3)', 'var(--c4)', 'var(--c5)'];
             const tagMoods = ['var(--v0)', 'var(--v1)', 'var(--v2)', 'var(--v3)', 'var(--v4)', 'var(--v5)'];
 
@@ -767,6 +848,9 @@
 
             /* SETTINGS VARIABLES */
             let backupGlowSetting = localStorage.getItem('dclinBackupSetting') || 'On';
+            let calendarGlowSetting = localStorage.getItem('dclinCalendarGlow') || 'On';
+            let glowIntensitySetting = localStorage.getItem('dclinGlowIntensity') || 'Default';
+            let upcomingViewSetting = localStorage.getItem('dclinUpcomingView') || 'All';
 
             // --- DOM ELEMENTS ---
             const noteInput = document.getElementById('noteInput');
@@ -784,9 +868,26 @@
             initApp();
             attachGlobalEventListeners();
             
+            function getTagPrompt(idx) {
+                return `Write your ${tagLabels[idx]} notes here`;
+            }
+
+            function populateRenameDropdown() {
+                const select = document.getElementById('renameTagSelect');
+                select.innerHTML = '';
+                tagLabels.forEach((tag, i) => {
+                    const opt = document.createElement('option');
+                    opt.value = i;
+                    opt.innerText = tag;
+                    select.appendChild(opt);
+                });
+                document.getElementById('renameTagInput').value = tagLabels[0];
+            }
+
             function initApp() {
                 const savedTheme = localStorage.getItem('dclinTheme') || 'default'; 
                 document.documentElement.setAttribute('data-theme', savedTheme);
+                document.documentElement.setAttribute('data-glow', glowIntensitySetting);
                 
                 const draft = localStorage.getItem('dclinDraft'); 
                 if (draft) {
@@ -809,6 +910,13 @@
                     injectTutorialData(todayStr);
                 }
 
+                populateRenameDropdown();
+
+                // Initialize Glow Intensity Setting UI
+                document.querySelectorAll('#accentGlowControl .segment-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-val') === glowIntensitySetting);
+                });
+
                 // Initialize Backup Setting UI
                 document.querySelectorAll('#backupGlowControl .segment-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-val') === backupGlowSetting);
@@ -817,6 +925,22 @@
                     document.getElementById('backupAlertInfo').classList.add('visible');
                 }
                 evaluateOrbState();
+
+                // Initialize Calendar Glow Setting UI
+                document.querySelectorAll('#calendarGlowControl .segment-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-val') === calendarGlowSetting);
+                });
+                if (calendarGlowSetting === 'On') {
+                    document.getElementById('calendarGlowInfo').classList.add('visible');
+                }
+
+                // Initialize Upcoming View Setting UI
+                document.querySelectorAll('#upcomingViewControl .segment-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-val') === upcomingViewSetting);
+                });
+                if (upcomingViewSetting === 'Summative') {
+                    document.getElementById('upcomingViewInfo').classList.add('visible');
+                }
 
                 buildIconButtons();
                 renderCalendar(); 
@@ -833,6 +957,9 @@
             }
 
             function buildIconButtons() {
+                inputIconsContainer.innerHTML = '';
+                filterIconsContainer.innerHTML = '';
+                
                 svgs.forEach((svg, i) => {
                     const b1 = document.createElement('button'); 
                     b1.className = `sq-btn ic${i}`; 
@@ -853,12 +980,14 @@
 
                         noteInput.classList.remove('animating-placeholder'); 
                         void noteInput.offsetWidth; 
-                        noteInput.setAttribute('data-placeholder', tagPrompts[i]); 
+                        noteInput.setAttribute('data-placeholder', getTagPrompt(i)); 
                         noteInput.classList.add('animating-placeholder');
                         
                         document.querySelectorAll('#inputIcons .sq-btn').forEach((b, idx) => {
                             b.classList.toggle('active', idx === i);
                         });
+
+                        document.getElementById('summativeContainer').style.display = (i === 4) ? 'flex' : 'none';
                     });
                     inputIconsContainer.appendChild(b1);
 
@@ -868,15 +997,25 @@
                     b2.addEventListener('click', () => setFilter(tagLabels[i], b2, tagColors[i]));
                     filterIconsContainer.appendChild(b2);
                 });
+                
+                const allBtn = document.createElement('button');
+                allBtn.id = 'btnFilterAll';
+                allBtn.className = 'sq-btn all-btn active';
+                allBtn.style.fontSize = '9px';
+                allBtn.innerText = 'ALL';
+                allBtn.addEventListener('click', function() {
+                    setFilter('All', this, 'var(--warm-white-glow)');
+                });
+                filterIconsContainer.appendChild(allBtn);
             }
 
             function injectTutorialData(todayStr) {
                 const twoDaysFromNow = new Date(Date.now() + 2 * 86400000).toISOString().split('T')[0];
                 const initialNotes = [
-                    { id: 104, text: "<b>Welcome to DClin Log!</b><br>Saved notes and tasks will appear right here. Tap 'Del' below to clear this tutorial out.", tag: "General", color: "var(--c5)", created: todayStr, deadline: null, done: false, completedOn: null },
-                    { id: 103, text: "<b>Filter & Search</b><br>Filter your lists by tapping the colored tag icons above, or search for keywords. Tap 'ALL' to reset.", tag: "University", color: "var(--c0)", created: todayStr, deadline: null, done: false, completedOn: null },
-                    { id: 102, text: "<b>Exporting Data</b><br>Tap the little download icon in the search bar to export your currently displayed notes into a clean text file.", tag: "Research/Thesis", color: "var(--c3)", created: todayStr, deadline: null, done: false, completedOn: null },
-                    { id: 101, text: "<b>Calendar & Deadlines</b><br>Upcoming deadlines dynamically appear below the calendar. Take a look at your calendar, tap the day with the colored dot, and THEN delete this note!", tag: "Deadlines", color: "var(--c4)", created: todayStr, deadline: twoDaysFromNow, done: false, completedOn: null }
+                    { id: 104, text: "<b>Welcome to DClin Log!</b><br>Saved notes and tasks will appear right here. Tap 'Del' below to clear this tutorial out.", tag: "General", color: "var(--c5)", created: todayStr, deadline: null, done: false, completedOn: null, isSummative: false },
+                    { id: 103, text: "<b>Filter & Search</b><br>Filter your lists by tapping the colored tag icons above, or search for keywords. Tap 'ALL' to reset.", tag: "University", color: "var(--c0)", created: todayStr, deadline: null, done: false, completedOn: null, isSummative: false },
+                    { id: 102, text: "<b>Exporting Data</b><br>Tap the little download icon in the search bar to export your currently displayed notes into a clean text file.", tag: "Research/Thesis", color: "var(--c3)", created: todayStr, deadline: null, done: false, completedOn: null, isSummative: false },
+                    { id: 101, text: "<b>Calendar & Deadlines</b><br>Upcoming deadlines dynamically appear below the calendar. Take a look at your calendar, tap the day with the colored dot, and THEN delete this note!", tag: "Deadlines", color: "var(--c4)", created: todayStr, deadline: twoDaysFromNow, done: false, completedOn: null, isSummative: false }
                 ];
                 
                 const initialLearning = [
@@ -887,9 +1026,15 @@
                     { id: 301, date: todayStr, type: 'Business', start: 'APP SETUP', dest: 'GEAR ICON', miles: '0.0', cost: '0.00' }
                 ];
 
+                const initialJournal = [
+                    { id: 401, userDate: todayStr, systemDate: new Date().toISOString(), type: 'Supervision', text: "Welcome to the Supervisor Comments ledger!\n\nUse this to record specific instructions, feedback, or direct quotes from your supervisor. This acts as a contemporaneous record for your portfolio and protects you by keeping a clear audit trail." },
+                    { id: 402, userDate: todayStr, systemDate: new Date().toISOString(), type: 'Daily Activity', text: "Welcome to the Daily Activity ledger!\n\nLog the tasks you complete each day (e.g., client sessions, admin, report writing). This provides concrete evidence of your clinical hours and activities." }
+                ];
+
                 localStorage.setItem('dclinData', JSON.stringify(initialNotes));
                 localStorage.setItem('dclinLearning', JSON.stringify(initialLearning));
                 localStorage.setItem('dclinExpenses', JSON.stringify(initialExpenses));
+                localStorage.setItem('dclinJournal', JSON.stringify(initialJournal));
                 localStorage.setItem('dclinTutorialSeen', 'true');
             }
 
@@ -921,9 +1066,6 @@
                 // Search & Filters
                 searchInput.addEventListener('input', renderNotesDOM);
                 document.getElementById('btnExportSearch').addEventListener('click', exportFilteredNotes);
-                document.getElementById('btnFilterAll').addEventListener('click', function() {
-                    setFilter('All', this, 'var(--warm-white-glow)');
-                });
 
                 // Collapsibles & Vaults
                 document.getElementById('btnToggleCalendar').addEventListener('click', function() { toggleVault('calendarModule', this); });
@@ -985,6 +1127,63 @@
                 });
                 document.getElementById('parallaxBtn').addEventListener('click', toggle3DParallax);
 
+                // Settings UI (Rename Tags)
+                document.getElementById('renameTagSelect').addEventListener('change', function() {
+                    document.getElementById('renameTagInput').value = tagLabels[this.value];
+                });
+
+                document.getElementById('btnSaveRenameTag').addEventListener('click', function() {
+                    triggerHaptic(20);
+                    const idx = parseInt(document.getElementById('renameTagSelect').value);
+                    const newName = document.getElementById('renameTagInput').value.trim();
+                    
+                    if (!newName) {
+                        showToast("Tag name cannot be empty");
+                        return;
+                    }
+                    
+                    const oldName = tagLabels[idx];
+                    if (oldName === newName) {
+                        showToast("Name is identical");
+                        return;
+                    }
+
+                    // Update active filter if we are currently filtering by this tag
+                    if (archiveFilter === oldName) {
+                        archiveFilter = newName;
+                    }
+
+                    tagLabels[idx] = newName;
+                    localStorage.setItem('dclinCustomTags', JSON.stringify(tagLabels));
+                    
+                    let data = JSON.parse(localStorage.getItem('dclinData')) || [];
+                    data.forEach(n => {
+                        if (n.tag === oldName) n.tag = newName;
+                    });
+                    localStorage.setItem('dclinData', JSON.stringify(data));
+
+                    populateRenameDropdown();
+                    renderNotesDOM();
+                    
+                    if (writeIdx === idx) {
+                        noteInput.setAttribute('data-placeholder', getTagPrompt(writeIdx));
+                    }
+                    
+                    showToast("Tag Renamed Successfully");
+                });
+
+                // Settings UI (Glow Intensity)
+                document.querySelectorAll('#accentGlowControl .segment-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        triggerHaptic(10);
+                        document.querySelectorAll('#accentGlowControl .segment-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        glowIntensitySetting = this.getAttribute('data-val');
+                        localStorage.setItem('dclinGlowIntensity', glowIntensitySetting);
+                        document.documentElement.setAttribute('data-glow', glowIntensitySetting);
+                    });
+                });
+
                 // Settings UI (Backup Glow)
                 document.querySelectorAll('#backupGlowControl .segment-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
@@ -1001,6 +1200,44 @@
                             infoText.classList.remove('visible');
                         }
                         evaluateOrbState();
+                    });
+                });
+
+                // Settings UI (Calendar Glow)
+                document.querySelectorAll('#calendarGlowControl .segment-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        triggerHaptic(10);
+                        document.querySelectorAll('#calendarGlowControl .segment-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        calendarGlowSetting = this.getAttribute('data-val');
+                        localStorage.setItem('dclinCalendarGlow', calendarGlowSetting);
+                        
+                        const infoText = document.getElementById('calendarGlowInfo');
+                        if (calendarGlowSetting === 'On') {
+                            infoText.classList.add('visible');
+                        } else {
+                            infoText.classList.remove('visible');
+                        }
+                        renderCalendar(); // Re-render immediately to show effect
+                    });
+                });
+
+                // Settings UI (Upcoming View)
+                document.querySelectorAll('#upcomingViewControl .segment-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        triggerHaptic(10);
+                        document.querySelectorAll('#upcomingViewControl .segment-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        upcomingViewSetting = this.getAttribute('data-val');
+                        localStorage.setItem('dclinUpcomingView', upcomingViewSetting);
+                        
+                        const infoText = document.getElementById('upcomingViewInfo');
+                        if (upcomingViewSetting === 'Summative') {
+                            infoText.classList.add('visible');
+                        } else {
+                            infoText.classList.remove('visible');
+                        }
+                        renderCalendar(); 
                     });
                 });
 
@@ -1078,19 +1315,23 @@
             }
 
             function evaluateOrbState() {
-                const orb = document.getElementById('btnFullBackup');
-                orb.classList.remove('glow-off', 'glow-alert-danger');
+                const orbDownload = document.getElementById('btnFullBackup');
+                const orbRestore = document.getElementById('btnTriggerRestore');
+                
+                orbDownload.classList.remove('glow-off', 'glow-alert-danger');
+                orbRestore.classList.remove('glow-off');
                 
                 if (backupGlowSetting === 'Off') {
-                    orb.classList.add('glow-off');
+                    orbDownload.classList.add('glow-off');
+                    orbRestore.classList.add('glow-off');
                 } else if (backupGlowSetting === 'Alert') {
                     const lastBackup = localStorage.getItem('dclinLastBackup');
                     if (!lastBackup) {
-                        orb.classList.add('glow-alert-danger'); 
+                        orbDownload.classList.add('glow-alert-danger'); 
                     } else {
                         const daysSince = (Date.now() - parseInt(lastBackup)) / (1000 * 60 * 60 * 24);
                         if (daysSince > 7) {
-                            orb.classList.add('glow-alert-danger');
+                            orbDownload.classList.add('glow-alert-danger');
                         }
                     }
                 }
@@ -1237,7 +1478,8 @@
                     created: new Date().toISOString().split('T')[0], 
                     deadline: dueDatePicker.value || null, 
                     done: false, 
-                    completedOn: null 
+                    completedOn: null,
+                    isSummative: (writeIdx === 4) ? document.getElementById('summativeCheck').checked : false
                 };
                 
                 let toastMsg = "Task Saved";
@@ -1256,6 +1498,7 @@
                 localStorage.removeItem('dclinDraft'); 
                 noteInput.innerHTML = ""; 
                 dueDatePicker.value = ""; 
+                document.getElementById('summativeCheck').checked = false;
                 updateDateLabel(); 
                 updateToolbarState(); 
                 renderNotesDOM(); 
@@ -1269,6 +1512,7 @@
                 saveAction.innerText = "Save Task"; 
                 cancelAction.style.display = "none";
                 dueDatePicker.value = ""; 
+                document.getElementById('summativeCheck').checked = false;
                 updateDateLabel();
                 noteInput.innerHTML = localStorage.getItem('dclinDraft') || "";
                 updateToolbarState(); 
@@ -1320,6 +1564,12 @@
                     
                     const hasCreated = data.some(d => d.created === dateStr);
                     const dayDeadlines = data.filter(d => !d.done && d.deadline === dateStr);
+
+                    // Filter dots based on Setting
+                    let displayDeadlines = dayDeadlines;
+                    if (upcomingViewSetting === 'Summative') {
+                        displayDeadlines = dayDeadlines.filter(d => d.isSummative);
+                    }
                     
                     let dots = '<div class="dot-container">';
                     if(hasCreated) {
@@ -1327,12 +1577,12 @@
                     }
                     
                     // Priority Intelligence: Red Glow for Overdue
-                    const isOverdue = (new Date(dateStr) < todayObj) && dayDeadlines.length > 0;
+                    const isOverdue = (new Date(dateStr) < todayObj) && displayDeadlines.length > 0;
                     
-                    if (isOverdue) {
+                    if (isOverdue && calendarGlowSetting === 'On') {
                         dots += `<div class="dot overdue-glow"></div>`;
                     } else {
-                        const deadlineColors = [...new Set(dayDeadlines.map(d => d.color))].slice(0, 3); 
+                        const deadlineColors = [...new Set(displayDeadlines.map(d => d.color))].slice(0, 3); 
                         deadlineColors.forEach(color => { 
                             dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`; 
                         });
@@ -1356,6 +1606,11 @@
                 nextWeek.setDate(todayObj.getDate() + 7);
                 
                 let allPending = data.filter(d => d.deadline && !d.done);
+
+                // Filter upcoming list based on Setting
+                if (upcomingViewSetting === 'Summative') {
+                    allPending = allPending.filter(d => d.isSummative);
+                }
                 
                 // Bucket 1: Overdue
                 let overdueTasks = allPending.filter(d => {
@@ -1399,7 +1654,7 @@
                             
                             upcomingHtml += `
                                 <div class="upcoming-item overdue-priority" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; cursor:pointer;">
-                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
+                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${task.isSummative ? '⭐ ' : ''}${shortText}</div>
                                     <div style="color: var(--deadline-red); font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">MISSED: ${dayText}</div>
                                 </div>`;
                         });
@@ -1417,7 +1672,7 @@
                             
                             upcomingHtml += `
                                 <div class="upcoming-item" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;">
-                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
+                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${task.isSummative ? '⭐ ' : ''}${shortText}</div>
                                     <div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>
                                 </div>`;
                         });
@@ -1483,7 +1738,7 @@
                         <div class="note" style="--note-color: ${n.color}; animation-delay: ${delay}s;">
                             <div class="note-header">
                                 <span style="color:${n.color}">${n.tag}</span>
-                                <span>${n.done ? 'DONE: ' + n.completedOn : (n.deadline ? 'DUE: ' + n.deadline.split('-').reverse().slice(0,2).join('/') : n.created.split('-').reverse().slice(0,2).join('/'))}</span>
+                                <span>${n.done ? 'DONE: ' + n.completedOn : (n.deadline ? 'DUE: ' + n.deadline.split('-').reverse().slice(0,2).join('/') : n.created.split('-').reverse().slice(0,2).join('/'))} ${n.isSummative ? '<span style="color:var(--c4)">⭐</span>' : ''}</span>
                             </div>
                             <div class="note-body preview-text">${parsedText}</div>
                             <button class="action-btn action-expand" style="margin-top: 6px; color:${n.color}">Read More</button>
@@ -2031,8 +2286,8 @@
                 const isHidden = v.style.display === 'none' || v.style.display === '';
                 v.style.display = isHidden ? 'block' : 'none';
                 if(btn) { 
-                    btn.style.borderColor = isHidden ? 'var(--active-accent)' : 'var(--border)'; 
-                    btn.style.color = isHidden ? 'var(--text-main)' : 'var(--text-high)'; 
+                    btn.style.borderColor = isHidden ? 'var(--active-accent)' : ''; 
+                    btn.style.color = isHidden ? 'var(--text-main)' : ''; 
                 }
             }
 
@@ -2219,6 +2474,7 @@
                 if (n) {
                     noteInput.innerHTML = n.text; 
                     dueDatePicker.value = n.deadline || ""; 
+                    document.getElementById('summativeCheck').checked = n.isSummative || false;
                     updateDateLabel(); 
                     editingId = id;
                     
