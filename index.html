@@ -27,7 +27,7 @@
             THEMING & VARIABLES
            ========================================= */
         :root {
-            /* DEFAULT THEME (Now uses Nebula's neon sunset palette) */
+            /* DEFAULT THEME */
             --bg-color: #030407; --text-main: #FFFFFF; --text-muted: rgba(255, 255, 255, 0.45);
             --text-mid: rgba(255, 255, 255, 0.75); --text-high: #FFFFFF;
             --bg-overlay: rgba(255, 255, 255, 0.06); 
@@ -37,16 +37,10 @@
             --glass: rgba(255, 255, 255, 0.07); --border: rgba(255, 255, 255, 0.18); --shadow-heavy: rgba(0, 0, 0, 0.6);
             --save-bg: rgba(255, 255, 255, 0.12); --save-text: var(--active-accent); --save-border: var(--active-accent); --save-shadow: none;
             
-            /* Swapped from Nebula */
             --c0: #F9C469; --c1: #FAA874; --c2: #FB8C7F; --c3: #FC708A; --c4: #FD5495; --c5: #FE38A0;
             
-            /* Diverse Synthwave/Sunset Vibe Orbs mapped to their complementary tags */
-            --v0: rgba(140, 10, 240, 0.18); /* Neon Ultraviolet (Pairs with Hot Pink c5) */
-            --v1: rgba(0, 160, 180, 0.15);  /* Bioluminescent Cyan (Pairs with Magenta c4) */
-            --v2: rgba(200, 80, 10, 0.18);  /* Dark Sunset Ember (Pairs with Rose c3) */
-            --v3: rgba(10, 80, 255, 0.15);  /* Deep Azure Blue (Pairs with Coral c2) */
-            --v4: rgba(230, 30, 60, 0.18);  /* Rich Ruby Red (Pairs with Orange c1) */
-            --v5: rgba(90, 30, 220, 0.20);  /* Deep Electric Indigo (Pairs with Gold c0) */
+            --v0: rgba(140, 10, 240, 0.18); --v1: rgba(0, 160, 180, 0.15); --v2: rgba(200, 80, 10, 0.18);
+            --v3: rgba(10, 80, 255, 0.15); --v4: rgba(230, 30, 60, 0.18); --v5: rgba(90, 30, 220, 0.20);
             
             --warm-white: #ffffff; --warm-white-glow: rgba(255, 255, 255, 0.2); 
             --active-accent: var(--c0); --active-vibe: var(--v5); --active-orb-2: var(--c3); --active-orb-3: var(--c1);
@@ -58,12 +52,28 @@
             --lx: 50%; --ly: 50%;
         }
 
+        /* --- TACTILE DEPTH --- */
+        .date-btn, .save-btn, .collapsible-trigger, .journal-tab-btn {
+            box-shadow: 5px 5px 12px rgba(0,0,0,0.5), -3px -3px 10px rgba(255,255,255,0.04);
+            transition: all 0.2s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+        .date-btn:active, .save-btn:active, .collapsible-trigger:active, .journal-tab-btn:active {
+            box-shadow: inset 4px 4px 10px rgba(0,0,0,0.7), inset -3px -3px 8px rgba(255,255,255,0.03) !important;
+            transform: scale(0.96) translateY(2px);
+        }
+
+        /* --- OVERDUE STYLING --- */
+        .dot.overdue-glow { background: var(--deadline-red) !important; box-shadow: 0 0 8px var(--deadline-red), 0 0 12px var(--deadline-red); animation: pulseOverdue 1.5s infinite; }
+        .upcoming-item.overdue-priority { border-left: 3px solid var(--deadline-red) !important; box-shadow: 0 0 15px rgba(255, 69, 58, 0.25); background: rgba(255, 69, 58, 0.05) !important; }
+        @keyframes pulseOverdue { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+
         /* --- FOUNDATION THEME --- */
         [data-theme="foundation"] { 
             --bg-color: #121212; --text-main: #F5F5F0; --text-muted: #3a3a3a; --text-mid: #666666; --text-high: #aaaaaa; 
             --bg-overlay: rgba(255, 255, 255, 0.05); --drawer-bg: rgba(20, 20, 20, 0.95); --note-bg: #121212; --toast-bg: #FF4F00; --toast-text: #121212; --glass: transparent; 
             --border: rgba(255, 255, 255, 0.05); --shadow-heavy: #050505; 
-            --tile-recessed: inset 4px 4px 12px #080808, inset -2px -2px 10px #1a1a1a;
+            /* Slightly deeper recess */
+            --tile-recessed: inset 6px 6px 16px #040404, inset -2px -2px 10px #1a1a1a;
             --btn-surface: linear-gradient(145deg, #1e1e1e, #111111); --btn-rim: 1px solid rgba(255, 255, 255, 0.05);
             --btn-shadow: 6px 6px 15px #050505, -3px -3px 10px rgba(255, 255, 255, 0.02); --btn-press: inset 4px 4px 10px #000, 0 0 0 transparent;
             --save-bg: var(--btn-surface); --save-text: var(--active-accent); --save-border: rgba(255, 255, 255, 0.05); --save-shadow: none;
@@ -78,16 +88,19 @@
         [data-theme="foundation"] .sq-btn.active { box-shadow: var(--btn-press); border-color: rgba(0,0,0,0.5); transform: translateY(2px); }
         [data-theme="foundation"] .sq-btn.active svg { fill: var(--active-accent); filter: drop-shadow(0 0 8px var(--active-accent)); }
         [data-theme="foundation"] #inputIcons .sq-btn.active, [data-theme="foundation"] #filterIcons .sq-btn.active { box-shadow: var(--btn-press) !important; border-color: rgba(0,0,0,0.5) !important; }
-        [data-theme="foundation"] .save-btn, [data-theme="foundation"] .date-btn, [data-theme="foundation"] .collapsible-trigger, [data-theme="foundation"] #searchWrapper { background: var(--btn-surface); border: var(--btn-rim); box-shadow: var(--btn-shadow); color: var(--active-accent); border-radius: 10px; }
-        [data-theme="foundation"] .save-btn, [data-theme="foundation"] .date-btn, [data-theme="foundation"] .collapsible-trigger { font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 9px; }
-        [data-theme="foundation"] .save-btn:active, [data-theme="foundation"] .date-btn:active, [data-theme="foundation"] .collapsible-trigger:active { box-shadow: inset 4px 4px 10px #000, inset -2px -2px 5px rgba(255,255,255,0.02) !important; transform: scale(0.96) translateY(2px); }
+        
+        /* Tactile Depth: Foundation */
+        [data-theme="foundation"] .save-btn, [data-theme="foundation"] .date-btn, [data-theme="foundation"] .collapsible-trigger, [data-theme="foundation"] .journal-tab-btn, [data-theme="foundation"] #searchWrapper, [data-theme="foundation"] #journalSearchWrapper { background: var(--btn-surface); border: var(--btn-rim); box-shadow: 6px 6px 15px #050505, -3px -3px 10px rgba(255, 255, 255, 0.04); color: var(--active-accent); border-radius: 10px; }
+        [data-theme="foundation"] .save-btn, [data-theme="foundation"] .date-btn, [data-theme="foundation"] .collapsible-trigger, [data-theme="foundation"] .journal-tab-btn { font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 9px; }
+        [data-theme="foundation"] .save-btn:active, [data-theme="foundation"] .date-btn:active, [data-theme="foundation"] .collapsible-trigger:active, [data-theme="foundation"] .journal-tab-btn:active { box-shadow: inset 4px 4px 12px #000, inset -2px -2px 6px rgba(255,255,255,0.03) !important; transform: scale(0.96) translateY(2px); }
+        [data-theme="foundation"] .journal-tab-btn.active { background: #000; box-shadow: inset 4px 4px 10px #000, inset -2px -2px 5px rgba(255,255,255,0.03) !important; border-color: var(--active-accent); }
+        
         [data-theme="foundation"] .expense-input, [data-theme="foundation"] textarea.expense-input { background: #0d0d0d; box-shadow: inset 2px 2px 5px #000; border-radius: 15px; border: none; }
         [data-theme="foundation"] .action-btn { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #666; }
         [data-theme="foundation"] .action-btn:hover { color: var(--active-accent); }
 
-        /* --- NEBULA THEME (Destiny 2 Director Style) --- */
+        /* --- NEBULA THEME (Director Optimized) --- */
         [data-theme="nebula"] { 
-            /* NEBULA THEME (Crepuscular Pearlescent on Dark Space) */
             --bg-color: #050508; 
             --text-main: #ffffff; --text-muted: rgba(255, 255, 255, 0.45); 
             --text-mid: rgba(255, 255, 255, 0.7); --text-high: rgba(255, 255, 255, 0.9); 
@@ -95,27 +108,22 @@
             --drawer-bg: rgba(10, 12, 18, 0.95); 
             --toast-bg: rgba(15, 18, 26, 0.95); --toast-text: #FFFFFF;
             --glass: transparent; --border: transparent; 
-            
-            /* Crepuscular Pearlescent Tag Colors */
             --c0: #FFC3A0; --c1: #D8B4E2; --c2: #A1C4FD; --c3: #FDFBF7; --c4: #F6E271; --c5: #9FD3C7;
-            
-            /* Deep Space Orb Equivalents */
             --v0: #260f18; --v1: #1a0a28; --v2: #0a112a; --v3: #141720; --v4: #241e0a; --v5: #08211e;
-            
             --warm-white: #e8e6e1; --warm-white-glow: rgba(232, 230, 225, 0.5); 
             --save-bg: rgba(255,255,255,0.05); --save-text: var(--active-accent); --save-border: rgba(255,255,255,0.2); --save-shadow: 0 0 15px rgba(0,0,0,0.8);
             --note-bg: rgba(255, 255, 255, 0.08); 
         }
 
-        /* Base container and dynamic glowing aura */
         [data-theme="nebula"] .vibe-container { 
             display: block !important; opacity: 1; background-color: #050508;
             background-image: radial-gradient(circle at var(--orb-x) var(--orb-y), var(--active-vibe) 0%, transparent 85%);
             transition: background 4.5s ease-in-out;
             overflow: hidden;
+            contain: strict; /* Hardware Isolation */
         }
 
-        /* Layer 1: The Deep Constellation Starfield */
+        /* GPU OPTIMIZED STARFIELD */
         [data-theme="nebula"] .vibe-container::before {
             content: ''; position: absolute; left: 50%; top: 50%; width: 300vw; height: 300vh;
             pointer-events: none; z-index: 1;
@@ -130,57 +138,85 @@
                 radial-gradient(3.5px 3.5px at 30% 80%, rgba(255,255,255,0.9) 100%, transparent),
                 linear-gradient(45deg, transparent 49.8%, rgba(255,255,255,0.1) 50%, transparent 50.2%),
                 linear-gradient(-60deg, transparent 49.8%, rgba(255,255,255,0.08) 50%, transparent 50.2%);
-            background-size: 
-                200px 200px, 300px 300px, 150px 150px, 120px 120px, 
-                400px 400px, 250px 250px, 180px 180px, 350px 350px, 
-                500px 500px, 600px 600px;
-            transform: translate(-50%, -50%) rotate(var(--star-rot, 0deg)) scale(calc(var(--mesh-scale) * 0.8));
+            background-size: 200px 200px, 300px 300px, 150px 150px, 120px 120px, 400px 400px, 250px 250px, 180px 180px, 350px 350px, 500px 500px, 600px 600px;
+            /* Decouple from scroll thread */
+            transform: translate3d(-50%, -50%, 0) rotate(var(--star-rot, 0deg)) scale(calc(var(--mesh-scale) * 0.8));
             transition: transform 5s cubic-bezier(0.25, 1, 0.4, 1);
             animation: d2StarsDrift 200s linear infinite;
+            will-change: transform, background-position;
+            backface-visibility: hidden;
         }
 
-        /* Layer 2: The Foreground Isometric Tech Mesh & Orbital Rings */
+        /* GPU OPTIMIZED MESH & SOFTER LINES */
         [data-theme="nebula"] .vibe-container::after {
             content: ''; position: absolute; left: 50%; top: 50%; width: 300vw; height: 300vh;
             pointer-events: none; z-index: 2; mix-blend-mode: screen;
             background-image: 
-                repeating-radial-gradient(circle at center, transparent 0, transparent 150px, color-mix(in srgb, var(--active-accent) 40%, white) 150px, color-mix(in srgb, var(--active-accent) 40%, white) 151px),
-                repeating-radial-gradient(circle at center, transparent 0, transparent 250px, rgba(255,255,255,0.06) 250px, rgba(255,255,255,0.06) 252px),
-                linear-gradient(30deg, rgba(255,255,255,0.08) 1px, transparent 1px),
-                linear-gradient(-30deg, rgba(255,255,255,0.08) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px),
-                radial-gradient(4px 4px at 0 0, color-mix(in srgb, var(--active-accent) 40%, white) 100%, transparent),
-                radial-gradient(2.5px 2.5px at 50px 86.6px, #ffffff 100%, transparent);
-            background-size: 
-                100% 100%, 100% 100%, 
-                100px 173.2px, 100px 173.2px, 50px 86.6px, 
-                100px 173.2px, 100px 173.2px;
+                repeating-radial-gradient(circle at center, transparent 0, transparent 150px, color-mix(in srgb, var(--active-accent) 25%, rgba(255,255,255,0.3)) 150px, color-mix(in srgb, var(--active-accent) 25%, rgba(255,255,255,0.3)) 151px),
+                repeating-radial-gradient(circle at center, transparent 0, transparent 250px, rgba(255,255,255,0.03) 250px, rgba(255,255,255,0.03) 252px),
+                linear-gradient(30deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(-30deg, rgba(255,255,255,0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px),
+                radial-gradient(4px 4px at 0 0, color-mix(in srgb, var(--active-accent) 40%, rgba(255,255,255,0.5)) 100%, transparent),
+                radial-gradient(2.5px 2.5px at 50px 86.6px, rgba(255,255,255,0.7) 100%, transparent);
+            background-size: 100% 100%, 100% 100%, 100px 173.2px, 100px 173.2px, 50px 86.6px, 100px 173.2px, 100px 173.2px;
             background-position: center, center, 0 0, 0 0, 0 0, 0 0, 0 0;
-            transform: translate(-50%, -50%) rotate(var(--mesh-rot, 0deg)) scale(var(--mesh-scale, 1.2));
+            /* Decouple from scroll thread */
+            transform: translate3d(-50%, -50%, 0) rotate(var(--mesh-rot, 0deg)) scale(var(--mesh-scale, 1.2));
             transition: transform 4.5s cubic-bezier(0.25, 1, 0.4, 1), background-image 4.5s ease-in-out;
             animation: d2MeshDrift 90s linear infinite;
+            will-change: transform, background-position;
+            backface-visibility: hidden;
         }
 
-        @keyframes d2MeshDrift {
-            from { background-position: center, center, 0 0, 0 0, 0 0, 0 0, 0 0; }
-            to { background-position: center, center, -100px -173.2px, -100px -173.2px, -50px -86.6px, -100px -173.2px, -100px -173.2px; }
+        @keyframes d2MeshDrift { from { background-position: center, center, 0 0, 0 0, 0 0, 0 0, 0 0; } to { background-position: center, center, -100px -173.2px, -100px -173.2px, -50px -86.6px, -100px -173.2px, -100px -173.2px; } }
+        @keyframes d2StarsDrift { from { background-position: 0 0; } to { background-position: -1200px -1200px; } }
+
+        /* BRIGHTER NEON SECTION HEADERS */
+        [data-theme="nebula"] .archive-header { 
+            color: #ffffff; opacity: 1; letter-spacing: 5px;
+            text-shadow: 0 0 8px #ffffff, 0 0 24px var(--active-accent); 
         }
-        @keyframes d2StarsDrift {
-            from { background-position: 0 0; }
-            to { background-position: -1200px -1200px; } 
+        [data-theme="nebula"] .collapsible-trigger, [data-theme="nebula"] #monthLabel, [data-theme="nebula"] .note-header span { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+
+        /* Hardware Accelerated Foreground Elements */
+        [data-theme="nebula"] .input-box, [data-theme="nebula"] .note, [data-theme="nebula"] .expense-tile, [data-theme="nebula"] .calendar-container, [data-theme="nebula"] #searchWrapper, [data-theme="nebula"] #journalSearchWrapper { 
+            background: var(--note-bg); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); border-top: 1px solid rgba(255,255,255,0.15); 
+            box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 12px rgba(255,255,255,0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); margin-bottom: 20px; 
+            transform: translateZ(0); /* Decouple blur math */
+            backface-visibility: hidden;
         }
 
-        [data-theme="nebula"] .archive-header, [data-theme="nebula"] .collapsible-trigger, [data-theme="nebula"] #monthLabel, [data-theme="nebula"] .note-header span { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
+        /* Dissolve Vault Scroll Boxes (Remove Dark Corners) */
+        [data-theme="nebula"] #vaultWindow, 
+        [data-theme="nebula"] #completedVaultScroll, 
+        [data-theme="nebula"] #learningVaultScroll, 
+        [data-theme="nebula"] #expenseVaultScroll, 
+        [data-theme="nebula"] #journalVaultScroll {
+            background: transparent !important; 
+            border: none !important; 
+            box-shadow: none !important; 
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+        }
 
-        /* Faint glow added here for boxes/tiles */
-        [data-theme="nebula"] .input-box, [data-theme="nebula"] .note, [data-theme="nebula"] .expense-tile, [data-theme="nebula"] .calendar-container, [data-theme="nebula"] #searchWrapper { 
-            background: var(--note-bg); 
-            border-radius: 12px; 
-            border: 1px solid rgba(255,255,255,0.05); 
-            border-top: 1px solid rgba(255,255,255,0.15); 
-            box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 12px rgba(255,255,255,0.08); 
-            backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); 
-            margin-bottom: 20px; 
+        /* Pure Text Glowing Footer Buttons for Nebula (Fixed Font Size) */
+        [data-theme="nebula"] .footer-btn {
+            color: #ffffff !important; 
+            opacity: 1 !important; 
+            font-size: 9px !important; /* Forces consistency with other themes */
+            font-weight: 800; 
+            letter-spacing: 1px;
+            text-shadow: 0 0 8px rgba(255,255,255,0.8), 0 0 15px rgba(255,255,255,1) !important;
+            background: transparent !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 10px; /* Reset to base padding */
+            transition: 0.3s;
+        }
+        [data-theme="nebula"] .footer-btn:active { 
+            transform: scale(0.96); 
+            background: transparent !important;
         }
 
         [data-theme="nebula"] .ic0 svg, [data-theme="nebula"] .ic1 svg, [data-theme="nebula"] .ic2 svg, [data-theme="nebula"] .ic3 svg, [data-theme="nebula"] .ic4 svg, [data-theme="nebula"] .ic5 svg { fill: #64748b !important; opacity: 0.6; transition: all 0.3s ease; }
@@ -198,24 +234,25 @@
         [data-theme="nebula"] #filterIcons .sq-btn { background: transparent !important; border: none !important; box-shadow: none !important; position: relative; overflow: visible; width: 40px; height: 40px; border-radius: 0; }
         [data-theme="nebula"] #filterIcons .sq-btn.active { transform: scale(1.1) !important; }
         [data-theme="nebula"] #filterIcons .sq-btn.active::after { content: ''; position: absolute; top: -6px; left: 50%; transform: translateX(-50%); width: 5px; height: 5px; border-radius: 50%; }
-        [data-theme="nebula"] #filterIcons .sq-btn.active.ic0::after { background: var(--c0); box-shadow: 0 0 8px var(--c0); }
-        [data-theme="nebula"] #filterIcons .sq-btn.active.ic1::after { background: var(--c1); box-shadow: 0 0 8px var(--c1); }
-        [data-theme="nebula"] #filterIcons .sq-btn.active.ic2::after { background: var(--c2); box-shadow: 0 0 8px var(--c2); }
-        [data-theme="nebula"] #filterIcons .sq-btn.active.ic3::after { background: var(--c3); box-shadow: 0 0 8px var(--c3); }
-        [data-theme="nebula"] #filterIcons .sq-btn.active.ic4::after { background: var(--c4); box-shadow: 0 0 8px var(--c4); }
-        [data-theme="nebula"] #filterIcons .sq-btn.active.ic5::after { background: var(--c5); box-shadow: 0 0 8px var(--c5); }
-        [data-theme="nebula"] #filterIcons .sq-btn.all-btn.active::after { background: #fff; box-shadow: 0 0 8px #fff; }
 
-        /* Faint glow added to Static Nebula Buttons */
-        [data-theme="nebula"] .save-btn, [data-theme="nebula"] .date-btn, [data-theme="nebula"] .collapsible-trigger { 
-            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.15); border-top: 1px solid rgba(255,255,255,0.25);
-            border-radius: 8px; box-shadow: 0 4px 10px rgba(0,0,0,0.6), 0 0 8px rgba(255, 255, 255, 0.12); color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+        /* Tactile Depth & PURE FROSTED GLASS: Nebula */
+        [data-theme="nebula"] .save-btn, [data-theme="nebula"] .date-btn, [data-theme="nebula"] .collapsible-trigger, [data-theme="nebula"] .journal-tab-btn { 
+            background: rgba(255, 255, 255, 0.03); /* Ghost white */
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); /* Heavy blur to hide sharp grid lines */
+            border: 1px solid rgba(255,255,255,0.1); border-top: 1px solid rgba(255,255,255,0.25);
+            border-radius: 8px; color: var(--text-main); text-transform: uppercase; letter-spacing: 2px; font-weight: 700;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255, 255, 255, 0.2);
+            transform: translateZ(0); /* Hardware isolation */
         }
         [data-theme="nebula"] .save-btn { color: var(--active-accent); text-shadow: 0 0 10px rgba(255,255,255,0.3); border-color: rgba(255,255,255,0.2); }
-        [data-theme="nebula"] .save-btn:active, [data-theme="nebula"] .date-btn:active, [data-theme="nebula"] .collapsible-trigger:active { background: rgba(255,255,255,0.1); box-shadow: inset 0 2px 8px rgba(0,0,0,0.7) !important; transform: scale(0.98); border-top-color: rgba(255,255,255,0.1); }
+        [data-theme="nebula"] .save-btn:active, [data-theme="nebula"] .date-btn:active, [data-theme="nebula"] .collapsible-trigger:active, [data-theme="nebula"] .journal-tab-btn:active { 
+            background: rgba(255,255,255,0.06); 
+            box-shadow: inset 0 4px 12px rgba(0,0,0,0.6), inset 0 -2px 6px rgba(255,255,255,0.02) !important; 
+            transform: scale(0.96) translateY(2px) translateZ(0); border-top-color: rgba(255,255,255,0.1); 
+        }
+        [data-theme="nebula"] .journal-tab-btn.active { color: var(--active-accent); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); box-shadow: inset 0 4px 12px rgba(0,0,0,0.4), 0 0 12px var(--active-vibe) !important; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
-        /* Faint glow added to inputs */
-        [data-theme="nebula"] .expense-input, [data-theme="nebula"] textarea.expense-input { background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); border-bottom: 2px solid rgba(255,255,255,0.15); padding: 14px 16px; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.05); }
+        [data-theme="nebula"] .expense-input, [data-theme="nebula"] textarea.expense-input { background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); border-bottom: 2px solid rgba(255,255,255,0.15); padding: 14px 16px; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.05); transform: translateZ(0); }
         [data-theme="nebula"] .expense-input:focus, [data-theme="nebula"] textarea.expense-input:focus { background: rgba(0,0,0,0.6); border-bottom-color: var(--active-accent); box-shadow: inset 0 2px 5px rgba(0,0,0,0.9), 0 10px 20px -10px var(--active-accent); outline: none; }
         [data-theme="nebula"] .action-btn { font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); }
         [data-theme="nebula"] .action-btn:hover { color: var(--active-accent); text-shadow: 0 0 8px var(--active-accent); opacity: 1; }
@@ -234,7 +271,6 @@
             --warm-white: #1a1712; --warm-white-glow: transparent; 
         }
 
-        /* Paper Grain Overlay */
         html[data-theme="parchment"]::before {
             content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999;
             background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E");
@@ -247,7 +283,7 @@
 
         [data-theme="parchment"] .vibe-container, [data-theme="foundation"] .vibe-container { display: none !important; }
         
-        [data-theme="parchment"] .input-box, [data-theme="parchment"] .note, [data-theme="parchment"] .expense-tile, [data-theme="parchment"] .calendar-container, [data-theme="parchment"] #searchWrapper, [data-theme="parchment"] .bottom-drawer {
+        [data-theme="parchment"] .input-box, [data-theme="parchment"] .note, [data-theme="parchment"] .expense-tile, [data-theme="parchment"] .calendar-container, [data-theme="parchment"] #searchWrapper, [data-theme="parchment"] #journalSearchWrapper, [data-theme="parchment"] .bottom-drawer {
             background: var(--note-bg); border: 1px solid var(--border); border-radius: 2px;
             box-shadow: 4px 4px 0px rgba(0,0,0,0.08), 8px 8px 0px rgba(0,0,0,0.04); backdrop-filter: none; -webkit-backdrop-filter: none;
         }
@@ -266,8 +302,21 @@
         [data-theme="parchment"] #filterIcons .sq-btn.active { border-bottom: 3px solid #1a1712; transform: none; border-width: 0 0 3px 0; }
         [data-theme="parchment"] #filterIcons .sq-btn.active::after { display: none; }
 
-        [data-theme="parchment"] .save-btn, [data-theme="parchment"] .date-btn, [data-theme="parchment"] .collapsible-trigger { border-radius: 2px; box-shadow: 3px 3px 0px rgba(0,0,0,0.15); border: 1px solid var(--border); }
-        [data-theme="parchment"] .save-btn:active, [data-theme="parchment"] .date-btn:active, [data-theme="parchment"] .collapsible-trigger:active { transform: translate(3px, 3px); box-shadow: 0px 0px 0px rgba(0,0,0,0.15); }
+        /* Tactile Depth: Parchment */
+        [data-theme="parchment"] .save-btn, [data-theme="parchment"] .date-btn, [data-theme="parchment"] .collapsible-trigger, [data-theme="parchment"] .journal-tab-btn { 
+            border-radius: 2px; border: 1px solid var(--border); 
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.15), inset 1px 1px 2px rgba(255,255,255,0.5);
+            background: linear-gradient(145deg, #f0e6d2, #e5d8c1); 
+        }
+        [data-theme="parchment"] .save-btn { background: #1a1712; color: #F2E8D5; box-shadow: 4px 4px 0px rgba(0,0,0,0.25), inset 1px 1px 2px rgba(255,255,255,0.1); }
+        [data-theme="parchment"] .save-btn:active, [data-theme="parchment"] .date-btn:active, [data-theme="parchment"] .collapsible-trigger:active, [data-theme="parchment"] .journal-tab-btn:active { 
+            transform: translate(4px, 4px) !important; 
+            box-shadow: 0px 0px 0px rgba(0,0,0,0.15), inset 2px 2px 5px rgba(0,0,0,0.1) !important; 
+            background: #e3d5bc; 
+        }
+        [data-theme="parchment"] .save-btn:active { background: #111; box-shadow: 0px 0px 0px rgba(0,0,0,0.25), inset 2px 2px 5px rgba(0,0,0,0.6) !important; }
+        [data-theme="parchment"] .journal-tab-btn.active { transform: translate(2px, 2px); box-shadow: inset 2px 2px 5px rgba(0,0,0,0.1); border-width: 2px; border-color: #1a1712; background: var(--note-bg); }
+
         [data-theme="parchment"] .expense-input, [data-theme="parchment"] textarea.expense-input { border-radius: 2px; background: rgba(0,0,0,0.03); border: 1px dashed var(--border); box-shadow: none; }
 
         [data-theme="parchment"] .particle { background: #111 !important; color: #111 !important; box-shadow: none !important; border-radius: 50% 40% 60% 40%; filter: blur(0.5px); }
@@ -279,9 +328,7 @@
         @keyframes inkBleed { 0% { filter: blur(0px); opacity: 1; stroke-width: 4; } 100% { filter: blur(1.5px); opacity: 0.85; stroke-width: 6; } }
 
         [data-theme="parchment"] .note.deleting, [data-theme="parchment"] .expense-tile.deleting { animation: stampVoid 0.5s cubic-bezier(0.2, 1, 0.3, 1) forwards !important; overflow: visible; }
-        [data-theme="parchment"] .note.deleting::after, [data-theme="parchment"] .expense-tile.deleting::after {
-            content: 'VOID'; position: absolute; top: 50%; left: 50%; color: #b32a2a; border: 4px solid #b32a2a; padding: 5px 15px; font-weight: bold; font-family: 'Courier New', Courier, monospace; font-size: 24px; letter-spacing: 4px; opacity: 0; mix-blend-mode: multiply; pointer-events: none; z-index: 100; animation: stampSlam 0.5s ease forwards;
-        }
+        [data-theme="parchment"] .note.deleting::after, [data-theme="parchment"] .expense-tile.deleting::after { content: 'VOID'; position: absolute; top: 50%; left: 50%; color: #b32a2a; border: 4px solid #b32a2a; padding: 5px 15px; font-weight: bold; font-family: 'Courier New', Courier, monospace; font-size: 24px; letter-spacing: 4px; opacity: 0; mix-blend-mode: multiply; pointer-events: none; z-index: 100; animation: stampSlam 0.5s ease forwards; }
         @keyframes stampSlam { 0% { transform: translate(-50%, -50%) rotate(-15deg) scale(3); opacity: 0; } 40% { transform: translate(-50%, -50%) rotate(-15deg) scale(0.9); opacity: 0.9; } 100% { transform: translate(-50%, -50%) rotate(-15deg) scale(1); opacity: 0.8; } }
         @keyframes stampVoid { 0% { opacity: 1; } 60% { opacity: 1; filter: sepia(1) contrast(1.2); } 100% { opacity: 0; transform: scale(0.95); } }
 
@@ -300,7 +347,6 @@
 
         .vibe-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; view-transition-name: vibe-bg; }
         
-        /* Smoother internal orb transitions */
         .orb { position: absolute; border-radius: 50%; filter: blur(90px); transition: background 3.5s ease-in-out, top 3.5s cubic-bezier(0.25, 1, 0.4, 1), left 3.5s cubic-bezier(0.25, 1, 0.4, 1); z-index: 0; }
         .orb-1 { width: 160vw; height: 160vw; background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%); top: calc(var(--orb-y) - 80vw); left: calc(var(--orb-x) - 80vw); animation: pulseFloat 14s ease-in-out infinite alternate; opacity: 1; }
         .orb-2 { width: 120vw; height: 120vw; background: radial-gradient(circle, var(--active-orb-2) 0%, transparent 60%); top: 10%; right: -20%; animation: float2 18s ease-in-out infinite alternate; opacity: 0.6; }
@@ -311,6 +357,11 @@
         @keyframes float3 { 0% { transform: translate(0, 0) scale(1.2); } 100% { transform: translate(20vw, -15vh) scale(1); } }
 
         .archive-header { font-size: 10px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.35; margin-bottom: 22px; text-align: center; font-weight: 600; }
+
+        /* Ledger Tab Styling */
+        .journal-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
+        .journal-tab-btn { flex: 1; padding: 12px 5px; background: var(--glass); border: 1px solid var(--border); border-radius: 12px; color: var(--text-muted); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
+        .journal-tab-btn.active { background: var(--note-bg); border-color: var(--active-accent); color: var(--text-main); box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 8px var(--active-accent); }
 
         .input-box {
             background: var(--glass); border-radius: 32px; padding: 25px;
@@ -358,7 +409,7 @@
         input, select, textarea { font-size: 16px !important; font-family: inherit; font-weight: 300; }
         #dueDatePicker { position: absolute; top:0; left:0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 
-        .save-btn { flex: 1; padding: 18px; border-radius: 22px; background: var(--save-bg); border: 1px solid var(--save-border); color: var(--save-text); text-shadow: var(--save-shadow); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer; transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease; display: flex; justify-content: center; align-items: center; gap: 8px;}
+        .save-btn { flex: 1; padding: 18px; border-radius: 22px; background: var(--save-bg); border: 1px solid var(--save-border); color: var(--save-text); text-shadow: var(--save-shadow); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 10px; cursor: pointer; display: flex; justify-content: center; align-items: center; gap: 8px;}
         #cancelAction { display: none; background: rgba(255, 69, 58, 0.1); border-color: var(--deadline-red); color: var(--deadline-red); text-shadow: 0 0 15px rgba(255, 69, 58, 0.5); }
         .save-btn.pulse { animation: btnPulse 0.4s ease-out !important; }
         @keyframes btnPulse { 0% { transform: scale(1); } 50% { transform: scale(0.96); background: rgba(255,255,255,0.1); } 100% { transform: scale(1); } }
@@ -366,14 +417,14 @@
         .spinner { width: 14px; height: 14px; border: 2px solid transparent; border-top-color: currentColor; border-radius: 50%; animation: spin 0.8s linear infinite; display: inline-block; }
         @keyframes spin { 100% { transform: rotate(360deg); } }
 
-        #searchWrapper { background: var(--bg-overlay); border-radius: 20px; padding: 15px 20px; border: 1px solid var(--border); margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--filter-accent); backdrop-filter: blur(30px); transition: box-shadow 0.5s ease; }
-        #searchWrapper input { background: transparent; border: none; color: var(--text-main); width: 85%; outline: none; -webkit-user-select: text; user-select: text; }
-        #searchWrapper input::placeholder { color: var(--text-muted); }
+        #searchWrapper, #journalSearchWrapper { background: var(--bg-overlay); border-radius: 20px; padding: 15px 20px; border: 1px solid var(--border); margin-bottom: 25px; display: flex; align-items: center; justify-content: space-between; box-shadow: 0 0 20px var(--filter-accent); backdrop-filter: blur(30px); transition: box-shadow 0.5s ease; }
+        #searchWrapper input, #journalSearchWrapper input { background: transparent; border: none; color: var(--text-main); width: 85%; outline: none; -webkit-user-select: text; user-select: text; }
+        #searchWrapper input::placeholder, #journalSearchWrapper input::placeholder { color: var(--text-muted); }
 
-        #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll { max-height: 400px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 0 12px 20px; -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 92%, rgba(255,255,255,0) 100%); margin-bottom: 40px; }
-        #vaultWindow { margin-top: 0; } #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll { margin-top: 15px; }
-        #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar, #learningVaultScroll::-webkit-scrollbar, #expenseVaultScroll::-webkit-scrollbar { display: none; }
-        #expenseVaultScroll, #learningVaultScroll { max-height: 230px; }
+        #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll, #journalVaultScroll { max-height: 400px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 0 12px 20px; -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 92%, rgba(255,255,255,0) 100%); margin-bottom: 40px; }
+        #vaultWindow { margin-top: 0; } #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll, #journalVaultScroll { margin-top: 15px; }
+        #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar, #learningVaultScroll::-webkit-scrollbar, #expenseVaultScroll::-webkit-scrollbar, #journalVaultScroll::-webkit-scrollbar { display: none; }
+        #expenseVaultScroll, #learningVaultScroll, #journalVaultScroll { max-height: 300px; }
 
         .note, .expense-tile { background: var(--note-bg); border-radius: 18px; padding: 12px 16px; margin-top: 14px; border-left: 3px solid var(--note-color, var(--active-accent)); backdrop-filter: blur(15px); animation: noteAppear 0.5s ease forwards; opacity: 0; position: relative; overflow: hidden; transition: background-color 0.5s ease, transform 0.5s ease; transform: translateZ(0); }
         .expense-tile { padding: 14px; }
@@ -434,7 +485,7 @@
         .exp-meta { font-size: 9px; color: var(--text-muted); font-weight: 700; letter-spacing: 0.5px; }
         .exp-cost { font-size: 14px; font-weight: 800; color: var(--active-accent); transition: color 0.5s ease; position: relative; z-index: 2;}
 
-        .collapsible-trigger { width: 100%; padding: 20px; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px; transition: all 0.3s ease; }
+        .collapsible-trigger { width: 100%; padding: 20px; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px; }
         #calendarModule, #completedVault, #expensesModule, #learningModule { display: none; padding-bottom: 20px; }
 
         .totals-display { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); text-align: right; margin-bottom: 15px; margin-right: 5px; }
@@ -520,7 +571,7 @@
             <div id="notesList"></div>
         </div>
 
-        <button id="btnToggleCalendar" class="collapsible-trigger" style="margin-top: 25px;">Calendar</button>
+        <button id="btnToggleCalendar" class="collapsible-trigger" style="margin-top: 25px;">Calendar & Deadlines</button>
         <div id="calendarModule">
             <div class="calendar-container parallax-target" style="margin-top: 10px;">
                 <div class="calendar-nav">
@@ -610,6 +661,36 @@
             </div>
         </div>
 
+        <button id="btnToggleJournal" class="collapsible-trigger">Professional Journal</button>
+        <div id="journalModule" style="display: none; padding-bottom: 20px;">
+            
+            <div class="calendar-container parallax-target" style="margin-top: 10px;">
+                <div class="journal-tabs">
+                    <button class="journal-tab-btn active" data-tab="Supervision">🛡️ Supervisor Comments</button>
+                    <button class="journal-tab-btn" data-tab="Daily Activity">💼 Daily Activity</button>
+                </div>
+                
+                <div class="expense-row">
+                    <input type="date" id="journalDate" class="expense-input" style="width: 100%;">
+                </div>
+                <div class="expense-row">
+                    <textarea id="journalText" class="expense-input" placeholder="Record specific instructions, feedback, or quotes from the supervisor..." style="height: 100px; resize: none; padding-top: 15px;"></textarea>
+                </div>
+                <button class="save-btn" id="logJournalBtn" style="width: 100%; padding: 15px;">Save to Ledger</button>
+            </div>
+
+            <div id="journalSearchWrapper" style="margin-bottom: 15px;">
+                <input type="text" id="journalSearchInput" placeholder="Search current ledger...">
+            </div>
+
+            <div id="journalVaultScroll">
+                <div id="journalList"></div>
+            </div>
+
+            <div style="display: flex; gap: 10px; margin-top: 15px;">
+                <button id="btnExportJournal" class="action-btn" style="flex: 1; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px; border: 1px solid var(--border);">Export Ledger</button>
+            </div>
+        </div>
         <button id="btnToggleCompleted" class="collapsible-trigger">View Completed Tasks</button>
         <div id="completedVault">
             <div id="completedVaultScroll">
@@ -635,6 +716,14 @@
         <div class="drawer-handle"></div>
         <div class="archive-header" style="margin-bottom:15px;">How To Use</div>
         <div class="help-scroll-area">
+            
+            <div class="safety-box" style="background: rgba(249, 196, 105, 0.05); border: 1px solid rgba(249, 196, 105, 0.3);">
+                <div style="color: #F9C469; margin-bottom: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Clinical Governance & Confidentiality</div>
+                <div style="font-size: 10px; line-height: 1.5; color: var(--text-high);">
+                    This is a personal training log. <b>Do not</b> enter sensitive, identifiable patient information into this app. Always maintain standard HCPC/BPS confidentiality guidelines when reflecting on clinical work.
+                </div>
+            </div>
+
             <div class="safety-box">
                 <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 700; line-height: 1.5;">System updates or clearing your browser cache will wipe this app's data. Back up your log frequently!</div>
                 <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);"><b>1. Backup</b></div>
@@ -644,8 +733,9 @@
             </div>
             <div class="walk-item"><b>Tags</b> Use icons to categorize notes.</div>
             <div class="walk-item"><b>Filter & Search</b> Filter by category or keyword. Tap download icon to export text.</div>
-            <div class="walk-item"><b>Calendar</b> Filter lists by day. Shows task creations and deadlines.</div>
+            <div class="walk-item"><b>Calendar</b> Filter lists by day. Overdue items pulse red.</div>
             <div class="walk-item"><b>Extra Learning Log</b> Track independent study. Export pre-formatted CSV.</div>
+            <div class="walk-item"><b>Professional Journal</b> A dual-stream chronological ledger to record activity and supervisor feedback as proof of work.</div>
             <div class="walk-item" style="border: none;"><b>Expenses</b> Set Base Postcode and £/mile rate in settings. Auto-calculates mileage via API.</div>
         </div>
     </div>
@@ -711,6 +801,9 @@
             let editingLearnId = null;
             let currentCalDate = new Date();
             
+            /* JOURNAL VARIABLES */
+            let currentJournalTab = 'Supervision'; 
+            
             /* 3D PARALLAX VARIABLES */
             let is3DActive = false;
             let baseBeta = null; 
@@ -754,8 +847,8 @@
                 const todayStr = new Date().toISOString().split('T')[0];
                 document.getElementById('journeyDate').value = todayStr; 
                 document.getElementById('learnDate').value = todayStr;
+                document.getElementById('journalDate').value = todayStr;
 
-                // INJECT TUTORIAL DATA ON FIRST LAUNCH
                 if (!localStorage.getItem('dclinTutorialSeen')) {
                     injectTutorialData(todayStr);
                 }
@@ -765,6 +858,7 @@
                 renderNotesDOM(); 
                 renderExpenses(); 
                 renderLearning();
+                renderJournal();
                 
                 setTimeout(() => { 
                     if (inputIconsContainer.children[writeIdx]) {
@@ -775,7 +869,6 @@
 
             function buildIconButtons() {
                 svgs.forEach((svg, i) => {
-                    // Input category buttons
                     const b1 = document.createElement('button'); 
                     b1.className = `sq-btn ic${i}`; 
                     b1.innerHTML = svg;
@@ -794,7 +887,7 @@
                         document.documentElement.style.setProperty('--mesh-scale', meshScales[i]);
 
                         noteInput.classList.remove('animating-placeholder'); 
-                        void noteInput.offsetWidth; // Trigger reflow
+                        void noteInput.offsetWidth; 
                         noteInput.setAttribute('data-placeholder', tagPrompts[i]); 
                         noteInput.classList.add('animating-placeholder');
                         
@@ -804,7 +897,6 @@
                     });
                     inputIconsContainer.appendChild(b1);
 
-                    // Filter category buttons
                     const b2 = document.createElement('button'); 
                     b2.className = `sq-btn ic${i}`; 
                     b2.innerHTML = svg;
@@ -871,6 +963,7 @@
                 document.getElementById('btnToggleCalendar').addEventListener('click', function() { toggleVault('calendarModule', this); });
                 document.getElementById('btnToggleLearning').addEventListener('click', function() { toggleVault('learningModule', this); });
                 document.getElementById('btnToggleExpenses').addEventListener('click', function() { toggleVault('expensesModule', this); });
+                document.getElementById('btnToggleJournal').addEventListener('click', function() { toggleVault('journalModule', this); });
                 document.getElementById('btnToggleCompleted').addEventListener('click', function() { toggleVault('completedVault', this); });
                 
                 // Calendar Navigation
@@ -886,6 +979,28 @@
                 document.getElementById('logJourneyBtn').addEventListener('click', logJourney);
                 document.getElementById('btnClearExpenses').addEventListener('click', clearAllExpenses);
                 document.getElementById('btnExportExpenses').addEventListener('click', exportExpensesCSV);
+
+                // Journal Logic & Tabs
+                document.querySelectorAll('.journal-tab-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        document.querySelectorAll('.journal-tab-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        currentJournalTab = this.getAttribute('data-tab');
+                        
+                        const textArea = document.getElementById('journalText');
+                        if (currentJournalTab === 'Supervision') {
+                            textArea.placeholder = "Record specific instructions, feedback, or quotes from the supervisor...";
+                        } else {
+                            textArea.placeholder = "Record tasks completed, clients seen, or admin finished...";
+                        }
+                        
+                        document.getElementById('journalSearchInput').value = "";
+                        renderJournal();
+                    });
+                });
+                document.getElementById('logJournalBtn').addEventListener('click', logJournal);
+                document.getElementById('journalSearchInput').addEventListener('input', renderJournal);
+                document.getElementById('btnExportJournal').addEventListener('click', exportJournalCSV);
 
                 // Completed
                 document.getElementById('btnClearCompleted').addEventListener('click', clearAllCompleted);
@@ -904,11 +1019,12 @@
                 });
                 document.getElementById('parallaxBtn').addEventListener('click', toggle3DParallax);
 
-                // EVENT DELEGATION FOR DYNAMIC LISTS (Notes, Expenses, Learning)
+                // EVENT DELEGATION
                 document.getElementById('notesList').addEventListener('click', handleNoteActions);
                 document.getElementById('completedList').addEventListener('click', handleNoteActions);
                 document.getElementById('learningList').addEventListener('click', handleLearningActions);
                 document.getElementById('expenseList').addEventListener('click', handleExpenseActions);
+                document.getElementById('journalList').addEventListener('click', handleJournalActions);
             }
 
             // --- HELPERS ---
@@ -1017,8 +1133,6 @@
 
             // --- EDITOR LOGIC ---
             function formatText(command) { 
-                /* Note: document.execCommand is deprecated but remains the only simple 
-                   native way to edit contenteditable without large external libraries. */
                 document.execCommand(command, false, null); 
                 noteInput.focus(); 
                 updateToolbarState(); 
@@ -1117,7 +1231,7 @@
                 triggerHaptic(20);
             }
 
-            // --- RENDERING CALENDAR ---
+            // --- PRIORITY CALENDAR LOGIC ---
             function renderCalendar() {
                 const grid = document.getElementById('calendarGrid'); 
                 const label = document.getElementById('monthLabel'); 
@@ -1142,10 +1256,14 @@
                 const daysInMonth = new Date(year, month + 1, 0).getDate();
                 const data = JSON.parse(localStorage.getItem('dclinData')) || [];
 
+                let todayObj = new Date(); 
+                todayObj.setHours(0,0,0,0);
+
                 for (let x = 0; x < firstDayIndex; x++) {
                     grid.appendChild(document.createElement('div'));
                 }
 
+                // Render Calendar Grid & Dots
                 for(let i = 1; i <= daysInMonth; i++) {
                     const dayDiv = document.createElement('div');
                     const isToday = i === new Date().getDate() && month === new Date().getMonth() && year === new Date().getFullYear();
@@ -1163,10 +1281,17 @@
                         dots += `<div class="dot" style="background: rgba(255,255,255,0.7);"></div>`;
                     }
                     
-                    const deadlineColors = [...new Set(dayDeadlines.map(d => d.color))].slice(0, 3); 
-                    deadlineColors.forEach(color => { 
-                        dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`; 
-                    });
+                    // Priority Intelligence: Red Glow for Overdue
+                    const isOverdue = (new Date(dateStr) < todayObj) && dayDeadlines.length > 0;
+                    
+                    if (isOverdue) {
+                        dots += `<div class="dot overdue-glow"></div>`;
+                    } else {
+                        const deadlineColors = [...new Set(dayDeadlines.map(d => d.color))].slice(0, 3); 
+                        deadlineColors.forEach(color => { 
+                            dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`; 
+                        });
+                    }
                     dots += '</div>'; 
                     dayDiv.innerHTML += dots;
                     
@@ -1181,45 +1306,84 @@
                     grid.appendChild(dayDiv);
                 }
                 
-                let todayObj = new Date(); 
-                todayObj.setHours(0,0,0,0); 
+                // Priority Intelligence: Smart Upcoming List
                 let nextWeek = new Date(todayObj); 
                 nextWeek.setDate(todayObj.getDate() + 7);
                 
-                let upcomingTasks = data.filter(d => { 
-                    if(d.done || !d.deadline) return false; 
-                    let dDate = new Date(d.deadline); 
-                    dDate.setHours(0,0,0,0); 
-                    return dDate >= todayObj && dDate <= nextWeek; 
+                let allPending = data.filter(d => d.deadline && !d.done);
+                
+                // Bucket 1: Overdue
+                let overdueTasks = allPending.filter(d => {
+                    let dDate = new Date(d.deadline);
+                    dDate.setHours(0,0,0,0);
+                    return dDate < todayObj;
+                }).sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+                
+                // Bucket 2: Future
+                let futureTasks = allPending.filter(d => {
+                    let dDate = new Date(d.deadline);
+                    dDate.setHours(0,0,0,0);
+                    return dDate >= todayObj;
+                }).sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+                
+                // Filter Future for "This Week"
+                let displayUpcoming = futureTasks.filter(d => {
+                    let dDate = new Date(d.deadline);
+                    dDate.setHours(0,0,0,0);
+                    return dDate <= nextWeek;
                 });
                 
+                // Smart Fallback: Show next 3 if nothing due this week
+                if (displayUpcoming.length === 0 && futureTasks.length > 0) {
+                    displayUpcoming = futureTasks.slice(0, 3);
+                }
+                
                 let upcomingHtml = '';
-                if(upcomingTasks.length > 0) {
-                    upcomingTasks.sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
+                if(overdueTasks.length > 0 || displayUpcoming.length > 0) {
                     upcomingHtml += `<div style="border-top: 1px solid var(--border); margin-top: 15px; padding-top: 15px;">`;
-                    upcomingHtml += `<div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px;">Due This Week</div>`;
                     
-                    upcomingTasks.forEach(task => {
-                        let taskDate = new Date(task.deadline); 
-                        let diffDays = Math.round((taskDate - todayObj) / (1000 * 60 * 60 * 24));
-                        let dayText = diffDays === 0 ? 'Today' : (diffDays === 1 ? 'Tomorrow' : `In ${diffDays} days`);
-                        let shortText = task.text.replace(/<[^>]*>?/gm, ''); 
-                        if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
-                        
-                        // We use data attributes here and let event delegation catch clicks later, or we inject an onclick for this specific special UI element
-                        upcomingHtml += `
-                            <div class="upcoming-item" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;">
-                                <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
-                                <div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>
-                            </div>`;
-                    });
+                    // Render Overdue at the very top
+                    if (overdueTasks.length > 0) {
+                        upcomingHtml += `<div style="font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--deadline-red); letter-spacing: 1px; margin-bottom: 10px;">Overdue</div>`;
+                        overdueTasks.forEach(task => {
+                            let taskDate = new Date(task.deadline);
+                            let diffDays = Math.round((todayObj - taskDate) / (1000 * 60 * 60 * 24));
+                            let dayText = diffDays === 1 ? 'Yesterday' : `${diffDays} days ago`;
+                            let shortText = task.text.replace(/<[^>]*>?/gm, ''); 
+                            if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
+                            
+                            upcomingHtml += `
+                                <div class="upcoming-item overdue-priority" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; cursor:pointer;">
+                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
+                                    <div style="color: var(--deadline-red); font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">MISSED: ${dayText}</div>
+                                </div>`;
+                        });
+                    }
+                    
+                    // Render Upcoming Below
+                    if (displayUpcoming.length > 0) {
+                        upcomingHtml += `<div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px; margin-top: 10px;">Upcoming</div>`;
+                        displayUpcoming.forEach(task => {
+                            let taskDate = new Date(task.deadline); 
+                            let diffDays = Math.round((taskDate - todayObj) / (1000 * 60 * 60 * 24));
+                            let dayText = diffDays === 0 ? 'Today' : (diffDays === 1 ? 'Tomorrow' : `In ${diffDays} days`);
+                            let shortText = task.text.replace(/<[^>]*>?/gm, ''); 
+                            if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
+                            
+                            upcomingHtml += `
+                                <div class="upcoming-item" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;">
+                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${shortText}</div>
+                                    <div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>
+                                </div>`;
+                        });
+                    }
+                    
                     upcomingHtml += `</div>`;
                 }
                 
                 const upcomingContainer = document.getElementById('upcomingDeadlines');
                 upcomingContainer.innerHTML = upcomingHtml;
                 
-                // Attach listeners to newly created upcoming items
                 document.querySelectorAll('.upcoming-item').forEach(item => {
                     item.addEventListener('click', function() {
                         const deadline = this.getAttribute('data-deadline');
@@ -1340,6 +1504,7 @@
                         localStorage.setItem('dclinData', JSON.stringify(data));
                     }
                     renderNotesDOM();
+                    renderCalendar(); // Re-render calendar to update priority dots
                 }, 600);
             }
 
@@ -1368,6 +1533,131 @@
                 localStorage.setItem('dclinData', JSON.stringify(data.filter(n => !n.done))); 
                 renderNotesDOM(); 
                 showToast("Completed tasks cleared");
+            }
+
+            // --- PROFESSIONAL JOURNAL LOGIC ---
+            function logJournal() {
+                const userDate = document.getElementById('journalDate').value;
+                const text = document.getElementById('journalText').value.trim();
+                
+                if (!text) {
+                    showToast("Please enter the record details.");
+                    return;
+                }
+
+                const systemDate = new Date().toISOString(); 
+
+                let data = JSON.parse(localStorage.getItem('dclinJournal')) || [];
+                data.unshift({
+                    id: Date.now(),
+                    userDate: userDate,
+                    systemDate: systemDate,
+                    type: currentJournalTab,
+                    text: text
+                });
+
+                localStorage.setItem('dclinJournal', JSON.stringify(data));
+                document.getElementById('journalText').value = "";
+                
+                renderJournal();
+                showToast("Recorded in Ledger");
+                triggerHaptic([30, 50, 30]);
+            }
+
+            function renderJournal() {
+                const list = document.getElementById('journalList');
+                const data = JSON.parse(localStorage.getItem('dclinJournal')) || [];
+                const searchQ = document.getElementById('journalSearchInput').value.toLowerCase();
+
+                const filtered = data.filter(item => {
+                    const matchesTab = item.type === currentJournalTab;
+                    const matchesSearch = item.text.toLowerCase().includes(searchQ);
+                    return matchesTab && matchesSearch;
+                });
+
+                if (filtered.length === 0) {
+                    list.innerHTML = `<div class="empty-state"><div class="empty-text">No records in this ledger</div></div>`;
+                    return;
+                }
+
+                const groupedByDate = {};
+                filtered.forEach(item => {
+                    if (!groupedByDate[item.userDate]) groupedByDate[item.userDate] = [];
+                    groupedByDate[item.userDate].push(item);
+                });
+
+                const sortedDates = Object.keys(groupedByDate).sort((a, b) => new Date(b) - new Date(a));
+
+                let html = "";
+                sortedDates.forEach((date, idx) => {
+                    const displayDate = date.split('-').reverse().join('/');
+                    const typeColor = currentJournalTab === 'Supervision' ? "var(--c2)" : "var(--c0)";
+                    
+                    html += `<div class="calendar-container" style="padding: 15px; margin-bottom: 15px; animation: noteAppear 0.4s ease forwards; animation-delay: ${idx * 0.05}s;">`;
+                    html += `<div style="font-size: 11px; font-weight: 800; color: ${typeColor}; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 10px; display:flex; justify-content:space-between;"><span>${displayDate}</span> <span style="opacity:0.5; font-size:9px;">${currentJournalTab.toUpperCase()}</span></div>`;
+
+                    groupedByDate[date].forEach((entry, eIdx) => {
+                        const parsedText = entry.text.replace(/\n/g, '<br>');
+                        const isLast = eIdx === groupedByDate[date].length - 1;
+
+                        html += `
+                            <div style="margin-bottom: ${isLast ? '0' : '12px'}; position: relative;">
+                                <div style="font-size: 12px; line-height: 1.5; color: var(--text-main); opacity: 0.9;">
+                                    ${parsedText}
+                                </div>
+                                <button class="action-btn journal-delete" style="color:#ff453a; opacity: 0.5; margin-top: 8px;" data-id="${entry.id}">Delete</button>
+                                ${!isLast ? `<hr style="border: 0; border-top: 1px dashed var(--border); margin-top: 12px; opacity: 0.5;">` : ''}
+                            </div>
+                        `;
+                    });
+
+                    html += `</div>`; 
+                });
+
+                list.innerHTML = html;
+            }
+
+            function handleJournalActions(e) {
+                const target = e.target;
+                if(target.classList.contains('journal-delete')) {
+                    const id = parseInt(target.getAttribute('data-id'));
+                    if(confirm("Delete this professional record permanently?")) {
+                        let data = JSON.parse(localStorage.getItem('dclinJournal')) || [];
+                        localStorage.setItem('dclinJournal', JSON.stringify(data.filter(item => item.id !== id)));
+                        renderJournal();
+                        showToast("Entry Removed");
+                    }
+                }
+            }
+
+            function exportJournalCSV() {
+                const data = JSON.parse(localStorage.getItem('dclinJournal')) || [];
+                const activeData = data.filter(item => item.type === currentJournalTab);
+                
+                if(activeData.length === 0) { showToast("Nothing to export in this tab"); return; }
+                
+                const escapeCSV = (str) => {
+                    if (str == null) return '""';
+                    return '"' + String(str).replace(/"/g, '""') + '"';
+                };
+                
+                let csvContent = "Event Date,System Recorded Timestamp,Category,Record Content\n";
+                activeData.forEach(e => {
+                    const userD = e.userDate.split('-').reverse().join('/');
+                    const sysD = new Date(e.systemDate).toLocaleString('en-GB'); 
+                    csvContent += `${escapeCSV(userD)},${escapeCSV(sysD)},${escapeCSV(e.type)},${escapeCSV(e.text)}\n`;
+                });
+                
+                const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                
+                const fileName = currentJournalTab === 'Supervision' ? 'Supervision_Ledger_Export.csv' : 'Daily_Activity_Log_Export.csv';
+                a.download = fileName;
+                
+                a.click();
+                showToast("Ledger Exported");
             }
 
             // --- LEARNING LOG LOGIC ---
@@ -1766,11 +2056,13 @@
                 const data = localStorage.getItem('dclinData') || "[]"; 
                 const expData = localStorage.getItem('dclinExpenses') || "[]"; 
                 const learnData = localStorage.getItem('dclinLearning') || "[]";
+                const journalData = localStorage.getItem('dclinJournal') || "[]";
                 
                 const combined = JSON.stringify({ 
                     notes: JSON.parse(data), 
                     expenses: JSON.parse(expData), 
-                    learning: JSON.parse(learnData) 
+                    learning: JSON.parse(learnData),
+                    journal: JSON.parse(journalData)
                 });
                 
                 const blob = new Blob([combined], { type: 'application/json' }); 
@@ -1804,12 +2096,14 @@
                             localStorage.setItem('dclinData', JSON.stringify(importedData.notes));
                             if(importedData.expenses) localStorage.setItem('dclinExpenses', JSON.stringify(importedData.expenses));
                             if(importedData.learning) localStorage.setItem('dclinLearning', JSON.stringify(importedData.learning));
+                            if(importedData.journal) localStorage.setItem('dclinJournal', JSON.stringify(importedData.journal));
                         }
                         
                         renderNotesDOM(); 
                         renderCalendar(); 
                         renderExpenses(); 
                         renderLearning(); 
+                        renderJournal();
                         showToast("Log Restored & Merged!");
                     } catch (err) { 
                         alert("Error reading file."); 
