@@ -13,7 +13,7 @@
         * { box-sizing: border-box; }
         
         button, a, input, select, textarea, .cal-day, .toggle-label, 
-        .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg, .theme-btn, .segment-btn {
+        .exp-details, .expense-tile, .walk-item, .footer-btn, .collapsible-trigger, .permanent-msg, .theme-btn, .segment-btn, .chip-btn {
             -webkit-user-select: none; user-select: none; touch-action: manipulation; 
         }
 
@@ -44,12 +44,11 @@
             
             --warm-white: #ffffff; --warm-white-glow: rgba(255, 255, 255, 0.2); 
             --active-accent: var(--c0); --active-vibe: var(--v5); --active-orb-2: var(--c3); --active-orb-3: var(--c1);
-            --filter-accent: var(--warm-white-glow); --deadline-red: #FF453A;
+            --filter-accent: var(--warm-white-glow); 
+            --deadline-red: #FF453A; --alert-amber: #FFD60A;
             
             --orb-x: 50%; --orb-y: -10%; 
             --mesh-rot: 0deg; --star-rot: 0deg; --mesh-scale: 1.2; 
-            --rx: 0deg; --ry: 0deg; 
-            --lx: 50%; --ly: 50%;
         }
 
         /* --- TACTILE DEPTH --- */
@@ -62,10 +61,18 @@
             transform: scale(0.96) translateY(2px);
         }
 
-        /* --- OVERDUE STYLING --- */
-        .dot.overdue-glow { background: var(--deadline-red) !important; box-shadow: 0 0 8px var(--deadline-red), 0 0 12px var(--deadline-red); animation: pulseOverdue 1.5s infinite; }
-        .upcoming-item.overdue-priority { border-left: 3px solid var(--deadline-red) !important; box-shadow: 0 0 15px rgba(255, 69, 58, 0.25); background: rgba(255, 69, 58, 0.05) !important; }
-        @keyframes pulseOverdue { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.6; transform: scale(1.3); } 100% { opacity: 1; transform: scale(1); } }
+        /* --- OVERDUE & AMBER STYLING --- */
+        .dot.overdue-glow { background: var(--deadline-red) !important; box-shadow: 0 0 8px var(--deadline-red); }
+        .dot.amber-glow { background: var(--alert-amber) !important; box-shadow: 0 0 8px var(--alert-amber); }
+        
+        .upcoming-item.overdue-priority { border-left: 3px solid var(--deadline-red) !important; box-shadow: 0 0 10px rgba(255, 69, 58, 0.2); background: rgba(255, 69, 58, 0.05) !important; }
+        .upcoming-item.amber-priority { border-left: 3px solid var(--alert-amber) !important; box-shadow: 0 0 10px rgba(255, 214, 10, 0.15); background: rgba(255, 214, 10, 0.05) !important; }
+        
+        .note.overdue-note {
+            box-shadow: 0 0 15px rgba(255, 69, 58, 0.25);
+            border: 1px solid rgba(255, 69, 58, 0.3);
+            border-left: 3px solid var(--deadline-red);
+        }
 
         /* --- FOUNDATION THEME --- */
         [data-theme="foundation"] { 
@@ -82,6 +89,10 @@
         }
         [data-theme="foundation"] .archive-header { font-size: 10px; text-transform: uppercase; letter-spacing: 3px; color: var(--text-main); font-weight: 600; opacity: 0.9; text-shadow: 0 2px 6px rgba(0,0,0,0.8); }
         [data-theme="foundation"] .input-box, [data-theme="foundation"] .note, [data-theme="foundation"] .expense-tile, [data-theme="foundation"] .calendar-container { background: var(--bg-color); border-radius: 20px; box-shadow: var(--tile-recessed); border: 1px solid rgba(255,255,255,0.01); border-left: none; }
+        
+        [data-theme="foundation"] .note.overdue-note { box-shadow: inset 4px 4px 15px rgba(255, 69, 58, 0.1), inset -2px -2px 10px #1a1a1a; border-left: 3px solid var(--deadline-red); }
+        [data-theme="foundation"] .note.overdue-note .note-body { color: rgba(255, 200, 200, 0.9); }
+
         [data-theme="foundation"] .sq-btn { border-radius: 8px; border: var(--btn-rim); background: var(--btn-surface); box-shadow: var(--btn-shadow); }
         [data-theme="foundation"] .sq-btn svg { fill: #444; opacity: 1; transition: 0.3s; }
         [data-theme="foundation"] .sq-btn.active { box-shadow: var(--btn-press); border-color: rgba(0,0,0,0.5); transform: translateY(2px); }
@@ -94,14 +105,15 @@
         [data-theme="foundation"] .journal-tab-btn.active { background: #000; box-shadow: inset 4px 4px 10px #000, inset -2px -2px 5px rgba(255,255,255,0.03) !important; border-color: var(--active-accent); }
         
         [data-theme="foundation"] .expense-input, [data-theme="foundation"] textarea.expense-input { background: #0d0d0d; box-shadow: inset 2px 2px 5px #000; border-radius: 15px; border: none; }
-        [data-theme="foundation"] .action-btn { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #666; }
-        [data-theme="foundation"] .action-btn:hover { color: var(--active-accent); }
+        [data-theme="foundation"] .action-btn, [data-theme="foundation"] .module-cog { font-weight: 800; text-transform: uppercase; letter-spacing: 1px; color: #666; }
+        [data-theme="foundation"] .action-btn:hover, [data-theme="foundation"] .module-cog:hover { color: var(--active-accent); }
 
         [data-theme="foundation"] .utility-orb { background: #111; box-shadow: inset 2px 2px 5px #000, inset -1px -1px 2px #222; }
         [data-theme="foundation"] .orb-download { border: 1px solid #66FF00; }
         [data-theme="foundation"] .orb-restore { border: 1px solid #007FFF; }
+        [data-theme="foundation"] .chip-btn { background: #0d0d0d; border: 1px solid rgba(255,255,255,0.05); box-shadow: inset 2px 2px 5px #000; }
 
-        /* --- NEBULA THEME (Director Optimized) --- */
+        /* --- NEBULA THEME --- */
         [data-theme="nebula"] { 
             --bg-color: #050508; --text-main: #ffffff; --text-muted: rgba(255, 255, 255, 0.45); 
             --text-mid: rgba(255, 255, 255, 0.7); --text-high: rgba(255, 255, 255, 0.9); 
@@ -120,31 +132,30 @@
             content: ''; position: absolute; left: 50%; top: 50%; width: 300vw; height: 300vh; pointer-events: none; z-index: 1;
             background-image: radial-gradient(2px 2px at 15% 25%, rgba(255,255,255,0.9) 100%, transparent), radial-gradient(3px 3px at 85% 15%, rgba(255,255,255,0.7) 100%, transparent), radial-gradient(2px 2px at 45% 75%, rgba(255,255,255,0.8) 100%, transparent), radial-gradient(1.5px 1.5px at 20% 40%, rgba(255,255,255,0.6) 100%, transparent), radial-gradient(3px 3px at 60% 10%, rgba(255,255,255,1) 100%, transparent), radial-gradient(2px 2px at 80% 60%, rgba(255,255,255,0.5) 100%, transparent), radial-gradient(1.5px 1.5px at 10% 90%, rgba(255,255,255,0.7) 100%, transparent), radial-gradient(3.5px 3.5px at 30% 80%, rgba(255,255,255,0.9) 100%, transparent), linear-gradient(45deg, transparent 49.8%, rgba(255,255,255,0.1) 50%, transparent 50.2%), linear-gradient(-60deg, transparent 49.8%, rgba(255,255,255,0.08) 50%, transparent 50.2%);
             background-size: 200px 200px, 300px 300px, 150px 150px, 120px 120px, 400px 400px, 250px 250px, 180px 180px, 350px 350px, 500px 500px, 600px 600px;
-            transform: translate3d(-50%, -50%, 0) rotate(var(--star-rot, 0deg)) scale(calc(var(--mesh-scale) * 0.8)); transition: transform 5s cubic-bezier(0.25, 1, 0.4, 1); animation: d2StarsDrift 200s linear infinite; will-change: transform, background-position; backface-visibility: hidden;
+            transform: translate3d(-50%, -50%, 0) rotate(var(--star-rot, 0deg)) scale(calc(var(--mesh-scale) * 0.8)); transition: transform 5s cubic-bezier(0.25, 1, 0.4, 1); will-change: transform; backface-visibility: hidden;
         }
         [data-theme="nebula"] .vibe-container::after {
             content: ''; position: absolute; left: 50%; top: 50%; width: 300vw; height: 300vh; pointer-events: none; z-index: 2; mix-blend-mode: screen;
             background-image: repeating-radial-gradient(circle at center, transparent 0, transparent 150px, color-mix(in srgb, var(--active-accent) 25%, rgba(255,255,255,0.3)) 150px, color-mix(in srgb, var(--active-accent) 25%, rgba(255,255,255,0.3)) 151px), repeating-radial-gradient(circle at center, transparent 0, transparent 250px, rgba(255,255,255,0.03) 250px, rgba(255,255,255,0.03) 252px), linear-gradient(30deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(-30deg, rgba(255,255,255,0.03) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.015) 1px, transparent 1px), radial-gradient(4px 4px at 0 0, color-mix(in srgb, var(--active-accent) 40%, rgba(255,255,255,0.5)) 100%, transparent), radial-gradient(2.5px 2.5px at 50px 86.6px, rgba(255,255,255,0.7) 100%, transparent);
             background-size: 100% 100%, 100% 100%, 100px 173.2px, 100px 173.2px, 50px 86.6px, 100px 173.2px, 100px 173.2px; background-position: center, center, 0 0, 0 0, 0 0, 0 0, 0 0;
-            transform: translate3d(-50%, -50%, 0) rotate(var(--mesh-rot, 0deg)) scale(var(--mesh-scale, 1.2)); transition: transform 4.5s cubic-bezier(0.25, 1, 0.4, 1), background-image 4.5s ease-in-out; animation: d2MeshDrift 90s linear infinite; will-change: transform, background-position; backface-visibility: hidden;
+            transform: translate3d(-50%, -50%, 0) rotate(var(--mesh-rot, 0deg)) scale(var(--mesh-scale, 1.2)); transition: transform 4.5s cubic-bezier(0.25, 1, 0.4, 1), background-image 4.5s ease-in-out; will-change: transform; backface-visibility: hidden;
         }
 
         [data-theme="nebula"] .orb-download { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); box-shadow: 0 0 20px rgba(102, 255, 0, 0.6); }
         [data-theme="nebula"] .orb-restore { background: rgba(255,255,255,0.05); backdrop-filter: blur(10px); box-shadow: 0 0 20px rgba(0, 127, 255, 0.6); }
 
-        @keyframes d2MeshDrift { from { background-position: center, center, 0 0, 0 0, 0 0, 0 0, 0 0; } to { background-position: center, center, -100px -173.2px, -100px -173.2px, -50px -86.6px, -100px -173.2px, -100px -173.2px; } }
-        @keyframes d2StarsDrift { from { background-position: 0 0; } to { background-position: -1200px -1200px; } }
-
         [data-theme="nebula"] .archive-header { color: #ffffff; opacity: 1; letter-spacing: 5px; text-shadow: 0 0 8px #ffffff, 0 0 24px var(--active-accent); }
         [data-theme="nebula"] .collapsible-trigger, [data-theme="nebula"] #monthLabel, [data-theme="nebula"] .note-header span { text-shadow: 0 0 10px rgba(255,255,255,0.3); }
 
         /* Hardware Accelerated Foreground Elements + will-change for anti-pop-in */
-        [data-theme="nebula"] .input-box, [data-theme="nebula"] .note, [data-theme="nebula"] .expense-tile, [data-theme="nebula"] .calendar-container, [data-theme="nebula"] #searchWrapper, [data-theme="nebula"] #journalSearchWrapper { 
+        [data-theme="nebula"] .input-box, [data-theme="nebula"] .note, [data-theme="nebula"] .expense-tile, [data-theme="nebula"] .calendar-container, [data-theme="nebula"] #searchWrapper, [data-theme="nebula"] #journalSearchWrapper, [data-theme="nebula"] .stat-card { 
             background: var(--note-bg); border-radius: 12px; border: 1px solid rgba(255,255,255,0.05); border-top: 1px solid rgba(255,255,255,0.15); 
             box-shadow: 0 8px 24px rgba(0,0,0,0.6), 0 0 12px rgba(255,255,255,0.08); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); margin-bottom: 20px; 
             transform: translateZ(0); backface-visibility: hidden;
             will-change: transform, backdrop-filter; /* Rendering Fix */
         }
+        
+        [data-theme="nebula"] .note.overdue-note { box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 0 20px rgba(255, 69, 58, 0.15), 0 0 12px rgba(255, 69, 58, 0.3); border: 1px solid rgba(255, 69, 58, 0.4); border-left: 3px solid var(--deadline-red); background: rgba(255, 69, 58, 0.05); }
 
         [data-theme="nebula"] #vaultWindow, [data-theme="nebula"] #completedVaultScroll, [data-theme="nebula"] #learningVaultScroll, [data-theme="nebula"] #expenseVaultScroll, [data-theme="nebula"] #journalVaultScroll {
             background: transparent !important; border: none !important; box-shadow: none !important; backdrop-filter: none !important; -webkit-backdrop-filter: none !important;
@@ -184,8 +195,9 @@
         [data-theme="nebula"] .journal-tab-btn.active { color: var(--active-accent); border-color: rgba(255,255,255,0.2); background: rgba(255,255,255,0.08); box-shadow: inset 0 4px 12px rgba(0,0,0,0.4), 0 0 12px var(--active-vibe) !important; text-shadow: 0 0 10px rgba(255,255,255,0.3); }
         [data-theme="nebula"] .expense-input, [data-theme="nebula"] textarea.expense-input { background: rgba(0,0,0,0.4); border-radius: 8px; border: 1px solid rgba(255,255,255,0.08); border-bottom: 2px solid rgba(255,255,255,0.15); padding: 14px 16px; transition: all 0.3s ease; box-shadow: inset 0 2px 5px rgba(0,0,0,0.6), 0 0 6px rgba(255,255,255,0.05); transform: translateZ(0); }
         [data-theme="nebula"] .expense-input:focus, [data-theme="nebula"] textarea.expense-input:focus { background: rgba(0,0,0,0.6); border-bottom-color: var(--active-accent); box-shadow: inset 0 2px 5px rgba(0,0,0,0.9), 0 10px 20px -10px var(--active-accent); outline: none; }
-        [data-theme="nebula"] .action-btn { font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); }
-        [data-theme="nebula"] .action-btn:hover { color: var(--active-accent); text-shadow: 0 0 8px var(--active-accent); opacity: 1; }
+        [data-theme="nebula"] .action-btn, [data-theme="nebula"] .module-cog { font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); }
+        [data-theme="nebula"] .action-btn:hover, [data-theme="nebula"] .module-cog:hover { color: var(--active-accent); text-shadow: 0 0 8px var(--active-accent); opacity: 1; }
+        [data-theme="nebula"] .chip-btn { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(5px); box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
 
         /* --- PARCHMENT THEME --- */
         [data-theme="parchment"] { 
@@ -202,9 +214,12 @@
         html[data-theme="parchment"]::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E"); opacity: 1; mix-blend-mode: multiply; }
         html[data-theme="parchment"] body, html[data-theme="parchment"] input, html[data-theme="parchment"] textarea, html[data-theme="parchment"] select, html[data-theme="parchment"] button, html[data-theme="parchment"] .note-body { font-family: 'Georgia', 'Times New Roman', serif; }
         [data-theme="parchment"] .vibe-container, [data-theme="foundation"] .vibe-container { display: none !important; }
-        [data-theme="parchment"] .input-box, [data-theme="parchment"] .note, [data-theme="parchment"] .expense-tile, [data-theme="parchment"] .calendar-container, [data-theme="parchment"] #searchWrapper, [data-theme="parchment"] #journalSearchWrapper, [data-theme="parchment"] .bottom-drawer { background: var(--note-bg); border: 1px solid var(--border); border-radius: 2px; box-shadow: 4px 4px 0px rgba(0,0,0,0.08), 8px 8px 0px rgba(0,0,0,0.04); backdrop-filter: none; -webkit-backdrop-filter: none; }
+        [data-theme="parchment"] .input-box, [data-theme="parchment"] .note, [data-theme="parchment"] .expense-tile, [data-theme="parchment"] .calendar-container, [data-theme="parchment"] #searchWrapper, [data-theme="parchment"] #journalSearchWrapper, [data-theme="parchment"] .stat-card, [data-theme="parchment"] .bottom-drawer { background: var(--note-bg); border: 1px solid var(--border); border-radius: 2px; box-shadow: 4px 4px 0px rgba(0,0,0,0.08), 8px 8px 0px rgba(0,0,0,0.04); backdrop-filter: none; -webkit-backdrop-filter: none; }
         [data-theme="parchment"] .bottom-drawer { border-radius: 10px 10px 0 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.15); }
         [data-theme="parchment"] .note { --note-color: #1a1712 !important; border-left-width: 4px; border-left-style: double; }
+        
+        [data-theme="parchment"] .note.overdue-note { background: rgba(255, 69, 58, 0.05); border-left-color: var(--deadline-red); border-left-width: 4px; border-left-style: double; border-color: rgba(255, 69, 58, 0.4); }
+
         [data-theme="parchment"] .note-header span { color: #1a1712 !important; font-weight: bold; }
         [data-theme="parchment"] .dot { background: #1a1712 !important; box-shadow: none !important; }
         [data-theme="parchment"] .sq-btn { border-radius: 2px; border: 1px solid var(--border); background: var(--note-bg); box-shadow: 2px 2px 0px rgba(0,0,0,0.1); }
@@ -226,46 +241,54 @@
         [data-theme="parchment"] .check-svg path { animation: drawInk 0.5s ease forwards 0.1s, inkBleed 1s ease forwards !important; }
         [data-theme="parchment"] .orb-download { border: 2px solid #66FF00; box-shadow: inset 0 0 8px rgba(102, 255, 0, 0.4); background: transparent; }
         [data-theme="parchment"] .orb-restore { border: 2px solid #007FFF; box-shadow: inset 0 0 8px rgba(0, 127, 255, 0.4); background: transparent; }
+        [data-theme="parchment"] .chip-btn { background: #F2E8D5; border: 1px solid #1a1712; color: #1a1712; box-shadow: 2px 2px 0px rgba(0,0,0,0.1); border-radius: 2px; }
 
-        /* =========================================
+     /* =========================================
             CORE LAYOUT & LOGIC
            ========================================= */
-        html, body { scrollbar-width: none; -ms-overflow-style: none; width: 100%; overflow-x: hidden; position: relative;}
-        html::-webkit-scrollbar, body::-webkit-scrollbar { display: none; width: 0 !important; }
+        * { scrollbar-width: none !important; -ms-overflow-style: none !important; }
+        *::-webkit-scrollbar { display: none !important; width: 0 !important; height: 0 !important; background: transparent !important; }
+        html, body { width: 100%; overflow-x: hidden; position: relative;}
         body { margin: 0; background-color: var(--bg-color); color: var(--text-main); font-family: -apple-system, system-ui, sans-serif; min-height: 100vh; overflow-y: auto; overflow-x: hidden; -webkit-tap-highlight-color: transparent; transition: background-color 0.6s ease, color 0.6s ease; }
 
         .app-container { padding: calc(40px + env(safe-area-inset-top, 20px)) 25px 60px; max-width: 420px; margin: auto; position: relative; z-index: 1; perspective: 1500px; }
-        .parallax-target { transform: rotateX(var(--rx)) rotateY(var(--ry)); transform-style: preserve-3d; will-change: transform; position: relative; }
-        .parallax-target > * { transform: translateZ(25px); position: relative; z-index: 2; }
-        .parallax-target::before { content: ''; position: absolute; inset: 0; border-radius: inherit; background: radial-gradient(circle at var(--lx) var(--ly), rgba(255,255,255,0.15) 0%, transparent 60%); pointer-events: none; z-index: 1; transform: translateZ(1px); opacity: 0; transition: opacity 0.5s ease; }
-        .parallax-active .parallax-target::before { opacity: 1; }
-
+        
         .vibe-container { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; pointer-events: none; z-index: 0; overflow: hidden; view-transition-name: vibe-bg; }
         .orb { position: absolute; border-radius: 50%; filter: blur(90px); transition: background 3.5s ease-in-out, top 3.5s cubic-bezier(0.25, 1, 0.4, 1), left 3.5s cubic-bezier(0.25, 1, 0.4, 1); z-index: 0; }
-        .orb-1 { width: 160vw; height: 160vw; background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%); top: calc(var(--orb-y) - 80vw); left: calc(var(--orb-x) - 80vw); animation: pulseFloat 14s ease-in-out infinite alternate; opacity: 1; }
-        .orb-2 { width: 120vw; height: 120vw; background: radial-gradient(circle, var(--active-orb-2) 0%, transparent 60%); top: 10%; right: -20%; animation: float2 18s ease-in-out infinite alternate; opacity: 0.6; }
-        .orb-3 { width: 100vw; height: 100vw; background: radial-gradient(circle, var(--active-orb-3) 0%, transparent 60%); bottom: -30%; left: 10%; animation: float3 20s ease-in-out infinite alternate; opacity: 0.5; }
-        @keyframes pulseFloat { 0% { transform: scale(1); } 100% { transform: scale(1.15); } }
-        @keyframes float2 { 0% { transform: translate(0, 0) scale(1); } 100% { transform: translate(-15vw, 10vh) scale(1.2); } }
-        @keyframes float3 { 0% { transform: translate(0, 0) scale(1.2); } 100% { transform: translate(20vw, -15vh) scale(1); } }
+        .orb-1 { width: 160vw; height: 160vw; background: radial-gradient(circle, var(--active-vibe) 0%, transparent 70%); top: calc(var(--orb-y) - 80vw); left: calc(var(--orb-x) - 80vw); opacity: 1; }
+        .orb-2 { width: 120vw; height: 120vw; background: radial-gradient(circle, var(--active-orb-2) 0%, transparent 60%); top: 10%; right: -20%; opacity: 0.6; }
+        .orb-3 { width: 100vw; height: 100vw; background: radial-gradient(circle, var(--active-orb-3) 0%, transparent 60%); bottom: -30%; left: 10%; opacity: 0.5; }
 
         .archive-header { font-size: 10px; text-transform: uppercase; letter-spacing: 4px; opacity: 0.35; margin-bottom: 22px; text-align: center; font-weight: 600; }
         .journal-tabs { display: flex; gap: 10px; margin-bottom: 15px; }
         .journal-tab-btn { flex: 1; padding: 12px 5px; background: var(--glass); border: 1px solid var(--border); border-radius: 12px; color: var(--text-muted); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 6px; }
         .journal-tab-btn.active { background: var(--note-bg); border-color: var(--active-accent); color: var(--text-main); box-shadow: inset 0 0 10px rgba(0,0,0,0.5), 0 0 8px var(--active-accent); }
 
+        /* Cogs & Settings Modules */
+        .module-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; }
+        .module-title { font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; }
+        .module-cog { background: transparent; border: none; color: var(--text-muted); cursor: pointer; transition: 0.3s; padding: 5px; display: flex; align-items: center; justify-content: center; }
+        .module-cog:hover { color: var(--active-accent); }
+
         .input-box { background: var(--glass); border-radius: 32px; padding: 25px; backdrop-filter: blur(40px); -webkit-backdrop-filter: blur(40px); border: 1px solid var(--border); box-shadow: 0 20px 50px var(--shadow-heavy), 0 0 30px var(--active-accent); transition: box-shadow 0.4s ease; margin-top: 10px; position: relative; overflow: hidden; }
         .input-box.save-sweep::after { content: ''; position: absolute; top: -50%; left: -50%; width: 50%; height: 200%; background: linear-gradient(to right, transparent, rgba(255,255,255,0.4), transparent); transform: rotate(30deg); animation: sweep 0.6s ease-out forwards; pointer-events: none; z-index: 10; }
         @keyframes sweep { 0% { left: -50%; } 100% { left: 150%; } }
 
-        .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
+        .editor-wrapper { position: relative; width: 100%; height: 160px; display: flex; flex-direction: column; padding-top: 5px; }
         #noteInput { flex-grow: 1; background: transparent; border: none; color: var(--text-main); font-size: 16px; overflow-y: auto; font-family: inherit; font-weight: 300; line-height: 1.5; padding-bottom: 10px; -webkit-appearance: none; outline: none !important; -webkit-tap-highlight-color: transparent; -webkit-user-select: text; user-select: text; }
         #noteInput:focus { outline: 0px solid transparent !important; box-shadow: none !important; -webkit-box-shadow: none !important; }
-        #noteInput[contenteditable]:empty::before { content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block; }
+       #noteInput[contenteditable]:empty::before, #learnReflection[contenteditable]:empty::before, #journalText[contenteditable]:empty::before { content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block; }
         
-        .editor-toolbar { display: flex; gap: 12px; margin-top: auto; padding-top: 10px; align-items: center; }
+        .fw-prompt { color: var(--text-muted) !important; font-weight: 800; user-select: none; pointer-events: none; -webkit-user-modify: read-only; }
+        .fw-row { margin-bottom: 8px; }
+        
+        .editor-toolbar { display: flex; gap: 12px; margin-top: auto; padding-top: 10px; align-items: center; border-top: 1px dashed rgba(255,255,255,0.1); }
         .format-btn { background: transparent; border: none; color: var(--text-muted); font-size: 14px; cursor: pointer; padding: 0; transition: 0.3s ease; font-family: inherit; font-weight: 600; }
         .format-btn.active { color: var(--text-main); text-shadow: 0 0 10px var(--active-accent); }
+        
+        #wordCountDisplay { display: none; font-size: 10px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); margin-left: auto; letter-spacing: 0.5px; }
+        #summativeToggleLabel { margin-left: auto; font-size: 14px; font-weight: 600; cursor: pointer; color: var(--text-muted); transition: color 0.3s ease, text-shadow 0.3s ease; -webkit-tap-highlight-color: transparent;}
+        #summativeToggleLabel.active { color: var(--active-accent) !important; text-shadow: 0 0 10px var(--active-accent); }
 
         .icon-row { display: flex; justify-content: space-between; gap: 8px; margin: 45px 0 35px; }
         .sq-btn { width: 44px; height: 44px; border-radius: 14px; border: 1px solid var(--border); background: var(--glass); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); padding: 0; }
@@ -359,6 +382,31 @@
         .expense-input::placeholder { color: var(--text-muted); }
         select.expense-input option { background-color: var(--toast-bg); color: var(--text-main); }
         
+        /* Quick Fill Chips */
+        .quick-fill-container { display: flex; gap: 8px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; margin-bottom: 12px; padding-bottom: 5px; }
+        .quick-fill-container::-webkit-scrollbar { display: none; }
+        .chip-btn { flex-shrink: 0; background: var(--note-bg); border: 1px solid var(--border); color: var(--text-main); font-size: 10px; font-weight: 700; padding: 8px 14px; border-radius: 14px; cursor: pointer; transition: 0.2s ease; }
+        .chip-btn:active { transform: scale(0.95); background: var(--glass); }
+
+        /* Progress Bars */
+        .progress-container { margin-bottom: 20px; }
+        .progress-row { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+        .progress-label { font-size: 9px; font-weight: 700; color: var(--text-mid); width: 45px; text-transform: uppercase; }
+        .progress-track { flex: 1; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; position: relative; }
+        .progress-fill { height: 100%; border-radius: 3px; transition: width 0.5s ease; }
+        .progress-text { font-size: 9px; font-weight: 700; color: var(--text-main); width: 40px; text-align: right; }
+
+       /* Dashboard Stats - Compact Mode */
+        .stat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+        .stat-card { background: var(--glass); border: 1px solid var(--border); border-radius: 12px; padding: 10px; text-align: center; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .stat-val { font-size: 16px; font-weight: 800; color: var(--active-accent); margin-bottom: 2px; }
+        .stat-label { font-size: 8px; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; color: var(--text-muted); }
+        
+        details.stat-details { background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 10px; padding: 8px; margin-top: 8px; font-size: 10px; }
+        details.stat-details summary { font-size: 9px; font-weight: 800; text-transform: uppercase; color: var(--text-mid); cursor: pointer; letter-spacing: 1px; outline: none; }
+        .stat-breakdown-row { display: flex; justify-content: space-between; padding: 4px 0; border-bottom: 1px dashed rgba(255,255,255,0.05); }
+        .stat-breakdown-row:last-child { border-bottom: none; }
+
         .toggle-label { display: flex; align-items: center; gap: 8px; font-size: 10px; text-transform: uppercase; font-weight: 700; letter-spacing: 1px; color: var(--text-mid); cursor: pointer; }
         .toggle-label input { width: 16px; height: 16px; accent-color: var(--active-accent); cursor: pointer; }
 
@@ -368,7 +416,7 @@
         .exp-cost { font-size: 14px; font-weight: 800; color: var(--active-accent); transition: color 0.5s ease; position: relative; z-index: 2;}
 
         .collapsible-trigger { width: 100%; padding: 20px; background: var(--glass); border: 1px solid var(--border); border-radius: 20px; color: var(--text-high); font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 2.5px; cursor: pointer; margin-top: 10px; margin-bottom: 10px; }
-        #calendarModule, #completedVault, #expensesModule, #learningModule { display: none; padding-bottom: 20px; }
+        #calendarModule, #completedVault, #expensesModule, #learningModule, #dashboardModule { display: none; padding-bottom: 20px; }
 
         .totals-display { font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); text-align: right; margin-bottom: 15px; margin-right: 5px; }
 
@@ -435,6 +483,8 @@
         .segment-btn.active { background: var(--glass); color: var(--active-accent); box-shadow: 0 0 10px var(--filter-accent); border: 1px solid var(--border); }
         .setting-info-text { font-size: 9px; line-height: 1.5; color: var(--text-mid); opacity: 0; max-height: 0; overflow: hidden; transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1); border-left: 2px solid var(--deadline-red); padding-left: 10px; }
         .setting-info-text.visible { opacity: 1; max-height: 60px; margin-top: 12px; }
+        
+        .amber-border { border-left-color: var(--alert-amber) !important; }
 
         /* --- GLOBAL BUTTON PRESS OVERRIDES --- */
         .sq-btn:active {
@@ -482,22 +532,23 @@
     <div class="app-container">
         <div class="archive-header">Capture Note</div>
         
-        <div class="input-box parallax-target">
+        <div class="input-box">
+            <button id="btnToggleNotesSettings" class="module-cog" style="position: absolute; top: 15px; right: 15px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+            </button>
             <div class="editor-wrapper">
                 <div id="noteInput" contenteditable="true" data-placeholder=""></div>
                 <div class="editor-toolbar">
                     <button class="format-btn" id="btnBold">B</button>
                     <button class="format-btn" id="btnItalic" style="font-style: italic;">I</button>
                     <button class="format-btn" id="btnUnderline" style="text-decoration: underline;">U</button>
+                    <span id="wordCountDisplay">0 words</span>
+                    <label id="summativeToggleLabel" style="display:none;"><input type="checkbox" id="summativeCheck" style="display:none;">Summative</label>
                 </div>
             </div>
         </div>
         
         <div class="icon-row" id="inputIcons"></div>
-
-        <div id="summativeContainer" style="display: none; justify-content: center; margin-bottom: 25px;">
-            <label class="toggle-label" style="color: var(--c4); font-size: 11px;"><input type="checkbox" id="summativeCheck"> ⭐ Summative / Major Deadline</label>
-        </div>
 
         <div class="action-row-input">
             <div class="date-btn">
@@ -526,7 +577,13 @@
 
         <button id="btnToggleCalendar" class="collapsible-trigger" style="margin-top: 25px;">Calendar & Deadlines</button>
         <div id="calendarModule">
-            <div class="calendar-container parallax-target" style="margin-top: 10px;">
+            <div class="calendar-container" style="margin-top: 10px;">
+                <div class="module-header">
+                    <div class="module-title">Calendar</div>
+                    <button id="btnToggleCalendarSettings" class="module-cog">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </button>
+                </div>
                 <div class="calendar-nav">
                     <button id="btnPrevMonth" class="nav-btn">❮</button>
                     <div id="monthLabel">Month Year</div>
@@ -539,8 +596,16 @@
 
         <button id="btnToggleLearning" class="collapsible-trigger">Extra Learning Log</button>
         <div id="learningModule">
-            <div class="calendar-container parallax-target" style="margin-top: 10px;">
-                <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 15px;">Add Learning Record</div>
+            <div class="calendar-container" style="margin-top: 10px;">
+                <div class="module-header">
+                    <div class="module-title">Add Learning Record</div>
+                    <button id="btnToggleLearningSettings" class="module-cog">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </button>
+                </div>
+                
+                <div id="learningProgressContainer" class="progress-container" style="display:none;"></div>
+
                 <div class="expense-row">
                     <input type="date" id="learnDate" class="expense-input" style="width: 110px; flex: none;">
                     <select id="learnType" class="expense-input" style="flex: 1; padding-right: 10px;">
@@ -555,8 +620,8 @@
                 <div class="expense-row">
                     <input type="text" id="learnDesc" class="expense-input" placeholder="E.g. reading/podcast/video">
                 </div>
-                <div class="expense-row">
-                    <textarea id="learnReflection" class="expense-input" placeholder="Reflections and notes on extra learning..." style="height: 100px; resize: none; padding-top: 15px;"></textarea>
+               <div class="expense-row">
+                    <div id="learnReflection" class="expense-input" contenteditable="true" data-placeholder="Reflections and notes on extra learning..." style="height: 100px; overflow-y: auto; padding-top: 15px; outline: none;"></div>
                 </div>
                 <button class="save-btn" id="logLearningBtn" style="width: 100%; padding: 15px;">Save to Log</button>
             </div>
@@ -575,10 +640,10 @@
 
         <button id="btnToggleExpenses" class="collapsible-trigger">Manage Expenses</button>
         <div id="expensesModule">
-            <div class="calendar-container parallax-target" style="margin-top: 10px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
-                    <div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px;">Log Journey</div>
-                    <button id="btnToggleExpenseSettings" class="action-btn" style="padding: 5px;">
+            <div class="calendar-container" style="margin-top: 10px;">
+                <div class="module-header">
+                    <div class="module-title">Log Journey</div>
+                    <button id="btnToggleExpenseSettings" class="module-cog">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
                     </button>
                 </div>
@@ -596,7 +661,9 @@
                     <input type="text" id="destPostcode" class="expense-input" placeholder="End (Postcode)">
                 </div>
 
-                <div class="expense-row" style="justify-content: space-between;">
+                <div id="quickFillChips" class="quick-fill-container" style="display:none;"></div>
+
+                <div class="expense-row" style="justify-content: space-between; margin-top: 5px;">
                     <label class="toggle-label"><input type="checkbox" id="returnJourney" checked> Return</label>
                     <button class="save-btn" id="logJourneyBtn" style="padding: 12px 20px;">Log Journey</button>
                 </div>
@@ -617,17 +684,23 @@
         <button id="btnToggleJournal" class="collapsible-trigger">Professional Journal</button>
         <div id="journalModule" style="display: none; padding-bottom: 20px;">
             
-            <div class="calendar-container parallax-target" style="margin-top: 10px;">
+            <div class="calendar-container" style="margin-top: 10px;">
+                <div class="module-header" style="margin-bottom: 10px;">
+                    <div class="module-title">Record Entry</div>
+                    <button id="btnToggleJournalSettings" class="module-cog">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+                    </button>
+                </div>
                 <div class="journal-tabs">
-                    <button class="journal-tab-btn active" data-tab="Supervision">🛡️ Supervisor Comments</button>
-                    <button class="journal-tab-btn" data-tab="Daily Activity">💼 Daily Activity</button>
+                    <button class="journal-tab-btn active" data-tab="Supervision">Supervisor Comments</button>
+                    <button class="journal-tab-btn" data-tab="Daily Activity">Daily Activity</button>
                 </div>
                 
                 <div class="expense-row">
                     <input type="date" id="journalDate" class="expense-input" style="width: 100%;">
                 </div>
                 <div class="expense-row">
-                    <textarea id="journalText" class="expense-input" placeholder="Record specific instructions, feedback, or quotes from the supervisor..." style="height: 100px; resize: none; padding-top: 15px;"></textarea>
+                    <div id="journalText" class="expense-input" contenteditable="true" data-placeholder="Record specific instructions, feedback, or quotes from the supervisor..." style="height: 100px; overflow-y: auto; padding-top: 15px; outline: none;"></div>
                 </div>
                 <button class="save-btn" id="logJournalBtn" style="width: 100%; padding: 15px;">Save to Ledger</button>
             </div>
@@ -644,12 +717,18 @@
                 <button id="btnExportJournal" class="action-btn" style="flex: 1; padding: 12px; background: var(--glass); color: var(--text-main); border-radius: 10px; border: 1px solid var(--border);">Export Ledger</button>
             </div>
         </div>
+
         <button id="btnToggleCompleted" class="collapsible-trigger">View Completed Tasks</button>
         <div id="completedVault">
             <div id="completedVaultScroll">
                 <div id="completedList"></div>
             </div>
             <button id="btnClearCompleted" class="action-btn" style="width:100%; margin-top:20px; opacity:0.3; font-size:8px;">Clear All Completed</button>
+        </div>
+
+        <button id="btnToggleDashboard" class="collapsible-trigger" style="display:none; color: var(--active-accent); border-color: var(--active-accent);">Statistics & Dashboard</button>
+        <div id="dashboardModule">
+            <div id="dashboardContent"></div>
         </div>
 
         <div class="backup-footer">
@@ -659,7 +738,7 @@
                 </button>
                 
                 <div class="center-stack">
-                    <button id="btnToggleSettings" class="footer-btn">Settings</button>
+                    <button id="btnToggleSettings" class="footer-btn">Global Settings</button>
                     <button id="btnToggleThemes" class="footer-btn">Themes</button>
                     <button id="btnToggleHelp" class="footer-btn">Help</button>
                 </div>
@@ -676,15 +755,28 @@
         </div>
     </div>
 
-    <div id="generalSettingsDrawer" class="bottom-drawer">
+    <div id="notesSettingsDrawer" class="bottom-drawer">
         <div class="drawer-handle"></div>
-        <div class="archive-header" style="margin-bottom:20px;">Settings</div>
+        <div class="archive-header" style="margin-bottom:20px;">Notes Settings</div>
         
-        <details class="setting-group">
-            <summary class="setting-label" style="cursor:pointer; display:flex; justify-content:space-between; align-items:center;">
-                Rename Tags <span style="font-size:12px; color: var(--active-accent);">+</span>
-            </summary>
-            <div style="margin-top: 15px; background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 12px; padding: 15px;">
+        <div class="setting-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="setting-label" style="margin-bottom:0;">Show Word Counter</div>
+                <label class="toggle-label"><input type="checkbox" id="settingWordCount"></label>
+            </div>
+        </div>
+
+        <div class="setting-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="setting-label" style="margin-bottom:0;">Reflective Framework (Gibbs)</div>
+                <label class="toggle-label"><input type="checkbox" id="settingNotesFramework"></label>
+            </div>
+            <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6; padding:0; margin-top:5px; text-align:left;">Auto-populates ghosted headings when creating a new 'Reflection' note.</div>
+        </div>
+
+        <div class="setting-group" style="border-top: 1px solid var(--border); padding-top: 20px;">
+            <div class="setting-label">Rename Tags</div>
+            <div style="background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 12px; padding: 15px;">
                 <div class="expense-row" style="margin-bottom: 12px;">
                     <select id="renameTagSelect" class="expense-input" style="flex: 1; padding-right: 10px;"></select>
                 </div>
@@ -692,12 +784,122 @@
                     <input type="text" id="renameTagInput" class="expense-input" placeholder="New tag name...">
                 </div>
                 <button id="btnSaveRenameTag" class="save-btn" style="width: 100%; padding: 12px;">Save Tag</button>
-                <div class="setting-info-text visible" style="border-left-color: var(--text-muted); opacity: 0.6; max-height: 100px; margin-top: 10px;">
-                    Renaming a tag automatically updates all of your existing notes in that category.
-                </div>
             </div>
-        </details>
+        </div>
+    </div>
 
+  <div id="calendarSettingsDrawer" class="bottom-drawer">
+        <div class="drawer-handle"></div>
+        <div class="archive-header" style="margin-bottom:20px;">Calendar Settings</div>
+        
+        <div class="setting-group">
+            <div class="setting-label">Upcoming / Overdue Glows</div>
+            <div class="segmented-control" id="calendarGlowControl">
+                <button class="segment-btn" data-val="Off">Off</button>
+                <button class="segment-btn" data-val="On">On</button>
+            </div>
+            <div class="setting-info-text" id="calendarGlowInfo">
+                Overdue tasks will emit a red highlight on the calendar.
+            </div>
+        </div>
+
+        <div class="setting-group" id="amberWarningGroup" style="display: none; border-top: 1px dashed var(--border); padding-top: 15px; margin-top: 15px;">
+            <div class="setting-label">Amber Warning Alert</div>
+            <div class="expense-row">
+                <select id="settingAmberDays" class="expense-input">
+                    <option value="0">Off (No warnings)</option>
+                    <option value="1">1 Day Before</option>
+                    <option value="3">3 Days Before</option>
+                    <option value="5">5 Days Before</option>
+                    <option value="7">7 Days Before</option>
+                </select>
+            </div>
+            <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6; padding:0; margin-top:5px; text-align:left;">Upcoming deadlines within this window will glow amber on the calendar.</div>
+        </div>
+
+        <div class="setting-group" style="border-top: 1px solid var(--border); padding-top: 20px; margin-top: 15px;">
+            <div class="setting-label">Upcoming Deadlines View</div>
+            <div class="segmented-control" id="upcomingViewControl">
+                <button class="segment-btn" data-val="All">All</button>
+                <button class="segment-btn" data-val="Summative">Summative Only</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="learningSettingsDrawer" class="bottom-drawer">
+        <div class="drawer-handle"></div>
+        <div class="archive-header" style="margin-bottom:20px;">Learning Log Settings</div>
+        
+        <div class="setting-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="setting-label" style="margin-bottom:0;">Show Progress Bars</div>
+                <label class="toggle-label"><input type="checkbox" id="settingLearningProgress"></label>
+            </div>
+            <div id="learningTargetsInputs" style="display:none; margin-top: 15px;">
+                <div class="expense-row">
+                    <input type="number" id="targetCBT" placeholder="CBT Target (Hrs)" class="expense-input">
+                    <input type="number" id="targetSys" placeholder="SYS Target (Hrs)" class="expense-input">
+                </div>
+                <div class="expense-row">
+                    <input type="number" id="targetNeuro" placeholder="Neuro Target (Hrs)" class="expense-input">
+                    <input type="number" id="targetOther" placeholder="Other Target (Hrs)" class="expense-input">
+                </div>
+                <button id="btnSaveLearningTargets" class="save-btn" style="width: 100%; padding: 12px;">Save Targets</button>
+            </div>
+        </div>
+
+        <div class="setting-group" style="border-top: 1px solid var(--border); padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="setting-label" style="margin-bottom:0;">Learning Reflection Framework</div>
+                <label class="toggle-label"><input type="checkbox" id="settingLearningFramework"></label>
+            </div>
+            <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6; padding:0; margin-top:5px; text-align:left;">Auto-populates the reflection box with key learning prompts.</div>
+        </div>
+    </div>
+
+    <div id="journalSettingsDrawer" class="bottom-drawer">
+        <div class="drawer-handle"></div>
+        <div class="archive-header" style="margin-bottom:20px;">Journal Settings</div>
+        
+        <div class="setting-group">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="setting-label" style="margin-bottom:0;">Structured Templates</div>
+                <label class="toggle-label"><input type="checkbox" id="settingJournalFramework"></label>
+            </div>
+            <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6; padding:0; margin-top:5px; text-align:left;">Pre-fills empty textboxes with specific lines depending on the selected tab (Supervisor vs Daily Activity).</div>
+        </div>
+    </div>
+
+    <div id="expenseSettingsDrawer" class="bottom-drawer">
+        <div class="drawer-handle"></div>
+        <div class="archive-header" style="margin-bottom:20px;">Expense Settings</div>
+        
+        <div class="setting-group">
+            <div class="setting-label">Base Configuration</div>
+            <div class="expense-row"><input type="text" id="basePostcode" class="expense-input" placeholder="Base Postcode (e.g. SO17 1BJ)"></div>
+            <div class="expense-row"><input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45 or 45)"></div>
+            <button id="btnSaveExpenseSettings" class="save-btn" style="width: 100%; padding: 12px; margin-top: 5px;">Save Base</button>
+            <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6; padding-top:5px;">Your Base Postcode automatically pre-fills the 'Start' box.</div>
+        </div>
+
+        <div class="setting-group" style="margin-top: 30px; border-top: 1px solid var(--border); padding-top: 25px;">
+            <div class="setting-label">Manage Frequent Destinations</div>
+            <div class="expense-row">
+                <input type="text" id="newLocName" class="expense-input" placeholder="Location Name (e.g. Uni)">
+            </div>
+            <div class="expense-row">
+                <input type="text" id="newLocPostcode" class="expense-input" placeholder="Postcode">
+            </div>
+            <button id="btnAddLocation" class="save-btn" style="width: 100%; padding: 12px; margin-bottom: 15px;">Add to Quick Fill</button>
+            
+            <div id="savedLocationsList" style="max-height: 150px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none;"></div>
+        </div>
+    </div>
+
+    <div id="generalSettingsDrawer" class="bottom-drawer">
+        <div class="drawer-handle"></div>
+        <div class="archive-header" style="margin-bottom:20px;">General Settings</div>
+        
         <div class="setting-group">
             <div class="setting-label">Accent Glow Intensity</div>
             <div class="segmented-control" id="accentGlowControl">
@@ -722,28 +924,28 @@
             </div>
         </div>
 
-        <div class="setting-group">
-            <div class="setting-label">Calendar Overdue Glow</div>
-            <div class="segmented-control" id="calendarGlowControl">
-                <button class="segment-btn" data-val="Off">Off</button>
-                <button class="segment-btn" data-val="On">On</button>
+        <div class="setting-group" style="border-top: 1px solid var(--border); padding-top: 20px;">
+            <div style="display:flex; justify-content:space-between; align-items:center;">
+                <div class="setting-label" style="margin-bottom:0;">Show Progress Dashboard</div>
+                <label class="toggle-label"><input type="checkbox" id="settingDashboard"></label>
             </div>
-            <div class="setting-info-text" id="calendarGlowInfo">
-                Overdue tasks will emit a pulsing red glow on the calendar to catch your attention.
-            </div>
+            <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6; padding:0; margin-top:5px; text-align:left;">Appends a master analytics dashboard to the bottom of the app.</div>
         </div>
 
-        <div class="setting-group">
-            <div class="setting-label">Upcoming Deadlines View</div>
-            <div class="segmented-control" id="upcomingViewControl">
-                <button class="segment-btn" data-val="All">All</button>
-                <button class="segment-btn" data-val="Summative">Summative</button>
-            </div>
-            <div class="setting-info-text" id="upcomingViewInfo">
-                The calendar will only highlight and display major ⭐ summative coursework deadlines.
-            </div>
+        <div style="border-top: 1px solid var(--border); margin-top: 30px; padding-top: 25px;">
+            <button id="btnClearAppData" class="save-btn" style="width: 100%; padding: 15px; background: rgba(255, 69, 58, 0.1); border-color: var(--deadline-red); color: var(--deadline-red);">Wipe All App Data</button>
         </div>
+    </div>
 
+    <div id="themeDrawer" class="bottom-drawer">
+        <div class="drawer-handle"></div>
+        <div class="archive-header" style="margin-bottom:20px;">Select Theme</div>
+        <div class="theme-row">
+            <div class="theme-btn" data-theme-name="default"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FC708A, #030407);"></div></div>
+            <div class="theme-btn" data-theme-name="foundation"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF6A2B, #CC3E00, #121212);"></div></div>
+            <div class="theme-btn" data-theme-name="parchment"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #ffffff, #E8DCC4, #2C2820);"></div></div>
+            <div class="theme-btn" data-theme-name="nebula"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FDFBF7, #D8B4E2, #050508);"></div></div>
+        </div>
     </div>
 
     <div id="helpWalkthrough" class="bottom-drawer">
@@ -767,37 +969,10 @@
             </div>
             <div class="walk-item"><b>Tags</b> Use icons to categorize notes.</div>
             <div class="walk-item"><b>Filter & Search</b> Filter by category or keyword. Tap download icon to export text.</div>
-            <div class="walk-item"><b>Calendar</b> Filter lists by day. Overdue items pulse red.</div>
-            <div class="walk-item"><b>Extra Learning Log</b> Track independent study. Export pre-formatted CSV.</div>
+            <div class="walk-item"><b>Calendar</b> Filter lists by day. Overdue items highlight in red. Use settings to set Amber warnings.</div>
+            <div class="walk-item"><b>Extra Learning Log</b> Track independent study. Set progress goals in the settings.</div>
             <div class="walk-item"><b>Professional Journal</b> A dual-stream chronological ledger to record activity and supervisor feedback as proof of work.</div>
-            <div class="walk-item" style="border: none;"><b>Expenses</b> Set Base Postcode and £/mile rate in settings. Auto-calculates mileage via API.</div>
-        </div>
-    </div>
-
-    <div id="expenseSettingsDrawer" class="bottom-drawer">
-        <div class="drawer-handle"></div>
-        <div class="archive-header" style="margin-bottom:20px;">Expense Settings</div>
-        <div class="expense-row"><input type="text" id="basePostcode" class="expense-input" placeholder="Base Postcode (e.g. SO17 1BJ)"></div>
-        <div class="expense-row"><input type="number" step="0.01" id="mileageRate" class="expense-input" placeholder="£ per Mile (e.g. 0.45 or 45)"></div>
-        <button id="btnSaveExpenseSettings" class="save-btn" style="width: 100%; padding: 15px; margin-top: 10px;">Save Settings</button>
-        <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6;">Your Base Postcode will automatically pre-fill the 'Start' box.</div>
-    </div>
-
-    <div id="themeDrawer" class="bottom-drawer">
-        <div class="drawer-handle"></div>
-        <div class="archive-header" style="margin-bottom:20px;">Select Theme</div>
-        <div class="theme-row">
-            <div class="theme-btn" data-theme-name="default"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FC708A, #030407);"></div></div>
-            <div class="theme-btn" data-theme-name="foundation"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF6A2B, #CC3E00, #121212);"></div></div>
-            <div class="theme-btn" data-theme-name="parchment"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #ffffff, #E8DCC4, #2C2820);"></div></div>
-            <div class="theme-btn" data-theme-name="nebula"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FDFBF7, #D8B4E2, #050508);"></div></div>
-        </div>
-        
-        <div style="border-top: 1px solid var(--border); margin-top: 25px; padding-top: 20px;">
-            <button id="parallaxBtn" class="save-btn" style="width: 100%; padding: 15px;">Enable 3D Parallax</button>
-            <div class="permanent-msg" style="border:none; background:transparent; opacity:0.6; padding-top: 5px;">
-                Requires motion sensor access. Once allowed, the UI will calibrate to your hand and smoothly tilt in 3D.
-            </div>
+            <div class="walk-item" style="border: none;"><b>Expenses</b> Set Base Postcode and £/mile rate in settings. Auto-calculates mileage via API. Use Quick-Fill to save frequent locations.</div>
         </div>
     </div>
 
@@ -838,25 +1013,31 @@
             /* JOURNAL VARIABLES */
             let currentJournalTab = 'Supervision'; 
             
-            /* 3D PARALLAX VARIABLES */
-            let is3DActive = false;
-            let baseBeta = null; 
-            let baseGamma = null;
-            let currentX = 0, currentY = 0;
-            let targetX = 0, targetY = 0;
-            let rafId = null;
-
             /* SETTINGS VARIABLES */
             let backupGlowSetting = localStorage.getItem('dclinBackupSetting') || 'On';
             let calendarGlowSetting = localStorage.getItem('dclinCalendarGlow') || 'On';
             let glowIntensitySetting = localStorage.getItem('dclinGlowIntensity') || 'Default';
             let upcomingViewSetting = localStorage.getItem('dclinUpcomingView') || 'All';
+            
+            let isWordCountOn = localStorage.getItem('dclinWordCount') === 'true';
+            let isNotesFrameworkOn = localStorage.getItem('dclinNotesFramework') === 'true';
+            let amberAlertDays = parseInt(localStorage.getItem('dclinAmberDays')) || 3;
+            
+            let isLearningProgressOn = localStorage.getItem('dclinLearningProgress') === 'true';
+            let learningTargets = JSON.parse(localStorage.getItem('dclinLearningTargets')) || { CBT: 0, Systemic: 0, Neuro: 0, Other: 0 };
+            let isLearningFrameworkOn = localStorage.getItem('dclinLearningFramework') === 'true';
+            
+            let isJournalFrameworkOn = localStorage.getItem('dclinJournalFramework') === 'true';
+            let isDashboardOn = localStorage.getItem('dclinDashboard') === 'true';
 
             // --- DOM ELEMENTS ---
             const noteInput = document.getElementById('noteInput');
             const btnBold = document.getElementById('btnBold');
             const btnItalic = document.getElementById('btnItalic');
             const btnUnderline = document.getElementById('btnUnderline');
+            const wordCountDisplay = document.getElementById('wordCountDisplay');
+            const summativeCheck = document.getElementById('summativeCheck');
+            const summativeToggleLabel = document.getElementById('summativeToggleLabel');
             const dueDatePicker = document.getElementById('dueDatePicker');
             const cancelAction = document.getElementById('cancelAction');
             const saveAction = document.getElementById('saveAction');
@@ -911,36 +1092,51 @@
                 }
 
                 populateRenameDropdown();
+                renderFrequentDestinations();
 
-                // Initialize Glow Intensity Setting UI
+                // Initialize Toggles
+                document.getElementById('settingWordCount').checked = isWordCountOn;
+                wordCountDisplay.style.display = isWordCountOn ? 'inline' : 'none';
+                
+                document.getElementById('settingNotesFramework').checked = isNotesFrameworkOn;
+                
+                document.getElementById('settingAmberDays').value = amberAlertDays.toString();
+                
+                document.getElementById('settingLearningProgress').checked = isLearningProgressOn;
+                const targetInputs = document.getElementById('learningTargetsInputs');
+                targetInputs.style.display = isLearningProgressOn ? 'block' : 'none';
+                document.getElementById('targetCBT').value = learningTargets.CBT || '';
+                document.getElementById('targetSys').value = learningTargets.Systemic || '';
+                document.getElementById('targetNeuro').value = learningTargets.Neuro || '';
+                document.getElementById('targetOther').value = learningTargets.Other || '';
+                
+                document.getElementById('settingLearningFramework').checked = isLearningFrameworkOn;
+                document.getElementById('settingJournalFramework').checked = isJournalFrameworkOn;
+                
+                document.getElementById('settingDashboard').checked = isDashboardOn;
+                if(isDashboardOn) {
+                    document.getElementById('btnToggleDashboard').style.display = 'block';
+                }
+
+                // Initialize Segmented Setting UI
                 document.querySelectorAll('#accentGlowControl .segment-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-val') === glowIntensitySetting);
                 });
 
-                // Initialize Backup Setting UI
                 document.querySelectorAll('#backupGlowControl .segment-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-val') === backupGlowSetting);
                 });
-                if (backupGlowSetting === 'Alert') {
-                    document.getElementById('backupAlertInfo').classList.add('visible');
-                }
+                if (backupGlowSetting === 'Alert') document.getElementById('backupAlertInfo').classList.add('visible');
                 evaluateOrbState();
 
-                // Initialize Calendar Glow Setting UI
                 document.querySelectorAll('#calendarGlowControl .segment-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-val') === calendarGlowSetting);
                 });
-                if (calendarGlowSetting === 'On') {
-                    document.getElementById('calendarGlowInfo').classList.add('visible');
-                }
+                if (calendarGlowSetting === 'On') document.getElementById('calendarGlowInfo').classList.add('visible');
 
-                // Initialize Upcoming View Setting UI
                 document.querySelectorAll('#upcomingViewControl .segment-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-val') === upcomingViewSetting);
                 });
-                if (upcomingViewSetting === 'Summative') {
-                    document.getElementById('upcomingViewInfo').classList.add('visible');
-                }
 
                 buildIconButtons();
                 renderCalendar(); 
@@ -948,12 +1144,44 @@
                 renderExpenses(); 
                 renderLearning();
                 renderJournal();
+                if(isDashboardOn) renderDashboard();
                 
                 setTimeout(() => { 
                     if (inputIconsContainer.children[writeIdx]) {
                         inputIconsContainer.children[writeIdx].click(); 
                     }
                 }, 50);
+            }
+
+           function checkNotesFrameworkInject() {
+                const rawInput = document.getElementById('noteInput');
+                // 1. Strip logic: Moving away from Reflection tag, keep only what user typed
+                if (rawInput.querySelector('.fw-prompt') && writeIdx !== 2) {
+                    let compiledText = '';
+                    rawInput.querySelectorAll('.fw-row').forEach(row => {
+                        let clone = row.cloneNode(true);
+                        let promptSpan = clone.querySelector('.fw-prompt');
+                        if(promptSpan) promptSpan.remove();
+                        let text = clone.innerHTML.replace(/&nbsp;/g, '').trim();
+                        if (text && text !== '<br>') compiledText += text + '<br><br>'; 
+                    });
+                    rawInput.innerHTML = compiledText;
+                    return;
+                }
+                // 2. Inject logic: Moving TO Reflection tag
+                if (isNotesFrameworkOn && writeIdx === 2 && !editingId) {
+                    const currentText = rawInput.innerText.trim();
+                    if(currentText === "" || currentText === "<br>") {
+                        rawInput.innerHTML = `
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Description:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Feeling:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Evaluation:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Analysis:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Conclusion:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Action Plan:</span>&nbsp;</div>
+                        `;
+                    }
+                }
             }
 
             function buildIconButtons() {
@@ -987,7 +1215,8 @@
                             b.classList.toggle('active', idx === i);
                         });
 
-                        document.getElementById('summativeContainer').style.display = (i === 4) ? 'flex' : 'none';
+                        summativeToggleLabel.style.display = (i === 4) ? 'block' : 'none';
+                        checkNotesFrameworkInject();
                     });
                     inputIconsContainer.appendChild(b1);
 
@@ -1044,20 +1273,106 @@
                 document.getElementById('drawerOverlay').addEventListener('click', closeDrawers);
                 document.getElementById('btnToggleThemes').addEventListener('click', toggleThemeDrawer);
                 document.getElementById('btnToggleHelp').addEventListener('click', toggleWalkthrough);
-                document.getElementById('btnToggleSettings').addEventListener('click', toggleGeneralSettings);
-                document.getElementById('btnToggleExpenseSettings').addEventListener('click', toggleExpenseSettings);
-                document.getElementById('btnSaveExpenseSettings').addEventListener('click', saveExpenseSettings);
+                
+                // Specific Settings Cogs
+                document.getElementById('btnToggleSettings').addEventListener('click', () => toggleDrawer('generalSettingsDrawer'));
+                document.getElementById('btnToggleNotesSettings').addEventListener('click', () => toggleDrawer('notesSettingsDrawer'));
+                document.getElementById('btnToggleCalendarSettings').addEventListener('click', () => toggleDrawer('calendarSettingsDrawer'));
+                document.getElementById('btnToggleLearningSettings').addEventListener('click', () => toggleDrawer('learningSettingsDrawer'));
+                document.getElementById('btnToggleExpenseSettings').addEventListener('click', () => toggleDrawer('expenseSettingsDrawer'));
+                document.getElementById('btnToggleJournalSettings').addEventListener('click', () => toggleDrawer('journalSettingsDrawer'));
+
+                // Global Settings Actions
+                document.getElementById('btnClearAppData').addEventListener('click', function() {
+                    if(confirm("DANGER: This will permanently wipe all logs, expenses, settings, and journal entries. Continue?")) {
+                        localStorage.clear();
+                        location.reload();
+                    }
+                });
+
+                // New Settings Toggles
+                document.getElementById('settingWordCount').addEventListener('change', function() {
+                    isWordCountOn = this.checked;
+                    localStorage.setItem('dclinWordCount', isWordCountOn);
+                    wordCountDisplay.style.display = isWordCountOn ? 'inline' : 'none';
+                    if(isWordCountOn) updateWordCount();
+                });
+
+                document.getElementById('settingNotesFramework').addEventListener('change', function() {
+                    isNotesFrameworkOn = this.checked;
+                    localStorage.setItem('dclinNotesFramework', isNotesFrameworkOn);
+                    checkNotesFrameworkInject();
+                });
+
+                document.getElementById('settingAmberDays').addEventListener('change', function() {
+                    amberAlertDays = parseInt(this.value);
+                    localStorage.setItem('dclinAmberDays', amberAlertDays);
+                    renderCalendar();
+                });
+
+                document.getElementById('settingLearningProgress').addEventListener('change', function() {
+                    isLearningProgressOn = this.checked;
+                    localStorage.setItem('dclinLearningProgress', isLearningProgressOn);
+                    document.getElementById('learningTargetsInputs').style.display = isLearningProgressOn ? 'block' : 'none';
+                    renderLearning();
+                });
+
+                document.getElementById('btnSaveLearningTargets').addEventListener('click', function() {
+                    learningTargets = {
+                        CBT: parseFloat(document.getElementById('targetCBT').value) || 0,
+                        Systemic: parseFloat(document.getElementById('targetSys').value) || 0,
+                        Neuro: parseFloat(document.getElementById('targetNeuro').value) || 0,
+                        Other: parseFloat(document.getElementById('targetOther').value) || 0
+                    };
+                    localStorage.setItem('dclinLearningTargets', JSON.stringify(learningTargets));
+                    renderLearning();
+                    showToast("Targets Saved");
+                    closeDrawers();
+                });
+
+                document.getElementById('settingLearningFramework').addEventListener('change', function() {
+                    isLearningFrameworkOn = this.checked;
+                    localStorage.setItem('dclinLearningFramework', isLearningFrameworkOn);
+                    checkLearningFrameworkInject();
+                });
+
+                // Trigger Learning framework injection when textarea is focused
+                document.getElementById('learnReflection').addEventListener('focus', checkLearningFrameworkInject);
+
+                document.getElementById('settingJournalFramework').addEventListener('change', function() {
+                    isJournalFrameworkOn = this.checked;
+                    localStorage.setItem('dclinJournalFramework', isJournalFrameworkOn);
+                    checkJournalFrameworkInject();
+                });
+
+                document.getElementById('settingDashboard').addEventListener('change', function() {
+                    isDashboardOn = this.checked;
+                    localStorage.setItem('dclinDashboard', isDashboardOn);
+                    const btn = document.getElementById('btnToggleDashboard');
+                    if(isDashboardOn) {
+                        btn.style.display = 'block';
+                        renderDashboard();
+                    } else {
+                        btn.style.display = 'none';
+                        document.getElementById('dashboardModule').style.display = 'none';
+                    }
+                });
 
                 // Note Editor
                 noteInput.addEventListener('keyup', () => {
                     updateToolbarState();
                     autoSaveDraft();
+                    if(isWordCountOn) updateWordCount();
                 });
                 noteInput.addEventListener('mouseup', updateToolbarState);
                 
                 btnBold.addEventListener('click', () => formatText('bold'));
                 btnItalic.addEventListener('click', () => formatText('italic'));
                 btnUnderline.addEventListener('click', () => formatText('underline'));
+
+                summativeCheck.addEventListener('change', function() {
+                    summativeToggleLabel.classList.toggle('active', this.checked);
+                });
                 
                 dueDatePicker.addEventListener('change', updateDateLabel);
                 cancelAction.addEventListener('click', cancelEdit);
@@ -1073,6 +1388,7 @@
                 document.getElementById('btnToggleExpenses').addEventListener('click', function() { toggleVault('expensesModule', this); });
                 document.getElementById('btnToggleJournal').addEventListener('click', function() { toggleVault('journalModule', this); });
                 document.getElementById('btnToggleCompleted').addEventListener('click', function() { toggleVault('completedVault', this); });
+                document.getElementById('btnToggleDashboard').addEventListener('click', function() { toggleVault('dashboardModule', this); });
                 
                 // Calendar Navigation
                 document.getElementById('btnPrevMonth').addEventListener('click', () => changeMonth(-1));
@@ -1087,6 +1403,9 @@
                 document.getElementById('logJourneyBtn').addEventListener('click', logJourney);
                 document.getElementById('btnClearExpenses').addEventListener('click', clearAllExpenses);
                 document.getElementById('btnExportExpenses').addEventListener('click', exportExpensesCSV);
+                
+                document.getElementById('btnSaveExpenseSettings').addEventListener('click', saveExpenseSettings);
+                document.getElementById('btnAddLocation').addEventListener('click', addSavedLocation);
 
                 // Journal Logic & Tabs
                 document.querySelectorAll('.journal-tab-btn').forEach(btn => {
@@ -1095,13 +1414,16 @@
                         this.classList.add('active');
                         currentJournalTab = this.getAttribute('data-tab');
                         
-                        const textArea = document.getElementById('journalText');
+                       const textArea = document.getElementById('journalText');
+                        textArea.innerHTML = ""; // clear old text
+                        
                         if (currentJournalTab === 'Supervision') {
-                            textArea.placeholder = "Record specific instructions, feedback, or quotes from the supervisor...";
+                            textArea.setAttribute('data-placeholder', "Record specific instructions, feedback, or quotes from the supervisor...");
                         } else {
-                            textArea.placeholder = "Record tasks completed, clients seen, or admin finished...";
+                            textArea.setAttribute('data-placeholder', "Record tasks completed, clients seen, or admin finished...");
                         }
                         
+                        checkJournalFrameworkInject();
                         document.getElementById('journalSearchInput').value = "";
                         renderJournal();
                     });
@@ -1125,7 +1447,6 @@
                         if(themeName) setTheme(themeName);
                     });
                 });
-                document.getElementById('parallaxBtn').addEventListener('click', toggle3DParallax);
 
                 // Settings UI (Rename Tags)
                 document.getElementById('renameTagSelect').addEventListener('change', function() {
@@ -1204,6 +1525,12 @@
                 });
 
                 // Settings UI (Calendar Glow)
+              // Apply initial state on boot for Amber Warning Group
+                const initialAmberGroup = document.getElementById('amberWarningGroup');
+                if (initialAmberGroup) {
+                    initialAmberGroup.style.display = calendarGlowSetting === 'On' ? 'block' : 'none';
+                }
+
                 document.querySelectorAll('#calendarGlowControl .segment-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
                         triggerHaptic(10);
@@ -1213,12 +1540,16 @@
                         localStorage.setItem('dclinCalendarGlow', calendarGlowSetting);
                         
                         const infoText = document.getElementById('calendarGlowInfo');
+                        const amberGroup = document.getElementById('amberWarningGroup');
+                        
                         if (calendarGlowSetting === 'On') {
                             infoText.classList.add('visible');
+                            amberGroup.style.display = 'block';
                         } else {
                             infoText.classList.remove('visible');
+                            amberGroup.style.display = 'none';
                         }
-                        renderCalendar(); // Re-render immediately to show effect
+                        renderCalendar(); 
                     });
                 });
 
@@ -1230,13 +1561,6 @@
                         this.classList.add('active');
                         upcomingViewSetting = this.getAttribute('data-val');
                         localStorage.setItem('dclinUpcomingView', upcomingViewSetting);
-                        
-                        const infoText = document.getElementById('upcomingViewInfo');
-                        if (upcomingViewSetting === 'Summative') {
-                            infoText.classList.add('visible');
-                        } else {
-                            infoText.classList.remove('visible');
-                        }
                         renderCalendar(); 
                     });
                 });
@@ -1256,7 +1580,10 @@
 
                 drawers.forEach(drawer => {
                     drawer.addEventListener('touchstart', (e) => {
-                        // Only initiate drag if we aren't actively scrolling inside the content area
+                        // Strict Guardrail: Ignore drag if touching inputs, buttons, or editable text
+                        if (e.target.closest('input, select, textarea, details, summary, button, [contenteditable="true"], .chip-btn')) return;
+
+                        // Only initiate drag if we aren't actively scrolling inside a content area
                         const scrollArea = drawer.querySelector('.help-scroll-area');
                         if(scrollArea && scrollArea.contains(e.target) && scrollArea.scrollTop > 0) return;
                         
@@ -1337,69 +1664,6 @@
                 }
             }
 
-            // --- PARALLAX 3D LOGIC ---
-            function parallaxHandler(e) {
-                if (baseBeta === null) { 
-                    baseBeta = e.beta; 
-                    baseGamma = e.gamma; 
-                }
-                let diffBeta = e.beta - baseBeta; 
-                let diffGamma = e.gamma - baseGamma;
-                diffBeta = Math.min(Math.max(diffBeta, -25), 25);
-                diffGamma = Math.min(Math.max(diffGamma, -25), 25);
-                targetX = diffBeta / 1.5; 
-                targetY = -diffGamma / 1.5;
-            }
-
-            function renderParallax() {
-                if (!is3DActive) return;
-                currentX += (targetX - currentX) * 0.1; 
-                currentY += (targetY - currentY) * 0.1;
-                document.documentElement.style.setProperty('--rx', `${currentX}deg`); 
-                document.documentElement.style.setProperty('--ry', `${currentY}deg`);
-                let lx = 50 + (currentY * 3); 
-                let ly = 50 - (currentX * 3); 
-                document.documentElement.style.setProperty('--lx', `${lx}%`); 
-                document.documentElement.style.setProperty('--ly', `${ly}%`);
-                rafId = requestAnimationFrame(renderParallax);
-            }
-
-            function toggle3DParallax() {
-                const btn = document.getElementById('parallaxBtn'); 
-                triggerHaptic(20);
-                if (is3DActive) {
-                    is3DActive = false; 
-                    window.removeEventListener('deviceorientation', parallaxHandler); 
-                    cancelAnimationFrame(rafId);
-                    baseBeta = null; baseGamma = null; 
-                    currentX = 0; currentY = 0; 
-                    targetX = 0; targetY = 0;
-                    document.documentElement.style.setProperty('--rx', `0deg`); 
-                    document.documentElement.style.setProperty('--ry', `0deg`);
-                    document.body.classList.remove('parallax-active'); 
-                    btn.innerText = "Enable 3D Parallax"; 
-                    showToast("3D Parallax Disabled");
-                } else {
-                    if (typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                        DeviceOrientationEvent.requestPermission().then(permissionState => { 
-                            if (permissionState === 'granted') start3DListener(btn); 
-                        }).catch(console.error);
-                    } else { 
-                        start3DListener(btn); 
-                    }
-                }
-            }
-
-            function start3DListener(btn) {
-                window.addEventListener('deviceorientation', parallaxHandler);
-                is3DActive = true; 
-                document.body.classList.add('parallax-active');
-                renderParallax(); 
-                btn.innerText = "Disable 3D Parallax"; 
-                closeDrawers(); 
-                showToast("3D Parallax Enabled");
-            }
-
             function fireParticles(rect, color) {
                 const x = rect.left + rect.width / 2; 
                 const y = rect.top + rect.height / 2;
@@ -1418,6 +1682,13 @@
             }
 
             // --- EDITOR LOGIC ---
+            function updateWordCount() {
+                if(!isWordCountOn) return;
+                const text = noteInput.innerText.trim();
+                const count = text ? text.split(/\s+/).length : 0;
+                wordCountDisplay.innerText = `${count} words`;
+            }
+
             function formatText(command) { 
                 document.execCommand(command, false, null); 
                 noteInput.focus(); 
@@ -1459,7 +1730,11 @@
             }
 
             function saveNote() {
-                const val = noteInput.innerHTML.trim(); 
+                let val = noteInput.innerHTML.trim(); 
+                // Bake in logic: convert un-editable grey prompts into permanent standard bold text
+                val = val.replace(/<span class="fw-prompt"[^>]*>(.*?)<\/span>/g, '<b>$1</b>');
+                val = val.replace(/<div class="fw-row">/g, '').replace(/<\/div>/g, '<br>');
+                
                 if (!val || val === '<br>') return;
                 
                 saveAction.classList.add('pulse'); 
@@ -1479,7 +1754,7 @@
                     deadline: dueDatePicker.value || null, 
                     done: false, 
                     completedOn: null,
-                    isSummative: (writeIdx === 4) ? document.getElementById('summativeCheck').checked : false
+                    isSummative: (writeIdx === 4) ? summativeCheck.checked : false
                 };
                 
                 let toastMsg = "Task Saved";
@@ -1498,11 +1773,17 @@
                 localStorage.removeItem('dclinDraft'); 
                 noteInput.innerHTML = ""; 
                 dueDatePicker.value = ""; 
-                document.getElementById('summativeCheck').checked = false;
+                
+                summativeCheck.checked = false;
+                summativeToggleLabel.classList.remove('active');
+                
                 updateDateLabel(); 
                 updateToolbarState(); 
+                if(isWordCountOn) updateWordCount();
+                
                 renderNotesDOM(); 
                 renderCalendar(); 
+                if(isDashboardOn) renderDashboard();
                 showToast(toastMsg); 
                 triggerHaptic([30, 50, 30]); 
             }
@@ -1512,10 +1793,14 @@
                 saveAction.innerText = "Save Task"; 
                 cancelAction.style.display = "none";
                 dueDatePicker.value = ""; 
-                document.getElementById('summativeCheck').checked = false;
+                
+                summativeCheck.checked = false;
+                summativeToggleLabel.classList.remove('active');
+                
                 updateDateLabel();
                 noteInput.innerHTML = localStorage.getItem('dclinDraft') || "";
                 updateToolbarState(); 
+                if(isWordCountOn) updateWordCount();
                 showToast("Edit Cancelled"); 
                 triggerHaptic(20);
             }
@@ -1576,11 +1861,23 @@
                         dots += `<div class="dot" style="background: rgba(255,255,255,0.7);"></div>`;
                     }
                     
-                    // Priority Intelligence: Red Glow for Overdue
+                    // Priority Intelligence: Red Glow for Overdue, Amber for Approaching
                     const isOverdue = (new Date(dateStr) < todayObj) && displayDeadlines.length > 0;
                     
                     if (isOverdue && calendarGlowSetting === 'On') {
                         dots += `<div class="dot overdue-glow"></div>`;
+                    } else if (!isOverdue && displayDeadlines.length > 0 && amberAlertDays > 0) {
+                        const targetDate = new Date(dateStr);
+                        targetDate.setHours(0,0,0,0);
+                        const diffDays = Math.ceil((targetDate - todayObj) / (1000 * 60 * 60 * 24));
+                        if (diffDays <= amberAlertDays) {
+                            dots += `<div class="dot amber-glow"></div>`;
+                        } else {
+                            const deadlineColors = [...new Set(displayDeadlines.map(d => d.color))].slice(0, 3); 
+                            deadlineColors.forEach(color => { 
+                                dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`; 
+                            });
+                        }
                     } else {
                         const deadlineColors = [...new Set(displayDeadlines.map(d => d.color))].slice(0, 3); 
                         deadlineColors.forEach(color => { 
@@ -1603,7 +1900,7 @@
                 
                 // Priority Intelligence: Smart Upcoming List
                 let nextWeek = new Date(todayObj); 
-                nextWeek.setDate(todayObj.getDate() + 7);
+                nextWeek.setDate(todayObj.getDate() + Math.max(7, amberAlertDays)); // Ensure amber items fit
                 
                 let allPending = data.filter(d => d.deadline && !d.done);
 
@@ -1626,7 +1923,7 @@
                     return dDate >= todayObj;
                 }).sort((a,b) => new Date(a.deadline) - new Date(b.deadline));
                 
-                // Filter Future for "This Week"
+                // Filter Future
                 let displayUpcoming = futureTasks.filter(d => {
                     let dDate = new Date(d.deadline);
                     dDate.setHours(0,0,0,0);
@@ -1654,7 +1951,7 @@
                             
                             upcomingHtml += `
                                 <div class="upcoming-item overdue-priority" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; cursor:pointer;">
-                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${task.isSummative ? '⭐ ' : ''}${shortText}</div>
+                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${task.isSummative ? '<span style="opacity:0.6; font-weight:800;">[SUMMATIVE]</span> ' : ''}${shortText}</div>
                                     <div style="color: var(--deadline-red); font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">MISSED: ${dayText}</div>
                                 </div>`;
                         });
@@ -1665,15 +1962,21 @@
                         upcomingHtml += `<div style="font-size: 9px; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 1px; margin-bottom: 10px; margin-top: 10px;">Upcoming</div>`;
                         displayUpcoming.forEach(task => {
                             let taskDate = new Date(task.deadline); 
-                            let diffDays = Math.round((taskDate - todayObj) / (1000 * 60 * 60 * 24));
+                            taskDate.setHours(0,0,0,0);
+                            let diffDays = Math.ceil((taskDate - todayObj) / (1000 * 60 * 60 * 24));
+                            
+                            let isAmber = amberAlertDays > 0 && diffDays <= amberAlertDays;
                             let dayText = diffDays === 0 ? 'Today' : (diffDays === 1 ? 'Tomorrow' : `In ${diffDays} days`);
                             let shortText = task.text.replace(/<[^>]*>?/gm, ''); 
                             if(shortText.length > 30) shortText = shortText.substring(0,30) + '...';
                             
+                            let itemClass = isAmber ? "upcoming-item amber-priority" : "upcoming-item";
+                            let textHtml = isAmber ? `<div style="color: var(--alert-amber); font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">WARNING: ${dayText}</div>` : `<div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>`;
+                            
                             upcomingHtml += `
-                                <div class="upcoming-item" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;">
-                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${task.isSummative ? '⭐ ' : ''}${shortText}</div>
-                                    <div style="color: ${task.color}; font-weight: 800; font-size: 9px; text-transform:uppercase; letter-spacing:0.5px;">${dayText}</div>
+                                <div class="${itemClass}" data-deadline="${task.deadline}" style="display: flex; justify-content: space-between; align-items: center; background: var(--note-bg); padding: 10px 14px; border-radius: 12px; margin-bottom: 8px; border-left: 2px solid ${task.color}; cursor:pointer;">
+                                    <div style="color: var(--text-main); font-size: 11px; font-weight: 500;">${task.isSummative ? '<span style="opacity:0.6; font-weight:800;">[SUMMATIVE]</span> ' : ''}${shortText}</div>
+                                    ${textHtml}
                                 </div>`;
                         });
                     }
@@ -1724,6 +2027,9 @@
                 let doneContent = "";
                 let aIdx = 0; 
                 let dIdx = 0;
+
+                const todayStart = new Date();
+                todayStart.setHours(0,0,0,0);
                 
                 filtered.forEach(n => {
                     let parsedText = n.text.includes('<') ? n.text : n.text.replace(/\n/g, '<br>');
@@ -1733,12 +2039,13 @@
                     }
 
                     const delay = n.done ? (dIdx++ * 0.05) : (aIdx++ * 0.05);
+                    const isOverdue = !n.done && n.deadline && (new Date(n.deadline).setHours(0,0,0,0) < todayStart.getTime());
 
                     const html = `
-                        <div class="note" style="--note-color: ${n.color}; animation-delay: ${delay}s;">
+                        <div class="note ${isOverdue ? 'overdue-note' : ''}" style="--note-color: ${n.color}; animation-delay: ${delay}s;">
                             <div class="note-header">
                                 <span style="color:${n.color}">${n.tag}</span>
-                                <span>${n.done ? 'DONE: ' + n.completedOn : (n.deadline ? 'DUE: ' + n.deadline.split('-').reverse().slice(0,2).join('/') : n.created.split('-').reverse().slice(0,2).join('/'))} ${n.isSummative ? '<span style="color:var(--c4)">⭐</span>' : ''}</span>
+                                <span>${n.done ? 'DONE: ' + n.completedOn : (n.deadline ? 'DUE: ' + n.deadline.split('-').reverse().slice(0,2).join('/') : n.created.split('-').reverse().slice(0,2).join('/'))} ${n.isSummative ? '<span style="color:var(--text-muted); font-weight:800;">[SUMMATIVE]</span>' : ''}</span>
                             </div>
                             <div class="note-body preview-text">${parsedText}</div>
                             <button class="action-btn action-expand" style="margin-top: 6px; color:${n.color}">Read More</button>
@@ -1804,7 +2111,8 @@
                         localStorage.setItem('dclinData', JSON.stringify(data));
                     }
                     renderNotesDOM();
-                    renderCalendar(); // Re-render calendar to update priority dots
+                    renderCalendar(); 
+                    if(isDashboardOn) renderDashboard();
                 }, 600);
             }
 
@@ -1822,6 +2130,7 @@
                         localStorage.setItem('dclinData', JSON.stringify(data.filter(n => n.id !== id)));
                         renderNotesDOM(); 
                         renderCalendar(); 
+                        if(isDashboardOn) renderDashboard();
                         showToast("Note Deleted");
                     }, 350);
                 }
@@ -1832,15 +2141,42 @@
                 let data = JSON.parse(localStorage.getItem('dclinData')) || [];
                 localStorage.setItem('dclinData', JSON.stringify(data.filter(n => !n.done))); 
                 renderNotesDOM(); 
+                if(isDashboardOn) renderDashboard();
                 showToast("Completed tasks cleared");
             }
 
             // --- PROFESSIONAL JOURNAL LOGIC ---
+           function checkJournalFrameworkInject() {
+                if(!isJournalFrameworkOn) return;
+                const box = document.getElementById('journalText');
+                if(box.innerText.trim() === "" || box.innerText.trim() === "<br>") {
+                    if (currentJournalTab === 'Supervision') {
+                        box.innerHTML = `
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Supervisor Name:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Setting:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Comment:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Reflections:</span>&nbsp;</div>
+                        `;
+                    } else {
+                        box.innerHTML = `
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Location:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Activity Type:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Description of Work:</span>&nbsp;</div>
+                            <div class="fw-row"><span class="fw-prompt" contenteditable="false">Comments:</span>&nbsp;</div>
+                        `;
+                    }
+                }
+            }
+
             function logJournal() {
                 const userDate = document.getElementById('journalDate').value;
-                const text = document.getElementById('journalText').value.trim();
+                let text = document.getElementById('journalText').innerHTML.trim();
                 
-                if (!text) {
+                text = text.replace(/<span class="fw-prompt"[^>]*>(.*?)<\/span>/g, '<b>$1</b>');
+                text = text.replace(/<div class="fw-row">/g, '').replace(/<\/div>/g, '<br>');
+                
+                // Prevent submitting an untouched template
+                if (!text || text === '<br>' || text.includes('&nbsp;<br><b>Setting:</b>') || text.includes('&nbsp;<br><b>Activity Type:</b>')) {
                     showToast("Please enter the record details.");
                     return;
                 }
@@ -1857,9 +2193,11 @@
                 });
 
                 localStorage.setItem('dclinJournal', JSON.stringify(data));
-                document.getElementById('journalText').value = "";
+                document.getElementById('journalText').innerHTML = "";
+                checkJournalFrameworkInject(); // Reset framework template
                 
                 renderJournal();
+                if(isDashboardOn) renderDashboard();
                 showToast("Recorded in Ledger");
                 triggerHaptic([30, 50, 30]);
             }
@@ -1925,6 +2263,7 @@
                         let data = JSON.parse(localStorage.getItem('dclinJournal')) || [];
                         localStorage.setItem('dclinJournal', JSON.stringify(data.filter(item => item.id !== id)));
                         renderJournal();
+                        if(isDashboardOn) renderDashboard();
                         showToast("Entry Removed");
                     }
                 }
@@ -1961,12 +2300,28 @@
             }
 
             // --- LEARNING LOG LOGIC ---
+           function checkLearningFrameworkInject() {
+                if(!isLearningFrameworkOn || editingLearnId) return;
+                const box = document.getElementById('learnReflection');
+                if(box.innerText.trim() === "" || box.innerText.trim() === "<br>") {
+                    box.innerHTML = `
+                        <div class="fw-row"><span class="fw-prompt" contenteditable="false">Activity Description:</span>&nbsp;</div>
+                        <div class="fw-row"><span class="fw-prompt" contenteditable="false">Key Learnings:</span>&nbsp;</div>
+                        <div class="fw-row"><span class="fw-prompt" contenteditable="false">Application to Practice:</span>&nbsp;</div>
+                    `;
+                }
+            }
+
             function logLearning() {
                 const date = document.getElementById('learnDate').value; 
                 const type = document.getElementById('learnType').value;
                 const hours = document.getElementById('learnHours').value; 
                 const desc = document.getElementById('learnDesc').value;
-                const reflection = document.getElementById('learnReflection').value;
+                
+                let reflection = document.getElementById('learnReflection').innerHTML.trim();
+                reflection = reflection.replace(/<span class="fw-prompt"[^>]*>(.*?)<\/span>/g, '<b>$1</b>');
+                reflection = reflection.replace(/<div class="fw-row">/g, '').replace(/<\/div>/g, '<br>');
+                if(reflection === '<br>' || reflection.includes('&nbsp;<br><b>Key Learnings:</b>')) reflection = "";
                 
                 if(!date || !type || !hours || !desc) { 
                     showToast("Please fill Date, Type, Hours & Description"); 
@@ -1987,11 +2342,13 @@
                 
                 localStorage.setItem('dclinLearning', JSON.stringify(data));
                 document.getElementById('learnDesc').value = ""; 
-                document.getElementById('learnReflection').value = ""; 
+                document.getElementById('learnReflection').innerHTML = ""; 
                 document.getElementById('learnHours').value = ""; 
                 document.getElementById('learnType').value = ""; 
+                checkLearningFrameworkInject();
                 
                 renderLearning(); 
+                if(isDashboardOn) renderDashboard();
                 showToast("Learning Logged"); 
                 triggerHaptic([30, 50, 30]);
             }
@@ -2005,7 +2362,7 @@
                     document.getElementById('learnType').value = e.type; 
                     document.getElementById('learnHours').value = e.hours; 
                     document.getElementById('learnDesc').value = e.desc; 
-                    document.getElementById('learnReflection').value = e.reflection;
+                    document.getElementById('learnReflection').innerHTML = e.reflection;
                     editingLearnId = id; 
                     document.getElementById('logLearningBtn').innerText = "Update Log"; 
                     document.getElementById('learningModule').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2014,42 +2371,73 @@
 
             function renderLearning() {
                 const list = document.getElementById('learningList'); 
+                const progressContainer = document.getElementById('learningProgressContainer');
                 const data = JSON.parse(localStorage.getItem('dclinLearning')) || [];
                 let totals = { CBT: 0, Systemic: 0, Neuro: 0, Other: 0 };
                 
                 if (data.length === 0) { 
                     list.innerHTML = `<div class="empty-state"><div class="empty-text">No learning logged</div></div>`; 
                     document.getElementById('learningTotalDisplay').innerText = `CBT: 0 | SYS: 0 | NEURO: 0 | OTHER: 0`; 
-                    return; 
+                } else {
+                    let html = "";
+                    let lIdx = 0;
+                    data.forEach(e => {
+                        let h = parseFloat(e.hours || 0); 
+                        if(totals[e.type] !== undefined) totals[e.type] += h;
+                        
+                        const displayDate = e.date.split('-').reverse().join('.'); 
+                        let typeColor = 'var(--text-main)';
+                        if(e.type === 'CBT') typeColor = 'var(--c0)'; 
+                        if(e.type === 'Systemic') typeColor = 'var(--c1)'; 
+                        if(e.type === 'Neuro') typeColor = 'var(--c2)'; 
+                        if(e.type === 'Other') typeColor = 'var(--c5)';
+                        
+                        html += `
+                        <div class="note" style="--note-color: ${typeColor}; display: block; animation-delay: ${lIdx++ * 0.05}s;">
+                            <div class="note-header"><span style="color:${typeColor}">${e.type}</span><span>${displayDate} • ${e.hours} HRS</span></div>
+                            <div style="font-size:11px; font-weight:700; margin-bottom: 4px; color: var(--text-main);">${e.desc}</div>
+                            ${e.reflection ? `<div class="note-body preview-text">${e.reflection.replace(/\n/g, '<br>')}</div><button class="action-btn action-expand" style="margin-top: 6px; color:${typeColor}">Read More</button>` : ''}
+                            <div class="action-row">
+                                <button class="action-btn learn-edit" data-id="${e.id}">Edit</button>
+                                <button class="action-btn learn-delete" style="color:#ff453a; opacity: 0.8;" data-id="${e.id}">Delete</button>
+                            </div>
+                        </div>`;
+                    });
+                    list.innerHTML = html; 
+                    document.getElementById('learningTotalDisplay').innerText = `CBT: ${totals.CBT} | SYS: ${totals.Systemic} | NEURO: ${totals.Neuro} | OTHER: ${totals.Other}`;
                 }
-                
-                let html = "";
-                let lIdx = 0;
-                data.forEach(e => {
-                    let h = parseFloat(e.hours || 0); 
-                    if(totals[e.type] !== undefined) totals[e.type] += h;
+
+                // Render Progress Bars if ON
+                if (isLearningProgressOn) {
+                    progressContainer.style.display = 'block';
+                    let progressHtml = '';
                     
-                    const displayDate = e.date.split('-').reverse().join('.'); 
-                    let typeColor = 'var(--text-main)';
-                    if(e.type === 'CBT') typeColor = 'var(--c0)'; 
-                    if(e.type === 'Systemic') typeColor = 'var(--c1)'; 
-                    if(e.type === 'Neuro') typeColor = 'var(--c2)'; 
-                    if(e.type === 'Other') typeColor = 'var(--c5)';
-                    
-                    html += `
-                    <div class="note" style="--note-color: ${typeColor}; display: block; animation-delay: ${lIdx++ * 0.05}s;">
-                        <div class="note-header"><span style="color:${typeColor}">${e.type}</span><span>${displayDate} • ${e.hours} HRS</span></div>
-                        <div style="font-size:11px; font-weight:700; margin-bottom: 4px; color: var(--text-main);">${e.desc}</div>
-                        ${e.reflection ? `<div class="note-body preview-text">${e.reflection.replace(/\n/g, '<br>')}</div><button class="action-btn action-expand" style="margin-top: 6px; color:${typeColor}">Read More</button>` : ''}
-                        <div class="action-row">
-                            <button class="action-btn learn-edit" data-id="${e.id}">Edit</button>
-                            <button class="action-btn learn-delete" style="color:#ff453a; opacity: 0.8;" data-id="${e.id}">Delete</button>
-                        </div>
-                    </div>`;
-                });
-                
-                list.innerHTML = html; 
-                document.getElementById('learningTotalDisplay').innerText = `CBT: ${totals.CBT} | SYS: ${totals.Systemic} | NEURO: ${totals.Neuro} | OTHER: ${totals.Other}`;
+                    const drawBar = (label, current, target, color) => {
+                        if (target > 0) {
+                            const perc = Math.min((current / target) * 100, 100).toFixed(0);
+                            progressHtml += `
+                                <div class="progress-row">
+                                    <div class="progress-label" style="color: ${color}">${label}</div>
+                                    <div class="progress-track"><div class="progress-fill" style="width: ${perc}%; background: ${color};"></div></div>
+                                    <div class="progress-text">${current}/${target}</div>
+                                </div>
+                            `;
+                        }
+                    };
+
+                    drawBar('CBT', totals.CBT, learningTargets.CBT, 'var(--c0)');
+                    drawBar('SYS', totals.Systemic, learningTargets.Systemic, 'var(--c1)');
+                    drawBar('NEURO', totals.Neuro, learningTargets.Neuro, 'var(--c2)');
+                    drawBar('OTHER', totals.Other, learningTargets.Other, 'var(--c5)');
+
+                    if(progressHtml === '') {
+                        progressContainer.innerHTML = '<div class="permanent-msg" style="margin:0;">Set hourly targets via the module settings cog.</div>';
+                    } else {
+                        progressContainer.innerHTML = progressHtml;
+                    }
+                } else {
+                    progressContainer.style.display = 'none';
+                }
             }
 
             function handleLearningActions(e) {
@@ -2075,6 +2463,7 @@
                     let data = JSON.parse(localStorage.getItem('dclinLearning')) || []; 
                     localStorage.setItem('dclinLearning', JSON.stringify(data.filter(e => e.id !== id))); 
                     renderLearning(); 
+                    if(isDashboardOn) renderDashboard();
                     showToast("Entry Deleted"); 
                 }, 350);
             }
@@ -2083,6 +2472,7 @@
                 if(!confirm("Wipe all learning logs forever?")) return; 
                 localStorage.setItem('dclinLearning', JSON.stringify([])); 
                 renderLearning(); 
+                if(isDashboardOn) renderDashboard();
                 showToast("Learning logs cleared"); 
             }
 
@@ -2111,6 +2501,74 @@
             }
 
             // --- EXPENSES LOGIC ---
+            function renderFrequentDestinations() {
+                const locs = JSON.parse(localStorage.getItem('dclinSavedLocations')) || [];
+                const chipsContainer = document.getElementById('quickFillChips');
+                const listContainer = document.getElementById('savedLocationsList');
+
+                if(locs.length === 0) {
+                    chipsContainer.style.display = 'none';
+                    listContainer.innerHTML = '<div style="font-size:9px; color:var(--text-muted); text-align:center; padding:10px;">No saved locations yet.</div>';
+                } else {
+                    chipsContainer.style.display = 'flex';
+                    chipsContainer.innerHTML = '';
+                    
+                    let listHtml = '';
+                    locs.forEach((loc, index) => {
+                        // Render Chip
+                        const btn = document.createElement('button');
+                        btn.className = 'chip-btn';
+                        btn.innerText = loc.name;
+                        btn.onclick = () => {
+                            document.getElementById('destPostcode').value = loc.postcode;
+                            triggerHaptic(10);
+                        };
+                        chipsContainer.appendChild(btn);
+
+                        // Render List Item for Settings Drawer
+                        listHtml += `
+                            <div style="display:flex; justify-content:space-between; align-items:center; background:var(--bg-overlay); padding:10px 14px; border-radius:12px; margin-bottom:8px; border:1px solid var(--border);">
+                                <div>
+                                    <div style="font-size:11px; color:var(--text-main); font-weight:700; margin-bottom:2px;">${loc.name}</div>
+                                    <div style="font-size:9px; color:var(--text-muted); font-weight:800; letter-spacing:1px;">${loc.postcode}</div>
+                                </div>
+                                <button class="action-btn" style="color:var(--deadline-red); font-size:14px; padding:5px;" onclick="deleteSavedLocation(${index})">×</button>
+                            </div>
+                        `;
+                    });
+                    listContainer.innerHTML = listHtml;
+                }
+            }
+
+            window.addSavedLocation = function() {
+                const name = document.getElementById('newLocName').value.trim();
+                const pc = document.getElementById('newLocPostcode').value.trim();
+                
+                if(!name || !pc) {
+                    showToast("Please enter Name and Postcode");
+                    return;
+                }
+                
+                const locs = JSON.parse(localStorage.getItem('dclinSavedLocations')) || [];
+                locs.push({name: name, postcode: pc.toUpperCase()});
+                localStorage.setItem('dclinSavedLocations', JSON.stringify(locs));
+                
+                document.getElementById('newLocName').value = '';
+                document.getElementById('newLocPostcode').value = '';
+                
+                renderFrequentDestinations();
+                showToast("Location Saved");
+                triggerHaptic(20);
+            }
+
+            window.deleteSavedLocation = function(index) {
+                const locs = JSON.parse(localStorage.getItem('dclinSavedLocations')) || [];
+                locs.splice(index, 1);
+                localStorage.setItem('dclinSavedLocations', JSON.stringify(locs));
+                renderFrequentDestinations();
+                triggerHaptic(20);
+            }
+
             async function fetchCoordinates(postcode) {
                 const clean = postcode.replace(/\s+/g, '').toLowerCase();
                 const res = await fetch(`https://api.postcodes.io/postcodes/${clean}`);
@@ -2130,8 +2588,8 @@
                 const rateStr = expSettings ? expSettings.rate : null;
                 
                 if(!rateStr) { 
-                    showToast("Please set £ Rate via the Settings Icon first"); 
-                    toggleExpenseSettings(); 
+                    showToast("Please set £ Rate via the Settings Cog first"); 
+                    toggleDrawer('expenseSettingsDrawer'); 
                     return; 
                 }
                 if(!type || !start || !dest || !date) { 
@@ -2173,6 +2631,7 @@
                     document.getElementById('returnJourney').checked = false; 
                     
                     renderExpenses(); 
+                    if(isDashboardOn) renderDashboard();
                     showToast(`Logged successfully`); 
                     triggerHaptic([30, 50, 30]);
                 } catch (error) { 
@@ -2193,8 +2652,7 @@
                 const startInput = document.getElementById('startPostcode'); 
                 if(!startInput.value && base) startInput.value = base;
                 
-                closeDrawers(); 
-                showToast("Expense Settings Saved");
+                showToast("Base Settings Saved");
             }
 
             function renderExpenses() {
@@ -2250,6 +2708,7 @@
                     expenses = expenses.filter(e => e.id !== id); 
                     localStorage.setItem('dclinExpenses', JSON.stringify(expenses)); 
                     renderExpenses(); 
+                    if(isDashboardOn) renderDashboard();
                     showToast("Expense Deleted"); 
                 }, 350);
             }
@@ -2258,6 +2717,7 @@
                 if(!confirm("Wipe all logged expenses forever?")) return; 
                 localStorage.setItem('dclinExpenses', JSON.stringify([])); 
                 renderExpenses(); 
+                if(isDashboardOn) renderDashboard();
                 showToast("Expenses cleared"); 
             }
 
@@ -2279,6 +2739,140 @@
                 a.click(); 
                 showToast("Spreadsheet Exported");
             }
+            
+            // --- STATISTICS DASHBOARD LOGIC ---
+            function renderDashboard() {
+                const dashContent = document.getElementById('dashboardContent');
+                
+                const notes = JSON.parse(localStorage.getItem('dclinData')) || [];
+                const learning = JSON.parse(localStorage.getItem('dclinLearning')) || [];
+                const expenses = JSON.parse(localStorage.getItem('dclinExpenses')) || [];
+                const journal = JSON.parse(localStorage.getItem('dclinJournal')) || [];
+                
+                // Notes Stats
+                const totalNotes = notes.length;
+                let tagsBreakdown = {};
+                let metDeadlines = 0;
+                let missedDeadlines = 0;
+                
+                const todayStart = new Date();
+                todayStart.setHours(0,0,0,0);
+                
+                notes.forEach(n => {
+                    tagsBreakdown[n.tag] = (tagsBreakdown[n.tag] || 0) + 1;
+                    if (n.deadline) {
+                        if (n.done) metDeadlines++;
+                        else {
+                            let dDate = new Date(n.deadline).setHours(0,0,0,0);
+                            if (dDate < todayStart.getTime()) missedDeadlines++;
+                        }
+                    }
+                });
+
+                let tagHtml = '';
+                for (const [tag, count] of Object.entries(tagsBreakdown)) {
+                    tagHtml += `<div class="stat-breakdown-row"><span>${tag}</span><span style="font-weight:800;">${count}</span></div>`;
+                }
+
+                // Learning Stats
+                const totalCPD = learning.length;
+                let cpdHours = 0;
+                let cpdBreakdown = {};
+                learning.forEach(l => {
+                    cpdHours += parseFloat(l.hours || 0);
+                    cpdBreakdown[l.type] = (cpdBreakdown[l.type] || 0) + parseFloat(l.hours || 0);
+                });
+                
+                let cpdHtml = '';
+                for (const [type, hours] of Object.entries(cpdBreakdown)) {
+                    cpdHtml += `<div class="stat-breakdown-row"><span>${type}</span><span style="font-weight:800;">${hours} hrs</span></div>`;
+                }
+
+                // Expenses
+                const totalJourneys = expenses.length;
+                let totalMiles = 0;
+                let totalCost = 0;
+                expenses.forEach(e => {
+                    totalMiles += parseFloat(e.miles || 0);
+                    totalCost += parseFloat(e.cost || 0);
+                });
+
+                // Journal
+                const totalJournal = journal.length;
+                let supervisorComments = 0;
+                journal.forEach(j => {
+                    if (j.type === 'Supervision') supervisorComments++;
+                });
+
+                // Unique Days Active
+                const allDates = new Set();
+                notes.forEach(n => allDates.add(n.created));
+                learning.forEach(l => allDates.add(l.date));
+                expenses.forEach(e => allDates.add(e.date));
+                journal.forEach(j => allDates.add(j.userDate));
+                const activeDays = allDates.size;
+
+                // Build HTML
+                dashContent.innerHTML = `
+                    <div class="stat-grid">
+                        <div class="stat-card">
+                            <div class="stat-val">${totalNotes}</div>
+                            <div class="stat-label">Total Notes</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-val">${activeDays}</div>
+                            <div class="stat-label">Active Days</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-val" style="color: #34C759;">${metDeadlines}</div>
+                            <div class="stat-label">Deadlines Met</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-val" style="color: var(--deadline-red);">${missedDeadlines}</div>
+                            <div class="stat-label">Deadlines Missed</div>
+                        </div>
+                    </div>
+                    
+                    <details class="stat-details">
+                        <summary>Note Breakdown by Tag ▾</summary>
+                        <div style="margin-top:10px;">${tagHtml || '<div style="opacity:0.5; text-align:center;">No tags used yet.</div>'}</div>
+                    </details>
+
+                    <div class="stat-grid" style="margin-top: 20px;">
+                        <div class="stat-card" style="grid-column: span 2;">
+                            <div class="stat-val">${cpdHours.toFixed(1)}</div>
+                            <div class="stat-label">CPD Hours Logged</div>
+                        </div>
+                    </div>
+                    
+                    <details class="stat-details">
+                        <summary>CPD Hours by Modality ▾</summary>
+                        <div style="margin-top:10px;">${cpdHtml || '<div style="opacity:0.5; text-align:center;">No hours logged yet.</div>'}</div>
+                    </details>
+
+                    <div class="stat-grid" style="margin-top: 20px;">
+                        <div class="stat-card">
+                            <div class="stat-val">${totalJourneys}</div>
+                            <div class="stat-label">Journeys</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-val">£${totalCost.toFixed(2)}</div>
+                            <div class="stat-label">${totalMiles.toFixed(1)} Miles</div>
+                        </div>
+                    </div>
+                    
+                    <div class="stat-grid" style="margin-top: 20px;">
+                        <div class="stat-card">
+                            <div class="stat-val">${totalJournal}</div>
+                            <div class="stat-label">Journal Entries</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-val">${supervisorComments}</div>
+                            <div class="stat-label">Supervisor Notes</div>
+                        </div>
+                    </div>
+                `;
+            }
 
             // --- UI HELPERS ---
             function toggleVault(vaultId, btn) {
@@ -2287,7 +2881,7 @@
                 v.style.display = isHidden ? 'block' : 'none';
                 if(btn) { 
                     btn.style.borderColor = isHidden ? 'var(--active-accent)' : ''; 
-                    btn.style.color = isHidden ? 'var(--text-main)' : ''; 
+                    btn.style.color = isHidden ? 'var(--active-accent)' : ''; 
                 }
             }
 
@@ -2299,27 +2893,14 @@
                 document.getElementById('drawerOverlay').classList.remove('active'); 
             }
             
-            function toggleWalkthrough() { 
+            function toggleDrawer(drawerId) {
                 triggerHaptic(10); 
-                document.getElementById('themeDrawer').classList.remove('active'); 
-                document.getElementById('expenseSettingsDrawer').classList.remove('active'); 
-                document.getElementById('generalSettingsDrawer').classList.remove('active');
+                // Close all others first
+                document.querySelectorAll('.bottom-drawer').forEach(d => {
+                    if (d.id !== drawerId) d.classList.remove('active');
+                });
                 
-                const drawer = document.getElementById('helpWalkthrough'); 
-                const overlay = document.getElementById('drawerOverlay'); 
-                drawer.classList.toggle('active'); 
-                
-                if (drawer.classList.contains('active')) overlay.classList.add('active'); 
-                else overlay.classList.remove('active'); 
-            }
-
-            function toggleGeneralSettings() { 
-                triggerHaptic(10); 
-                document.getElementById('helpWalkthrough').classList.remove('active'); 
-                document.getElementById('themeDrawer').classList.remove('active'); 
-                document.getElementById('expenseSettingsDrawer').classList.remove('active'); 
-                
-                const drawer = document.getElementById('generalSettingsDrawer'); 
+                const drawer = document.getElementById(drawerId); 
                 const overlay = document.getElementById('drawerOverlay'); 
                 drawer.classList.toggle('active'); 
                 
@@ -2327,33 +2908,8 @@
                 else overlay.classList.remove('active'); 
             }
             
-            function toggleThemeDrawer() { 
-                triggerHaptic(10); 
-                document.getElementById('helpWalkthrough').classList.remove('active'); 
-                document.getElementById('expenseSettingsDrawer').classList.remove('active'); 
-                document.getElementById('generalSettingsDrawer').classList.remove('active');
-                
-                const drawer = document.getElementById('themeDrawer'); 
-                const overlay = document.getElementById('drawerOverlay'); 
-                drawer.classList.toggle('active'); 
-                
-                if (drawer.classList.contains('active')) overlay.classList.add('active'); 
-                else overlay.classList.remove('active'); 
-            }
-            
-            function toggleExpenseSettings() { 
-                triggerHaptic(10); 
-                document.getElementById('helpWalkthrough').classList.remove('active'); 
-                document.getElementById('themeDrawer').classList.remove('active'); 
-                document.getElementById('generalSettingsDrawer').classList.remove('active');
-                
-                const drawer = document.getElementById('expenseSettingsDrawer'); 
-                const overlay = document.getElementById('drawerOverlay'); 
-                drawer.classList.toggle('active'); 
-                
-                if (drawer.classList.contains('active')) overlay.classList.add('active'); 
-                else overlay.classList.remove('active'); 
-            }
+            function toggleWalkthrough() { toggleDrawer('helpWalkthrough'); }
+            function toggleThemeDrawer() { toggleDrawer('themeDrawer'); }
 
             function setTheme(themeName) { 
                 triggerHaptic(20); 
@@ -2426,6 +2982,7 @@
                         renderExpenses(); 
                         renderLearning(); 
                         renderJournal();
+                        if(isDashboardOn) renderDashboard();
                         showToast("Log Restored & Merged!");
                     } catch (err) { 
                         alert("Error reading file."); 
@@ -2474,7 +3031,10 @@
                 if (n) {
                     noteInput.innerHTML = n.text; 
                     dueDatePicker.value = n.deadline || ""; 
-                    document.getElementById('summativeCheck').checked = n.isSummative || false;
+                    
+                    summativeCheck.checked = n.isSummative || false;
+                    summativeToggleLabel.classList.toggle('active', n.isSummative || false);
+                    
                     updateDateLabel(); 
                     editingId = id;
                     
@@ -2488,6 +3048,7 @@
                     }
                     
                     updateToolbarState(); 
+                    if(isWordCountOn) updateWordCount();
                     window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             }
