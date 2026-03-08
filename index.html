@@ -75,7 +75,15 @@
         }
 
         /* --- OVERDUE STYLING --- */
-        .dot.overdue-glow { background: var(--deadline-red) !important; box-shadow: 0 0 8px var(--deadline-red); }
+        .dot.overdue-glow { 
+            background: var(--deadline-red) !important; 
+            box-shadow: 0 0 8px var(--deadline-red); 
+            animation: pulseGlow 1.5s infinite alternate;
+        }
+        @keyframes pulseGlow {
+            0% { box-shadow: 0 0 4px var(--deadline-red); transform: scale(0.95); opacity: 0.8; }
+            100% { box-shadow: 0 0 16px 4px var(--deadline-red); transform: scale(1.1); opacity: 1; }
+        }
         .upcoming-item.overdue-priority { border-left: 3px solid var(--deadline-red) !important; box-shadow: 0 0 10px rgba(255, 69, 58, 0.2); background: rgba(255, 69, 58, 0.05) !important; }
         
         /* Overdue Main Note Tile - Default */
@@ -123,6 +131,9 @@
         [data-theme="foundation"] .utility-orb { background: #111; box-shadow: inset 2px 2px 5px #000, inset -1px -1px 2px #222; }
         [data-theme="foundation"] .orb-download { border: 1px solid #66FF00; }
         [data-theme="foundation"] .orb-restore { border: 1px solid #007FFF; }
+        
+        [data-theme="foundation"] .learning-dashboard-wrapper { background: #0d0d0d !important; border: 1px solid rgba(255,255,255,0.02) !important; box-shadow: inset 4px 4px 10px #000, inset -2px -2px 5px rgba(255,255,255,0.02) !important; }
+        [data-theme="foundation"] .progress-bar-container { background: #000 !important; box-shadow: inset 2px 2px 4px #000 !important; }
 
         /* --- NEBULA THEME --- */
         [data-theme="nebula"] { 
@@ -166,6 +177,18 @@
             will-change: transform, backdrop-filter; /* Rendering Fix */
         }
         
+        /* Fix Webkit mask-image clipping bugs on Nebula (Shard shadows) */
+        [data-theme="nebula"] #vaultWindow .note,
+        [data-theme="nebula"] #completedVaultScroll .note,
+        [data-theme="nebula"] #learningVaultScroll .note,
+        [data-theme="nebula"] #expenseVaultScroll .expense-tile,
+        [data-theme="nebula"] #journalVaultScroll .calendar-container {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            border: 1px solid rgba(255,255,255,0.05) !important;
+        }
+
         /* Overdue Main Note Tile - Nebula */
         [data-theme="nebula"] .note.overdue-note { box-shadow: 0 8px 32px rgba(0,0,0,0.6), inset 0 0 20px rgba(255, 69, 58, 0.15), 0 0 12px rgba(255, 69, 58, 0.3); border: 1px solid rgba(255, 69, 58, 0.4); border-left: 3px solid var(--deadline-red); background: rgba(255, 69, 58, 0.05); }
 
@@ -223,7 +246,7 @@
             --warm-white: #1a1712; --warm-white-glow: transparent; 
         }
         html[data-theme="parchment"]::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 9999; background: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.08'/%3E%3C/svg%3E"); opacity: 1; mix-blend-mode: multiply; }
-        html[data-theme="parchment"] body, html[data-theme="parchment"] input, html[data-theme="parchment"] textarea, html[data-theme="parchment"] select, html[data-theme="parchment"] button, html[data-theme="parchment"] .note-body, [data-theme="parchment"] div.expense-input[contenteditable] { font-family: 'Georgia', 'Times New Roman', serif; }
+        html[data-theme="parchment"] body, html[data-theme="parchment"] input, html[data-theme="parchment"] textarea, html[data-theme="parchment"] select, html[data-theme="parchment"] button, html[data-theme="parchment"] .note-body, [data-theme="parchment"] div.expense-input[contenteditable], [data-theme="parchment"] #noteInput { font-family: 'Georgia', 'Times New Roman', serif; }
         [data-theme="parchment"] .vibe-container, [data-theme="foundation"] .vibe-container { display: none !important; }
         [data-theme="parchment"] .input-box, [data-theme="parchment"] .note, [data-theme="parchment"] .expense-tile, [data-theme="parchment"] .calendar-container, [data-theme="parchment"] #searchWrapper, [data-theme="parchment"] #journalSearchWrapper, [data-theme="parchment"] .bottom-drawer { background: var(--note-bg); border: 1px solid var(--border); border-radius: 2px; box-shadow: 4px 4px 0px rgba(0,0,0,0.08), 8px 8px 0px rgba(0,0,0,0.04); backdrop-filter: none; -webkit-backdrop-filter: none; }
         [data-theme="parchment"] .bottom-drawer { border-radius: 10px 10px 0 0; box-shadow: 0 -4px 20px rgba(0,0,0,0.15); }
@@ -285,7 +308,7 @@
         
         @keyframes sweep { 0% { left: -50%; } 100% { left: 150%; } }
 
-        .editor-wrapper { position: relative; width: 100%; height: 140px; display: flex; flex-direction: column; }
+        .editor-wrapper { position: relative; width: 100%; min-height: 140px; display: flex; flex-direction: column; }
         #noteInput { flex-grow: 1; background: transparent; border: none; color: var(--text-main); font-size: 16px; overflow-y: auto; font-family: inherit; font-weight: 300; line-height: 1.5; padding-bottom: 10px; -webkit-appearance: none; outline: none !important; -webkit-tap-highlight-color: transparent; -webkit-user-select: text; user-select: text; }
         #noteInput:focus { outline: 0px solid transparent !important; box-shadow: none !important; -webkit-box-shadow: none !important; }
         #noteInput[contenteditable]:empty::before { content: attr(data-placeholder); color: var(--text-muted); pointer-events: none; display: block; }
@@ -332,7 +355,7 @@
         #searchWrapper input, #journalSearchWrapper input { background: transparent; border: none; color: var(--text-main); width: 85%; outline: none; -webkit-user-select: text; user-select: text; }
         #searchWrapper input::placeholder, #journalSearchWrapper input::placeholder { color: var(--text-muted); }
 
-        #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll, #journalVaultScroll { max-height: 400px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 0 12px 20px; -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 92%, rgba(255,255,255,0) 100%); margin-bottom: 40px; }
+        #vaultWindow, #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll, #journalVaultScroll { max-height: 400px; overflow-y: auto; scrollbar-width: none; -ms-overflow-style: none; -webkit-overflow-scrolling: touch; overscroll-behavior-y: contain; padding: 0 12px 2px; -webkit-mask-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 92%, rgba(255,255,255,0) 100%); margin-bottom: 15px; }
         #vaultWindow { margin-top: 0; } #completedVaultScroll, #learningVaultScroll, #expenseVaultScroll, #journalVaultScroll { margin-top: 15px; }
         #vaultWindow::-webkit-scrollbar, #completedVaultScroll::-webkit-scrollbar, #learningVaultScroll::-webkit-scrollbar, #expenseVaultScroll::-webkit-scrollbar, #journalVaultScroll::-webkit-scrollbar { display: none; }
         #expenseVaultScroll, #learningVaultScroll, #journalVaultScroll { max-height: 300px; }
@@ -389,18 +412,22 @@
         select.expense-input option { background-color: var(--toast-bg); color: var(--text-main); }
         
         /* Unified Typography for ContentEditables */
-        div.expense-input[contenteditable] { 
+        div.expense-input[contenteditable], .framework-input { 
             font-size: 16px !important; 
             font-family: inherit; 
             font-weight: 300; 
             line-height: 1.5; 
             color: var(--text-main);
+            outline: none !important;
+            -webkit-tap-highlight-color: transparent !important;
+        }
+        div.expense-input[contenteditable] {
             min-height: 100px; 
             max-height: 140px; 
             overflow-y: auto; 
             cursor: text; 
         }
-        div.expense-input[contenteditable]:empty::before { 
+        div.expense-input[contenteditable]:empty::before, .framework-input:empty::before { 
             content: attr(data-placeholder); 
             color: var(--text-muted); 
             pointer-events: none; 
@@ -421,7 +448,8 @@
         .totals-display { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; color: var(--text-mid); text-align: right; margin-bottom: 15px; margin-right: 5px; }
 
         /* Progress Bars */
-        .progress-bar-container { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-top: 4px; }
+        .learning-dashboard-wrapper { background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 16px; padding: 15px; margin-bottom: 15px; }
+        .progress-bar-container { width: 100%; height: 6px; background: rgba(255,255,255,0.1); border-radius: 3px; overflow: hidden; margin-top: 4px; box-shadow: inset 0 1px 3px rgba(0,0,0,0.3); }
         .progress-bar-fill { height: 100%; border-radius: 3px; transition: width 0.8s ease-out; }
         .target-inputs-wrapper { display: none; gap: 8px; flex-wrap: wrap; margin-top: 15px; }
         .target-inputs-wrapper.active { display: flex; }
@@ -833,7 +861,7 @@
                 <label class="toggle-label"><input type="checkbox" id="toggleLearningFramework"> Enable</label>
             </div>
             <div class="setting-info-text visible" style="border-left-color: var(--text-muted); opacity: 0.6; max-height: 100px; margin-top: 10px;">
-                Injects structured prompts (Description, Reflection, Changes) into your log entry.
+                Injects structured individual prompts into your log entry.
             </div>
         </div>
 
@@ -868,7 +896,7 @@
                 <label class="toggle-label"><input type="checkbox" id="toggleJournalFramework"> Enable</label>
             </div>
             <div class="setting-info-text visible" style="border-left-color: var(--text-muted); opacity: 0.6; max-height: 100px; margin-top: 10px;">
-                Injects context-specific prompts for Supervision and Daily Activity records.
+                Injects individual context-specific prompts for records.
             </div>
         </div>
 
@@ -907,7 +935,7 @@
         <div class="help-scroll-area">
             
             <div class="safety-box" style="background: rgba(249, 196, 105, 0.05); border: 1px solid rgba(249, 196, 105, 0.3);">
-                <div style="color: #F9C469; margin-bottom: 6px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Clinical Governance & Confidentiality</div>
+                <div style="color: #F9C469; margin-bottom: 6px; font-size: 10px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px;">Clinical Governance & Confidentiality</div>
                 <div style="font-size: 10px; line-height: 1.5; color: var(--text-high);">
                     This is a personal training log. <b>Do not</b> enter sensitive, identifiable patient information into this app. Always maintain standard HCPC/BPS confidentiality guidelines when reflecting on clinical work.
                 </div>
@@ -916,14 +944,14 @@
             <div class="safety-box">
                 <div style="color: var(--deadline-red); margin-bottom: 12px; font-size: 10px; font-weight: 600; line-height: 1.5;">System updates or clearing your browser cache will wipe this app's data. Back up your log frequently!</div>
                 <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);"><b>1. Backup</b></div>
-                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">Tap <span style="color: #66FF00; font-weight: 600;">Download</span> to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 600;">Click "More" and select "Save to Files"</span> to store it securely.</div>
+                <div style="margin-bottom: 10px; font-size: 10px; line-height: 1.4; color: var(--text-high);">Tap <span style="color: #66FF00; font-weight: 800;">Download</span> to save your data as a secure .json file. <span style="color: var(--active-accent); font-weight: 600;">Click "More" and select "Save to Files"</span> to store it securely.</div>
                 <div style="margin-bottom: 4px; font-size: 10px; color: var(--text-main);"><b>2. Restore</b></div>
-                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">If your app clears, tap <span style="color: #007FFF; font-weight: 600;">Restore</span>, select that saved .json file, and your data will instantly return.</div>
+                <div style="font-size: 10px; line-height: 1.4; color: var(--text-high);">If your app clears, tap <span style="color: #007FFF; font-weight: 800;">Restore</span>, select that saved .json file, and your data will instantly return.</div>
             </div>
             
             <div class="walk-item"><b>Tags & Filters</b> Use icons to categorize notes. Filter your timeline by tag or search by keyword.</div>
             <div class="walk-item"><b>Local Settings (Gear Icons)</b> Each section (Capture, Calendar, Learning, Journal, Expenses) has a gear icon in the top right. Open these to find Export to CSV options, Reflective Framework toggles, Target Hours, and Clear Log buttons.</div>
-            <div class="walk-item"><b>Reflective Frameworks</b> Enable in Capture, Learning, or Journal settings to auto-inject guided, un-deletable prompts (like Gibbs' cycle) into your text boxes to streamline write-ups.</div>
+            <div class="walk-item"><b>Reflective Frameworks</b> Enable in Capture, Learning, or Journal settings to auto-inject guided prompts (like Gibbs' cycle) into your text boxes to streamline write-ups.</div>
             <div class="walk-item"><b>Postcode Shortcuts</b> In Expense settings, link names like "Uni" to a postcode. Type "Uni" when logging a journey to automatically route the mileage.</div>
             <div class="walk-item" style="border: none;"><b>Progress Tracking</b> Set target hours in the Extra Learning settings to unlock visual progress rings for your clinical portfolio.</div>
         </div>
@@ -1201,7 +1229,7 @@
                 ];
 
                 const initialJournal = [
-                    { id: 401, userDate: todayStr, systemDate: new Date().toISOString(), type: 'Supervision', text: "Welcome to the Supervisor Comments ledger!\n\nUse this to record specific instructions, feedback, or direct quotes from your supervisor. This acts as a contemporaneous record for your portfolio, keeping a clear audit trail." },
+                    { id: 401, userDate: todayStr, systemDate: new Date().toISOString(), type: 'Supervision', text: "Welcome to the Supervisor Comments ledger!\n\nUse this to record specific instructions, feedback, or direct quotes from your supervisor. This acts as a contemporaneous record for your portfolio and protects you by keeping a clear audit trail." },
                     { id: 402, userDate: todayStr, systemDate: new Date().toISOString(), type: 'Daily Activity', text: "Welcome to the Daily Activity ledger!\n\nLog the tasks you complete each day (e.g., client sessions, admin, report writing). This provides concrete evidence of your clinical hours and activities." }
                 ];
 
@@ -1215,56 +1243,68 @@
             // --- REFLECTIVE FRAMEWORKS LOGIC ---
             function applyFramework(elementId, prompts) {
                 const el = document.getElementById(elementId);
-                if (el.querySelector('.framework-prompt')) return;
+                if (el.getAttribute('data-framework-active') === 'true') return;
                 
                 let existingText = el.innerHTML.trim();
-                // If it looks like it was already saved with a framework, don't re-apply
-                if(prompts.some(p => existingText.includes(`<i>${p}:</i>`))) return;
-                
                 if (existingText === el.getAttribute('data-placeholder') || existingText === '<br>') existingText = '';
 
+                el.style.display = 'none'; // Hide original input
+                
+                const wrapper = document.createElement('div');
+                wrapper.className = 'framework-wrapper';
+                wrapper.id = elementId + '-framework';
+                
                 let html = '';
                 prompts.forEach((prompt, index) => {
-                    let content = (index === 0 && existingText) ? existingText : '<br>';
-                    html += `<div style="margin-top: 8px; line-height: 1.5;">
-                        <span contenteditable="false" class="framework-prompt" style="color: var(--text-muted); font-style: italic; opacity: 0.8; font-size: 14px; user-select: none; pointer-events: none;">${prompt}: &nbsp;</span><span class="framework-content" style="outline: none;">${content}</span>
+                    let content = (index === 0 && existingText) ? existingText : '';
+                    html += `<div style="margin-top: 10px;">
+                        <div style="font-size: 10px; font-weight: 600; text-transform: uppercase; color: var(--text-muted); margin-bottom: 4px; opacity: 0.7;">${prompt}</div>
+                        <div class="expense-input framework-input" contenteditable="true" data-prompt="${prompt}" style="min-height: 40px; max-height: none; padding: 10px 14px;">${content}</div>
                     </div>`;
                 });
-                el.innerHTML = html;
+                wrapper.innerHTML = html;
+                el.parentNode.insertBefore(wrapper, el.nextSibling);
+                el.setAttribute('data-framework-active', 'true');
             }
 
             function removeFramework(elementId) {
                 const el = document.getElementById(elementId);
-                if (!el.querySelector('.framework-prompt')) return;
+                if (el.getAttribute('data-framework-active') !== 'true') return;
                 
-                let combinedText = '';
-                el.querySelectorAll('.framework-content').forEach(node => {
-                    let text = node.innerHTML.trim();
-                    if (text !== '<br>' && text !== '' && text !== '&nbsp;') {
-                        combinedText += text + '<br>';
-                    }
-                });
-                el.innerHTML = combinedText;
+                const wrapper = document.getElementById(elementId + '-framework');
+                if (wrapper) {
+                    let combinedText = '';
+                    wrapper.querySelectorAll('.framework-input').forEach(node => {
+                        let text = node.innerHTML.trim();
+                        if (text !== '<br>' && text !== '' && text !== '&nbsp;') {
+                            combinedText += text + '<br>';
+                        }
+                    });
+                    el.innerHTML = combinedText;
+                    wrapper.remove();
+                }
+                el.style.display = 'block'; // Restore visibility
+                el.removeAttribute('data-framework-active');
             }
 
             function getFrameworkSaveText(elementId) {
                 const el = document.getElementById(elementId);
-                if (!el.querySelector('.framework-prompt')) return el.innerHTML;
+                if (el.getAttribute('data-framework-active') !== 'true') return el.innerHTML;
                 
+                const wrapper = document.getElementById(elementId + '-framework');
                 let finalHtml = '';
                 let hasContent = false;
-                const promptSpans = el.querySelectorAll('.framework-prompt');
-                promptSpans.forEach(pSpan => {
-                    let contentSpan = pSpan.nextElementSibling;
-                    if(contentSpan && contentSpan.classList.contains('framework-content')) {
-                        let text = contentSpan.innerHTML.trim();
+                
+                if (wrapper) {
+                    wrapper.querySelectorAll('.framework-input').forEach(input => {
+                        let text = input.innerHTML.trim();
                         if(text !== '<br>' && text !== '' && text !== '&nbsp;') {
-                            let cleanPrompt = pSpan.innerText.replace(':', '').trim();
-                            finalHtml += `<i>${cleanPrompt}:</i> ${text}<br><br>`;
+                            let prompt = input.getAttribute('data-prompt');
+                            finalHtml += `<i>${prompt}:</i><br>${text}<br><br>`;
                             hasContent = true;
                         }
-                    }
-                });
+                    });
+                }
                 return hasContent ? finalHtml : '';
             }
 
@@ -1283,13 +1323,22 @@
                 
                 document.getElementById('btnSaveExpenseSettings').addEventListener('click', saveExpenseSettings);
 
-                // Note Editor
-                noteInput.addEventListener('keyup', () => {
-                    updateToolbarState();
-                    autoSaveDraft();
-                    updateWordCount();
+                // Note Editor (Global Event Delegation for dynamic inputs)
+                document.addEventListener('keyup', (e) => {
+                    if (e.target.closest('.editor-wrapper') || e.target.classList.contains('framework-input')) {
+                        updateToolbarState();
+                        updateWordCount();
+                        if (e.target.closest('#noteInput') || e.target.closest('#noteInput-framework')) {
+                            autoSaveDraft();
+                        }
+                    }
                 });
-                noteInput.addEventListener('mouseup', updateToolbarState);
+
+                document.addEventListener('mouseup', (e) => {
+                    if (e.target.closest('.editor-wrapper') || e.target.classList.contains('framework-input')) {
+                        updateToolbarState();
+                    }
+                });
                 
                 btnBold.addEventListener('click', () => formatText('bold'));
                 btnItalic.addEventListener('click', () => formatText('italic'));
@@ -1695,7 +1744,15 @@
             // --- EDITOR LOGIC ---
             function formatText(command) { 
                 document.execCommand(command, false, null); 
-                noteInput.focus(); 
+                
+                // Allow formatting in active framework input or main note input
+                const activeEl = document.activeElement;
+                if(activeEl && (activeEl.id === 'noteInput' || activeEl.classList.contains('framework-input'))) {
+                    activeEl.focus(); 
+                } else {
+                    noteInput.focus();
+                }
+                
                 updateToolbarState(); 
             }
 
@@ -1707,14 +1764,33 @@
 
             function updateWordCount() {
                 if (!isWordCountEnabled) return;
-                const text = noteInput.innerText.trim();
+                
+                let text = "";
+                if (document.getElementById('noteInput').getAttribute('data-framework-active') === 'true') {
+                    // Extract from framework nodes
+                    const wrapper = document.getElementById('noteInput-framework');
+                    if (wrapper) {
+                        wrapper.querySelectorAll('.framework-input').forEach(input => {
+                            text += input.innerText + " ";
+                        });
+                    }
+                } else {
+                    text = document.getElementById('noteInput').innerText || "";
+                }
+                
+                text = text.trim();
                 const count = text ? text.split(/\s+/).filter(word => word.length > 0).length : 0;
                 wordCountDisplay.innerText = count + (count === 1 ? " word" : " words");
             }
 
             function autoSaveDraft() { 
                 if (!editingId) {
-                    localStorage.setItem('dclinDraft', noteInput.innerHTML); 
+                    if (document.getElementById('noteInput').getAttribute('data-framework-active') === 'true') {
+                        // Draft save for framework mode might be tricky, saving just raw HTML for now
+                        localStorage.setItem('dclinDraft', getFrameworkSaveText('noteInput'));
+                    } else {
+                        localStorage.setItem('dclinDraft', noteInput.innerHTML); 
+                    }
                 }
             }
 
@@ -1779,8 +1855,13 @@
                 localStorage.setItem('dclinData', JSON.stringify(data)); 
                 localStorage.removeItem('dclinDraft'); 
                 
-                noteInput.innerHTML = ""; 
-                if (writeIdx === 2 && isCaptureFrameworkEnabled) applyFramework('noteInput', capturePrompts);
+                if (isCaptureFrameworkEnabled && writeIdx === 2) {
+                    removeFramework('noteInput'); // Clean up existing wrappers
+                    noteInput.innerHTML = ""; 
+                    applyFramework('noteInput', capturePrompts); // Re-mount fresh ones
+                } else {
+                    noteInput.innerHTML = ""; 
+                }
                 
                 dueDatePicker.value = ""; 
                 summativeCheck.checked = false;
@@ -1805,7 +1886,16 @@
                 summativeToggleLabel.classList.remove('active');
                 
                 updateDateLabel();
-                noteInput.innerHTML = localStorage.getItem('dclinDraft') || "";
+                
+                // Extremely basic draft restore logic for non-framework notes
+                if (isCaptureFrameworkEnabled && writeIdx === 2) {
+                    removeFramework('noteInput');
+                    noteInput.innerHTML = ""; 
+                    applyFramework('noteInput', capturePrompts);
+                } else {
+                    noteInput.innerHTML = localStorage.getItem('dclinDraft') || "";
+                }
+                
                 updateToolbarState();
                 updateWordCount();
                 showToast("Edit Cancelled"); 
@@ -1871,8 +1961,15 @@
                     // Priority Intelligence: Red Glow for Overdue
                     const isOverdue = (new Date(dateStr) < todayObj) && displayDeadlines.length > 0;
                     
-                    if (isOverdue && calendarGlowSetting === 'On') {
-                        dots += `<div class="dot overdue-glow"></div>`;
+                    if (isOverdue) {
+                        if (calendarGlowSetting === 'On') {
+                            dots += `<div class="dot overdue-glow"></div>`;
+                        } else {
+                            const deadlineColors = [...new Set(displayDeadlines.map(d => d.color))].slice(0, 3); 
+                            deadlineColors.forEach(color => { 
+                                dots += `<div class="dot" style="background: ${color}; box-shadow: 0 0 4px ${color};"></div>`; 
+                            });
+                        }
                     } else {
                         const deadlineColors = [...new Set(displayDeadlines.map(d => d.color))].slice(0, 3); 
                         deadlineColors.forEach(color => { 
@@ -2155,8 +2252,13 @@
 
                 localStorage.setItem('dclinJournal', JSON.stringify(data));
                 
-                document.getElementById('journalText').innerHTML = "";
-                if (isJournalFrameworkEnabled) applyFramework('journalText', currentJournalTab === 'Supervision' ? journalSupervisionPrompts : journalActivityPrompts);
+                if (isJournalFrameworkEnabled) {
+                    removeFramework('journalText');
+                    document.getElementById('journalText').innerHTML = "";
+                    applyFramework('journalText', currentJournalTab === 'Supervision' ? journalSupervisionPrompts : journalActivityPrompts);
+                } else {
+                    document.getElementById('journalText').innerHTML = "";
+                }
                 
                 renderJournal();
                 showToast("Recorded in Ledger");
@@ -2193,7 +2295,7 @@
                     const typeColor = currentJournalTab === 'Supervision' ? "var(--c2)" : "var(--c0)";
                     
                     html += `<div class="calendar-container" style="padding: 15px; margin-bottom: 15px; animation: noteAppear 0.4s ease forwards; animation-delay: ${idx * 0.05}s;">`;
-                    html += `<div style="font-size: 11px; font-weight: 600; color: ${typeColor}; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 10px; display:flex; justify-content:space-between;"><span>${displayDate}</span> <span style="opacity:0.5; font-size:9px;">${currentJournalTab.toUpperCase()}</span></div>`;
+                    html += `<div style="font-size: 11px; font-weight: 800; color: ${typeColor}; border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 10px; display:flex; justify-content:space-between;"><span>${displayDate}</span> <span style="opacity:0.5; font-size:9px;">${currentJournalTab.toUpperCase()}</span></div>`;
 
                     groupedByDate[date].forEach((entry, eIdx) => {
                         const parsedText = entry.text.replace(/\n/g, '<br>');
@@ -2303,8 +2405,13 @@
                 document.getElementById('learnHours').value = ""; 
                 document.getElementById('learnType').value = ""; 
                 
-                document.getElementById('learnReflection').innerHTML = "";
-                if (isLearningFrameworkEnabled) applyFramework('learnReflection', learningPrompts);
+                if (isLearningFrameworkEnabled) {
+                    removeFramework('learnReflection');
+                    document.getElementById('learnReflection').innerHTML = "";
+                    applyFramework('learnReflection', learningPrompts);
+                } else {
+                    document.getElementById('learnReflection').innerHTML = "";
+                }
                 
                 renderLearning(); 
                 showToast("Learning Logged"); 
@@ -2320,7 +2427,15 @@
                     document.getElementById('learnType').value = e.type; 
                     document.getElementById('learnHours').value = e.hours; 
                     document.getElementById('learnDesc').value = e.desc; 
-                    document.getElementById('learnReflection').innerHTML = e.reflection || "";
+                    
+                    if (isLearningFrameworkEnabled) {
+                        removeFramework('learnReflection');
+                        document.getElementById('learnReflection').innerHTML = e.reflection || "";
+                        applyFramework('learnReflection', learningPrompts);
+                    } else {
+                        document.getElementById('learnReflection').innerHTML = e.reflection || "";
+                    }
+                    
                     editingLearnId = id; 
                     document.getElementById('logLearningBtn').innerText = "Update Log"; 
                     document.getElementById('learningModule').scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -2371,7 +2486,7 @@
                     displayDiv.className = "totals-display";
                     displayDiv.innerHTML = `CBT: ${totals.CBT} | SYS: ${totals.Systemic} | NEURO: ${totals.Neuro} | OTHER: ${totals.Other}`; 
                 } else {
-                    displayDiv.className = ""; 
+                    displayDiv.className = "learning-dashboard"; 
                     const renderBar = (label, current, target, color) => {
                         const percent = target > 0 ? Math.min((current / target) * 100, 100) : 0;
                         return `
@@ -2387,7 +2502,7 @@
                     };
                     
                     displayDiv.innerHTML = `
-                        <div style="background: var(--bg-overlay); border: 1px solid var(--border); border-radius: 16px; padding: 15px; margin-bottom: 15px;">
+                        <div class="learning-dashboard-wrapper">
                             ${renderBar('CBT', totals.CBT, learningTargets.cbt, 'var(--c0)')}
                             ${renderBar('Systemic', totals.Systemic, learningTargets.sys, 'var(--c1)')}
                             ${renderBar('Neuro', totals.Neuro, learningTargets.neuro, 'var(--c2)')}
@@ -2886,12 +3001,11 @@
                 const data = JSON.parse(localStorage.getItem('dclinData')) || []; 
                 const n = data.find(note => note.id === id);
                 if (n) {
-                    noteInput.innerHTML = n.text; 
-                    dueDatePicker.value = n.deadline || ""; 
                     
                     summativeCheck.checked = n.isSummative || false;
                     summativeToggleLabel.classList.toggle('active', n.isSummative || false);
                     
+                    dueDatePicker.value = n.deadline || ""; 
                     updateDateLabel(); 
                     editingId = id;
                     
@@ -2902,6 +3016,14 @@
                     const inputIcons = document.getElementById('inputIcons');
                     if(inputIcons.children[tagIdx]) {
                         inputIcons.children[tagIdx].click();
+                    }
+                    
+                    if (isCaptureFrameworkEnabled && writeIdx === 2) {
+                        removeFramework('noteInput');
+                        document.getElementById('noteInput').innerHTML = n.text;
+                        applyFramework('noteInput', capturePrompts);
+                    } else {
+                        document.getElementById('noteInput').innerHTML = n.text; 
                     }
                     
                     updateToolbarState(); 
