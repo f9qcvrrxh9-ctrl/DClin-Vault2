@@ -548,8 +548,283 @@
         html[data-glow="Vivid"]:not([data-theme="parchment"]) #filterIcons .sq-btn.all-btn.active { box-shadow: 0 0 25px var(--warm-white-glow) !important; }
         html[data-glow="Vivid"]:not([data-theme="parchment"]) .vibe-container { opacity: 1 !important; filter: contrast(1.2) saturate(1.5) brightness(1.2) !important; }
 
-    </style>
-</head>
+/* =========================================
+            LIGHT / DARK MODE OVERRIDES
+           ========================================= */
+
+
+        /* --- DYNAMIC THEME DRAWER ICONS --- */
+        .theme-circle { border: 2px solid transparent; transition: all 0.4s ease; }
+        
+/* --- DYNAMIC THEME DRAWER ICONS (SWIRLY PLANETS) --- */
+        .theme-circle { 
+            width: 50px; height: 50px; border-radius: 50%; border: none !important;
+            /* Universal 3D Sphere Shading Overlay */
+            box-shadow: inset -6px -6px 12px rgba(0,0,0,0.5), inset 4px 4px 10px rgba(255,255,255,0.4), 0 6px 15px rgba(0,0,0,0.3) !important;
+            transition: transform 0.3s cubic-bezier(0.2, 1, 0.3, 1), filter 0.3s ease;
+        }
+        .theme-btn.active .theme-circle { filter: brightness(1.2) drop-shadow(0 0 10px var(--active-accent)); }
+        
+        /* Dark Mode Planets */
+        html[data-color-mode="dark"] .tc-default { background: radial-gradient(circle at 20% 30%, #FC708A 0%, transparent 50%), radial-gradient(circle at 80% 70%, #9013FE 0%, transparent 50%), radial-gradient(circle at 60% 20%, #F9C469 0%, transparent 40%), #030407; }
+        html[data-color-mode="dark"] .tc-foundation { background: radial-gradient(circle at 30% 70%, #FF4F00 0%, transparent 40%), radial-gradient(circle at 70% 20%, #CC3E00 0%, transparent 40%), radial-gradient(circle at 50% 50%, #2a2a2a 0%, transparent 50%), #121212; }
+        html[data-color-mode="dark"] .tc-parchment { background: radial-gradient(circle at 30% 30%, #c9ada7 0%, transparent 50%), radial-gradient(circle at 70% 70%, #9a8c98 0%, transparent 50%), radial-gradient(circle at 80% 30%, #4a4e69 0%, transparent 50%), #22223b; }
+        html[data-color-mode="dark"] .tc-nebula { background: radial-gradient(circle at 20% 30%, #D8B4E2 0%, transparent 50%), radial-gradient(circle at 80% 70%, #9FD3C7 0%, transparent 50%), radial-gradient(circle at 50% 80%, #260f18 0%, transparent 60%), #050508; }
+
+        /* Light Mode Planets */
+        html[data-color-mode="light"] .tc-default { background: radial-gradient(circle at 70% 30%, #FF9A9E 0%, transparent 50%), radial-gradient(circle at 20% 70%, #A1C4FD 0%, transparent 50%), radial-gradient(circle at 50% 50%, #FECFEF 0%, transparent 60%), #FAFAFC; }
+        html[data-color-mode="light"] .tc-foundation { background: radial-gradient(circle at 25% 25%, #4285F4 0%, transparent 50%), radial-gradient(circle at 75% 75%, #EA4335 0%, transparent 50%), radial-gradient(circle at 80% 20%, #FBBC04 0%, transparent 40%), #E8EAED; }
+        html[data-color-mode="light"] .tc-parchment { background: radial-gradient(circle at 20% 80%, #1a1712 0%, transparent 30%), radial-gradient(circle at 80% 20%, #8b7d6b 0%, transparent 40%), radial-gradient(circle at 50% 50%, #d8c3a5 0%, transparent 60%), #E8DCC4; }
+        html[data-color-mode="light"] .tc-nebula { background: radial-gradient(circle at 70% 30%, #FF0055 0%, transparent 50%), radial-gradient(circle at 30% 70%, #FF9E00 0%, transparent 50%), radial-gradient(circle at 50% 50%, #FFFCF9 0%, transparent 50%), #FFB347; }        /* --- 1. DEFAULT: Prism (Light Mode) --- */
+/* --- 1. DEFAULT: Prism (Light Mode) --- */
+        html[data-theme="default"][data-color-mode="light"] {
+            --bg-color: #FAFAFC; --text-main: #1A1B23; --text-muted: rgba(26, 27, 35, 0.55);
+            --text-mid: rgba(26, 27, 35, 0.75); --text-high: #1A1B23;
+            --bg-overlay: rgba(0, 0, 0, 0.04); --drawer-bg: rgba(250, 250, 252, 0.95);
+            --note-bg: #FFFFFF; --toast-bg: rgba(26, 27, 35, 0.95); --toast-text: #FFFFFF;
+            --glass: rgba(255, 255, 255, 0.6); --border: rgba(26, 27, 35, 0.1);
+            --shadow-heavy: rgba(0, 0, 0, 0.08); --save-bg: rgba(26, 27, 35, 0.05);
+            --c0: #D97706; --c1: #C2410C; --c2: #BE123C; --c3: #9D174D; --c4: #6D28D9; --c5: #0F766E;
+            /* Bright, pastel light-leaks for the background orbs */
+            --active-vibe: rgba(255, 154, 158, 0.45); 
+            --active-orb-2: rgba(161, 196, 253, 0.45); 
+            --active-orb-3: rgba(254, 207, 239, 0.45);
+        }
+        html[data-theme="default"][data-color-mode="light"] .vibe-container { background: #FAFAFC; }
+        html[data-theme="default"][data-color-mode="light"] .orb { opacity: 0.8; filter: blur(120px); mix-blend-mode: multiply; }
+        html[data-theme="default"][data-color-mode="light"] .vibe-container::before,
+        html[data-theme="default"][data-color-mode="light"] .vibe-container::after { opacity: 0.05; filter: invert(1); }
+   /* --- 2. FOUNDATION: Ceramic Slab & Google Palette (Light Mode) --- */
+        html[data-theme="foundation"][data-color-mode="light"] {
+            --bg-color: #E8EAED; /* Cool light grey metal/plastic table */
+            --text-main: #202124; --text-muted: #5F6368; --text-mid: #3C4043; --text-high: #202124;
+            --bg-overlay: rgba(232, 234, 237, 0.85); --drawer-bg: #FFFFFF;
+            --note-bg: #FFFFFF; --toast-bg: #323232; --toast-text: #FFFFFF;
+            --glass: #FFFFFF; --border: #DADCE0; --shadow-heavy: rgba(60, 64, 67, 0.3);
+            /* Material Card Shadows (Tight & Realistic) */
+            --tile-recessed: 0 1px 2px rgba(60,64,67,0.15), 0 1px 3px rgba(60,64,67,0.1); 
+            --btn-surface: #FFFFFF; --btn-rim: 1px solid #DADCE0;
+            --save-bg: #1A73E8; --save-text: #FFFFFF; --save-border: #1A73E8;
+            /* Official Google Brand Colors */
+            --c0: #4285F4; /* Blue */
+            --c1: #EA4335; /* Red */
+            --c2: #FBBC04; /* Yellow */
+            --c3: #34A853; /* Green */
+            --c4: #9334E6; /* Purple */
+            --c5: #12B5CB; /* Cyan */
+            --active-accent: #1A73E8; 
+            --warm-white: #FFFFFF; --warm-white-glow: rgba(66, 133, 244, 0.2); 
+        }
+
+        html[data-theme="foundation"][data-color-mode="light"] body { background-image: none; }
+        
+        /* White Ceramic Plates */
+        html[data-theme="foundation"][data-color-mode="light"] .input-box, 
+        html[data-theme="foundation"][data-color-mode="light"] .note, 
+        html[data-theme="foundation"][data-color-mode="light"] .expense-tile, 
+        html[data-theme="foundation"][data-color-mode="light"] .calendar-container {
+            background: #FFFFFF;
+            border: 1px solid #DADCE0;
+            border-radius: 12px;
+            box-shadow: 0 1px 3px rgba(60,64,67,0.12), 0 1px 2px rgba(60,64,67,0.24);
+        }
+
+        /* Tactile Buttons */
+        html[data-theme="foundation"][data-color-mode="light"] .sq-btn, 
+        html[data-theme="foundation"][data-color-mode="light"] .date-btn, 
+        html[data-theme="foundation"][data-color-mode="light"] .collapsible-trigger, 
+        html[data-theme="foundation"][data-color-mode="light"] .journal-tab-btn {
+            background: #FFFFFF;
+            border: 1px solid #DADCE0;
+            box-shadow: 0 1px 2px rgba(60,64,67,0.1), 0 1px 3px rgba(60,64,67,0.15);
+            color: #3C4043;
+            border-radius: 8px;
+        }
+
+        /* Active / Pressed States */
+        html[data-theme="foundation"][data-color-mode="light"] .sq-btn.active {
+            background: #E8F0FE; /* Faint Google Blue background */
+            border-color: #1A73E8;
+            box-shadow: none;
+        }
+        html[data-theme="foundation"][data-color-mode="light"] .sq-btn.active svg { fill: #1A73E8 !important; filter: none; opacity: 1; }
+        
+        html[data-theme="foundation"][data-color-mode="light"] .save-btn:active, 
+        html[data-theme="foundation"][data-color-mode="light"] .date-btn:active, 
+        html[data-theme="foundation"][data-color-mode="light"] .sq-btn:active {
+            box-shadow: inset 0 1px 3px rgba(60,64,67,0.2) !important;
+            transform: translateY(1px) scale(0.98);
+        }
+
+        /* Input Fields - Slight inset to look like carved plastic/ceramic */
+        html[data-theme="foundation"][data-color-mode="light"] .expense-input, 
+        html[data-theme="foundation"][data-color-mode="light"] textarea.expense-input, 
+        html[data-theme="foundation"][data-color-mode="light"] div.expense-input[contenteditable] { 
+            background: #F1F3F4; 
+            border: 1px solid transparent; 
+            box-shadow: inset 0 1px 2px rgba(60,64,67,0.1);
+            color: #202124;
+            border-radius: 8px;
+        }
+        
+        html[data-theme="foundation"][data-color-mode="light"] .expense-input:focus, 
+        html[data-theme="foundation"][data-color-mode="light"] div.expense-input[contenteditable]:focus {
+            background: #FFFFFF;
+            border-bottom: 2px solid #1A73E8;
+            box-shadow: 0 1px 4px rgba(60,64,67,0.1);
+            border-radius: 8px 8px 0 0;
+        }
+      /* --- 3. PARCHMENT: Midnight Ledger (Dark Mode) --- */
+        html[data-theme="parchment"][data-color-mode="dark"] {
+            --bg-color: #22223b; 
+            --text-main: #f2e9e4; 
+            --text-muted: #9a8c98;
+            --text-mid: #c9ada7; 
+            --text-high: #f2e9e4;
+            --bg-overlay: rgba(34, 34, 59, 0.85); 
+            --drawer-bg: #22223b;
+            --note-bg: #22223b; 
+            --toast-bg: #c9ada7; 
+            --toast-text: #22223b;
+            --border: #4a4e69; 
+            --shadow-heavy: rgba(0, 0, 0, 0.5);
+            --save-bg: #4a4e69; 
+            --save-text: #f2e9e4; 
+            --save-border: #c9ada7;
+            /* Distributing the palette's lighter tones for category tags */
+            --c0: #c9ada7; --c1: #9a8c98; --c2: #f2e9e4; --c3: #c9ada7; --c4: #9a8c98; --c5: #f2e9e4;
+        }
+        
+        /* Blend the noise texture subtly into the dark plum background */
+        html[data-theme="parchment"][data-color-mode="dark"]::before { mix-blend-mode: color-dodge; opacity: 0.15; }
+        
+        /* The buttons and interactive elements */
+        html[data-theme="parchment"][data-color-mode="dark"] .save-btn, 
+        html[data-theme="parchment"][data-color-mode="dark"] .date-btn, 
+        html[data-theme="parchment"][data-color-mode="dark"] .collapsible-trigger, 
+        html[data-theme="parchment"][data-color-mode="dark"] .journal-tab-btn {
+            background: #22223b; 
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.3); 
+            color: #c9ada7; 
+            border: 1px solid #4a4e69;
+        }
+        
+        html[data-theme="parchment"][data-color-mode="dark"] .save-btn {
+            background: #4a4e69;
+            border-color: #c9ada7;
+            color: #f2e9e4;
+        }
+        
+        /* The square top icons */
+        html[data-theme="parchment"][data-color-mode="dark"] .sq-btn { 
+            background: #22223b; 
+            box-shadow: 2px 2px 0px rgba(0,0,0,0.4); 
+            border: 1px solid #4a4e69; 
+        }
+        html[data-theme="parchment"][data-color-mode="dark"] .sq-btn svg { fill: #9a8c98 !important; opacity: 0.8; }
+        html[data-theme="parchment"][data-color-mode="dark"] .sq-btn.active { 
+            border-color: #c9ada7; 
+            background: #4a4e69;
+        }
+        html[data-theme="parchment"][data-color-mode="dark"] .sq-btn.active svg { fill: #f2e9e4 !important; opacity: 1; }
+        
+/* Note tiles and modules (Cream Cards on Dark Canvas) */
+        html[data-theme="parchment"][data-color-mode="dark"] .note, 
+        html[data-theme="parchment"][data-color-mode="dark"] .expense-tile, 
+        html[data-theme="parchment"][data-color-mode="dark"] .calendar-container, 
+        html[data-theme="parchment"][data-color-mode="dark"] .input-box {
+            background: #c9ada7; /* Darker cream / rosy beige */
+            border: 1px solid #9a8c98;
+            box-shadow: 4px 4px 0px rgba(0,0,0,0.6);
+            color: #22223b; /* Force text on cards to be dark */
+        }
+        
+        html[data-theme="parchment"][data-color-mode="dark"] .note { border-left: 4px double #4a4e69; }
+        
+        /* Fix internal text colors for the light cards */
+        html[data-theme="parchment"][data-color-mode="dark"] .note-body,
+        html[data-theme="parchment"][data-color-mode="dark"] .exp-dest,
+        html[data-theme="parchment"][data-color-mode="dark"] .cal-day,
+        html[data-theme="parchment"][data-color-mode="dark"] .setting-label,
+        html[data-theme="parchment"][data-color-mode="dark"] .header-with-gear { 
+            color: #22223b !important; 
+        }
+        
+        /* Make the calendar selection pop on the cream background */
+        html[data-theme="parchment"][data-color-mode="dark"] .cal-day.today,
+        html[data-theme="parchment"][data-color-mode="dark"] .cal-day.selected {
+            border-color: #4a4e69;
+            background: #f2e9e4;
+        }
+
+        /* Input fields inside the cards get the lightest cream */
+        html[data-theme="parchment"][data-color-mode="dark"] .expense-input, 
+        html[data-theme="parchment"][data-color-mode="dark"] textarea.expense-input, 
+        html[data-theme="parchment"][data-color-mode="dark"] div.expense-input[contenteditable] { 
+            background: #f2e9e4; /* Light antique cream */
+            border: 1px dashed #9a8c98; 
+            color: #22223b;
+        }
+        html[data-theme="parchment"][data-color-mode="dark"] .expense-input::placeholder,
+        html[data-theme="parchment"][data-color-mode="dark"] div.expense-input[contenteditable]:empty::before {
+            color: #9a8c98;
+        }
+        
+        /* Note text & button overrides */
+        html[data-theme="parchment"][data-color-mode="dark"] .note-header span { color: #4a4e69 !important; font-weight: 800; }
+        html[data-theme="parchment"][data-color-mode="dark"] .action-btn,
+        html[data-theme="parchment"][data-color-mode="dark"] .local-gear-btn,
+        html[data-theme="parchment"][data-color-mode="dark"] .format-btn,
+        html[data-theme="parchment"][data-color-mode="dark"] #summativeToggleLabel { color: #4a4e69; }
+        html[data-theme="parchment"][data-color-mode="dark"] .action-btn:hover,
+        html[data-theme="parchment"][data-color-mode="dark"] .format-btn.active,
+        html[data-theme="parchment"][data-color-mode="dark"] #summativeToggleLabel.active { color: #22223b !important; text-shadow: none; }        /* --- 4. NEBULA: Helios / Solar Flare (Light Mode) --- */
+        html[data-theme="nebula"][data-color-mode="light"] {
+            --bg-color: #FFFCF9; --text-main: #2A1F1A; --text-muted: rgba(42, 31, 26, 0.5); --text-mid: rgba(42, 31, 26, 0.7); --text-high: #1A120F;
+            --bg-overlay: rgba(255, 255, 255, 0.7); --drawer-bg: rgba(255, 252, 249, 0.98);
+            --note-bg: rgba(255, 255, 255, 0.85); --toast-bg: #2A1F1A; --toast-text: #FFFCF9;
+            --glass: rgba(255, 255, 255, 0.7); --border: rgba(255, 140, 0, 0.15);
+            /* Glorious Solar Colors */
+            --c0: #FF6B00; --c1: #FF0055; --c2: #E63946; --c3: #FF9E00; --c4: #D90429; --c5: #FF007A; 
+            --active-vibe: rgba(255, 170, 0, 0.3); --active-orb-2: rgba(255, 50, 100, 0.25); --active-orb-3: rgba(255, 220, 100, 0.3);
+            --save-bg: rgba(255, 245, 235, 0.9); --save-border: #FFB347; --save-text: #FF6B00;
+        }
+        /* Soften the orbs to look like sunlight hitting a lens */
+        html[data-theme="nebula"][data-color-mode="light"] .orb { filter: blur(80px); opacity: 0.9; mix-blend-mode: multiply; }
+        /* Add a very soft, warm ambient glow to the background */
+        html[data-theme="nebula"][data-color-mode="light"] .vibe-container { background: radial-gradient(circle at 50% 0%, rgba(255,245,230,1) 0%, transparent 100%); }
+        /* Turn the background mesh into warm, scattered golden light dust */
+        html[data-theme="nebula"][data-color-mode="light"] .vibe-container::before { opacity: 0.4; filter: invert(0.1) sepia(1) saturate(5) hue-rotate(-10deg); } 
+        /* Remove the sharp geometry lines so it feels smooth and airy */
+        html[data-theme="nebula"][data-color-mode="light"] .vibe-container::after { display: none; } 
+        
+        /* Sunlit white frosted glass with warm, golden drop shadows */
+        html[data-theme="nebula"][data-color-mode="light"] .input-box, html[data-theme="nebula"][data-color-mode="light"] .note, html[data-theme="nebula"][data-color-mode="light"] .calendar-container {
+            box-shadow: 0 12px 35px rgba(255, 100, 0, 0.08), inset 0 1px 3px rgba(255, 255, 255, 1);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px); border-top: 1px solid rgba(255,255,255,1);
+        }
+        
+        /* Clean, airy buttons */
+        html[data-theme="nebula"][data-color-mode="light"] .save-btn, html[data-theme="nebula"][data-color-mode="light"] .date-btn, html[data-theme="nebula"][data-color-mode="light"] .collapsible-trigger, html[data-theme="nebula"][data-color-mode="light"] .journal-tab-btn {
+            background: rgba(255, 255, 255, 0.5); color: var(--text-main); box-shadow: 0 4px 15px rgba(255, 120, 0, 0.05), inset 0 1px 2px #fff; border-color: rgba(255,150,50,0.2);
+        }
+        /* --- Helios Tweaks: Brighter Unselected Icons & Lighter Disclaimer --- */
+        html[data-theme="nebula"][data-color-mode="light"] .ic0 svg, 
+        html[data-theme="nebula"][data-color-mode="light"] .ic1 svg, 
+        html[data-theme="nebula"][data-color-mode="light"] .ic2 svg, 
+        html[data-theme="nebula"][data-color-mode="light"] .ic3 svg, 
+        html[data-theme="nebula"][data-color-mode="light"] .ic4 svg, 
+        html[data-theme="nebula"][data-color-mode="light"] .ic5 svg {
+            fill: #D4A373 !important; /* A warm, bright sunset tan */
+            opacity: 0.85;
+        }
+        
+        html[data-theme="nebula"][data-color-mode="light"] .permanent-msg {
+            color: rgba(42, 31, 26, 0.45); /* Softer, lighter text */
+            font-weight: 500;
+        }
+</style>
+        </head>
 <body ontouchstart="">
 
     <div class="vibe-container" id="vibeOrb">
@@ -757,6 +1032,16 @@
     <div id="generalSettingsDrawer" class="bottom-drawer">
         <div class="drawer-handle"></div>
         <div class="archive-header" style="margin-bottom:20px;">Global Settings</div>
+        <div class="setting-group">
+            <div class="setting-label">Appearance</div>
+            <div class="segmented-control" id="colorModeControl">
+                <button class="segment-btn" data-val="dark">Dark</button>
+                <button class="segment-btn" data-val="light">Light</button>
+            </div>
+            <div class="setting-info-text visible" id="colorModeInfo" style="border-left-color: var(--text-muted);">
+                Switch between light and dark canvas modes to transform the current theme.
+            </div>
+        </div>
         
         <div class="setting-group">
             <div class="setting-label">Accent Glow Intensity</div>
@@ -960,13 +1245,12 @@
     <div id="themeDrawer" class="bottom-drawer">
         <div class="drawer-handle"></div>
         <div class="archive-header" style="margin-bottom:20px;">Select Theme</div>
-        <div class="theme-row">
-            <div class="theme-btn" data-theme-name="default"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #F9C469, #FC708A, #030407);"></div></div>
-            <div class="theme-btn" data-theme-name="foundation"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FF6A2B, #CC3E00, #121212);"></div></div>
-            <div class="theme-btn" data-theme-name="parchment"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #ffffff, #E8DCC4, #2C2820);"></div></div>
-            <div class="theme-btn" data-theme-name="nebula"><div class="theme-circle" style="background: radial-gradient(circle at 30% 30%, #FDFBF7, #D8B4E2, #050508);"></div></div>
-        </div>
-    </div>
+<div class="theme-row">
+            <div class="theme-btn" data-theme-name="default"><div class="theme-circle tc-default"></div></div>
+            <div class="theme-btn" data-theme-name="foundation"><div class="theme-circle tc-foundation"></div></div>
+            <div class="theme-btn" data-theme-name="parchment"><div class="theme-circle tc-parchment"></div></div>
+            <div class="theme-btn" data-theme-name="nebula"><div class="theme-circle tc-nebula"></div></div>
+        </div>    </div>
 
     <div id="toastContainer"></div>
 
@@ -1006,6 +1290,7 @@
             let currentJournalTab = 'Supervision'; 
             
             /* SETTINGS VARIABLES */
+            let colorModeSetting = localStorage.getItem('dclinColorMode') || 'dark';
             let backupGlowSetting = localStorage.getItem('dclinBackupSetting') || 'On';
             let calendarGlowSetting = localStorage.getItem('dclinCalendarGlow') || 'On';
             let glowIntensitySetting = localStorage.getItem('dclinGlowIntensity') || 'Default';
@@ -1089,6 +1374,10 @@
                 populateRenameDropdown();
 
                 // Initialize UI Settings
+                document.documentElement.setAttribute('data-color-mode', colorModeSetting);
+                document.querySelectorAll('#colorModeControl .segment-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.getAttribute('data-val') === colorModeSetting);
+                });
                 document.querySelectorAll('#accentGlowControl .segment-btn').forEach(btn => {
                     btn.classList.toggle('active', btn.getAttribute('data-val') === glowIntensitySetting);
                 });
@@ -1498,6 +1787,17 @@
                     closeDrawers();
                 });
 
+                // Settings UI (Appearance Color Mode)
+                document.querySelectorAll('#colorModeControl .segment-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        triggerHaptic(10);
+                        document.querySelectorAll('#colorModeControl .segment-btn').forEach(b => b.classList.remove('active'));
+                        this.classList.add('active');
+                        colorModeSetting = this.getAttribute('data-val');
+                        localStorage.setItem('dclinColorMode', colorModeSetting);
+                        document.documentElement.setAttribute('data-color-mode', colorModeSetting);
+                    });
+                });
                 // Settings UI (Glow Intensity)
                 document.querySelectorAll('#accentGlowControl .segment-btn').forEach(btn => {
                     btn.addEventListener('click', function() {
